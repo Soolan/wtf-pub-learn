@@ -10,7 +10,8 @@
     ]
   },
   "hosting": {
-    "public": "dist",
+    "target": "wtf-pub-learn",
+    "public": "dist/wtf-pub-learn",
     "ignore": [
       "firebase.json",
       "**/.*",
