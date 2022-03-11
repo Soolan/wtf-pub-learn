@@ -7,15 +7,16 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {FlexLayoutModule} from '@angular/flex-layout';
-
-
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    FooterComponent,
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,

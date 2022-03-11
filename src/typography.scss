@@ -1,25 +1,22 @@
 @use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@700&family=Sriracha&family=Titillium+Web:wght@200;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;700;900&display=swap');
 // Define  a custom typography config
-$main-font: "'Titillium Web', sans-serif";
-$code-font: "'Nanum Gothic Coding', monospace";
-$caption-font: "'Sriracha', cursive";
+$font: "'Titillium Web', sans-serif";
 
 $typography: mat.define-typography-config(
-  $display-4:    mat.define-typography-level(132px, $font-family: $main-font),
-  $display-3:    mat.define-typography-level(96px, $font-family: $main-font),
-  $display-2:    mat.define-typography-level(72px, $font-family: $main-font),
-  $display-1:    mat.define-typography-level(60px, $font-family: $main-font),
-  $headline:     mat.define-typography-level(48px, $font-family: $main-font),
-  $title:        mat.define-typography-level(36px, $font-family: $main-font),
-  $subheading-2: mat.define-typography-level(24px, $font-family: $main-font),
-  $subheading-1: mat.define-typography-level(22px, $font-family: $main-font),
-  $body-2:       mat.define-typography-level(16px, $font-family: $code-font),
-  $body-1:       mat.define-typography-level(18px, $font-family: $main-font),
-  $caption:      mat.define-typography-level(16px, $font-family: $caption),
-  $button:       mat.define-typography-level(inherit, $font-family: $main-font),
+  $display-4:    mat.define-typography-level(132px, $font-family: $font),
+  $display-3:    mat.define-typography-level(96px, $font-family: $font),
+  $display-2:    mat.define-typography-level(72px, $font-family: $font),
+  $display-1:    mat.define-typography-level(60px, $font-family: $font),
+  $headline:     mat.define-typography-level(48px, $font-family: $font),
+  $title:        mat.define-typography-level(36px, $font-family: $font),
+  $subheading-2: mat.define-typography-level(24px, $font-family: $font),
+  $subheading-1: mat.define-typography-level(22px, $font-family: $font),
+  $body-2:       mat.define-typography-level(20px, $font-family: $font),
+  $body-1:       mat.define-typography-level(18px, $font-family: $font),
+  $caption:      mat.define-typography-level(12px, $font-family: $font),
+  $button:       mat.define-typography-level(inherit, $font-family: $font),
   // Line-height must be unit-less fraction of the font-size.
-  $input:        mat.define-typography-level(inherit, 1.125, $font-family: $main-font)
+  $input:        mat.define-typography-level(inherit, 1.125, $font-family: $font)
 );
 @include mat.core($typography);
-

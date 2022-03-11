@@ -1,25 +1,8 @@
 
 <div fxHide.lt-sm fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="10" fxFlexOffset="2">
-    <button mat-icon-button (click)="drawer.toggle()">
-      <mat-icon class="bigger">menu</mat-icon>
-    </button>
-  </div>
+  <div fxFlex="10" fxFlexOffset="2"></div>
   <app-header fxFlex="86" fxLayoutAlign="space-around center" class="header"></app-header>
   <div fxFlex="2"></div>
-  <mat-drawer-container fxFlex="100" hasBackdrop>
-    <mat-drawer #drawer mode="over">
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-        <div class="option" fxFlex="100" *ngFor="let option of options">
-          <mat-icon class="material-icons-outlined">{{option.icon}}</mat-icon>
-          <span>{{option.label | uppercase}}</span>
-        </div>
-      </div>
-    </mat-drawer>
-    <mat-drawer-content>
-      <router-outlet fxLayoutAlign="space-around center" class="content">Hiiiiii</router-outlet>
-    </mat-drawer-content>
-  </mat-drawer-container>
   <app-footer fxFlex="100" fxLayoutAlign="space-around center" class="footer"></app-footer>
 
 </div>

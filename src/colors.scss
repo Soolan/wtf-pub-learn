@@ -1,15 +1,28 @@
 :root {
-  /* colors */
-  --color-primary: #054;
-  --color-accent: #60a;
-  --color-warn: #f50;
-  --color-success: #00aa00;
-  --color-error: #e32;
-  --color-background-aquamarine: aquamarine;
-  --color-background-aqua: aqua;
+  /* branding colors */
+  --color-primary: #064;
+  --color-primary-dark: #121;
+  --color-primary-light: #0a7;
 
+  --color-accent: #70a;
+  --color-accent-dark: #103;
+  --color-accent-light: #b0f;
+
+  --color-warn: #f50;
+  --color-warn-dark: #210;
+  --color-warn-light: #ba0;
+
+  --color-aquamarine: aquamarine;
+  --color-aqua: aqua;
+
+  --color-black: #000;
   --color-grey1: #111;
+  --color-grey2: #222;
   --color-grey3: #333;
   --color-grey5: #555;
   --color-grey7: #777;
+  --color-grey9: #999;
+  --color-greyb: #bbb;
+  --color-greyc: #ccc;
+  --color-greyd: #ddd;
 }

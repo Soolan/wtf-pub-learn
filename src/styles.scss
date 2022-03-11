@@ -1,11 +1,197 @@
+@use '@angular/material' as mat;
+
+
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;700;900&display=swap');
+
+@include mat.core();
+$dark-primary-text: var(--color-black);
+$dark-secondary-text: var(--color-grey2);
+
+$light-primary-text: var(--color-greyd);
+$light-secondary-text: var(--color-grey9);
+
+$my-palette: (
+  300: var(--color-primary-light),
+  400: var(--color-primary),
+  500: var(--color-primary-dark),
+  600: var(--color-warn-light),
+  700: var(--color-warn),
+  800: var(--color-warn-dark),
+  A100: var(--color-accent-light),
+  A200: var(--color-accent),
+  A400: var(--color-accent-dark),
+  contrast: (
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+  )
+);
+$my-primary: mat.define-palette($my-palette, 300, 400, 500);
+$my-accent: mat.define-palette($my-palette, A200, A100, A400);
+$my-warn: mat.define-palette($my-palette, 600, 700, 800);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  )
+));
+
+@include mat.all-component-themes($my-theme);
 
 html, body { height: 100%; }
 body {
   margin: 0;
   font-family: 'Titillium Web', sans-serif;
-  background: var(--color-background-aqua);
-  background: linear-gradient(0deg, var(--color-background-aqua) 0%, var(--color-background-aquamarine) 100%);
+  background: var(--color-aqua);
+  background: linear-gradient(0deg, var(--color-aqua) 0%, var(--color-aquamarine) 100%);
   color: var(--color-grey3);
+}
+
+.loading {
+  min-height: 80vh;
+}
+
+.title {
+  font-weight: 200 !important;
+  letter-spacing: var(--space-xxs) !important;
+  color: var(--color-grey7);
+}
+
+.info {
+  .mat-slide-toggle {
+    color: var(--color-primary-light);
+    .glow {
+      padding: 0 var(--space-xs);
+      color: var(--color-aqua);
+      text-shadow:
+        0 0 4px var(--color-aqua),
+        0 0 7px var(--color-aquamarine),
+        0 0 15px var(--color-aquamarine),
+    }
+  }
+  h2 {
+    color: var(--color-primary-light);
+    margin-top: 1.7rem;
+    margin-bottom: 1rem;
+  }
+  .update {
+    text-align: center;
+
+    button {
+      color: var(--color-aquamarine);
+      display: block;
+      margin: 1rem auto;
+    }
+    div {
+      margin: 0.7rem 0;
+      color: var(--color-aqua);
+      span {
+        font-weight: bolder;
+        color: var(--color-primary-light);
+      }
+      p {
+        padding-top: var(--space-sm);
+        color: var(--color-grey5);
+        font-size: smaller;
+      }
+    }
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  margin: 0.77rem auto;
+  background-color: var(--color-black);
+  color: var(--color-primary-light);
+}
+
+.mat-form-field-label {
+  color: var(--color-primary);
+}
+
+.mat-tab-label-container {
+  background-color: var(--color-grey2);
+}
+
+.mat-tab-label-content {
+  color: var(--color-grey9);
+}
+
+.mat-select-value {
+  color: var(--color-primary-light);
+}
+
+.mat-stepper-vertical {
+  background-color: var(--color-grey2);
+}
+
+.mat-step-header .mat-step-label.mat-step-label-active {
+  color: var(--color-primary-light);
+}
+.mat-step-header .mat-step-label.mat-step-label-selected {
+  color: var(--color-aquamarine);
+}
+
+.mat-bottom-sheet-container{
+  background-color: var(--color-accent-dark);
+}
+
+.check {
+  cursor: pointer;
+  color: var(--color-primary-light);
+  margin-right: var(--space-xxs);
+}
+.saving {
+  letter-spacing: var(--space-xxs);
+  color: var(--color-aquamarine);
+}
+
+.custom-button {
+  cursor: pointer;
+  color: var(--color-grey9);
+}
+
+.current-answer {
+  margin-left: var(--space-xl);
+  mat-icon {
+    vertical-align: middle;
+  }
+  color: var(--color-aqua);
+  letter-spacing: var(--space-xxs);
+  font-size: smaller;
+}
+
+.blanks, mat-label {
+  font-size: smaller;
+  color: var(--color-accent-light);
+}
+
+@mixin save() {
+  color: var(--color-aquamarine);
+  font-size: 0.8rem;
+  font-weight: bold;
+  position: relative;
+  animation: blinker 1s linear infinite;
+}
+
+.saving {
+  @include save;
+  bottom: 0.4rem;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.add {
+  position: fixed !important;
+  background-color: var(--color-primary-light) !important;
+  right: var(--space-xl);
+  bottom: var(--space-lg);
 }
