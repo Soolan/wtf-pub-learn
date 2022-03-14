@@ -1,15 +1,5 @@
-
-<div fxHide.lt-sm fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="10" fxFlexOffset="2"></div>
-  <app-header fxFlex="86" fxLayoutAlign="space-around center" class="header"></app-header>
-  <div fxFlex="2"></div>
-  <app-footer fxFlex="100" fxLayoutAlign="space-around center" class="footer"></app-footer>
-
-</div>
-
-<!--mobile layout-->
-<div fxHide fxShow.lt-sm>
-  <router-outlet fxLayoutAlign="space-around center" class="content">Hiiiiii</router-outlet>
-  <app-header fxLayoutAlign="space-around center" class="header"></app-header>
-  <app-footer fxLayoutAlign="space-around center" class="footer"></app-footer>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <app-header fxFlex="100" fxLayoutAlign="space-around center" class="header" *ngIf="toggle.headerSubject|async"></app-header>
+  <router-outlet fxFlex="100"></router-outlet>
+  <app-footer fxFlex="100" fxLayoutAlign="space-around center" class="footer" *ngIf="toggle.footerSubject|async"></app-footer>
 </div>
