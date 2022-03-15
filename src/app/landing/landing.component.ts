@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Course} from '../shared/models/course';
+import {CrudService} from '../shared/services/crud.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,7 +8,7 @@ import {Course} from '../shared/models/course';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-  course!: Course[];
+  courses!: Course[];
   constructor(private crud: CrudService) { }
 
   ngOnInit(): void {
