@@ -31,3 +31,9 @@ export enum Operation {
   Remove,
   Edit,
 }
+
+export enum Levels {
+  Easy,
+  Intermediate,
+  Advanced
+}

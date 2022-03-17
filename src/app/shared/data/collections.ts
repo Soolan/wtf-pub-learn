@@ -2,9 +2,8 @@ import {Collection} from '../models/collection';
 import {Lesson} from '../models/lesson';
 import {Course} from '../models/course';
 import {Slide} from '../models/slide';
-import {POSITIONS, SlideType} from './slide-type';
-import {Position} from './generic';
-import {Validators} from '@angular/forms';
+import {SlideType} from './slide-type';
+import {Position} from './enums';
 
 //------------------------------------------------- Course
 export const COURSES: Collection = {
@@ -18,6 +17,8 @@ export const COURSE: Course = {
   avatar: '',
   description: 'add description here',
   published: false,
+  level: 0,
+  tags: 'fun, facts',
   timestamps: {
     created_at: Date.now(),
     updated_at: Date.now(),

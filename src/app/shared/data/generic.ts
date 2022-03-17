@@ -1,18 +1,3 @@
-export enum Position {
-  Top,
-  Bottom,
-  Left,
-  Right
-}
+export const STATUSES = ['Start', 'Resume', 'Retake'];
 
-export enum Status {
-  Start,
-  Resume,
-  Retake
-}
-
-export enum Operation {
-  Add,
-  Remove,
-  Edit,
-}
+export const LEVELS = ['Easy', 'Intermediate', 'Advanced'];

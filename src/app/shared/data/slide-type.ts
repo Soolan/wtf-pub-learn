@@ -1,5 +1,5 @@
 import {SlideDetails} from '../models/slide';
-import {Position} from './generic';
+import {Position} from './enums';
 
 export enum SlideType {
   Start,

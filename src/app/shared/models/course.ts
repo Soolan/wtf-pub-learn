@@ -5,5 +5,7 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
+  level: number;
+  tags: string;
   timestamps: Timestamps;
 }
