@@ -1,5 +1,23 @@
 .content {
   margin: 0 auto;
+  .flip-card-inner {
+    transform-style: preserve-3d;
+  }
+
+  .flip-card-inner > div {
+    position: absolute;
+    width: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+
+
+  .flip-card-front { }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+
   .mat-card {
     margin-bottom: var(--space-xxl);
     @media screen and (max-width: 600px) {

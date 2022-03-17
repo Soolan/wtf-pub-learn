@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {Course} from '../shared/models/course';
+import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../shared/services/crud.service';
 import {COURSES} from '../shared/data/collections';
 import {map} from 'rxjs';
 import {LEVELS, STATUSES} from '../shared/data/generic';
 import {Status} from '../shared/data/enums';
+import {CARD_FLIP} from '../shared/animations/card-flip';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  styleUrls: ['./landing.component.scss'],
+  animations: [CARD_FLIP]
 })
 export class LandingComponent implements OnInit {
   courses!: any;
   action!: string;
+  flipState = 'front'; // front: course side - back: lessons side
   avatar = '_files/1645928114044';
-  constructor(private crud: CrudService) { }
+
+  constructor(private crud: CrudService) {
+  }
 
   ngOnInit(): void {
     this.action = STATUSES[Status.Start];
@@ -31,5 +35,9 @@ export class LandingComponent implements OnInit {
 
   get Levels(): string[] {
     return LEVELS;
+  }
+
+  flip(): void {
+    this.flipState = (this.flipState === 'front') ? 'back' : 'front';
   }
 }

@@ -13,24 +13,26 @@ import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {environment} from '../environments/environment';
 import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
-    AngularFirestoreModule,
-    AngularFireAnalyticsModule,
-    SharedModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatCardModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
+        AngularFirestoreModule,
+        AngularFireAnalyticsModule,
+        SharedModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatCardModule,
+        MatListModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
