@@ -6,6 +6,7 @@ import {LEVELS, STATUSES} from '../shared/data/generic';
 import {Status} from '../shared/data/enums';
 import {CARD_FLIP} from '../shared/animations/card-flip';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -20,7 +21,7 @@ export class LandingComponent implements OnInit {
   flipState = 'front'; // front: course side - back: lessons side
   avatar = '_files/1645928114044';
 
-  constructor(private crud: CrudService, private storage: AngularFireStorage) {
+  constructor(private crud: CrudService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -59,5 +60,12 @@ export class LandingComponent implements OnInit {
         error: error => console.log(error)
       }
     );
+  }
+
+  navigate(collection: string, id: string): void {
+    this.router.navigate([collection, id])
+      .then()
+      .catch(error => console.log(error))
+    ;
   }
 }
