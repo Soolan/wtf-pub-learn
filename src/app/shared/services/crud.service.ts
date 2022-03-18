@@ -2,13 +2,16 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFirestore, CollectionReference, DocumentReference} from '@angular/fire/compat/firestore';
 import {Collection} from '../models/collection';
+import {AngularFireStorage} from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudService {
-  constructor(private db: AngularFirestore) {
-  }
+  constructor(
+    private db: AngularFirestore,
+    private storage: AngularFireStorage
+  ) { }
 
   all(collection: string): Observable<any> {
     return this.db.collection(collection).snapshotChanges();

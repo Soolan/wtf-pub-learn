@@ -60,4 +60,23 @@
       color: var(--color-grey7);
     }
   }
+
+  .mat-list-item {
+    font-family: 'Titillium Web', sans-serif;
+    .name {
+      color: var(--color-grey3);
+    }
+    .description {
+      color: var(--color-grey8);
+      font-size: 0.6em;
+    }
+  }
+  .mat-list-item:hover {
+    background-color: var(--color-greye);
+    cursor: pointer;
+  }
+
+  ::ng-deep .mat-list-item-content,  ::ng-deep .mat-list-text {
+    padding: 0 !important;
+  }
 }

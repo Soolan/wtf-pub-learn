@@ -14,6 +14,7 @@ import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {environment} from '../environments/environment';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {MatListModule} from '@angular/material/list';
         MatButtonModule,
         MatCardModule,
         MatListModule,
+        MatIconModule,
     ],
   providers: [],
   bootstrap: [AppComponent]
