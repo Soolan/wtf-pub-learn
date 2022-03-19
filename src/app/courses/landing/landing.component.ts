@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {CrudService} from '../shared/services/crud.service';
-import {COURSES, LESSONS} from '../shared/data/collections';
+import {CrudService} from '../../shared/services/crud.service';
+import {COURSES, LESSONS} from '../../shared/data/collections';
 import {map} from 'rxjs';
-import {LEVELS, STATUSES} from '../shared/data/generic';
-import {Status} from '../shared/data/enums';
-import {CARD_FLIP} from '../shared/animations/card-flip';
+import {LEVELS, STATUSES} from '../../shared/data/generic';
+import {Status} from '../../shared/data/enums';
+import {CARD_FLIP} from '../../shared/animations/card-flip';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {Router} from '@angular/router';
 

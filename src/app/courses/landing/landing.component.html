@@ -30,7 +30,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-list role="list">
-            <mat-list-item role="listitem" *ngFor="let lesson of lessons" (click)="navigate('lessons', lesson.id)">
+            <mat-list-item role="listitem" *ngFor="let lesson of lessons" (click)="navigate('lessons',  lesson.id)">
               <mat-icon mat-list-icon>chevron_right</mat-icon>
               <div mat-line class="name">{{lesson.name}}</div>
               <div mat-line class="description">{{lesson.description}}</div>
