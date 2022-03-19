@@ -1,1 +1,26 @@
-<p>course works!</p>
+<div fxFlex.gt-lg="65" fxFlex.lg="85" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start"
+     class="content">
+  <div class="course" fxFlex="59" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div class="progress" *ngIf="loading.course">
+      <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+    </div>
+    <div *ngIf="course" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <div fxFlex="100" class="image" [ngStyle]="{'background-image': 'url('+(course.image|storageUrl|async)+')'}"></div>
+      <div fxFlexOffset="90" fxFlex="10">
+        <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
+      </div>
+      <div fxFlex="90" class="heading"
+           ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
+        {{course.name}}
+      </div>
+      <div fxFlex="90" class="mat-body-2 description">{{course.description}}</div>
+    </div>
+  </div>
+  <div class="lessons" fxFlex="39" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div fxFlex="100" *ngIf="loading.lessons">
+      <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
+    </div>
+    <div fxFlex="100"></div>
+  </div>
+  <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>
+</div>

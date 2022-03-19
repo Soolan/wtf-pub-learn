@@ -14,6 +14,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import { LessonModule } from './course/lessons/lesson.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { LessonModule } from './course/lessons/lesson.module';
     MatListModule,
     MatIconModule,
     LessonModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ]
 })
 export class CourseModule {

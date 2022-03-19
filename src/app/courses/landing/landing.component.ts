@@ -5,7 +5,6 @@ import {map} from 'rxjs';
 import {LEVELS, STATUSES} from '../../shared/data/generic';
 import {Status} from '../../shared/data/enums';
 import {CARD_FLIP} from '../../shared/animations/card-flip';
-import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {Router} from '@angular/router';
 
 @Component({
@@ -22,8 +21,7 @@ export class LandingComponent implements OnInit {
   flipState = 'front'; // front: course side - back: lessons side
   avatar = '_files/1645928114044';
 
-  constructor(private crud: CrudService, private router: Router) {
-  }
+  constructor(private crud: CrudService, private router: Router) { }
 
   ngOnInit(): void {
     this.action = STATUSES[Status.Start];
