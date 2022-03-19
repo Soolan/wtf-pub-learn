@@ -17,6 +17,7 @@ import {Router} from '@angular/router';
 export class LandingComponent implements OnInit {
   courses!: any;
   lessons!: any;
+  id!: string;
   action!: string;
   flipState = 'front'; // front: course side - back: lessons side
   avatar = '_files/1645928114044';
@@ -42,11 +43,13 @@ export class LandingComponent implements OnInit {
 
   flip(id?: string): void {
     if (id) {
-      this.initLessons(id);
+      this.id = id;
+      this.initLessons(this.id);
       this.flipState = 'back';
     } else {
       this.flipState = 'front';
       this.lessons = undefined;
+      this.id = '';
     }
   }
 
@@ -63,7 +66,8 @@ export class LandingComponent implements OnInit {
   }
 
   navigate(collection: string, id: string): void {
-    this.router.navigate([collection, id])
+    const path = this.id ? `courses/${this.id}/${collection}` : collection;
+    this.router.navigate([path, id])
       .then()
       .catch(error => console.log(error))
     ;

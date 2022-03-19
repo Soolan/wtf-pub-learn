@@ -16,4 +16,5 @@ import { LandingComponent } from './landing/landing.component';
     LessonRoutingModule
   ]
 })
-export class LessonModule { }
+export class LessonModule {
+}

@@ -6,7 +6,11 @@ import {CourseComponent} from './course/course.component';
 const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'courses/:id', component: CourseComponent},
-  // {path: 'lessons', loadChildren () => import()}
+  {
+    path: 'lessons',
+    loadChildren: () => import('./course/lessons/lesson.module')
+      .then(m => m.LessonModule)
+  }
 ];
 
 @NgModule({
