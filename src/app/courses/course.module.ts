@@ -13,6 +13,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import { LessonModule } from './course/lessons/lesson.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {MatListModule} from '@angular/material/list';
     MatCardModule,
     MatListModule,
     MatIconModule,
+    LessonModule,
   ]
 })
 export class CourseModule {
