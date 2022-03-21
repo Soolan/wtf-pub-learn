@@ -1,0 +1,33 @@
+<div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+  <ng-container [ngSwitch]="progress.status">
+    <ng-container *ngSwitchCase="status.Start">
+      <button fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" fxFlex.lt-md="100" mat-flat-button color="primary">
+        {{statuses[progress.status]}}
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="status.Resume">
+      <div fxFlex="70" fxFlex.lt-md="65">
+        <strong>Next Up</strong><mat-icon>chevron_right</mat-icon>
+        <p>{{progress.lesson}}</p>
+      </div>
+      <button fxFlex="25" fxFlex.lt-md="35" mat-flat-button color="warn">{{statuses[progress.status]}}</button>
+      <!-- Are they taking the course again? -->
+      <div fxFlex="70" fxFlex.lt-md="65" class="score" *ngIf="progress.score">
+        <p>
+          Previous score ({{progress.updated_at | date: 'longDate'}}):
+          <span [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">{{progress.score}}/100</span>
+        </p>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="status.Retake">
+      <div fxFlex="70" fxFlex.lt-md="65" class="score">
+        <strong>Passed</strong><mat-icon>done</mat-icon>
+        <p>
+          [{{progress.updated_at | date: 'longDate'}}] - final score:
+          <span [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">{{progress.score}}/100</span>
+        </p>
+      </div>
+      <button fxFlex="25" fxFlex.lt-md="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>
+    </ng-container>
+  </ng-container>
+</div>

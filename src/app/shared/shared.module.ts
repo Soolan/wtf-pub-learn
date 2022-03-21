@@ -11,17 +11,20 @@ import {FooterComponent} from './components/footer/footer.component';
 import {StorageUrlPipe} from './pipes/storage-url.pipe';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import { BlackRendererDirective } from './directives/black-renderer.directive';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     StorageUrlPipe,
+    BlackRendererDirective,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     StorageUrlPipe,
+    BlackRendererDirective,
   ],
   imports: [
     CommonModule,

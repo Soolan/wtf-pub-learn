@@ -46,7 +46,7 @@ html, body { height: 100%; }
 body {
   margin: 0;
   font-family: 'Titillium Web', sans-serif;
-  background: var(--color-greye);
+  background: var(--color-aquamarine-background);
   color: var(--color-grey3);
 }
 
@@ -193,4 +193,27 @@ body {
   background-color: var(--color-primary-light) !important;
   right: var(--space-xl);
   bottom: var(--space-lg);
+}
+
+.black {
+  font-weight: 900;
+}
+
+.mat-list-item {
+  font-family: 'Titillium Web', sans-serif !important;
+  .name {
+    color: var(--color-grey3);
+  }
+  .description {
+    color: var(--color-grey8);
+    font-size: 0.6em;
+  }
+}
+.mat-list-item:hover {
+  background-color: var(--color-greye);
+  cursor: pointer;
+}
+
+::ng-deep .mat-list-item-content,  ::ng-deep .mat-list-text {
+  padding: 0 !important;
 }

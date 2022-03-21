@@ -3,6 +3,9 @@ import {COURSES, LESSONS} from '../../shared/data/collections';
 import {map} from 'rxjs';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
+import {Lesson} from '../../shared/models/lesson';
+import {STATUSES} from '../../shared/data/generic';
+import {Status} from '../../shared/data/enums';
 
 @Component({
   selector: 'app-course',
@@ -14,6 +17,8 @@ export class CourseComponent implements OnInit {
   course!: any;
   lessons!: any;
   loading!: any;
+  keyword!: string;
+
 
   constructor(
     private router: Router,
@@ -38,8 +43,8 @@ export class CourseComponent implements OnInit {
       {
         next: data => {
           this.course = data;
-          console.log(this.course);
           this.loading.course = false;
+          this.extractTags(this.course.tags);
         },
         error: error => console.log(error)
       }
@@ -59,5 +64,14 @@ export class CourseComponent implements OnInit {
         error: error => console.log(error)
       }
     );
+  }
+
+  extractTags(input: string): void {
+    const tags = this.course.tags.split(',');
+    this.keyword = tags[0];
+  }
+
+  open(lessonId: string): void {
+
   }
 }

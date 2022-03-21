@@ -1,0 +1,19 @@
+.progress {
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-greyb);
+  .mat-icon{
+    vertical-align: middle;
+  }
+
+  .score {
+    font-size: smaller;
+    p {
+      color: var(--color-grey7);
+    }
+    span {
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+  }
+}
