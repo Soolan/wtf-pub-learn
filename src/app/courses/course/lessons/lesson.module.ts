@@ -16,6 +16,7 @@ import { MatchComponent } from './lesson/slides-renderer/match/match.component';
 import { EasyReviewComponent } from './lesson/slides-renderer/easy-review/easy-review.component';
 import { HardReviewComponent } from './lesson/slides-renderer/hard-review/hard-review.component';
 import { SummaryComponent } from './lesson/slides-renderer/summary/summary.component';
+import { SlidesRendererComponent } from './lesson/slides-renderer/slides-renderer.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { SummaryComponent } from './lesson/slides-renderer/summary/summary.compo
     EasyReviewComponent,
     HardReviewComponent,
     SummaryComponent,
+    SlidesRendererComponent,
   ],
   imports: [
     CommonModule,
