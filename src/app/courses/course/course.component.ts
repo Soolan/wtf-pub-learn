@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {COURSES, LESSONS} from '../../shared/data/collections';
 import {map} from 'rxjs';
-import {ActivatedRoute, Route, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
-import {Lesson} from '../../shared/models/lesson';
-import {STATUSES} from '../../shared/data/generic';
-import {Status} from '../../shared/data/enums';
+import {LEVELS} from '../../shared/data/generic';
 
 @Component({
   selector: 'app-course',
@@ -18,6 +16,7 @@ export class CourseComponent implements OnInit {
   lessons!: any;
   loading!: any;
   keyword!: string;
+  levels = LEVELS;
 
 
   constructor(

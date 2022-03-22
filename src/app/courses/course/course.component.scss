@@ -45,6 +45,13 @@
     .description {
       padding-bottom: 1em;
     }
+    .level {
+      font-weight: bold;
+      letter-spacing: var(--space-xxs);
+      color: var(--color-greye);
+      transform: rotate(270deg);
+      background-color: var(--color-primary);
+    }
   }
   .lessons {
     min-height: 7em;

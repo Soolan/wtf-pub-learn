@@ -10,10 +10,10 @@
       <div fxFlexOffset="90" fxFlex="10">
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
       </div>
-      <div fxFlex="90" class="heading" ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title"
+      <div fxFlex="95" class="heading" ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title"
            appBlackRenderer #content [content]="course.name" [keyword]="keyword">
       </div>
-      <div fxFlex="90" class="mat-body-2 description">{{course.description}}</div>
+      <div fxFlex="95" class="mat-body-2 description">{{course.description}}</div>
     </div>
   </div>
   <div class="lessons" fxFlex="39" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap"

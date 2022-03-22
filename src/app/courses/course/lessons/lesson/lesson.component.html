@@ -1,1 +1,8 @@
-<p>lesson works!</p>
+<div class="course" fxFlex="59" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+  <div class="progress" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+  </div>
+  <div *ngIf="slides" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+
+  </div>
+</div>
