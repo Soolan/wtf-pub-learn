@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.slideService.ui.subscribe({
       next: data => {
-        // this.currentSlide = data.marker;
-        // this.action = data.action;
+        this.currentSlide = data.marker;
+        this.action = data.action;
       },
       error: error => console.log(error)
     });
@@ -28,9 +28,6 @@ export class HeaderComponent implements OnInit {
   }
 
   initMarkers(): void {
-    this.currentSlide = 8;
-    this.action = 'take some action dude!';
-
     if (this.count > 2) {
       if (this.count % 2 === 0) {
         this.firstRow = Array(this.count/2);

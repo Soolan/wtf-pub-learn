@@ -1,11 +1,22 @@
 button {
+  z-index: 10;
   min-height: 2.5em;
   margin: var(--space-xs);
-  //.mat-icon {
-  //  vertical-align: middle;
-  //}
   span {
     vertical-align: baseline;
     font-weight: 700;
   }
+}
+.response {
+  background-color: var(--color-primary);
+  color: var(--color-greye);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+  width: 15vw;
+  @media screen and (max-width: 1240px) and (min-width: 1439px){
+    width: 20vw;
+  }
+  //fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47"
 }

@@ -1,10 +1,15 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
-  <button fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47" mat-stroked-button color="accent">
+  <button mat-stroked-button color="accent" (click)="completed=!completed"
+          fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47">
     <mat-icon>arrow_back</mat-icon>
     <span>PREVIOUS</span>
   </button>
-  <button fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47" mat-flat-button color="primary">
+  <button mat-flat-button color="primary" [@bounceInOut] *ngIf="completed" #next
+          fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47">
     <span>NEXT</span>
     <mat-icon>arrow_forward</mat-icon>
   </button>
+</div>
+<div class="response" [@stretchUpOut] *ngIf="completed" [style.width]="width">
+  This is a pretty cool response braw!
 </div>
