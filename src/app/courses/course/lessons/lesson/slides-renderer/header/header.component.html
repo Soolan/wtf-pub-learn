@@ -6,14 +6,18 @@
     </div>
   </div>
   <div fxFlex="26" class="markers">
-    <div class="marker" *ngFor="let block of firstRow" [style.background-color] ="'var(--color-primary)'"></div>
+    <div class="marker" *ngFor="let block of firstRow; let i = index;"
+         [style.background-color] ="(i<currentSlide)?'var(--color-primary)':''"
+    ></div>
     <div class="second-row">
-      <div class="marker" *ngFor="let block of secondRow"></div>
+      <div class="marker" *ngFor="let block of secondRow; let i = index;"
+           [style.background-color] ="(i + firstRow.length < currentSlide)?'var(--color-primary)':''"
+      ></div>
     </div>
-    <span>do it like this</span>
+    <span>{{action}}</span>
   </div>
   <div fxFlex="37" class="info">
     <div class="course">{{course}}</div>
-    <div class="lesson">Lesson 1 - the basics</div>
+    <div class="lesson">{{lesson}}</div>
   </div>
 </div>

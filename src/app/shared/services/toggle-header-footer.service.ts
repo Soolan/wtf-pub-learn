@@ -18,5 +18,4 @@ export class ToggleHeaderFooterService {
       this.headerSubject.next(snapshot):
       this.footerSubject.next(snapshot);
   }
-
 }

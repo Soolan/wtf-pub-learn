@@ -41,3 +41,9 @@ export interface SlideDetails {
   type: SlideType;
   description: string;
 }
+
+export interface SlideHeaderFooter {
+  marker: number;
+  action: string;
+  response: string;
+}

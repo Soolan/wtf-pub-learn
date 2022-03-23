@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {SlideService} from '../slide.service';
 
 @Component({
   selector: 'app-renderer-header',
@@ -6,13 +7,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  firstRow = Array(7);
-  secondRow = Array(6);
-  course = "The Fun Crypto course";
-  keyword = "Crypto";
-  constructor() { }
+  @Input() count!: number;
+  @Input() course!: string;
+  @Input() lesson!: string;
+  firstRow!: any;
+  secondRow = Array(0);
+  action!: string;
+  currentSlide!: number;
+  constructor(private slideService: SlideService) { }
 
   ngOnInit(): void {
+    this.slideService.ui.subscribe({
+      next: data => {
+        // this.currentSlide = data.marker;
+        // this.action = data.action;
+      },
+      error: error => console.log(error)
+    });
+    this.initMarkers();
   }
 
+  initMarkers(): void {
+    this.currentSlide = 8;
+    this.action = 'take some action dude!';
+
+    if (this.count > 2) {
+      if (this.count % 2 === 0) {
+        this.firstRow = Array(this.count/2);
+        this.secondRow = this.firstRow;
+        console.log(this.count, this.firstRow, this.secondRow);
+      } else {
+        this.firstRow = Array(Math.ceil(this.count/2));
+        this.secondRow = Array(this.firstRow.length - 1);
+        console.log(this.count, this.firstRow, this.secondRow);
+      }
+    } else {
+      console.log('slide count is not correct!', this.count);
+    }
+  }
 }
