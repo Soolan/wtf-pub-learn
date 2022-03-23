@@ -4,6 +4,7 @@ import {map} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
+import {CurrentService} from '../../shared/services/current.service';
 
 @Component({
   selector: 'app-course',
@@ -13,16 +14,16 @@ import {LEVELS} from '../../shared/data/generic';
 export class CourseComponent implements OnInit {
   id!: string;
   course!: any;
-  lessons!: any;
+  lessons!: any[];
   loading!: any;
   keyword!: string;
   levels = LEVELS;
 
-
   constructor(
     private router: Router,
     private crud: CrudService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private current: CurrentService
   ) {
     this.id = this.route.snapshot.paramMap.get('courseId') || '';
   }
@@ -73,8 +74,16 @@ export class CourseComponent implements OnInit {
   open(lessonId: string): void {
     const path = `courses/${this.id}/lessons`;
     this.router.navigate([path, lessonId])
-      .then()
+      .then(_ => this.setCurrent(lessonId))
       .catch(error => console.log(error))
     ;
+  }
+
+  setCurrent(lessonId: string): void {
+    const lessonName = this.lessons.find(lesson => lesson.id === lessonId).name;
+    this.current.next({
+      course: this.course.name,
+      lesson: lessonName
+    })
   }
 }

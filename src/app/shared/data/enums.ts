@@ -1,5 +1,5 @@
 export enum SlideType {
-  Intro,
+  Start,
   Static,
   FixedFillIn,
   MixedFillIn,

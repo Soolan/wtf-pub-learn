@@ -1,6 +1,6 @@
 <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between center" class="content">
-  <app-renderer-header fxFlex="10" class="fullwidth"
-                       [count]="13"
+  <app-renderer-header fxFlex="10" class="fullwidth" *ngIf="slides"
+                       [count]="slides.length"
                        [course]="'The fun crypto course'"
                        [lesson]="'Lesson 1. Introduction'"
   ></app-renderer-header>
@@ -9,7 +9,7 @@
       <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     </div>
     <div *ngIf="slides" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-      <app-slides-renderer></app-slides-renderer>
+      <app-slides-renderer [slides]="slides"></app-slides-renderer>
     </div>
   </div>
   <app-renderer-footer fxFlex="10" class="fullwidth"></app-renderer-footer>

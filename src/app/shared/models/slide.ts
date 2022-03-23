@@ -1,4 +1,4 @@
-import {SlideType} from '../data/slide-type';
+import {SlideType} from '../data/enums';
 
 export interface Slide {
   type: SlideType;

@@ -2,8 +2,7 @@ import {Collection} from '../models/collection';
 import {Lesson} from '../models/lesson';
 import {Course} from '../models/course';
 import {Slide} from '../models/slide';
-import {SlideType} from './slide-type';
-import {Position} from './enums';
+import {Position, SlideType} from './enums';
 
 //------------------------------------------------- Course
 export const COURSES: Collection = {

@@ -14,12 +14,14 @@ export class HeaderComponent implements OnInit {
   secondRow = Array(0);
   action!: string;
   currentSlide!: number;
+  hover = false;
   constructor(private slideService: SlideService) { }
 
   ngOnInit(): void {
+    this.currentSlide = 9;
     this.slideService.ui.subscribe({
       next: data => {
-        this.currentSlide = data.marker;
+        // this.currentSlide = data.marker;
         this.action = data.action;
       },
       error: error => console.log(error)
@@ -41,5 +43,9 @@ export class HeaderComponent implements OnInit {
     } else {
       console.log('slide count is not correct!', this.count);
     }
+  }
+
+  navigate (index: number): void {
+
   }
 }

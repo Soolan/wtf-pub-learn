@@ -1,9 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SlideService} from '../slide.service';
 import {BOUNCE} from '../../../../../../shared/animations/bounce';
 import {STRETCH} from '../../../../../../shared/animations/strech';
-
-
 
 @Component({
   selector: 'app-renderer-footer',
@@ -12,19 +10,29 @@ import {STRETCH} from '../../../../../../shared/animations/strech';
   animations: [BOUNCE, STRETCH]
 })
 export class FooterComponent implements OnInit {
-  @ViewChild('next') next!: ElementRef;
-
   response!: string;
   width = 0;
   completed = false;
+  correct = false;
   constructor(private slideService: SlideService) { }
 
   ngOnInit(): void {
     this.slideService.ui.subscribe({
-      next: data => this.response = data.response,
+      next: data => this.setResponse(data.response),
       error: error => console.log(error)
     });
-    this.width = this.next.nativeElement.offsetWidth;
-    console.log(this.width, this.next.nativeElement.width, this.next.nativeElement.offsetWidth)
+  }
+
+  setResponse(response: string): void {
+    this.response = '';
+    setTimeout( _ => {
+      this.response = response;
+    }, 200)
+  }
+
+  trigger() {
+    this.completed = true;
+    this.correct = true;
+    this.setResponse('this is a shiny response! this is a shiny response! this is a shiny response! ');
   }
 }
