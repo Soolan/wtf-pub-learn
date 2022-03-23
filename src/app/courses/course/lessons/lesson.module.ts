@@ -17,6 +17,11 @@ import { EasyReviewComponent } from './lesson/slides-renderer/easy-review/easy-r
 import { HardReviewComponent } from './lesson/slides-renderer/hard-review/hard-review.component';
 import { SummaryComponent } from './lesson/slides-renderer/summary/summary.component';
 import { SlidesRendererComponent } from './lesson/slides-renderer/slides-renderer.component';
+import { HeaderComponent } from './lesson/slides-renderer/header/header.component';
+import { FooterComponent } from './lesson/slides-renderer/footer/footer.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {SharedModule} from '../../../shared/shared.module';
 
 
 @NgModule({
@@ -34,12 +39,17 @@ import { SlidesRendererComponent } from './lesson/slides-renderer/slides-rendere
     HardReviewComponent,
     SummaryComponent,
     SlidesRendererComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     CommonModule,
     LessonRoutingModule,
     FlexLayoutModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    SharedModule
   ]
 })
 export class LessonModule {

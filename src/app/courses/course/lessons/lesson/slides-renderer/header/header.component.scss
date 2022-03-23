@@ -1,0 +1,49 @@
+.header {
+  background-color: var(--color-primary-dark);
+  color: var(--color-primary-light);
+  .exit {
+    cursor: pointer;
+    .mat-icon {
+      vertical-align: middle;
+    }
+    span {
+      color: var(--color-warn-light);
+      vertical-align: middle;
+      font-size: larger;
+      letter-spacing: var(--space-xxs);
+    }
+  }
+  .markers {
+    text-align: center;
+    .marker {
+      width: 0.6em;
+      height: 0.6em;
+      border: 2px solid var(--color-primary);
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 0.04em;
+      margin-right: 0.1em;
+    }
+    .second-row {
+      display: block;
+    }
+    span {
+      font-size: smaller;
+      letter-spacing: var(--space-xxs);
+    }
+  }
+  .info {
+    text-align: right;
+    padding-right: var(--space-sm);
+    .course {
+      font-weight: 700;
+      font-size: larger;
+      color: var(--color-accent);
+    }
+    .lesson {
+      font-size: smaller;
+      opacity: 0.9;
+      color: var(--color-accent-light);
+    }
+  }
+}

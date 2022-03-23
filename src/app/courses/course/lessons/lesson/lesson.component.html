@@ -1,8 +1,12 @@
-<div class="course" fxFlex="59" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-  <div class="progress" *ngIf="loading">
-    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+<div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between center" class="content">
+  <app-renderer-header fxFlex="10" class="fullwidth"></app-renderer-header>
+  <div fxFlex="80" fxLayout="row wrap" fxLayoutAlign="space-around start">
+    <div fxFlex="100" class="loading" *ngIf="loading">
+      <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+    </div>
+    <div *ngIf="slides" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <app-slides-renderer></app-slides-renderer>
+    </div>
   </div>
-  <div *ngIf="slides" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-
-  </div>
+  <app-renderer-footer fxFlex="10" class="fullwidth"></app-renderer-footer>
 </div>

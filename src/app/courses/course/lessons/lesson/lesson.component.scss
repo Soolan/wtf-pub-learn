@@ -1,0 +1,15 @@
+.content {
+  height: 100vh;
+  .loading {
+    min-height: var(--space-xl);
+    margin: var(--space-xxl) auto;
+    .mat-progress-spinner {
+      margin: 0 auto;
+    }
+  }
+  .fullwidth {
+    width: 100vw;
+  }
+}
+
+

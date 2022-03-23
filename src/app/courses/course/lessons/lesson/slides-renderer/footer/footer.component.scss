@@ -1,0 +1,11 @@
+button {
+  min-height: 2.5em;
+  margin: var(--space-xs);
+  //.mat-icon {
+  //  vertical-align: middle;
+  //}
+  span {
+    vertical-align: baseline;
+    font-weight: 700;
+  }
+}

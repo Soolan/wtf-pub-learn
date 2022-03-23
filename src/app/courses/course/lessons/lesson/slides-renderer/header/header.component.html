@@ -1,0 +1,19 @@
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
+  <div fxFlex="36" fxFlexOffset="1">
+    <div  class="exit">
+      <mat-icon color="warn">chevron_left</mat-icon>
+      <span>EXIT</span>
+    </div>
+  </div>
+  <div fxFlex="26" class="markers">
+    <div class="marker" *ngFor="let block of firstRow" [style.background-color] ="'var(--color-primary)'"></div>
+    <div class="second-row">
+      <div class="marker" *ngFor="let block of secondRow"></div>
+    </div>
+    <span>do it like this</span>
+  </div>
+  <div fxFlex="37" class="info">
+    <div class="course">{{course}}</div>
+    <div class="lesson">Lesson 1 - the basics</div>
+  </div>
+</div>

@@ -71,6 +71,10 @@ export class CourseComponent implements OnInit {
   }
 
   open(lessonId: string): void {
-
+    const path = `courses/${this.id}/lessons`;
+    this.router.navigate([path, lessonId])
+      .then()
+      .catch(error => console.log(error))
+    ;
   }
 }
