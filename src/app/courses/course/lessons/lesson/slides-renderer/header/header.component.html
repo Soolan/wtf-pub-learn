@@ -1,19 +1,19 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
   <div fxFlex="36" fxFlexOffset="1">
-    <div class="exit">
+    <div class="exit" (click)="exit()">
       <mat-icon color="warn">chevron_left</mat-icon>
       <span>EXIT</span>
     </div>
   </div>
   <div fxFlex="26" class="markers">
     <div class="marker" *ngFor="let block of firstRow; let i = index;"
-         (click)="navigate(i)"
+         (click)="jumpTo(i)"
          [style.background-color]="(i<currentSlide)?'var(--color-primary)':''"
          [style.cursor]="(i<currentSlide)?'pointer':'default'"
     ></div>
     <div class="second-row">
       <div class="marker" *ngFor="let block of secondRow; let i = index;"
-           (click)="navigate(i)"
+           (click)="jumpTo(i)"
            [style.background-color]="(i + firstRow.length < currentSlide)?'var(--color-primary)':''"
            [style.cursor]="(i + firstRow.length<currentSlide)?'pointer':'default'"
       ></div>

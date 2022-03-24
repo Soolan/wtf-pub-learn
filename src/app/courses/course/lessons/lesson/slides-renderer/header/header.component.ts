@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   constructor(private slideService: SlideService) { }
 
   ngOnInit(): void {
+    console.log(this.count, this.course, this.lesson);
     this.currentSlide = 9;
     this.slideService.ui.subscribe({
       next: data => {
@@ -45,7 +46,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  navigate (index: number): void {
+  jumpTo(index: number): void {
+
+  }
+
+  exit(): void {
 
   }
 }

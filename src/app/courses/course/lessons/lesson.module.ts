@@ -22,6 +22,7 @@ import { FooterComponent } from './lesson/slides-renderer/footer/footer.componen
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from '../../../shared/shared.module';
+import { NotFoundComponent } from './lesson/slides-renderer/not-found/not-found.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {SharedModule} from '../../../shared/shared.module';
     SlidesRendererComponent,
     HeaderComponent,
     FooterComponent,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,

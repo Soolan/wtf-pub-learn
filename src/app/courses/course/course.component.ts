@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {COURSES, LESSONS} from '../../shared/data/collections';
 import {map} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {CurrentService} from '../../shared/services/current.service';
+import {NavigateService} from '../../shared/services/navigate.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -20,10 +21,10 @@ export class CourseComponent implements OnInit {
   levels = LEVELS;
 
   constructor(
-    private router: Router,
     private crud: CrudService,
     private route: ActivatedRoute,
-    private current: CurrentService
+    private current: CurrentService,
+    private navigate: NavigateService,
   ) {
     this.id = this.route.snapshot.paramMap.get('courseId') || '';
   }
@@ -72,11 +73,8 @@ export class CourseComponent implements OnInit {
   }
 
   open(lessonId: string): void {
-    const path = `courses/${this.id}/lessons`;
-    this.router.navigate([path, lessonId])
-      .then(_ => this.setCurrent(lessonId))
-      .catch(error => console.log(error))
-    ;
+    this.setCurrent(lessonId);
+    this.navigate.goto('lessons', this.id, lessonId);
   }
 
   setCurrent(lessonId: string): void {
