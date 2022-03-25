@@ -57,6 +57,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   jumpTo(index: number): void {
+    // You can only jump to previously visited slides. Jump ahead is not allowed.
     if (index < this.currentSlide) {
       this.slideService.next({
         marker: index,

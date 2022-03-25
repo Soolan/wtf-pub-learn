@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {SlideService} from '../slide.service';
 import {ACTIONS} from '../../../../../../shared/data/generic';
+import {SlideType} from '../../../../../../shared/data/enums';
 
 @Component({
   selector: 'app-start',
@@ -12,7 +13,11 @@ export class StartComponent implements OnChanges {
   constructor(private slideService: SlideService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.slideService.next({marker: 0, action: ACTIONS[0], response: ''})
+    this.slideService.next({
+      marker: 0,
+      action: ACTIONS[SlideType.Start],
+      response: ''
+    })
   }
 
   proceed(): void {

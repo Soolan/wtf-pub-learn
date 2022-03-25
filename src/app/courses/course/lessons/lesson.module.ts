@@ -23,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from '../../../shared/shared.module';
 import { NotFoundComponent } from './lesson/slides-renderer/not-found/not-found.component';
+import { TextImageComponent } from './lesson/slides-renderer/text-image/text-image.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { NotFoundComponent } from './lesson/slides-renderer/not-found/not-found.
     HeaderComponent,
     FooterComponent,
     NotFoundComponent,
+    TextImageComponent,
   ],
   imports: [
     CommonModule,

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {SlideService} from '../slide.service';
 import {BOUNCE} from '../../../../../../shared/animations/bounce';
 import {STRETCH} from '../../../../../../shared/animations/strech';
+import {ACTIONS} from '../../../../../../shared/data/generic';
+import {SlideHeaderFooter} from '../../../../../../shared/models/slide';
 
 @Component({
   selector: 'app-renderer-footer',
@@ -15,11 +17,13 @@ export class FooterComponent implements OnInit {
   completed = false;
   correct = false;
   firstSlide = false;
+  current!: SlideHeaderFooter;
   constructor(private slideService: SlideService) { }
 
   ngOnInit(): void {
     this.slideService.ui.subscribe({
       next: data => {
+        this.current = data;
         this.setResponse(data.response);
         this.firstSlide = data.marker === 0;
       },
@@ -38,5 +42,14 @@ export class FooterComponent implements OnInit {
     this.completed = true;
     this.correct = true;
     this.setResponse('this is a shiny response! this is a shiny response! this is a shiny response! ');
+  }
+
+  move(forward: boolean): void {
+    const index = forward ? this.current.marker + 1 : this.current.marker - 1
+    this.slideService.next({
+      marker: index,
+      action: ACTIONS[this.slideService.slides[index].type],
+      response: ''
+    })
   }
 }

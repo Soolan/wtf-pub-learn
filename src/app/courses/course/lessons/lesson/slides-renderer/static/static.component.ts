@@ -5,12 +5,6 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './static.component.html',
   styleUrls: ['./static.component.scss']
 })
-export class StaticComponent implements OnInit {
+export class StaticComponent {
   @Input() slide: any;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
