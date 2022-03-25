@@ -14,11 +14,15 @@ export class FooterComponent implements OnInit {
   width = 0;
   completed = false;
   correct = false;
+  firstSlide = false;
   constructor(private slideService: SlideService) { }
 
   ngOnInit(): void {
     this.slideService.ui.subscribe({
-      next: data => this.setResponse(data.response),
+      next: data => {
+        this.setResponse(data.response);
+        this.firstSlide = data.marker === 0;
+      },
       error: error => console.log(error)
     });
   }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SlideType} from '../../../../../shared/data/enums';
 import {Slide} from '../../../../../shared/models/slide';
 import {SlideService} from './slide.service';
@@ -8,20 +8,24 @@ import {SlideService} from './slide.service';
   templateUrl: './slides-renderer.component.html',
   styleUrls: ['./slides-renderer.component.scss']
 })
-export class SlidesRendererComponent implements OnInit {
+export class SlidesRendererComponent implements OnChanges {
   @Input() slides!: any[];
   index!: number;
-  currentSlide!: Slide;
+  current!: Slide;
   type = 0;
   types = SlideType;
 
-  constructor(private ui: SlideService) { }
-
-  ngOnInit(): void {
-
+  constructor(private slideService: SlideService) {
   }
 
-  refresh(): void {
-    window.location.reload();
+  ngOnChanges(changes: SimpleChanges) {
+    this.slideService.ui.subscribe({
+      next: data => this.setCurrentSlide(data.marker),
+      error: error => console.log(error)
+    })
+  }
+
+  setCurrentSlide(index: number): void {
+    this.current = this.slides[index];
   }
 }

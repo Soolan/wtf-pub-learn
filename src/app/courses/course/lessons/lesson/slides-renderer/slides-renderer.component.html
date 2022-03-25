@@ -1,2 +1,6 @@
-<div fxFlex.lt-lg="90" fxFlex.lg="70" fxFlex.gt-lg="60" fxLayout="row wrap" fxLayoutAlign="space-around center">
+<div fxFlex.lt-md="90" fxFlex.md="65" fxFlex.lg="45" fxFlex.gt-lg="35" fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <ng-container [ngSwitch]="current.type">
+    <app-start *ngSwitchCase="types.Start" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-start>
+    <app-static *ngSwitchCase="types.Static" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-static>
+  </ng-container>
 </div>

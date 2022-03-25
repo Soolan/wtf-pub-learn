@@ -1,5 +1,5 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
-  <button mat-stroked-button color="accent" (click)="trigger()"
+  <button mat-stroked-button color="accent" (click)="trigger()" *ngIf="!firstSlide"
           fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47">
     <mat-icon>arrow_back</mat-icon>
     <span>PREVIOUS</span>

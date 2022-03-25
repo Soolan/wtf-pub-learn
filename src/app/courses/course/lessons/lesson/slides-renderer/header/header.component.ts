@@ -1,33 +1,43 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SlideService} from '../slide.service';
+import {ActivatedRoute} from '@angular/router';
+import {NavigateService} from '../../../../../../shared/services/navigate.service';
+import {ToggleHeaderFooterService} from '../../../../../../shared/services/toggle-header-footer.service';
+import {Observable} from 'rxjs';
+import {SlideHeaderFooter} from '../../../../../../shared/models/slide';
+import {ACTIONS} from '../../../../../../shared/data/generic';
 
 @Component({
   selector: 'app-renderer-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
   @Input() count!: number;
   @Input() course!: string;
   @Input() lesson!: string;
   firstRow!: any;
   secondRow = Array(0);
-  action!: string;
   currentSlide!: number;
+  courseId!: string;
   hover = false;
-  constructor(private slideService: SlideService) { }
+  constructor(
+    private headerFooter: ToggleHeaderFooterService,
+    public slideService: SlideService,
+    private navigate: NavigateService,
+    private route: ActivatedRoute
+  ) {
+    this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
+  }
 
   ngOnInit(): void {
+    this.slideService.ui.subscribe({next: data => this.currentSlide = data.marker + 1});
     console.log(this.count, this.course, this.lesson);
-    this.currentSlide = 9;
-    this.slideService.ui.subscribe({
-      next: data => {
-        // this.currentSlide = data.marker;
-        this.action = data.action;
-      },
-      error: error => console.log(error)
-    });
     this.initMarkers();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
 
   initMarkers(): void {
@@ -47,10 +57,18 @@ export class HeaderComponent implements OnInit {
   }
 
   jumpTo(index: number): void {
-
+    if (index < this.currentSlide) {
+      this.slideService.next({
+        marker: index,
+        action: ACTIONS[this.slideService.slides[index].type],
+        response: ''
+      })
+    }
   }
 
   exit(): void {
-
+    this.navigate.goto('courses', this.courseId);
+    this.headerFooter.toggle(true, true);
+    this.headerFooter.toggle(true, false);
   }
 }

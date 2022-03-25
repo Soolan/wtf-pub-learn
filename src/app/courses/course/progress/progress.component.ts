@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
 import {STATUSES} from '../../../shared/data/generic';
 import {Progress} from '../../../shared/models/course';
+import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
 
 @Component({
   selector: 'app-progress',

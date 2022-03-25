@@ -1,17 +1,18 @@
 <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between center" class="content">
-  <app-renderer-header fxFlex="10" class="fullwidth" *ngIf="slides.length > 0"
+  <app-renderer-header fxFlex="10" class="fullwidth" *ngIf="slides"
                        [count]="slides.length"
                        [course]="course"
                        [lesson]="lesson"
   ></app-renderer-header>
-  <div fxFlex="80" fxLayout="row wrap" fxLayoutAlign="space-around center">
-    <div fxFlex="100" class="loading" *ngIf="loading">
+  <div fxFlex="80" class="fullwidth">
+    <div fxFlex="80" fxLayoutAlign="space-around center" class="loading" *ngIf="loading">
       <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     </div>
-    <app-not-found fxFlex="100" *ngIf="!loading && slides.length == 0; else load_slides;"></app-not-found>
-    <ng-template #load_slides>
-      <app-slides-renderer fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" [slides]="slides"></app-slides-renderer>
+    <app-not-found fxFlex="100" *ngIf="!loading && slides.length == 0; else render" [lessonsId]="lessonId"></app-not-found>
+    <ng-template #render>
+      <app-slides-renderer fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="!loading"
+                           [slides]="slides"></app-slides-renderer>
     </ng-template>
   </div>
-  <app-renderer-footer fxFlex="10" class="fullwidth" *ngIf="slides.length > 0"></app-renderer-footer>
+  <app-renderer-footer fxFlex="10" class="fullwidth" *ngIf="slides"></app-renderer-footer>
 </div>

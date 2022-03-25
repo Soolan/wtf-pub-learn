@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-static',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./static.component.scss']
 })
 export class StaticComponent implements OnInit {
+  @Input() slide: any;
 
   constructor() { }
 

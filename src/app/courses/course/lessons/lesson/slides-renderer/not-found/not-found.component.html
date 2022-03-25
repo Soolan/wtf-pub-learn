@@ -1,8 +1,8 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="not-found">
-  <p fxFlex="80" fxFlex.lt-md="100" class="mat-title">Whoops, Connection failed!</p>
-  <p fxFlex="80" fxFlex.lt-md="100" class="$subheading-1">Please check your internet connection and try again.</p>
-  <button fxFlex="30" fxFlex.lt-sm="60" mat-flat-button color="primary" (click)="refresh()">
-    <mat-icon>refresh</mat-icon>
-    <span>Reload</span>
+  <p fxFlex="80" fxFlex.lt-md="100" class="mat-title">{{title}}</p>
+  <p fxFlex="80" fxFlex.lt-md="100" class="$subheading-1">{{subTitle}}</p>
+  <button fxFlex="30" fxFlex.lt-sm="60" mat-flat-button color="primary" (click)="action()">
+    <mat-icon>{{button_icon}}</mat-icon>
+    <span>{{button_label | titlecase}}</span>
   </button>
 </div>

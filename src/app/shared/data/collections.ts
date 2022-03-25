@@ -50,7 +50,7 @@ export const LESSON: Lesson = {
 export const SLIDES: Collection = {
   path: 'slides',
   limit: 25,
-  where: {field: 'type', operator: '!=', value: ''}
+  where: {field: 'type', operator: '!=', value: '-1'}
 };
 
 export const START_SLIDE: Slide = {
