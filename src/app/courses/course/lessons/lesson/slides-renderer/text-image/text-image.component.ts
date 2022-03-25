@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Position} from '../../../../../../shared/data/enums';
 
 @Component({
   selector: 'app-text-image',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-image.component.scss']
 })
 export class TextImageComponent implements OnInit {
+  @Input() content!: any;
+  position = Position;
 
   constructor() { }
 

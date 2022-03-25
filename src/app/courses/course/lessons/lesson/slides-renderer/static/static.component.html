@@ -1,8 +1,3 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="100" class="mat-title">{{slide.content.text}}</div>
-  <div fxFlex="100" class="mat-body-2 ">{{slide.content.subtitle}}</div>
-  <div fxFlex="100" class="mat-body-2 bullet" *ngFor="let item of slide.content.bullet_points">
-    <mat-icon>chevron_right</mat-icon>
-    <span>{{item.value}}</span>
-  </div>
+  <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
 </div>
