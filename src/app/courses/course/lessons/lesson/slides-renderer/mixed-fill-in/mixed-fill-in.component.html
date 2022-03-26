@@ -1,1 +1,11 @@
-<p>mixed-fill-in works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <div fxFlex="100" class="scenario mat-body-2" appBlankRenderer #scenario [scenario]="slide.content['scenario']"></div>
+  <div *ngFor="let set of optionSets;" fxFlex="100">
+    <div [@fadeInOut] *ngIf="set['isActive']" class="options" #optionSet>
+      <div *ngFor="let option of set['options'];" (click)="!isCompleted ? check(option, $event):''"
+           [ngClass]="{'single-column': set['isSingle'], 'double-columns': !set['isSingle']}">
+        {{option}}
+      </div>
+    </div>
+  </div>
+</div>
