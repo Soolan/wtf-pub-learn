@@ -2,5 +2,15 @@
   <ng-container [ngSwitch]="current.type">
     <app-start *ngSwitchCase="types.Start" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-start>
     <app-static *ngSwitchCase="types.Static" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-static>
+    <app-fixed-fill-in *ngSwitchCase="types.FixedFillIn" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-fixed-fill-in>
+    <app-mixed-fill-in *ngSwitchCase="types.MixedFillIn" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-mixed-fill-in>
+    <app-hint-fill-in *ngSwitchCase="types.HintFillIn" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-hint-fill-in>
+    <app-single-choice *ngSwitchCase="types.SingleChoice" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-single-choice>
+    <app-multiple-choice *ngSwitchCase="types.MultipleChoice" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-multiple-choice>
+    <app-swipe *ngSwitchCase="types.Swipe" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-swipe>
+    <app-match *ngSwitchCase="types.Match" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-match>
+    <app-easy-review *ngSwitchCase="types.EasyReview" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-easy-review>
+    <app-hard-review *ngSwitchCase="types.HardReview" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-hard-review>
+    <app-summary *ngSwitchCase="types.Summary" [slide]="current" fxFlex="100" fxLayoutAlign="space-around center"></app-summary>
   </ng-container>
 </div>

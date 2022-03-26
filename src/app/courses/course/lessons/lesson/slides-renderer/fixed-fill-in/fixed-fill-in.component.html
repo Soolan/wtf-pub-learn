@@ -1,1 +1,12 @@
-<p>fixed-fill-in works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+<div fxFlex="100" class="scenario mat-body-2" appBlankRenderer #scenario [scenario]="slide.content['scenario']"></div>
+  <div fxFlex="100">
+    <div [@fadeInOut] *ngIf="set['isActive']" class="options" #optionSet>
+      <div (click)="!isCompleted ? check(option, $event):''"
+           *ngFor="let option of set['options'];let i = index;"
+           [ngClass]="{'single-column': set['isSingle'], 'double-columns' : !set['isSingle']}">
+        {{option}}
+      </div>
+    </div>
+  </div>
+</div>

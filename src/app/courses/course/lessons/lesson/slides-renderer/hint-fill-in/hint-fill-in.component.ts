@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-hint-fill-in',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hint-fill-in.component.scss']
 })
 export class HintFillInComponent implements OnInit {
+  @Input() slide: any;
 
   constructor() { }
 

@@ -8,23 +8,17 @@ import {SlideType} from '../../../../../../shared/data/enums';
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.scss']
 })
-export class StartComponent implements OnChanges {
+export class StartComponent {
   @Input() slide: any;
   constructor(private slideService: SlideService) { }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.slideService.next({
-      marker: 0,
-      action: ACTIONS[SlideType.Start],
-      response: ''
-    })
-  }
 
   proceed(): void {
     this.slideService.next({
       marker: 1,
       action: ACTIONS[this.slideService.slides[1].type],
-      response: ''
+      response: '',
+      correct: false,
+      completed: false
     })
   }
 }

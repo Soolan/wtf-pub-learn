@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-swipe',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./swipe.component.scss']
 })
 export class SwipeComponent implements OnInit {
+  @Input() slide: any;
 
   constructor() { }
 

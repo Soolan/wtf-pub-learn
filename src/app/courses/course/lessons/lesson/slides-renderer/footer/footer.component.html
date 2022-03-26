@@ -1,20 +1,19 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
-  <button mat-stroked-button color="accent" (click)="move(false)" *ngIf="!firstSlide"
+  <button mat-stroked-button color="accent" (click)="move(false)" *ngIf="!startSlide"
           fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47">
     <mat-icon>arrow_back</mat-icon>
     <span>PREVIOUS</span>
   </button>
-  <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="47" fxLayout="row"
-       fxLayoutAlign="space-between center">
-    <button mat-flat-button color="primary" [@bounceInOut] *ngIf="completed" fxFlex="100" (click)="move(true)">
+  <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="47" fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-flat-button color="primary" [@bounceInOut] *ngIf="ui.completed || staticSlide" fxFlex="100" (click)="move(true)">
       <span>NEXT</span>
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>
 </div>
 <div class="response"
-     [style.background-color]="correct? 'var(--color-primary)' : 'var(--color-warn-light)'"
-     [style.padding-bottom]="completed? 'var(--space-xl)' : 0"
+     [style.background-color]="ui.correct? 'var(--color-primary)' : 'var(--color-warn-light)'"
+     [style.padding-bottom]="ui.completed? 'var(--space-xl)' : 0"
      [@stretchUpOut] *ngIf="response">
   <p class="mat-caption">{{response}}</p>
 </div>

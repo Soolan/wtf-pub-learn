@@ -12,6 +12,7 @@ import {StorageUrlPipe} from './pipes/storage-url.pipe';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import { BlackRendererDirective } from './directives/black-renderer.directive';
+import { BlankRendererDirective } from './directives/blank-renderer.directive';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,14 @@ import { BlackRendererDirective } from './directives/black-renderer.directive';
     FooterComponent,
     StorageUrlPipe,
     BlackRendererDirective,
+    BlankRendererDirective,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     StorageUrlPipe,
     BlackRendererDirective,
+    BlankRendererDirective,
   ],
   imports: [
     CommonModule,

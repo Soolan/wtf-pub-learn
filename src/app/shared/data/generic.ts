@@ -17,3 +17,8 @@ export const ACTIONS = [
   'congratulations!'
 ];
 
+export const OPTIONS_BREAKPOINT = 25;
+
+export const BLANK_PLACEHOLDER = "------";
+
+export const BLANK_SPACES = ['start', 'end'];

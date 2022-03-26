@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() lesson!: string;
   firstRow!: any;
   secondRow = Array(0);
-  currentSlide!: number;
   courseId!: string;
   hover = false;
   constructor(
@@ -31,7 +30,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.slideService.ui.subscribe({next: data => this.currentSlide = data.marker + 1});
     console.log(this.count, this.course, this.lesson);
     this.initMarkers();
   }
@@ -58,11 +56,13 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   jumpTo(index: number): void {
     // You can only jump to previously visited slides. Jump ahead is not allowed.
-    if (index < this.currentSlide) {
+    if (index <= this.slideService.markerIndex) {
       this.slideService.next({
         marker: index,
         action: ACTIONS[this.slideService.slides[index].type],
-        response: ''
+        response: '',
+        correct: false,
+        completed: false
       })
     }
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-easy-review',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./easy-review.component.scss']
 })
 export class EasyReviewComponent implements OnInit {
+  @Input() slide: any;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-single-choice',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-choice.component.scss']
 })
 export class SingleChoiceComponent implements OnInit {
+  @Input() slide: any;
 
   constructor() { }
 

@@ -24,6 +24,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {SharedModule} from '../../../shared/shared.module';
 import { NotFoundComponent } from './lesson/slides-renderer/not-found/not-found.component';
 import { TextImageComponent } from './lesson/slides-renderer/text-image/text-image.component';
+import { MultipleChoiceComponent } from './lesson/slides-renderer/multiple-choice/multiple-choice.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { TextImageComponent } from './lesson/slides-renderer/text-image/text-ima
     FooterComponent,
     NotFoundComponent,
     TextImageComponent,
+    MultipleChoiceComponent,
   ],
   imports: [
     CommonModule,

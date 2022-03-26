@@ -43,7 +43,14 @@ export interface SlideDetails {
 }
 
 export interface SlideHeaderFooter {
-  marker: number;
+  marker: number;    //-------header
   action: string;
-  response: string;
+  response: string;  //-------footer
+  correct: boolean;
+  completed: boolean;
+}
+
+export interface TransX {
+  left: string;
+  right: string;
 }
