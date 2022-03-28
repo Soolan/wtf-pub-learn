@@ -14,6 +14,7 @@ import {MatListModule} from '@angular/material/list';
 import { BlackRendererDirective } from './directives/black-renderer.directive';
 import { BlankRendererDirective } from './directives/blank-renderer.directive';
 import { TypeInRendererDirective } from './directives/type-in-renderer.directive';
+import { CardRendererDirective } from './directives/card-renderer.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TypeInRendererDirective } from './directives/type-in-renderer.directive
     BlackRendererDirective,
     BlankRendererDirective,
     TypeInRendererDirective,
+    CardRendererDirective,
   ],
     exports: [
         HeaderComponent,
