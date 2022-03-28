@@ -9,9 +9,9 @@ export const ACTIONS = [
   'pick the right answer',
   'type in the right answer',
   'pick the right answer',
-  'multiple options might be correct',
+  'multiple choice question',
   'swipe to the left or right',
-  'match the answers with questions',
+  'match: answers->questions',
   '',
   '',
   'congratulations!'

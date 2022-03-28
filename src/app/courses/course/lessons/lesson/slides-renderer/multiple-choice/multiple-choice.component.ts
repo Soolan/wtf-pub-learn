@@ -21,7 +21,6 @@ export class MultipleChoiceComponent implements OnChanges {
   response = '';
   isCorrect = false;
   isCompleted = false;
-  shakeState!: string;
   correctAnswers = 0;
 
   constructor(private slideService: SlideService) { }
@@ -75,7 +74,6 @@ export class MultipleChoiceComponent implements OnChanges {
 
   check(answer: string, $event: Event): void {
     this.isCorrect = this.answers.includes(answer);
-    this.shakeState = this.isCorrect ? 'still' : 'shake';
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
 
     if ($event.target){
@@ -106,6 +104,5 @@ export class MultipleChoiceComponent implements OnChanges {
       correct: this.isCorrect,
       completed: this.isCompleted
     })
-    setTimeout(_ => this.shakeState = 'still', 100);
   }
 }

@@ -22,7 +22,6 @@ export class MixedFillInComponent implements OnChanges {
   response = '';
   isCorrect!: boolean;
   isCompleted = false;
-  shakeState!: string;
 
   constructor(private slideService: SlideService) { }
 
@@ -85,8 +84,6 @@ export class MixedFillInComponent implements OnChanges {
       this.initBlanks();
     }
     this.isCorrect = this.answers[this.currentSet] === answer;
-    this.shakeState = this.isCorrect ? 'still' : 'shake';
-
     if ($event.target) {
       if (this.isCorrect) {
         this.slideService.fillBlank(this.blanks[this.currentSet], answer);
@@ -123,6 +120,5 @@ export class MixedFillInComponent implements OnChanges {
       correct: this.isCorrect,
       completed: this.isCompleted
     })
-    setTimeout(_ => this.shakeState = 'still', 100);
   }
 }

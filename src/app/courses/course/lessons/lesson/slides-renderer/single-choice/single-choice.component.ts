@@ -23,7 +23,6 @@ export class SingleChoiceComponent implements OnChanges {
   response = '';
   isCorrect = false;
   isCompleted = false;
-  shakeState!: string;
 
   constructor(private slideService: SlideService) {
   }
@@ -56,7 +55,6 @@ export class SingleChoiceComponent implements OnChanges {
 
   check(answer: string, $event: Event): void {
     this.isCorrect = this.answer === answer;
-    this.shakeState = this.isCorrect ? 'still' : 'shake';
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     if ($event.target) {
       this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsIncorrect($event.target);
@@ -79,6 +77,5 @@ export class SingleChoiceComponent implements OnChanges {
       correct: this.isCorrect,
       completed: this.isCompleted
     })
-    setTimeout(_ => this.shakeState = 'still', 100);
   }
 }

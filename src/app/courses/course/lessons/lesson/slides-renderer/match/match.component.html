@@ -1,1 +1,8 @@
-<p>match works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <div fxFlex="100" class="scenario" *ngIf="index<3">{{slide.content['scenario']}}</div>
+  <div fxFlex="100" class="all-done" *ngIf="isCompleted">All Done!</div>
+  <div fxFlex="100" class="matches" [style.bottom.rem]="isCompleted ? 18 : index* index * 0.01 + index">
+    <div class="questions" appMatchRenderer [column]="'question'" [contents]="questions" #questionsRef></div>
+    <div class="answers" appMatchRenderer [column]="'answer'" [contents]="answers" #answersRef></div>
+  </div>
+</div>

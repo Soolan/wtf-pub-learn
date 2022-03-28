@@ -11,10 +11,10 @@ import {FooterComponent} from './components/footer/footer.component';
 import {StorageUrlPipe} from './pipes/storage-url.pipe';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
-import { BlackRendererDirective } from './directives/black-renderer.directive';
-import { BlankRendererDirective } from './directives/blank-renderer.directive';
-import { TypeInRendererDirective } from './directives/type-in-renderer.directive';
-import { CardRendererDirective } from './directives/card-renderer.directive';
+import {BlackRendererDirective} from './directives/black-renderer.directive';
+import {BlankRendererDirective} from './directives/blank-renderer.directive';
+import {TypeInRendererDirective} from './directives/type-in-renderer.directive';
+import {CardRendererDirective} from './directives/card-renderer.directive';
 
 @NgModule({
   declarations: [
@@ -26,14 +26,15 @@ import { CardRendererDirective } from './directives/card-renderer.directive';
     TypeInRendererDirective,
     CardRendererDirective,
   ],
-    exports: [
-        HeaderComponent,
-        FooterComponent,
-        StorageUrlPipe,
-        BlackRendererDirective,
-        BlankRendererDirective,
-        TypeInRendererDirective,
-    ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    StorageUrlPipe,
+    BlackRendererDirective,
+    BlankRendererDirective,
+    TypeInRendererDirective,
+    CardRendererDirective,
+  ],
   imports: [
     CommonModule,
     FlexLayoutModule,

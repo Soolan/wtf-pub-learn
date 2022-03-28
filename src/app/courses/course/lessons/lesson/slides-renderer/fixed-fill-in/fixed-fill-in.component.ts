@@ -22,7 +22,6 @@ export class FixedFillInComponent implements OnChanges {
   response = '';
   isCorrect!: boolean;
   isCompleted = false;
-  shakeState!: string;
 
   constructor(private slideService: SlideService) {
   }
@@ -54,7 +53,6 @@ export class FixedFillInComponent implements OnChanges {
   check(answer: string, $event: Event): void {
     this.blank = this.scenarioRef.nativeElement.children['blank0'];
     this.isCorrect = this.answer === answer;
-    this.shakeState = this.isCorrect ? 'still' : 'shake';
     if ($event.target) {
       this.isCorrect ? this.markAsComplete($event.target, answer) : this.slideService.markAsIncorrect($event.target);
     }
@@ -77,6 +75,5 @@ export class FixedFillInComponent implements OnChanges {
       correct: this.isCorrect,
       completed: this.isCompleted
     })
-    setTimeout(_ => this.shakeState = 'still', 100);
   }
 }

@@ -1,1 +1,11 @@
-<p>swipe works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <div fxFlex="90" class="scenario centered mat-body-2"> {{slide.content['scenario']}} </div>
+  <div fxFlex="55" fxFlex.sm="70" fxFlex.lt-sm="90" class="cards"
+       appCardRenderer #cards [cards]="slide.content['cards']" *ngIf="!isCompleted"></div>
+  <div fxFlex="55" fxFlex.sm="70" fxFlex.lt-sm="90" class="all-done" *ngIf="isCompleted">All Done!</div>
+
+  <div fxFlex="80" fxFlex.lt-md="100" class="options space" *ngIf="!isCompleted">
+    <div class="double-columns" (click)="check(slide.content['swipe_left'])">{{slide.content['swipe_left']}}</div>
+    <div class="double-columns" (click)="check(slide.content['swipe_right'])">{{slide.content['swipe_right']}}</div>
+  </div>
+</div>
