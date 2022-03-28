@@ -16,7 +16,8 @@ export class FooterComponent implements OnInit {
   response!: string;
   width = 0;
   startSlide = false;
-  staticSlide= false;
+  staticSlide = false;
+  hintFillInSlide = false;
   ui!: SlideHeaderFooter;
   constructor(private slideService: SlideService) { }
 
@@ -24,12 +25,17 @@ export class FooterComponent implements OnInit {
     this.slideService.ui.subscribe({
       next: data => {
         this.ui = data;
+        this.initSlideType(data.marker);
         this.setResponse(data.response);
-        this.startSlide = data.marker === SlideType.Start;
-        this.staticSlide= this.slideService.slides[data.marker].type === SlideType.Static;
       },
       error: error => console.log(error)
     });
+  }
+
+  initSlideType(marker: number): void {
+    this.startSlide = marker === SlideType.Start;
+    this.staticSlide = this.slideService.slides[marker].type === SlideType.Static;
+    this.hintFillInSlide = this.slideService.slides[marker].type === SlideType.HintFillIn;
   }
 
   setResponse(response: string): void {
@@ -39,18 +45,24 @@ export class FooterComponent implements OnInit {
     }, 200)
   }
 
-  // trigger() {
-  //   this.completed = true;
-  //   this.correct = true;
-  //   this.setResponse('this is a shiny response! this is a shiny response! this is a shiny response! ');
-  // }
-
   move(forward: boolean): void {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1
     this.slideService.next({
       marker: index,
       action: ACTIONS[this.slideService.slides[index].type],
       response: '',
+      correct: false,
+      completed: false
+    })
+  }
+
+  hint(): void {
+    // @ts-ignore
+    const hint = this.slideService.slides[this.slideService.markerIndex].content['hint'];
+    this.slideService.next({
+      marker: this.ui.marker,
+      action: this.ui.action,
+      response: hint,
       correct: false,
       completed: false
     })

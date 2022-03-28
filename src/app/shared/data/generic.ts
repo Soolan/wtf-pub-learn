@@ -22,3 +22,5 @@ export const OPTIONS_BREAKPOINT = 25;
 export const BLANK_PLACEHOLDER = "------";
 
 export const BLANK_SPACES = ['start', 'end'];
+
+export const POSITIONS = ['Top', 'Buttom', 'Left', 'Right'];

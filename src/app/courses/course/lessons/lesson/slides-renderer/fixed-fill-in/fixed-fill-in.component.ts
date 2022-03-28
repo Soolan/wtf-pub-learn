@@ -11,7 +11,6 @@ import {SlideService} from '../slide.service';
 })
 export class FixedFillInComponent implements OnChanges {
   @Input() slide!: any;
-  @Input() image!: string;
   @ViewChild('scenario') scenarioRef!: ElementRef;
   @ViewChild('optionSet') optionSetRef!: ElementRef;
 
@@ -53,7 +52,6 @@ export class FixedFillInComponent implements OnChanges {
   }
 
   check(answer: string, $event: Event): void {
-    console.log($event.target);
     this.blank = this.scenarioRef.nativeElement.children['blank0'];
     this.isCorrect = this.answer === answer;
     this.shakeState = this.isCorrect ? 'still' : 'shake';

@@ -13,6 +13,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import { BlackRendererDirective } from './directives/black-renderer.directive';
 import { BlankRendererDirective } from './directives/blank-renderer.directive';
+import { TypeInRendererDirective } from './directives/type-in-renderer.directive';
 
 @NgModule({
   declarations: [
@@ -21,14 +22,16 @@ import { BlankRendererDirective } from './directives/blank-renderer.directive';
     StorageUrlPipe,
     BlackRendererDirective,
     BlankRendererDirective,
+    TypeInRendererDirective,
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    StorageUrlPipe,
-    BlackRendererDirective,
-    BlankRendererDirective,
-  ],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        StorageUrlPipe,
+        BlackRendererDirective,
+        BlankRendererDirective,
+        TypeInRendererDirective,
+    ],
   imports: [
     CommonModule,
     FlexLayoutModule,

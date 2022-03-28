@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {OptionSet} from '../../../../../../shared/models/slide';
+import {Option, OptionSet} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 
@@ -46,7 +46,6 @@ export class MixedFillInComponent implements OnChanges {
     this.answers = [];
     this.options = [];
     this.optionSets = [];
-    this.initBlanks();
   }
 
   initAnswers(): void {
@@ -82,20 +81,27 @@ export class MixedFillInComponent implements OnChanges {
   }
 
   check(answer: string, $event: Event): void {
-    // if(this.currentSet == 0) {
-    //   this.initBlanks();
-    // }
+    if(this.currentSet == 0) {
+      this.initBlanks();
+    }
     this.isCorrect = this.answers[this.currentSet] === answer;
-    if (this.isCorrect) {
-      this.slideService.fillBlank(this.blanks[this.currentSet], answer);
-      this.moveToNextOptionsSet();
+    this.shakeState = this.isCorrect ? 'still' : 'shake';
+
+    if ($event.target) {
+      if (this.isCorrect) {
+        this.slideService.fillBlank(this.blanks[this.currentSet], answer);
+        this.moveToNextOptionsSet();
+      } else {
+        this.slideService.markAsDisabled($event.target);
+      }
     }
     this.response = this.slide.content.options.find( (option: any) => option.value === answer).response;
     this.updateUI();
   }
 
   moveToNextOptionsSet(): void {
-    if (this.answers.length >= this.currentSet) {
+    console.log(this.answers.length > this.currentSet+1, this.optionSets, this.currentSet);
+    if (this.answers.length > this.currentSet+1) {
       this.optionSets[this.currentSet++].isActive = false;
       setTimeout (() => {
         this.optionSets[this.currentSet].isActive = true;
@@ -104,6 +110,8 @@ export class MixedFillInComponent implements OnChanges {
       this.isCompleted = true;
       this.optionSets[this.currentSet].isActive = false;
     }
+    console.log(this.answers.length >= this.currentSet, this.isCompleted);
+
     this.updateUI();
   }
 

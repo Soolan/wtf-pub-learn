@@ -1,11 +1,11 @@
 <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
-  <div fxFlex="36" fxFlexOffset="1">
+  <div fxFlex="35" fxFlex.lt-md="20" fxFlexOffset="1">
     <div class="exit" (click)="exit()">
       <mat-icon color="warn">chevron_left</mat-icon>
       <span>EXIT</span>
     </div>
   </div>
-  <div fxFlex="26" class="markers">
+  <div fxFlex="30" fxFlex.lt-md="40" class="markers">
     <div class="marker" *ngFor="let block of firstRow; let i = index;"
          (click)="jumpTo(i)"
          [style.background-color]="i <= slideService.markerIndex ? 'var(--color-primary)' : ''"
@@ -20,7 +20,7 @@
     </div>
     <span>{{(slideService.ui | async)?.action}}</span>
   </div>
-  <div fxFlex="37" class="info">
+  <div fxFlex="35" fxFlex.lt-md="40" class="info">
     <div class="course">{{course}}</div>
     <div class="lesson">{{lesson}}</div>
   </div>

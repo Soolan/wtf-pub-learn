@@ -1,10 +1,8 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SlideService} from '../slide.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigateService} from '../../../../../../shared/services/navigate.service';
 import {ToggleHeaderFooterService} from '../../../../../../shared/services/toggle-header-footer.service';
-import {Observable} from 'rxjs';
-import {SlideHeaderFooter} from '../../../../../../shared/models/slide';
 import {ACTIONS} from '../../../../../../shared/data/generic';
 
 @Component({
@@ -12,7 +10,7 @@ import {ACTIONS} from '../../../../../../shared/data/generic';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnChanges {
+export class HeaderComponent implements OnInit {
   @Input() count!: number;
   @Input() course!: string;
   @Input() lesson!: string;
@@ -30,12 +28,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log(this.count, this.course, this.lesson);
     this.initMarkers();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
   }
 
   initMarkers(): void {
@@ -43,13 +36,12 @@ export class HeaderComponent implements OnInit, OnChanges {
       if (this.count % 2 === 0) {
         this.firstRow = Array(this.count/2);
         this.secondRow = this.firstRow;
-        console.log(this.count, this.firstRow, this.secondRow);
       } else {
         this.firstRow = Array(Math.ceil(this.count/2));
         this.secondRow = Array(this.firstRow.length - 1);
-        console.log(this.count, this.firstRow, this.secondRow);
       }
     } else {
+      // ToDo: replace with proper ux
       console.log('slide count is not correct!', this.count);
     }
   }

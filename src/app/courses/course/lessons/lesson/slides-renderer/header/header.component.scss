@@ -31,6 +31,9 @@
     span {
       font-size: smaller;
       letter-spacing: var(--space-xxs);
+      @media screen and (max-width: 960px){
+        letter-spacing: 0;
+      }
     }
   }
   .info {

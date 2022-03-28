@@ -1,23 +1,35 @@
 <ng-container [ngSwitch]="content.position">
   <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <div fxFlex="100" class="image" [style.background-image]="'url('+(content.image|storageUrl|async)+')'"
+    <div fxFlex="100" class="image"
+         [style.background-image]="image ? image : gradient"
+         [style.background-size]="image ? 'contain':size"
+         [style.background-repeat]="image ? 'no-repeat':''"
          [style.margin-bottom]="'var(--space-md)'"></div>
-    <p fxFlex="100" class="mat-body-2">{{content.text}}</p>
+    <p fxFlex="100" class="mat-body-2">{{text}}</p>
   </div>
   <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <p fxFlex="100" class="mat-body-2">{{content.text}}</p>
-    <div fxFlex="100" class="image" [style.background-image]="'url('+(content.image|storageUrl|async)+')'"
+    <p fxFlex="100" class="mat-body-2">{{text}}</p>
+    <div fxFlex="100" class="image"
+         [style.background-image]="image ? image : gradient"
+         [style.background-size]="image ? 'contain':size"
+         [style.background-repeat]="image ? 'no-repeat':''"
          [style.margin-top]="'var(--space-md)'"></div>
   </div>
   <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <p fxFlex="65" class="mat-body-2">{{content.text}}</p>
-    <div fxFlex="30" class="image" [style.background-image]="'url('+(content.image|storageUrl|async)+')'"
+    <p fxFlex="65" class="mat-body-2">{{text}}</p>
+    <div fxFlex="30" class="image"
+         [style.background-image]="image ? image : gradient"
+         [style.background-size]="image ? 'contain':size"
+         [style.background-repeat]="image ? 'no-repeat':''"
          [style.min-height]="'13em'"></div>
 
   </div>
   <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <div fxFlex="30" class="image" [style.background-image]="'url('+(content.image|storageUrl|async)+')'"
+    <div fxFlex="30" class="image"
+         [style.background-image]="image ? image : gradient"
+         [style.background-size]="image ? 'contain':size"
+         [style.background-repeat]="image ? 'no-repeat':''"
          [style.min-height]="'13em'"></div>
-    <p fxFlex="65" class="mat-body-2">{{content.text}}</p>
+    <p fxFlex="65" class="mat-body-2">{{text}}</p>
   </div>
 </ng-container>
