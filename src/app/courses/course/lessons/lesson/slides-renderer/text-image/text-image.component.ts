@@ -12,9 +12,6 @@ export class TextImageComponent implements OnInit {
   position = Position;
   text!: string;
   image!: string;
-  gradient = 'linear-gradient(145deg, var(--color-greye) 12.50%, var(--color-aquamarine-background) 12.50%, var(--color-aquamarine-background) 50%,'+
-             ' var(--color-greye) 50%, var(--color-greye) 62.50%, var(--color-aquamarine-background) 62.50%, var(--color-aquamarine-background) 100%)';
-  size = '34.87px 24.42px';
 
   constructor(private storage: AngularFireStorage) {}
 
@@ -25,5 +22,4 @@ export class TextImageComponent implements OnInit {
       error: error => console.log(error)
     });
   }
-
 }

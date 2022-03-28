@@ -59,7 +59,7 @@ export class SingleChoiceComponent implements OnChanges {
     this.shakeState = this.isCorrect ? 'still' : 'shake';
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     if ($event.target) {
-      this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsDisabled($event.target);
+      this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsIncorrect($event.target);
     }
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     this.updateUI();
@@ -67,6 +67,7 @@ export class SingleChoiceComponent implements OnChanges {
 
   markAsComplete(button: EventTarget) {
     this.isCompleted = true;
+    this.slideService.markAsCorrect(button);
     this.updateUI();
   }
 

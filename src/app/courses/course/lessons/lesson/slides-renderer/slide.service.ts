@@ -89,10 +89,29 @@ export class SlideService {
     this.renderer.removeClass(element, 'mark');
   }
 
-  markAsDisabled(button: EventTarget) {
+  markAsIncorrect(button: EventTarget) {
     this.renderer.addClass(button, 'shake');
-    this.renderer.addClass(button, 'mark');
+    this.renderer.addClass(button, 'incorrect');
     this.renderer.addClass(button, 'disable');
+    const span = this.setIcon('close');
+    this.renderer.appendChild(button, span);
+  }
+
+
+  markAsCorrect(button: EventTarget) {
+    this.renderer.addClass(button, 'correct');
+    this.renderer.addClass(button, 'disable');
+    const span = this.setIcon('check');
+    this.renderer.appendChild(button, span);
+  }
+
+  private setIcon(icon: string) {
+    const span = this.renderer.createElement('span');
+    this.renderer.setStyle(span, 'vertical-align', 'middle');
+    this.renderer.addClass(span, 'material-icons');
+    const content = this.renderer.createText(icon);
+    this.renderer.appendChild(span, content);
+    return span;
   }
 
   randomizeMultiChoiceOptions(optionsPerSet: number, options: string[], answers: string[]) {

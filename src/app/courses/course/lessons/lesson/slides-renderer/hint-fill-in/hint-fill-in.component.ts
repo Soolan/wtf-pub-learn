@@ -28,29 +28,27 @@ export class HintFillInComponent implements OnChanges {
   showHint = false;
   position = Position;
 
-  // create member that holds & protects the function reference
-  // protected clickEventListener: EventListener;
-
   constructor(
     private slideService: SlideService,
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
   ) {
     this.form = this.formBuilder.group({blank_field: null});
-    // this.clickEventListener = () => this.initInputField();
+    this.slideService.ui.subscribe({
+      // keep the focus on input after clicking on the hint button
+      next: data => this.blankDivRef.nativeElement.children['input_field'].focus(),
+      error: error => console.log(error)
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.reset();
     this.answer = this.slide.content.answer;
     this.checkOnKeyStroke();
-
     setTimeout(() => {
       this.blank = this.getBlankBox(this.slide.content.position)
       this.initInputField();
-
-      // this.blank.addEventListener('click', this.clickEventListener);
-    }, 700)
+      }, 700)
   }
 
   getBlankBox(position: number): any {

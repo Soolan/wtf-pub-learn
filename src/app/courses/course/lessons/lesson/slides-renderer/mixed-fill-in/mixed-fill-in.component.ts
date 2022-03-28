@@ -92,7 +92,7 @@ export class MixedFillInComponent implements OnChanges {
         this.slideService.fillBlank(this.blanks[this.currentSet], answer);
         this.moveToNextOptionsSet();
       } else {
-        this.slideService.markAsDisabled($event.target);
+        this.slideService.markAsIncorrect($event.target);
       }
     }
     this.response = this.slide.content.options.find( (option: any) => option.value === answer).response;

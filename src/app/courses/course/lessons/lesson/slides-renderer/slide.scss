@@ -78,8 +78,14 @@
   font-size: 1.07em;
 }
 
-.mark {
+.incorrect {
   background-color: var(--color-grey9) !important;
+  color: var(--color-greye) !important;
+  font-weight: bolder;
+}
+
+.correct {
+  background-color: var(--color-primary-light) !important;
   color: var(--color-greye) !important;
   font-weight: bolder;
 }
