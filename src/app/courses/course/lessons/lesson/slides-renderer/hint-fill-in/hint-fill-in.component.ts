@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {SlideService} from '../slide.service';
 import {Position} from '../../../../../../shared/data/enums';
 import {SLIDE_UP} from '../../../../../../shared/animations/slide-up';
@@ -21,7 +21,7 @@ export class HintFillInComponent implements OnChanges {
   @ViewChild('bottom') bottomRef!: ElementRef;
 
   blank: any = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
   answer = '';
   isCorrect = false;
   isCompleted = false;
@@ -30,7 +30,7 @@ export class HintFillInComponent implements OnChanges {
 
   constructor(
     private slideService: SlideService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private renderer: Renderer2,
   ) {
     this.form = this.formBuilder.group({blank_field: null});
