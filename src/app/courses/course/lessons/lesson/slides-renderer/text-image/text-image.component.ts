@@ -16,7 +16,7 @@ export class TextImageComponent implements OnInit {
   constructor(private storage: AngularFireStorage) {}
 
   ngOnInit(): void {
-    this.text = this.content.text || this.content.question;
+    this.text = this.content.text || this.content.question || this.content.summary;
     this.storage.ref(this.content.image).getDownloadURL().subscribe({
       next: url => this.image = `url(${url})`,
       error: error => console.log(error)

@@ -5,14 +5,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatButtonModule} from '@angular/material/button';
 import {AngularFireModule} from '@angular/fire/compat';
 import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {environment} from '../environments/environment';
-import {MatCardModule} from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
 import { CourseModule } from './courses/course.module';
 
 @NgModule({
@@ -26,7 +22,6 @@ import { CourseModule } from './courses/course.module';
     AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
     AngularFirestoreModule,
     AngularFireAnalyticsModule,
-
     CourseModule,
     SharedModule,
     FlexLayoutModule,

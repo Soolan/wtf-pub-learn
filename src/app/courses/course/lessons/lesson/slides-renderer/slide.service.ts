@@ -205,26 +205,25 @@ export class SlideService {
     console.log(index)
     const width = window.innerWidth;
     let transX: TransX;
-    let transY: string = index + '%';
     transX = SlideService.getTransX(width);
 
     const styles: Style[] = [
-      {name: 'box-shadow', value: '0 0 7px 1px var(--color-primary-dark)'},
-      {name: 'background', value: 'var(--color-primary-light)'},
-      {name: 'color', value: 'var(--color-primary)'},
+      {name: 'box-shadow', value: '0 0 0px 0px var(--color-greye)'},
+      {name: 'color', value: 'var(--color-primary-light)'},
       {name: 'position', value: 'absolute'},
-      {name: 'top', value: index * 0.25 + '%'},
       {name: 'transition', value: 'background 0.15s , color 0.15s, box-shadow 0.55s 0.2s, transform 0.3s 0.1s, top 0.4s 0.1s'},
     ];
 
     const questionStyles: Style[] = styles.concat([
+      {name: 'background', value: 'var(--color-primary-dark)'},
       {name: 'z-index', value: '20'},
       {name: 'transform', value: `translate(${transX.right}, 0)`},
     ]);
     this.renderer.addClass(question, 'q');
 
     const answerStyles: Style[] = styles.concat([
-      {name: 'z-index', value: '25'},
+      {name: 'background', value: 'var(--color-primary)'},
+      {name: 'z-index', value: '15'},
       {name: 'cursor', value: 'default'},
       {name: 'transform', value: `translate(${transX.left}, 0)`},
     ]);
@@ -233,7 +232,7 @@ export class SlideService {
     this.setStyles(answer, answerStyles);
 
     setTimeout(() => {
-      const transY = (index * 105) + 270 + '%';
+      const transY = (index * 105) + 350 + '%';
       this.renderer.setStyle(question, 'transform', `translate(${transX.right}, ${transY})`)
       this.renderer.setStyle(answer, 'transform', `translate(${transX.left}, ${transY})`)
     }, index == 4 ? 0 : 400)

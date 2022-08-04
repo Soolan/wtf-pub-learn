@@ -26,6 +26,7 @@ import { NotFoundComponent } from './lesson/slides-renderer/not-found/not-found.
 import { TextImageComponent } from './lesson/slides-renderer/text-image/text-image.component';
 import { MultipleChoiceComponent } from './lesson/slides-renderer/multiple-choice/multiple-choice.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         MatIconModule,
         MatButtonModule,
         SharedModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatChipsModule
     ]
 })
 export class LessonModule {

@@ -15,6 +15,7 @@ import {BlackRendererDirective} from './directives/black-renderer.directive';
 import {BlankRendererDirective} from './directives/blank-renderer.directive';
 import {TypeInRendererDirective} from './directives/type-in-renderer.directive';
 import {CardRendererDirective} from './directives/card-renderer.directive';
+import { MatchRendererDirective } from './directives/match-renderer.directive';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {CardRendererDirective} from './directives/card-renderer.directive';
     BlankRendererDirective,
     TypeInRendererDirective,
     CardRendererDirective,
+    MatchRendererDirective,
   ],
   exports: [
     HeaderComponent,
@@ -34,6 +36,7 @@ import {CardRendererDirective} from './directives/card-renderer.directive';
     BlankRendererDirective,
     TypeInRendererDirective,
     CardRendererDirective,
+    MatchRendererDirective,
   ],
   imports: [
     CommonModule,

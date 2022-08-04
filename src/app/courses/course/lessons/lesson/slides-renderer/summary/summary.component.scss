@@ -1,0 +1,11 @@
+.keywords {
+  font-weight: bold;
+  text-align: center;
+}
+
+button {
+  margin-top: var(--space-lg);
+  span {
+    padding-right: var(--space-xxs);
+  }
+}

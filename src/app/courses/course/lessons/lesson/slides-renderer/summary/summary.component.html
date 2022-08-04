@@ -1,1 +1,16 @@
-<p>summary works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
+  <div fxFlex="100" class="mat-subheading-2 keywords">Keywords</div>
+  <mat-chip-list aria-label="terms">
+    <mat-chip color="primary" *ngFor="let term of terms">
+      <mat-chip-avatar>
+        <img src="assets/images/logo.png" alt="wtf bar"/>
+      </mat-chip-avatar>
+      {{term}}
+    </mat-chip>
+  </mat-chip-list>
+  <button mat-flat-button (click)="bye()" color="primary">
+    <span>The End</span>
+    <mat-icon>waving_hand</mat-icon>
+  </button>
+</div>

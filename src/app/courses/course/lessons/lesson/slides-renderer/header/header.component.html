@@ -13,7 +13,7 @@
     ></div>
     <div class="second-row">
       <div class="marker" *ngFor="let block of secondRow; let i = index;"
-           (click)="jumpTo(i)"
+           (click)="jumpTo(i+firstRow.length)"
            [style.background-color]="(i + firstRow.length) <= slideService.markerIndex ? 'var(--color-primary)' : ''"
            [style.cursor]="(i + firstRow.length) <= slideService.markerIndex ? 'pointer' : 'default'"
       ></div>

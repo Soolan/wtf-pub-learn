@@ -20,6 +20,7 @@ export class MatchComponent implements OnChanges {
   questions!: string[];
   answers!: string[];
   isCompleted = false;
+  bottom = 0;
 
   constructor(private slideService: SlideService, private renderer: Renderer2) { }
 
@@ -69,6 +70,8 @@ export class MatchComponent implements OnChanges {
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
     if (answer === correct) {
       this.index++;
+      this.bottom += this.index * this.index;
+      console.log(this.index, this.bottom);
       this.slideService.matchColumns(questionDom, answerDom, this.index);
       // this.slideRenderer.addChild();
       if (this.index >= this.answers.length) {
@@ -81,6 +84,7 @@ export class MatchComponent implements OnChanges {
 
   private markAsCompleted(): void {
     this.isCompleted = true;
+    this.updateUI();
   }
 
   updateUI(): void {
