@@ -107,6 +107,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "wtf-pub-learn:build:production",
+            "firebaseProject": "wtf-pub",
+            "firebaseHostingSite": "wtf-learn"
+          }
         }
       }
     }

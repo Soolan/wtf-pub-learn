@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "wtf-pub"
+  },
+  "targets": {
+    "wtf-pub": {
+      "hosting": {
+        "wtf-pub-learn": [
+          "wtf-learn"
+        ]
+      }
+    }
   }
 }
