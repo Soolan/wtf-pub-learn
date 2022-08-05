@@ -1,8 +1,18 @@
-<div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-  <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-    <div fxFlex="95" class="heading" ngClass.gt-md="mat-display-2" ngClass.md="mat-headline" ngClass.lt-md="mat-title"
-         appBlackRenderer [content]="content" [keyword]="keyword">
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="content">
+
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="hero">
+    <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <div fxFlex="95" class="heading" ngClass.gt-md="mat-display-2" ngClass.md="mat-display-1"
+           ngClass.lt-md="mat-title"
+           appBlackRenderer [content]="content" [keyword]="keyword">
+      </div>
+    </div>
+    <div fxFlex="60" fxFlex.lt-md="100" class="banner"></div>
+  </div>
+  <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="bullets">
+    <div *ngFor="let bullet of bullets" fxFlex="20" fxFlex.lt-md="90" fxFlex.md="40">
+      <div class="mat-title">{{bullet.title}}</div>
+      <div class="mat-body-1">{{bullet.description}}</div>
     </div>
   </div>
-  <div fxFlex="65" fxFlex.lt-md="100" class="banner"></div>
 </div>

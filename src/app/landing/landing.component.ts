@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
   keyword = "Crypto";
-  content = "Learn Crypto The Right Way";
+  content = "Learn Crypto, the fun way";
+  bullets: any = [
+    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
+    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
+    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
+    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
+  ]
   constructor() { }
 
   ngOnInit(): void {
