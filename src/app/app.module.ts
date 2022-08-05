@@ -21,6 +21,8 @@ import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { LandingComponent } from './landing/landing.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { LandingComponent } from './landing/landing.component';
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
+    MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

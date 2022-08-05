@@ -1,6 +1,6 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="content">
-
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="hero">
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="content">
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start"
+       class="hero">
     <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
       <div fxFlex="95" class="heading" ngClass.gt-md="mat-display-2" ngClass.md="mat-display-1"
            ngClass.lt-md="mat-title"
@@ -13,6 +13,22 @@
     <div *ngFor="let bullet of bullets" fxFlex="20" fxFlex.lt-md="90" fxFlex.md="40" class="bullet">
       <div class="mat-title">{{bullet.title}}</div>
       <div class="mat-body-1">{{bullet.description}}</div>
+    </div>
+  </div>
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start"
+       class="course">
+    <div fxFlex="70" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="latest">
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between end" *ngIf="course; else loading">
+        <p>awesome latest course!</p>
+        <button fxFlex="30" color="primary" mat-raised-button [routerLink]="['courses', course.id]">Take The Course
+        </button>
+      </div>
+      <ng-template #loading>
+        <mat-spinner></mat-spinner>
+      </ng-template>
+    </div>
+    <div fxFlex="30" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">whud
+      up?
     </div>
   </div>
 </div>

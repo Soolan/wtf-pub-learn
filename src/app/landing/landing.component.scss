@@ -39,4 +39,14 @@
       }
     }
   }
+  .course {
+    .latest{
+      min-height: 10em;
+      background-color: var(--color-grey7);
+    }
+    .stream {
+      min-height: 10em;
+      background-color: var(--color-grey8);
+    }
+  }
 }
