@@ -27,15 +27,12 @@ export class LandingComponent implements OnInit {
     query.limit = 1;
     this.crud.colRefQuery(query).pipe(
       map(this.crud.mapId),
-      shareReplay(1),
+      // shareReplay(1),
     ).subscribe(
       {
-        next: courses => {
-          this.course = courses[0];
-        },
+        next: courses => this.course = courses[0],
         error: error => console.log(error)
       }
     );
   }
-
 }

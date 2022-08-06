@@ -8,7 +8,8 @@ import {Position, SlideType} from './enums';
 export const COURSES: Collection = {
   path: 'courses',
   limit: 6,
-  where: {field: 'published', operator: '==', value: true}
+  where: {field: 'published', operator: '==', value: true},
+  orderBy: {field: 'timestamps.created_at', direction: 'desc'}
 };
 
 export const COURSE: Course = {
@@ -30,7 +31,9 @@ export const COURSE: Course = {
 export const LESSONS: Collection = {
   path: 'lessons',
   limit: 6,
-  where: {field: 'name', operator: '!=', value: ''}
+  // where: {field: 'name', operator: '!=', value: ''},
+  orderBy: {field: 'timestamps.created_at', direction: 'desc'}
+
 };
 
 export const LESSON: Lesson = {

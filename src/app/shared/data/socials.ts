@@ -1,6 +1,6 @@
 import {Social} from '../models/social';
 
-export const Socials: Social[] = [
+export const SOCIALS: Social[] = [
   {url: 'https://twitter.com', label: 'twitter'},
   {url: 'https://facebook.com', label: 'facebook'},
   {url: 'https://medium.com', label: 'medium'},

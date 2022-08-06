@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SOCIALS} from '../../data/socials';
 
 @Component({
   selector: 'app-footer',
