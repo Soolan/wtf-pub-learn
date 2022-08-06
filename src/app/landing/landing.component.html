@@ -20,7 +20,8 @@
     <div fxFlex="70" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="latest">
       <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between end" *ngIf="course; else loading">
         <p>awesome latest course!</p>
-        <button fxFlex="30" color="primary" mat-raised-button [routerLink]="['courses', course.id]">Take The Course
+        <button color="primary" mat-raised-button [routerLink]="['courses', course.id]" class="action">
+          Start Here
         </button>
       </div>
       <ng-template #loading>

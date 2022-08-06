@@ -1,1 +1,32 @@
-<p>footer works!</p>
+<div fxFlex.gt-lg="50" fxFlex.lg="70" fxFlex="90" fxHide.lt-sm fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <div fxFlex="15" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around center" class="brand">
+    <div fxFlex="100" class="logo"></div>
+  </div>
+  <mat-divider fxHide fxShow.lt-md fxFlex="90"></mat-divider>
+
+  <div fxFlex="20" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="menu">
+    <a mat-button fxFlex="40" fxFlex.lt-md="25" class="mat-caption">About</a>
+    <a mat-button fxFlex="40" fxFlex.lt-md="25" class="mat-caption">Faucet</a>
+    <a mat-button fxFlex="40" fxFlex.lt-md="25" class="mat-caption">Paper</a>
+    <a mat-button fxFlex="40" fxFlex.lt-md="25" class="mat-caption">Events</a>
+  </div>
+  <mat-divider fxHide fxShow.lt-md fxFlex="90"></mat-divider>
+  <div fxFlex="20" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="socials">
+    <span *ngFor="let social of socials" class="{{social.label}}" (click)="navigate(social.label)"></span>
+  </div>
+  <mat-divider fxHide fxShow.lt-md fxFlex="90"></mat-divider>
+  <div fxFlex="25" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="game">
+    <span fxFlex="80" class="play"></span>
+    <span fxFlex="80" class="web"></span>
+  </div>
+  <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
+  <mat-divider fxFlex="100"></mat-divider>
+  <div fxFlex class="copyright mat-caption">
+    <span>Copyright (c) 2022 wtf.pub | All rights reserved. | </span>
+    <a href="">Terms & Conditions</a>
+    <span> | </span>
+    <a href="">Privacy Policy</a>
+  </div>
+
+
+</div>

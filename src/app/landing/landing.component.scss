@@ -43,6 +43,10 @@
     .latest{
       min-height: 10em;
       background-color: var(--color-grey7);
+      .action {
+        min-height: var(--space-lg);
+        width: 7em;
+      }
     }
     .stream {
       min-height: 10em;
