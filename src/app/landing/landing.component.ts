@@ -30,7 +30,10 @@ export class LandingComponent implements OnInit {
       // shareReplay(1),
     ).subscribe(
       {
-        next: courses => this.course = courses[0],
+        next: courses => {
+          this.course = courses[0];
+          console.log(this.course);
+        },
         error: error => console.log(error)
       }
     );

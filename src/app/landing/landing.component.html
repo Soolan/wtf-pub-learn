@@ -19,17 +19,23 @@
        class="course">
     <div fxFlex="70" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="latest">
       <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between end" *ngIf="course; else loading">
-        <p>awesome latest course!</p>
-        <button color="primary" mat-raised-button [routerLink]="['courses', course.id]" class="action">
-          Start Here
-        </button>
+        <div fxFlex="60" fxFlex.lt-md="100" class="image"
+             [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
+        <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+          <div class="mat-subheading-1">{{course.name}}</div>
+          <button fxFlex="90" color="primary" mat-raised-button [routerLink]="['courses', course.id]" class="action">
+            Start Here
+          </button>
+        </div>
+        <p fxFlex="100">{{course.description}}</p>
+
       </div>
       <ng-template #loading>
         <mat-spinner></mat-spinner>
       </ng-template>
     </div>
-    <div fxFlex="30" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">wud
-      up?
-    </div>
+  </div>
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">
+    wud up?
   </div>
 </div>

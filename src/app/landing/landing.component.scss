@@ -1,3 +1,7 @@
+@mixin background() {
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .content {
   .hero {
     margin: 0 auto;
@@ -12,18 +16,16 @@
     }
 
     .banner {
-      height: calc(100vh * 0.45);
+      height: 45vh;
       @media screen and (min-width: 600px) and (max-width: 960px) {
-        height: calc(100vh * 0.55);
+        height: 55vh;
       }
       @media screen and (max-width: 599px) {
-        height: calc(100vh * 0.5);
+        height: 50vh;
       }
-      background-image: url("../../assets/images/banner.webp");
-      background-color: var(--color-greye);
-      background-repeat: no-repeat;
+      @include background();
+      background-image: url("~src/assets/images/banner.webp");
       background-size: cover;
-      background-position: center;
     }
   }
   .bullets {
@@ -42,15 +44,30 @@
   .course {
     .latest{
       min-height: 10em;
-      background-color: var(--color-grey7);
+      .image {
+        @include background();
+        background-size: contain;
+        height: 45vh;
+        @media screen and (min-width: 600px) and (max-width: 960px) {
+          height: 55vh;
+        }
+        @media screen and (max-width: 599px) {
+          height: 50vh;
+        }
+      }
       .action {
         min-height: var(--space-lg);
         width: 7em;
       }
+      p {
+        padding: var(--space-md);
+        @media screen and (max-width: 599px) {
+          text-align: center;
+        }
+      }
     }
-    .stream {
-      min-height: 10em;
-      background-color: var(--color-grey8);
-    }
+  }
+  .stream {
+    background-color: var(--color-grey8);
   }
 }
