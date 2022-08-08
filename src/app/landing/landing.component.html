@@ -15,27 +15,22 @@
       <div class="mat-body-1">{{bullet.description}}</div>
     </div>
   </div>
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start"
-       class="course">
-    <div fxFlex="70" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="latest">
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between end" *ngIf="course; else loading">
-        <div fxFlex="60" fxFlex.lt-md="100" class="image"
-             [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
-        <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-          <div class="mat-subheading-1">{{course.name}}</div>
-          <button fxFlex="90" color="primary" mat-raised-button [routerLink]="['courses', course.id]" class="action">
-            Start Here
-          </button>
-        </div>
-        <p fxFlex="100">{{course.description}}</p>
-
+  <div fxFlex.gt-lg="60" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="courses">
+    <div fxFlex="65" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="course; else loading" class="latest">
+      <div fxFlex="49" fxFlex.lt-md="100" class="image" [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
+      <div fxFlex="49" fxFlex.lt-md="100" class="text" fxLayout="row wrap" fxLayoutAlign="space-around center">
+        <div fxFlex="100" class="mat-headline course-title" appBlackRenderer [content]="course.name" [keyword]="'Fun'"></div>
+        <p fxFlex="100">{{course.description}} - {{course.description}} {{course.description}} </p>
+        <button fxFlex="60" fxFlex.sm="30" fxFlex.lt-sm="60" color="primary" mat-raised-button [routerLink]="['courses', course.id]" class="action">
+          Start Here
+        </button>
       </div>
-      <ng-template #loading>
-        <mat-spinner></mat-spinner>
-      </ng-template>
     </div>
-  </div>
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">
-    wud up?
+    <ng-template #loading>
+      <mat-spinner></mat-spinner>
+    </ng-template>
+    <div fxFlex="30" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">
+      wud up?
+    </div>
   </div>
 </div>
