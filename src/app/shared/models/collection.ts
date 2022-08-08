@@ -5,6 +5,7 @@ export interface Collection {
   path: string;
   limit: number;
   where?: any;
+  orderBy?: any;
 }
 
 export interface Where {

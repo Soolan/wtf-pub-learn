@@ -16,7 +16,7 @@ $typography: mat.define-typography-config(
   $subheading-1: mat.define-typography-level(22px, $font-family: $font-ui),
   $body-2:       mat.define-typography-level(20px, $font-family: $font-slide),
   $body-1:       mat.define-typography-level(20px, $font-family: $font-ui),
-  $caption:      mat.define-typography-level(12px, $font-family: $font-caption),
+  $caption:      mat.define-typography-level(14px, $font-family: $font-caption),
   $button:       mat.define-typography-level(inherit, $font-family: $font-ui),
   // Line-height must be unit-less fraction of the font-size.
   $input:        mat.define-typography-level(inherit, 1.125, $font-family: $font-ui)

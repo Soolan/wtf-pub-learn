@@ -1,3 +1,7 @@
+@mixin background() {
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .content {
   .hero {
     margin: 0 auto;
@@ -12,25 +16,65 @@
     }
 
     .banner {
-      height: calc(100vh * 0.45);
+      height: 45vh;
       @media screen and (min-width: 600px) and (max-width: 960px) {
-        height: calc(100vh * 0.55);
+        height: 70vw;
       }
       @media screen and (max-width: 599px) {
-        height: calc(100vh * 0.5);
+        height: 80vw;
+        background-size: contain;
       }
-      background-image: url("../../assets/images/banner.webp");
-      background-color: var(--color-greye);
-      background-repeat: no-repeat;
+      @include background();
+      background-image: url("~src/assets/images/banner.webp");
       background-size: cover;
-      background-position: center;
     }
   }
   .bullets {
     margin: 0 auto;
-    padding: 2em 0;
+    padding: var(--space-md) 0;
     text-align: center;
     background-color: var(--color-primary-dark);
     color: var(--color-primary-light);
+    .bullet {
+      margin: var(--space-md);
+      @media screen and (max-width: 960px) {
+        margin: var(--space-xl);
+      }
+    }
+  }
+  .courses {
+    margin: var(--space-xl) 0;
+    .latest{
+      min-height: 10em;
+      .image {
+        @include background();
+        background-size: contain;
+        height: 40vh;
+        @media screen and (min-width: 600px) and (max-width: 960px) {
+          height: 55vh;
+        }
+        @media screen and (max-width: 599px) {
+          height: 50vh;
+        }
+      }
+
+      .text {
+        .course-title {font-weight: 100;}
+        p { margin: var(--space-lg) 0; }
+
+        @media screen and (max-width: 959px) {
+          text-align: center;
+          padding: var(--space-lg);
+        }
+
+        .action {
+          min-height: var(--space-lg);
+          width: 7em;
+        }
+      }
+    }
+    .stream {
+      background-color: var(--color-grey8);
+    }
   }
 }

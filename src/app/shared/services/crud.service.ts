@@ -29,6 +29,7 @@ export class CrudService {
     return this.db.collection(
       collection.path, ref => ref
         .where(collection.where.field, collection.where.operator, collection.where.value)
+        .orderBy(collection.orderBy.field, collection.orderBy.direction)
         .limit(collection.limit)
     ).snapshotChanges()
   }
