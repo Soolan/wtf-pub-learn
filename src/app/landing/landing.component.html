@@ -10,8 +10,8 @@
     <div fxFlex="60" fxFlex.lt-md="100" class="banner"></div>
   </div>
   <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="bullets">
-    <div *ngFor="let bullet of bullets" fxFlex="20" fxFlex.lt-md="90" fxFlex.md="40" class="bullet">
-      <div class="mat-title">{{bullet.title}}</div>
+    <div *ngFor="let bullet of bullets" fxFlex="20" fxFlex.lt-sm="90" class="bullet">
+      <div class="icon" [ngStyle]="{'background-image': 'url(assets/images/' + bullet.icon + ')'}"></div>
       <div class="mat-body-1">{{bullet.description}}</div>
     </div>
   </div>

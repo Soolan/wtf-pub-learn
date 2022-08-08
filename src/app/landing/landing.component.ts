@@ -15,10 +15,10 @@ export class LandingComponent implements OnInit {
   id= "";
   course!: any;
   bullets: any = [
-    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
-    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
-    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
-    {title: 'bullet 1', description: 'some description', icon: 'icon1'},
+    {title: 'Blockchain', description: 'All you can learn!', icon: 'logo-blt.png'},
+    {title: 'LOOR', description: 'Financial freedom', icon: 'loor-character.png'},
+    {title: 'Free WTF', description: 'Show me the money!', icon: 'logo-branding.png'},
+    {title: 'Marketplace', description: 'Authentic NFTs', icon: 'logo-grey-white-glow.png'},
   ]
   constructor(private crud: CrudService) { }
 
