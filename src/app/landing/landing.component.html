@@ -1,20 +1,24 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="content">
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="landing">
   <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center"
        class="hero">
     <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
       <div fxFlex="95" class="heading" ngClass.xl="mat-display-3" ngClass.lg="mat-display-2" ngClass.md="mat-display-1"
            ngClass.sm="mat-headline" ngClass.xs="mat-title"
-           appBlackRenderer [content]="content" [keyword]="keyword">
+           appBlackRenderer [content]="heading.content" [keyword]="heading.keyword">
       </div>
       <div fxFlex="95" class="mat-caption caption"> PLAY ⏺ LEARN ⏺ EARN
       </div>
     </div>
     <div fxFlex="60" fxFlex.lt-md="100" class="banner"></div>
   </div>
+  <div fxFlex="100" class="description">
+    <span class="mat-caption" *ngFor="let phrase of description"
+          appBlackRenderer [content]="phrase.content" [keyword]="phrase.keyword"></span>
+  </div>
   <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="bullets">
     <div *ngFor="let bullet of bullets" fxFlex="20" fxFlex.lt-sm="90" class="bullet">
       <div class="icon" [ngStyle]="{'background-image': 'url(assets/images/' + bullet.icon + ')'}"></div>
-      <div class="mat-body-1">{{bullet.description}}</div>
+      <div class="mat-caption text">{{bullet.description}}</div>
     </div>
   </div>
   <div fxFlex.gt-lg="60" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="courses">

@@ -1,3 +1,9 @@
+.header {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+}
 .footer {
   background-color: var(--color-grey3);
   color: var(--color-grey7);

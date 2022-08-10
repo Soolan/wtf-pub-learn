@@ -1,27 +1,25 @@
-<div fxFlex="100" fxHide.lt-sm fxLayout="row wrap" fxLayoutAlign="space-between center">
-  <div fxFlex fxLayout="row wrap" fxLayoutAlign="end center">
-    <div fxFlex></div>
-    <div class="context-menu">
-      <button mat-icon-button [matMenuTriggerFor]="apps">
-        <mat-icon class="bigger">apps</mat-icon>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center" class="full-width">
+  <div fxFlex></div>
+  <div class="context-menu">
+    <button mat-icon-button [matMenuTriggerFor]="apps">
+      <mat-icon class="bigger" [color]="color">apps</mat-icon>
+    </button>
+    <mat-menu #apps="matMenu">
+      <button mat-menu-item *ngFor="let product of products">
+        <div class="product">{{product | uppercase}}</div>
       </button>
-      <mat-menu #apps="matMenu">
-        <button mat-menu-item *ngFor="let product of products">
-          <div class="product">{{product | uppercase}}</div>
-        </button>
-      </mat-menu>
-    </div>
-    <div class="context-menu">
-      <button mat-icon-button [matMenuTriggerFor]="account" aria-label="context menu">
-        <mat-icon class="bigger">account_circle</mat-icon>
-      </button>
-      <mat-menu #account="matMenu" class="menu">
-        <button mat-menu-item *ngFor="let option of profile">
-          <mat-icon>{{option.icon}}</mat-icon>
-          <span>{{option.label}}</span>
-        </button>
-      </mat-menu>
-    </div>
-    <div fxFlex="2"></div>
+    </mat-menu>
   </div>
+  <div class="context-menu">
+    <button mat-icon-button [matMenuTriggerFor]="account" aria-label="context menu">
+      <mat-icon class="bigger" [color]="color">account_circle</mat-icon>
+    </button>
+    <mat-menu #account="matMenu" class="menu">
+      <button mat-menu-item *ngFor="let option of profile">
+        <mat-icon>{{option.icon}}</mat-icon>
+        <span>{{option.label}}</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div fxFlex="2"></div>
 </div>

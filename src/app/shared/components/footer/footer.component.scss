@@ -9,7 +9,7 @@ mat-divider {
 .brand {
   .logo {
     @include background("~src/assets/images/logo-grey.svg");
-    background-position: 45%;
+    background-position: center;
     min-height: 6em;
     opacity: 0.8;
     margin-top: 1.3em;

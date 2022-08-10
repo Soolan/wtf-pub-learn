@@ -1,5 +1,5 @@
+<app-header class="header" *ngIf="toggle.headerSubject|async"></app-header>
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <app-header fxFlex="100" fxLayoutAlign="space-around center" class="header" *ngIf="toggle.headerSubject|async"></app-header>
   <div fxFlex="100">
     <router-outlet></router-outlet>
   </div>
