@@ -23,4 +23,4 @@ export const BLANK_PLACEHOLDER = "------";
 
 export const BLANK_SPACES = ['start', 'end'];
 
-export const POSITIONS = ['Top', 'Buttom', 'Left', 'Right'];
+export const POSITIONS = ['Top', 'Bottom', 'Left', 'Right'];

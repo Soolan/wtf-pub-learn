@@ -3,6 +3,9 @@ import {CrudService} from '../shared/services/crud.service';
 import {COURSES} from '../shared/data/collections';
 import {map} from 'rxjs';
 import {ContentKeyword} from '../shared/models/content-keyword';
+import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
+import {Router} from '@angular/router';
+import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
 
 @Component({
   selector: 'app-landing',
@@ -11,9 +14,10 @@ import {ContentKeyword} from '../shared/models/content-keyword';
 })
 export class LandingComponent implements OnInit {
   heading: ContentKeyword = {
-    content: "Learn Crypto, the fun way",
+    content: "Crypto,",
     keyword: "Crypto"
   }
+  subheading = "the fun way.";
   description: ContentKeyword[] = [
     {
       content: "Understand the crypto buzzwords, ",
@@ -31,12 +35,17 @@ export class LandingComponent implements OnInit {
   id= "";
   course!: any;
   bullets: any = [
-    {title: 'Blockchain', description: 'All you can learn!', icon: 'logo-blt.png'},
-    {title: 'LOOR', description: 'Financial freedom game', icon: 'loor-character.png'},
-    {title: 'Free WTF', description: 'Show me the money!', icon: 'logo-branding.png'},
-    {title: 'Marketplace', description: 'Authentic NFTs', icon: 'logo-grey-white-glow.png'},
+    {title: 'Blockchain', description: 'All you can learn!', icon: 'logo-blt.png', navigate: 'courses'},
+    {title: 'LOOR', description: 'Financial freedom game', icon: 'loor-character.png', navigate: 'https://loor'},
+    {title: 'Free WTF', description: 'Show me the money!', icon: 'logo-branding.png', navigate: 'https://faucet'},
+    {title: 'Marketplace', description: 'Authentic NFTs', icon: 'logo-grey-white-glow.png', navigate: 'https://nft'},
   ]
-  constructor(private crud: CrudService) { }
+
+  constructor(
+    private router: Router,
+    private crud: CrudService,
+    private analytics: AngularFireAnalytics
+  ) { }
 
   ngOnInit(): void {
     let query = COURSES;
@@ -53,5 +62,15 @@ export class LandingComponent implements OnInit {
         error: error => console.log(error)
       }
     );
+  }
+
+  navigate(destination: string): void {
+    this.analytics.logEvent(ACTION_LANDING_CLICK, {component: 'body', button: destination}).then().catch();
+
+    if (destination === 'courses') {
+        this.router.navigate([destination]).then().catch();
+    } else {
+      window.location.href = destination;
+    }
   }
 }

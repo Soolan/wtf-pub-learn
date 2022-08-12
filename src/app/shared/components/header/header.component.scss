@@ -1,4 +1,11 @@
+.nav {
+  font-size: 0.8em;
+}
 .inverse {
   background-color: var(--color-primary-dark);
   transition: background-color 200ms linear;
+}
+.primary-tooltip {
+  color: var(--color-primary-light);
+  background: var(--color-primary-dark);
 }

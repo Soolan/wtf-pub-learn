@@ -1,8 +1,11 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center" class="full-width">
   <div fxFlex></div>
+  <button mat-button routerLink="/" class="nav">Home</button>
+  <button mat-button routerLink="/courses" class="nav">Courses</button>
   <div class="context-menu">
     <button mat-icon-button [matMenuTriggerFor]="apps">
-      <mat-icon class="bigger" [color]="color">apps</mat-icon>
+      <mat-icon class="bigger" [color]="color" #tooltip="matTooltip" matTooltip="WTF apps" matTooltipPosition="below"
+                matTooltipHideDelay="200" matTooltipClass="primary-tooltip">apps</mat-icon>
     </button>
     <mat-menu #apps="matMenu">
       <button mat-menu-item *ngFor="let product of products">
@@ -12,7 +15,8 @@
   </div>
   <div class="context-menu">
     <button mat-icon-button [matMenuTriggerFor]="account" aria-label="context menu">
-      <mat-icon class="bigger" [color]="color">account_circle</mat-icon>
+      <mat-icon class="bigger" [color]="color" #tooltip="matTooltip" matTooltip="Your Profile" matTooltipPosition="below"
+                matTooltipHideDelay="200" matTooltipClass="primary-tooltip">account_circle</mat-icon>
     </button>
     <mat-menu #account="matMenu" class="menu">
       <button mat-menu-item *ngFor="let option of profile">

@@ -1,6 +1,6 @@
-<div fxFlex.gt-lg="65" fxFlex.lg="80" fxFlex.md="90" fxFlex.sm="95" fxFlex.lt-sm="100"
+<div fxFlex.gt-lg="70" fxFlex.lg="80" fxFlex.md="90" fxFlex.sm="95" fxFlex.lt-sm="100"
      fxLayout="row wrap" fxLayoutAlign="space-around start" class="content">
-  <div [@flip]="flipState" class="flip-card-inner" fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="100">
+  <div [@flip]="flipState" class="flip-card-inner" fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="95">
     <div class="flip-card-front" *ngIf="!lessons"> <!-- This is the side with buttons and controls -->
 
       <mat-card *ngFor="let course of courses">
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <mat-card fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="100">
+  <mat-card fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="95">
     <div mat-card-image [ngStyle]="{'background-image': 'url(' + (avatar | storageUrl | async) + ')'}"
          class="image"></div>
     <mat-card-header>
@@ -62,7 +62,7 @@
       <button mat-button>DETAILS</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="100">
+  <mat-card fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="95">
     <div mat-card-image [ngStyle]="{'background-image': 'url(' + (avatar | storageUrl | async) + ')'}"
          class="image"></div>
     <mat-card-header>
@@ -80,7 +80,7 @@
       <button mat-button>DETAILS</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="100">
+  <mat-card fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="95">
     <div mat-card-image [ngStyle]="{'background-image': 'url(' + (avatar | storageUrl | async) + ')'}"
          class="image"></div>
     <mat-card-header>

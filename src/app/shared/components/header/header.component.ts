@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {PRODUCTS, PROFILE} from '../../data/navigation';
 import {Option} from '../../models/navigation';
 import {ThemePalette} from '@angular/material/core';
@@ -6,7 +6,8 @@ import {ThemePalette} from '@angular/material/core';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
   login = false;
