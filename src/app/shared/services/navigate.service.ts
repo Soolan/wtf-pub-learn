@@ -10,11 +10,11 @@ export class NavigateService {
 
   constructor(private router: Router) { }
 
-  goto(collection: string, courseId: string, lessonId?: string): void {
+  goto(collection: string, courseId?: string, lessonId?: string): void {
     const path =
       collection === 'lessons' ?
-        ['courses', courseId, 'lessons', lessonId] :
-        ['courses', courseId];
+        ['courses', courseId, 'lessons', lessonId] : courseId?
+        ['courses', courseId] : ['courses'];
     this.router.navigate(path)
       .then()
       .catch((error: any) => console.log(error))

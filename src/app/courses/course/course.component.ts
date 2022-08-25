@@ -77,6 +77,10 @@ export class CourseComponent implements OnInit {
     this.navigate.goto('lessons', this.id, lessonId);
   }
 
+  exit(): void {
+    this.navigate.goto('courses', '');
+  }
+
   setCurrent(lessonId: string): void {
     const lessonName = this.lessons.find(lesson => lesson.id === lessonId).name;
     this.current.next({

@@ -1,5 +1,17 @@
+.exit {
+  cursor: pointer;
+  .mat-icon {
+    vertical-align: middle;
+  }
+  span {
+    color: var(--color-primary-dark);
+    vertical-align: middle;
+    font-size: large;
+    letter-spacing: var(--space-xxs);
+  }
+}
 .content {
-  margin: 0 auto;
+  margin: var(--space-xl) auto;
   .course, .summary {
     min-height: 10em;
     background-color: var(--color-greye);

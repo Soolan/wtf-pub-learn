@@ -16,6 +16,8 @@ import {BlankRendererDirective} from './directives/blank-renderer.directive';
 import {TypeInRendererDirective} from './directives/type-in-renderer.directive';
 import {CardRendererDirective} from './directives/card-renderer.directive';
 import { MatchRendererDirective } from './directives/match-renderer.directive';
+import {RouterModule} from '@angular/router';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { MatchRendererDirective } from './directives/match-renderer.directive';
     MatCardModule,
     MatListModule,
     MatIconModule,
+    RouterModule,
+    MatTooltipModule,
   ]
 })
 export class SharedModule {

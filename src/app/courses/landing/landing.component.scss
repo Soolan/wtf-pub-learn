@@ -1,5 +1,5 @@
 .content {
-  margin: 0 auto;
+  margin: var(--space-xl) auto;
   .flip-card-inner {
     transform-style: preserve-3d;
   }

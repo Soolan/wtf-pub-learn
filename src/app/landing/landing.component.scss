@@ -2,21 +2,28 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.content {
+.landing {
   .hero {
     margin: 0 auto;
     text-align: end;
     @media screen and (max-width: 960px) {
       text-align: center;
-      margin: 1em 0;
+      margin: var(--space-xl) 0;
     }
     .heading {
       font-weight: 100;
       line-height: 1.1em;
+      margin: 0;
+    }
+    .subheading{
+      font-weight: 200;
+      line-height: 1.4em;
+      margin-bottom: var(--space-sm);
     }
     .caption {
       letter-spacing: var(--space-xxs);
       color: var(--color-grey7);
+      margin-top: var(--space-xs);
       margin-bottom: var(--space-xl);
       @media screen and (min-width: 960px) and (max-width: 1279px) {
         font-size: 16px;
@@ -32,15 +39,25 @@
     .banner {
       height: 50vh;
       @media screen and (min-width: 600px) and (max-width: 960px) {
-        height: 45vw;
+        height: 55vw;
       }
       @media screen and (max-width: 599px) {
-        height: 60vw;
-        background-size: contain;
+        height: 65vw;
       }
       @include background();
-      background-image: url("~src/assets/images/banner.webp");
-      background-size: cover;
+      background-image: url("~src/assets/images/banner-transparent.png");
+      background-size: contain;
+    }
+  }
+  .description {
+    text-align: center;
+    padding: var(--space-sm) var(--space-lg);
+    background-color: var(--color-grey1);
+    color: var(--color-grey7);
+    span {
+      margin: 0;
+      font-size: large;
+      letter-spacing: var(--space-xxxs);
     }
   }
   .bullets {
@@ -48,9 +65,10 @@
     padding: var(--space-md) 0;
     text-align: center;
     background-color: var(--color-primary-dark);
-    color: var(--color-primary-light);
     .bullet {
-      margin: var(--space-md);
+      padding: var(--space-md);
+      opacity: 0.7;
+      transition: 0.2s;
       @media screen and (max-width: 960px) {
         margin: var(--space-lg);
       }
@@ -59,6 +77,18 @@
         background-size: contain;
         height: var(--space-xxl);
       }
+      .text {
+        margin-top: var(--space-xs);
+        font-weight: 400;
+        font-size: large;
+        color: var(--color-aquamarine-background);
+
+      }
+    }
+    .bullet:hover {
+      opacity: 1;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
   .courses {

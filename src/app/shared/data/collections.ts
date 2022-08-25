@@ -31,7 +31,7 @@ export const COURSE: Course = {
 export const LESSONS: Collection = {
   path: 'lessons',
   limit: 6,
-  // where: {field: 'name', operator: '!=', value: ''},
+  where: {field: 'published', operator: '==', value: true},
   orderBy: {field: 'timestamps.created_at', direction: 'desc'}
 
 };
@@ -53,7 +53,8 @@ export const LESSON: Lesson = {
 export const SLIDES: Collection = {
   path: 'slides',
   limit: 25,
-  where: {field: 'type', operator: '!=', value: '-1'}
+  where: {field: 'order', operator: '!=', value: ''},
+  orderBy: {field: 'order', direction: 'asc'}
 };
 
 export const START_SLIDE: Slide = {
