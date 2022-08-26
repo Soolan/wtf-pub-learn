@@ -6,15 +6,16 @@
 
 ---
 
-# V1.0.0
-## What's New
-- Release, Release Notes and Road Map pages
-- User registration & authentication 
-- User profile management
-- User notifications
-- Lesson one
-- Products Popup
+# WTF Learn (v1.0.0)
+**release date:** 2022, Sep 11th 
+## Features
+- **New pages added:** Release, Release Notes and Road Map
+- **Sign up/Sign in:** Users can register & be authenticated 
+- **Profile:** Users can manage their profile
+- **Notifications:** Users will receive notifications on system events
+- **New lesson:** Lesson one is ready. Yay!
+- **Products:** A products popup is available next to the user icon.
 ## Improvements
-## Bug Fixes
-## Operation
-- Github Actions for staging & production pipelines created
+## Fixes
+## Operations
+- **Automated workflows:** Github Actions for staging & production pipelines created
