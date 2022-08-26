@@ -1,0 +1,21 @@
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="start center">
+  <div class="mat-headline" fxFlex="100">Road Map</div>
+  <div class="mat-body-1"></div>
+  <div class="mat-headline" fxFlex="100">Releases</div>
+  <div fxFlex="100">
+    <div *ngFor="let r of releases">
+      <div class="version">{{r.version}}</div>
+      <div class="date">{{r.date}}</div>
+      <div class="mat-title">Feature</div>
+      <ul class="features" *ngFor="let feature of r.features">
+        <li>{{feature}}</li>
+      </ul>
+      <div class="improvements"></div>
+      <div class="fixes"></div>
+      <div class="mat-title">Operations</div>
+      <ul class="operations" *ngFor="let operation of r.operations">
+        <li>{{operation}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
