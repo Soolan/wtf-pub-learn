@@ -11,6 +11,7 @@ export class ReleasesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.releases[0].fixes)
   }
 
 }
