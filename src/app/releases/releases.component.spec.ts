@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextImageComponent } from './text-image.component';
+import { ReleasesComponent } from './releases.component';
 
-describe('TextImageComponent', () => {
-  let component: TextImageComponent;
-  let fixture: ComponentFixture<TextImageComponent>;
+describe('ReleasesComponent', () => {
+  let component: ReleasesComponent;
+  let fixture: ComponentFixture<ReleasesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TextImageComponent ]
+      declarations: [ ReleasesComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TextImageComponent);
+    fixture = TestBed.createComponent(ReleasesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

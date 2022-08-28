@@ -23,11 +23,17 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { LandingComponent } from './landing/landing.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ReleasesComponent } from './releases/releases.component';
+import { ReleaseNotesComponent } from './releases/release-notes/release-notes.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
+    ReleasesComponent,
+    ReleaseNotesComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +57,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     provideStorage(() => getStorage()),
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatChipsModule,
+    MatExpansionModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

@@ -1,0 +1,31 @@
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="contents">
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div fxFlex="65" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="releases">
+      <div fxFlex="90" class="mat-headline thin">Releases</div>
+      <div fxFlex="90">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let r of releases">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{r.version}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{r.date}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div fxFlex="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
+              <app-release-notes fxFlex="100" title="Features" [bullets]="r.features"></app-release-notes>
+              <app-release-notes fxFlex="100" title="Improvements" [bullets]="r.improvements"></app-release-notes>
+              <app-release-notes fxFlex="100" title="Fixes" [bullets]="r.fixes"></app-release-notes>
+              <app-release-notes fxFlex="100" title="Operations" [bullets]="r.operations"></app-release-notes>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+    <div fxFlex="30" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+      <div fxFlex="90" class="mat-headline thin">Road Map</div>
+      <div fxFlex="80" class="mat-body-1">yaw</div>
+    </div>
+  </div>
+</div>
