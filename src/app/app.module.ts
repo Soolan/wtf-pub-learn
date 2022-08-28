@@ -25,6 +25,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ReleasesComponent } from './releases/releases.component';
 import { ReleaseNotesComponent } from './releases/release-notes/release-notes.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { ReleaseNotesComponent } from './releases/release-notes/release-notes.co
     provideStorage(() => getStorage()),
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatChipsModule,
+    MatExpansionModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

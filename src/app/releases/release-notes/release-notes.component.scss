@@ -1,0 +1,10 @@
+.notes {
+  margin-top: var(--space-md);
+  li {
+    line-height: var(--space-md);
+    padding-bottom: var(--space-xxs);
+  }
+  .bold {
+    font-weight: bolder;
+  }
+}

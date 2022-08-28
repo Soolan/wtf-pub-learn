@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-release-notes',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReleaseNotesComponent implements OnInit {
 
+  @Input() title!: string;
+  @Input() bullets!: string[];
   constructor() { }
 
   ngOnInit(): void {

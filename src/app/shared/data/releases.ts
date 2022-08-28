@@ -2,7 +2,7 @@ import {Release} from '../models/release';
 
 export const RELEASES: Release[] = [
   {
-    version: "WTF Learn (v1.0.0)",
+    version: "v1.0.0",
     date: "2022, Sep 11th",
     features: [
       "New pages added: Release, Release Notes and Road Map",
