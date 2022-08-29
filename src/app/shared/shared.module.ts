@@ -19,6 +19,7 @@ import { MatchRendererDirective } from './directives/match-renderer.directive';
 import {RouterModule} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AuthenticationComponent } from './components/dialogs/authentication/authentication.component';
+import { WalletComponent } from './components/dialogs/wallet/wallet.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthenticationComponent } from './components/dialogs/authentication/aut
     CardRendererDirective,
     MatchRendererDirective,
     AuthenticationComponent,
+    WalletComponent,
   ],
   exports: [
     HeaderComponent,
