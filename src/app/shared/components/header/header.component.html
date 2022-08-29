@@ -19,7 +19,7 @@
                 matTooltipHideDelay="200" matTooltipClass="primary-tooltip">account_circle</mat-icon>
     </button>
     <mat-menu #account="matMenu" class="menu">
-      <button mat-menu-item *ngFor="let option of profile">
+      <button mat-menu-item *ngFor="let option of profile" (click)="openDialog(option.label)">
         <mat-icon>{{option.icon}}</mat-icon>
         <span>{{option.label}}</span>
       </button>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-authentication',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor() { }
+  constructor( public dialogRef: MatDialogRef<AuthenticationComponent> ) { }
 
   ngOnInit(): void {
   }
