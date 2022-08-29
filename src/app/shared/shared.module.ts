@@ -20,6 +20,7 @@ import {RouterModule} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AuthenticationComponent } from './components/dialogs/authentication/authentication.component';
 import { WalletComponent } from './components/dialogs/wallet/wallet.component';
+import { NotificationsComponent } from './components/dialogs/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { WalletComponent } from './components/dialogs/wallet/wallet.component';
     MatchRendererDirective,
     AuthenticationComponent,
     WalletComponent,
+    NotificationsComponent,
   ],
   exports: [
     HeaderComponent,
