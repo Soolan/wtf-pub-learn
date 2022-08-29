@@ -18,6 +18,7 @@ import {CardRendererDirective} from './directives/card-renderer.directive';
 import { MatchRendererDirective } from './directives/match-renderer.directive';
 import {RouterModule} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { AuthenticationComponent } from './components/dialogs/authentication/authentication.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TypeInRendererDirective,
     CardRendererDirective,
     MatchRendererDirective,
+    AuthenticationComponent,
   ],
   exports: [
     HeaderComponent,
