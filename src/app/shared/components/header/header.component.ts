@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   openDialog(name: string): void {
     switch (name) {
       case this.profile[0].label:
-        this.dialog.open(AuthenticationComponent, {width: '250px'});
+        this.dialog.open(AuthenticationComponent, {width: '450px'});
         break;
       case this.profile[1].label:
         this.dialog.open(WalletComponent, {width: '250px'});
