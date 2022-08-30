@@ -1,1 +1,57 @@
-<firebase-ui></firebase-ui>
+<div *ngIf="!data.link; else link">
+  <div id="firebaseui-auth-container"></div>
+  <div id="loader">Loading...</div>
+</div>
+<ng-template #link>
+  <div *ngIf="message; else link_buttons">
+    <div>{{message}}</div>
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+    </div>
+  </div>
+  <ng-template #link_buttons>
+    <div
+      class="firebaseui-container firebaseui-page-provider-sign-in firebaseui-id-page-provider-sign-in firebaseui-use-spinner">
+      <div class="firebaseui-card-content">
+        <ul class="firebaseui-idp-list">
+          <li class="firebaseui-list-item" *ngIf="provider != 'google.com'">
+            <button (click)="linkAccount('google')"
+                    class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button"
+                    data-provider-id="google.com" style="background-color:#ffffff" data-upgraded=",MaterialButton">
+                <span class="firebaseui-idp-icon-wrapper">
+                  <img class="firebaseui-idp-icon" alt=""
+                       src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+                </span>
+              <span class="firebaseui-idp-text firebaseui-idp-text-long">Link to Google</span>
+              <span class="firebaseui-idp-text firebaseui-idp-text-short">Google</span>
+            </button>
+          </li>
+          <li class="firebaseui-list-item" *ngIf="provider != 'twitter.com'">
+            <button (click)="linkAccount('twitter')"
+                    class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-twitter firebaseui-id-idp-button"
+                    data-provider-id="twitter.com" style="background-color:#55acee" data-upgraded=",MaterialButton">
+                <span class="firebaseui-idp-icon-wrapper">
+                  <img class="firebaseui-idp-icon" alt=""
+                       src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/twitter.svg">
+                </span>
+              <span class="firebaseui-idp-text firebaseui-idp-text-long">Link to Twitter</span>
+              <span class="firebaseui-idp-text firebaseui-idp-text-short">Twitter</span>
+            </button>
+          </li>
+          <li class="firebaseui-list-item">
+            <button
+              class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button"
+              data-provider-id="password" style="background-color:#db4437" data-upgraded=",MaterialButton">
+                <span class="firebaseui-idp-icon-wrapper">
+                  <img class="firebaseui-idp-icon" alt=""
+                       src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/mail.svg">
+                </span>
+              <span class="firebaseui-idp-text firebaseui-idp-text-long">Link to email/pass</span>
+              <span class="firebaseui-idp-text firebaseui-idp-text-short">Email</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+</ng-template>
