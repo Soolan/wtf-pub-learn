@@ -23,17 +23,41 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { LandingComponent } from './landing/landing.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ReleasesComponent } from './releases/releases.component';
+import { ReleaseNotesComponent } from './releases/release-notes/release-notes.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+
+    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: '<your-tos-link>',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
+    ReleasesComponent,
+    ReleaseNotesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFirestoreModule,
     AngularFireAnalyticsModule,
     CourseModule,
@@ -51,6 +75,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     provideStorage(() => getStorage()),
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatChipsModule,
+    MatExpansionModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

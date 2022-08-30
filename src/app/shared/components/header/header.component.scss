@@ -4,8 +4,46 @@
 .inverse {
   background-color: var(--color-primary-dark);
   transition: background-color 200ms linear;
+  color: var(--color-primary-light);
 }
 .primary-tooltip {
   color: var(--color-primary-light);
   background: var(--color-primary-dark);
+}
+
+.user {
+  padding-top: 0.1em;
+}
+.context-menu {
+  text-align: end;
+  margin-left: 0.4em;
+  span {
+    font-size: 0.81em;
+    position: relative;
+  }
+  .avatar {
+    background-size: cover;
+    height: calc(var(--space-md) + var(--space-xxxs));
+    width: calc(var(--space-md) + var(--space-xxxs));
+    border-radius: 50%;
+    margin: var(--space-xxs) auto;
+  }
+}
+
+.mobile {
+  position: fixed;
+  bottom: 0;
+}
+
+button {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+mat-icon {
+  color: var(--color-primary) !important;
+}
+
+.bigger {
+  transform: scale(1.2);
 }

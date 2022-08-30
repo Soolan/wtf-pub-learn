@@ -4,6 +4,13 @@ import {Course} from '../models/course';
 import {Slide} from '../models/slide';
 import {Position, SlideType} from './enums';
 
+//------------------------------------------------- PROFILES
+export const PROFILES: Collection = {
+  path: 'profiles',
+  limit: 1,
+  where: {field: 'created_at', operator: '!=', value: null}
+};
+
 //------------------------------------------------- Course
 export const COURSES: Collection = {
   path: 'courses',

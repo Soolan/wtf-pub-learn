@@ -15,9 +15,14 @@ import {BlackRendererDirective} from './directives/black-renderer.directive';
 import {BlankRendererDirective} from './directives/blank-renderer.directive';
 import {TypeInRendererDirective} from './directives/type-in-renderer.directive';
 import {CardRendererDirective} from './directives/card-renderer.directive';
-import { MatchRendererDirective } from './directives/match-renderer.directive';
+import {MatchRendererDirective} from './directives/match-renderer.directive';
 import {RouterModule} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {AuthenticationComponent} from './components/dialogs/authentication/authentication.component';
+import {WalletComponent} from './components/dialogs/wallet/wallet.component';
+import {NotificationsComponent} from './components/dialogs/notifications/notifications.component';
+import {FirebaseUIModule} from 'firebaseui-angular';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TypeInRendererDirective,
     CardRendererDirective,
     MatchRendererDirective,
+    AuthenticationComponent,
+    WalletComponent,
+    NotificationsComponent,
   ],
   exports: [
     HeaderComponent,
@@ -53,8 +61,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatCardModule,
     MatListModule,
     MatIconModule,
+    MatDialogModule,
     RouterModule,
     MatTooltipModule,
+    FirebaseUIModule,
   ]
 })
 export class SharedModule {
