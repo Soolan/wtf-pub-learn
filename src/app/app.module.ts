@@ -29,6 +29,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -77,6 +78,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatProgressSpinnerModule,
     MatChipsModule,
     MatExpansionModule,
+    DashboardModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
