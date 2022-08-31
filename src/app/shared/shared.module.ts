@@ -21,7 +21,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {AuthenticationComponent} from './components/dialogs/authentication/authentication.component';
 import {WalletComponent} from './components/dialogs/wallet/wallet.component';
 import {NotificationsComponent} from './components/dialogs/notifications/notifications.component';
-import {FirebaseUIModule} from 'firebaseui-angular';
 import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
@@ -64,7 +63,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     RouterModule,
     MatTooltipModule,
-    FirebaseUIModule,
   ]
 })
 export class SharedModule {

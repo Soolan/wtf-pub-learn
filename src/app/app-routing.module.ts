@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
 import {ReleasesComponent} from './releases/releases.component';
+import {AngularFireAuthGuard} from '@angular/fire/compat/auth-guard';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module')
-      .then(m => m.DashboardModule)
+      .then(m => m.DashboardModule),
+    canActivate: [AngularFireAuthGuard]
   }
 ];
 
