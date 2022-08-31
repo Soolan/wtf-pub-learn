@@ -22,6 +22,8 @@ import {AuthenticationComponent} from './components/dialogs/authentication/authe
 import {WalletComponent} from './components/dialogs/wallet/wallet.component';
 import {NotificationsComponent} from './components/dialogs/notifications/notifications.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     AuthenticationComponent,
     WalletComponent,
     NotificationsComponent,
+    PageNotFoundComponent,
+    AccessDeniedComponent,
   ],
   exports: [
     HeaderComponent,
