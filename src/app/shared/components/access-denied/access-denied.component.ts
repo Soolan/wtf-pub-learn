@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationComponent} from '../dialogs/authentication/authentication.component';
+import {DIALOG_DELAY, PRODUCTS, PROFILE} from '../../data/navigation';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-access-denied',
@@ -7,9 +12,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccessDeniedComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
+  openDialog(): void {
+        this.dialog.open(AuthenticationComponent, {
+          width: '350px',
+          enterAnimationDuration: DIALOG_DELAY,
+          exitAnimationDuration: DIALOG_DELAY,
+          data: {link: false}
+        });
+    }
 
 }

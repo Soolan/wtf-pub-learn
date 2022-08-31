@@ -1,8 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
 import {ReleasesComponent} from './releases/releases.component';
-import {AngularFireAuthGuard} from '@angular/fire/compat/auth-guard';
+import {canActivate, redirectUnauthorizedTo} from '@angular/fire/compat/auth-guard';
+import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
+import {AccessDeniedComponent} from './shared/components/access-denied/access-denied.component';
+
+const redirectUnauthorized = () => redirectUnauthorizedTo(['access-denied']);
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -16,12 +20,15 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module')
       .then(m => m.DashboardModule),
-    canActivate: [AngularFireAuthGuard]
-  }
+    ...canActivate(redirectUnauthorized)
+  },
+  {path: 'access-denied', component: AccessDeniedComponent},
+  {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
