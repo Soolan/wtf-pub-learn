@@ -7,6 +7,9 @@ import { ProfileComponent } from './profile/profile.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {MatDividerModule} from '@angular/material/divider';
     DashboardRoutingModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }

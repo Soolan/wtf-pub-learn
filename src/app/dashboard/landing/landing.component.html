@@ -1,19 +1,43 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="dashboard">
-  <div fxFlex="30" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="profile">
-    <div fxFlex="100" class="avatar">avatar</div>
-    <div fxFlex="100" class="greetings">Welcome back:</div>
-    <div fxFlex="100" class="last-login">last-login:</div>
-    <div fxFlex="100" class="ip">ip:</div>
-    <button fxFlex="80" mat-flat-button> Edit Profile</button>
-    <mat-divider fxFlex="90"></mat-divider>
-    <div fxFlex="100" class="badges">Achievements:</div>
-    <div fxFlex="100" class="earnings">Earnings:</div>
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+       class="dashboard" *ngIf="auth.user | async as user;else loading">
+    <div fxFlex="30" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="profile">
+      <div class="avatar" [ngStyle]="{'background-image': 'url(' + user.photoURL + ')'}"></div>
+      <div fxFlex="100" class="greetings mat-caption">Welcome back: {{user.displayName}}</div>
+      <div fxFlex="100" class="ip mat-caption">your ip: 231.456.331.211</div>
+      <mat-progress-bar fxFlex="70" mode="determinate" [value]="completed" color="primary"></mat-progress-bar>
+      <div fxFlex="100" class="completion mat-caption">profile completed ({{completed}}%)</div>
+      <button fxFlex="70" mat-button color="primary"> Edit Profile</button>
+      <mat-divider fxFlex="70"></mat-divider>
+      <div fxFlex="100" class="mat-subheading-1 badges">Achievements</div>
+      <div fxFlex="100" class="mat-subheading-1 badges">Earnings</div>
+    </div>
+    <mat-divider fxFlex="90" fxHide fxShow.lt-md></mat-divider>
+    <div fxFlex="65" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="active mat-headline"
+           *ngIf="course; else loading">
+        <div fxFlex="100" appBlackRenderer content="Active Course" keyword="Active"></div>
+          <div fxFlex="60" fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div fxFlex="100" class="mat-subheading-1">{{course.name}}</div>
+            <p class="mat-body-1" fxFlex="100">{{course.description}} {{course.description}} </p>
+          </div>
+          <div fxFlex="35"fxFlex.lt-md="90" class="image"
+               [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
+      </div>
+      <ng-template #loading>
+        <mat-spinner></mat-spinner>
+      </ng-template>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="previous mat-title">
+        <div fxFlex="100" appBlackRenderer content="Previous Courses" keyword="Previous"></div>
+      </div>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="bookmarks mat-title">
+        <div fxFlex="100" appBlackRenderer content="Bookmarked Courses" keyword="Bookmarked"></div>
+      </div>
+    </div>
   </div>
-  <div fxFlex="65" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
-    <div fxFlex="100" class="current">current</div>
-    <div fxFlex="100" class="previous">previous</div>
-    <div fxFlex="100" class="bookmarks">bookmarks</div>
-  </div>
-</div>
+  <ng-template #loading>
+    <div class="loading" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </ng-template>
 </div>

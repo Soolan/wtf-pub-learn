@@ -1,4 +1,76 @@
 .dashboard {
   margin: var(--space-xl) 0;
-  background-color: var(--color-greyb);
+
+  .profile {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    .avatar {
+      background-size: cover;
+      background-color: var(--color-greyd);
+      height: var(--space-xxxl);
+      width: var(--space-xxxl);
+      border-radius: 5%;
+      margin: 0 auto;
+    }
+
+    .greetings {
+      margin: var(--space-xs) 0;
+    }
+
+    .ip {
+      color: var(--color-grey8);
+    }
+
+    mat-progress-bar {
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+
+    button {
+      margin: var(--space-md) 0;
+    }
+
+    mat-divider {
+    }
+
+    .badges {
+      margin: var(--space-xs) 0;
+
+    }
+
+    .earnings {
+    }
+  }
+
+  .courses {
+    .active {
+      font-weight: 100;
+      .image {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        height: 40vh;
+        @media screen and (min-width: 600px) and (max-width: 960px) {
+          height: 55vh;
+        }
+        @media screen and (max-width: 599px) {
+          height: 50vh;
+        }
+      }
+    }
+
+    .previous {
+      font-weight: 100;
+      color: var(--color-grey5);
+    }
+
+    .bookmarks {
+      font-weight: 100;
+      color: var(--color-grey5);
+    }
+  }
+}
+
+.loading {
+  min-height: 50vh;
 }
