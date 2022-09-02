@@ -32,6 +32,10 @@ export class HeaderComponent implements OnInit {
     this.profile = PROFILE;
   }
 
+  exit(): void {
+    this.router.navigate(['courses']).then().catch();
+  }
+
   openDialog(name: string): void {
     switch (name) {
       case "login":

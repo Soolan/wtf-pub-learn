@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: '', component: LandingComponent},
   {path: ':courseId', component: CourseComponent},
   {
-    path: 'lessons',
+    path: ':courseId/lessons',
     loadChildren: () => import('./course/lessons/lesson.module')
       .then(m => m.LessonModule)
   },
