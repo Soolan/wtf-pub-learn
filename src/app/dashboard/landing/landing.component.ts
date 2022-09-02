@@ -12,7 +12,11 @@ import {map} from 'rxjs';
 export class LandingComponent implements OnInit {
   completed = 75;
   course!: any;
-
+  progress: any = {
+    active: 'ikYNdVWtUKQ6cyH2fbvT',
+    previous: [],
+    bookmarks: []
+  }
   constructor(public auth: AngularFireAuth, private crud: CrudService) { }
 
   ngOnInit(): void {

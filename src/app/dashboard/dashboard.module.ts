@@ -10,6 +10,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SharedModule} from '../shared/shared.module';
+import {CourseModule} from '../courses/course.module';
 
 
 @NgModule({
@@ -17,15 +18,16 @@ import {SharedModule} from '../shared/shared.module';
     LandingComponent,
     ProfileComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        SharedModule,
+        CourseModule
+    ]
 })
 export class DashboardModule { }

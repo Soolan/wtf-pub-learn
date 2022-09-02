@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {COURSES, LESSONS} from '../../shared/data/collections';
 import {map} from 'rxjs';
 import {CrudService} from '../../shared/services/crud.service';
@@ -13,7 +13,8 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
-  id!: string;
+  @Input() isDashboard! : boolean;
+  @Input() id!: string;
   course!: any;
   lessons!: any[];
   loading!: any;
