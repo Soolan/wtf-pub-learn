@@ -45,28 +45,34 @@
   .courses {
     .active {
       font-weight: 100;
-      .image {
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        height: 40vh;
-        @media screen and (min-width: 600px) and (max-width: 960px) {
-          height: 55vh;
-        }
-        @media screen and (max-width: 599px) {
-          height: 50vh;
-        }
-      }
+      text-align: end;
+      padding-left: var(--space-xxxs);
+    }
+    .image {
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      height: 40vh;
+      //@media screen and (min-width: 600px) and (max-width: 960px) {
+      //  height: 55vh;
+      //}
+      //@media screen and (max-width: 599px) {
+      //  height: 50vh;
+      //}
     }
 
-    .previous {
+
+    .subheading {
       font-weight: 100;
       color: var(--color-grey5);
+      letter-spacing: var(--space-xxxs);
+    }
+    .previous {
+
     }
 
     .bookmarks {
-      font-weight: 100;
-      color: var(--color-grey5);
+
     }
   }
 }

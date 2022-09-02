@@ -2,15 +2,17 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
 import {CourseComponent} from './course/course.component';
+import {PageNotFoundComponent} from '../shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'courses/:courseId', component: CourseComponent},
+  {path: ':courseId', component: CourseComponent},
   {
     path: 'lessons',
     loadChildren: () => import('./course/lessons/lesson.module')
       .then(m => m.LessonModule)
-  }
+  },
+
 ];
 
 @NgModule({

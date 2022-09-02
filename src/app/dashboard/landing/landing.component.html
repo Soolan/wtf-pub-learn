@@ -12,26 +12,32 @@
       <div fxFlex="100" class="mat-subheading-1 badges">Achievements</div>
       <div fxFlex="100" class="mat-subheading-1 badges">Earnings</div>
     </div>
-    <mat-divider fxFlex="90" fxHide fxShow.lt-md></mat-divider>
     <div fxFlex="65" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="active mat-headline"
-           *ngIf="course; else loading">
-        <div fxFlex="100" appBlackRenderer content="Active Course" keyword="Active"></div>
-          <div fxFlex="60" fxLayout="row wrap" fxLayoutAlign="space-between center">
-            <div fxFlex="100" class="mat-subheading-1">{{course.name}}</div>
-            <p class="mat-body-1" fxFlex="100">{{course.description}} {{course.description}} </p>
-          </div>
-          <div fxFlex="35"fxFlex.lt-md="90" class="image"
-               [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
+      <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+      <div appBlackRenderer content="Active Course" keyword="Active" class="active mat-headline"></div>
+
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" *ngIf="course; else loading">
+        <div fxFlex="60" fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex="100" class="mat-subheading-1">{{course.name}}</div>
+          <p class="mat-body-1" fxFlex="100">{{course.description}} {{course.description}} </p>
+        </div>
+        <div fxFlex="35" fxFlex.lt-md="100" class="image"
+             [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
       </div>
       <ng-template #loading>
         <mat-spinner></mat-spinner>
       </ng-template>
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="previous mat-title">
-        <div fxFlex="100" appBlackRenderer content="Previous Courses" keyword="Previous"></div>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+           class="previous subheading mat-subheading-2">
+        <div appBlackRenderer content="Previous Courses" keyword="Previous"></div>
+        <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+
       </div>
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="bookmarks mat-title">
-        <div fxFlex="100" appBlackRenderer content="Bookmarked Courses" keyword="Bookmarked"></div>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+           class="bookmarks subheading mat-subheading-2">
+        <div appBlackRenderer content="Bookmarked Courses" keyword="Bookmarked"></div>
+        <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+
       </div>
     </div>
   </div>
