@@ -1,4 +1,5 @@
-<div [fxFlex.gt-lg]="isDashboard?100:65" [fxFlex.lg]="isDashboard?100:85" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start"
+<div [fxFlex.gt-lg]="isDashboard?100:65" [fxFlex.lg]="isDashboard?100:85" fxFlex.lt-lg="100" fxLayout="row wrap"
+     fxLayoutAlign="space-between start"
      class="content" [style.margin]="isDashboard ? '0':'var(--space-xl) auto'">
   <div class="course" fxFlex="55" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
     <div class="progress" *ngIf="loading.course">
@@ -11,9 +12,9 @@
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
       </div>
       <div *ngIf="isDashboard;else guest_view" fxFlex="95" class="heading mat-title"
-            ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">{{course.name}}</div>
+           ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">{{course.name}}</div>
       <ng-template #guest_view>
-        <div fxFlex="95" class="heading"  [ngStyle]="{'margin-top': '-1.2em' }"
+        <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
              ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title"
              appBlackRenderer #content [content]="course.name" [keyword]="keyword"></div>
       </ng-template>
@@ -28,9 +29,22 @@
     <app-progress fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></app-progress>
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
          *ngFor="let lesson of lessons" (click)="open(lesson.id)">
-      <div fxFlex class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
-      <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
-      <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
+      <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
+        <div fxFlex class="avatar"
+             [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
+        <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
+        <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
+      </div>
+      <div fxFlex="29" *ngIf="true; else active" class="mat-caption done">
+        <span>DONE</span>
+        <mat-icon>done</mat-icon>
+      </div>
+      <ng-template #active>
+        <div fxFlex="29">
+          <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
+                [style.background-color]="i <= currentSlide ? 'var(--color-primary)' : ''"></span>
+        </div>
+      </ng-template>
     </div>
   </div>
   <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>

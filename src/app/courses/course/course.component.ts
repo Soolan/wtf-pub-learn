@@ -21,6 +21,9 @@ export class CourseComponent implements OnInit {
   keyword!: string;
   levels = LEVELS;
 
+  currentSlide = 7;
+  slides = 12;
+
   constructor(
     private crud: CrudService,
     private route: ActivatedRoute,
