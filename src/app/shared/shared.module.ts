@@ -24,6 +24,7 @@ import {NotificationsComponent} from './components/dialogs/notifications/notific
 import {MatDialogModule} from '@angular/material/dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
     NotificationsComponent,
     PageNotFoundComponent,
     AccessDeniedComponent,
+    ImageUploaderComponent,
   ],
   exports: [
     HeaderComponent,

@@ -1,1 +1,18 @@
-<p>profile works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+       class="dashboard" *ngIf="auth.user | async as user;else loading">
+    <div [@flip]="flipState" class="flip-card-inner" fxFlex="23" fxFlex.md="31" fxFlex.sm="47" fxFlex.lt-sm="95">
+      <div class="flip-card-front"> <!-- This is the side with buttons and controls -->
+        front
+      </div>
+      <div class="flip-card-back">
+        back
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="loading" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </ng-template>
+</div>
