@@ -11,6 +11,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SharedModule} from '../shared/shared.module';
 import {CourseModule} from '../courses/course.module';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {CourseModule} from '../courses/course.module';
         MatProgressSpinnerModule,
         MatProgressBarModule,
         SharedModule,
-        CourseModule
+        CourseModule,
+        MatIconModule
     ]
 })
 export class DashboardModule { }

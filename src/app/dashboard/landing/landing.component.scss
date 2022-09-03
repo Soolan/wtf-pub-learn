@@ -9,6 +9,10 @@
       background-color: var(--color-greyd);
       height: var(--space-xxxl);
       width: var(--space-xxxl);
+      @media screen and (min-width: 960px) and (max-width: 1280px) {
+        height: var(--space-xxl);
+        width: var(--space-xxl);
+      }
       border-radius: 5%;
       margin: 0 auto;
     }
@@ -19,6 +23,10 @@
 
     .ip {
       color: var(--color-grey8);
+      .mat-icon {
+        vertical-align: middle;
+        padding-left: var(--space-xxs);
+      }
     }
 
     mat-progress-bar {
