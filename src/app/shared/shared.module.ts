@@ -25,6 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import { DropzoneDirective } from './directives/dropzone.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ImageUploaderComponent } from './components/image-uploader/image-upload
     PageNotFoundComponent,
     AccessDeniedComponent,
     ImageUploaderComponent,
+    DropzoneDirective,
   ],
   exports: [
     HeaderComponent,
