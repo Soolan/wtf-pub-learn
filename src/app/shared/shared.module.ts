@@ -26,6 +26,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
+import { UploadTaskComponent } from './components/image-uploader/upload-task/upload-task.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { DropzoneDirective } from './directives/dropzone.directive';
     AccessDeniedComponent,
     ImageUploaderComponent,
     DropzoneDirective,
+    UploadTaskComponent,
   ],
   exports: [
     HeaderComponent,
