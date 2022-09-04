@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['courses']).then().catch();
   }
 
-  openDialog(name: string): void {
+  openDialog(name: string, uid?: string): void {
     switch (name) {
       case "login":
         this.dialog.open(AuthenticationComponent, {
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
         this.dialog.open(WalletComponent, {width: '250px'});
         break;
       case this.profile[1].label:
-        this.router.navigate(['dashboard', 'profile']).then().catch();
+        this.router.navigate(['dashboard', 'profile', uid]).then().catch();
         break;
       case this.profile[2].label:
         this.router.navigate(['dashboard']).then().catch();

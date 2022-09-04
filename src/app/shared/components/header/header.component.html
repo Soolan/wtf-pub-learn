@@ -20,7 +20,7 @@
       </button>
       <mat-menu #account="matMenu" class="menu">
         <div class="hello mat-caption"></div>
-        <button mat-menu-item *ngFor="let option of profile" (click)="openDialog(option.label)">
+        <button mat-menu-item *ngFor="let option of profile" (click)="openDialog(option.label, user.uid)">
           <mat-icon>{{option.icon}}</mat-icon>
           <span>{{option.label}}</span>
         </button>
