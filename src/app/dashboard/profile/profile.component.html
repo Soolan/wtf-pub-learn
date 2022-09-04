@@ -1,16 +1,15 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
   <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
-       class="dashboard" *ngIf="profile != undefined; else loading">
+       class="profile" *ngIf="profile != undefined; else loading">
 
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" [formGroup]="form">
-      <div fxFlex="33" fxFlex.lt-lg="100" fxLayout="row wrap" class="info">
+      <div fxFlex="33" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <!--    <div fxFlex="100">-->
         <!--      <mat-slide-toggle formControlName="published" (change)="update()">-->
         <!--        <span [ngClass]="{'glow': form.get('published')?.value}">Publish</span>-->
         <!--      </mat-slide-toggle>-->
         <!--    </div>-->
-        <div fxFlex="100">
-          <mat-divider></mat-divider>
+        <div fxFlex="100" class="avatar">
           <app-image-uploader
             (uploaderEvents)="updateImage($event)"
             [currentImage]="profile.avatar"
@@ -25,11 +24,26 @@
             <span class="saving" matSuffix *ngIf="clicked.displayName">SAVING</span>
           </mat-form-field>
         </div>
-
-        <div fxFlex="100" class="update">
-          <mat-divider></mat-divider>
-          <div>
-            <span>last update: </span>
+        <div fxFlex="48">
+          <mat-form-field appearance="fill">
+            <mat-label>Firstname</mat-label>
+            <input matInput placeholder="Firstname" formControlName="firstname" (keydown.enter)="update('firstname')">
+            <mat-icon class="check" matSuffix (click)="update('firstname')" *ngIf="!clicked.firstname">check</mat-icon>
+            <span class="saving" matSuffix *ngIf="clicked.firstname">SAVING</span>
+          </mat-form-field>
+        </div>
+        <div fxFlex="48">
+          <mat-form-field appearance="fill">
+            <mat-label>Lastname</mat-label>
+            <input matInput placeholder="Lastname" formControlName="lastname" (keydown.enter)="update('lastname')">
+            <mat-icon class="check" matSuffix (click)="update('lastname')" *ngIf="!clicked.lastname">check</mat-icon>
+            <span class="saving" matSuffix *ngIf="clicked.lastname">SAVING</span>
+          </mat-form-field>
+        </div>
+        <mat-divider fxFlex="100"></mat-divider>
+        <div fxFlex="100" class="last_update">
+          <div class="mat-caption">
+            <strong>last update: </strong>
             <p>{{profile.timestamps.updated_at | date: 'full'}}</p>
           </div>
         </div>

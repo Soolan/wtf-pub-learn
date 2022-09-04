@@ -17,6 +17,8 @@ export class ProfileComponent implements OnInit {
   id = '';
   clicked = {
     displayName: false,
+    firstname: false,
+    lastname: false,
     avatar: false,
   };
 

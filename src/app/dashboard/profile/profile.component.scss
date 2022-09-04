@@ -1,0 +1,14 @@
+.profile {
+  margin: var(--space-xl) 0;
+  .avatar {
+    margin-bottom: var(--space-md);
+  }
+  .mat-form-field {
+    margin: 0;
+  }
+  .last_update {
+    margin-top: var(--space-xs);
+    color: var(--color-grey7);
+    p {text-align: center}
+  }
+}
