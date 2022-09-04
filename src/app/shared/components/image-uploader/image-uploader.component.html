@@ -6,10 +6,10 @@
            (hovered)="toggleHover($event)"
            (dropped)="onDrop($event)"
            [class.hovering]="isHovering">
-        <p>Drag Files Here</p>
+        <p><strong>Drag Files Here</strong></p>
         <span> - or - </span>
         <input type="file" style="display: none" #fileInput accept="image/*" (change)="onChangeFileInput()"/>
-        <button mat-flat-button color="accent" (click)="onClickFileInputButton()" *ngIf="flipState === 'front'">
+        <button mat-flat-button color="primary" (click)="onClickFileInputButton()" *ngIf="flipState === 'front'">
           <mat-icon>add</mat-icon>
           Choose File
         </button>
@@ -17,7 +17,7 @@
     </div>
     <div class="flip-card-back"> <!-- This is the side with either the image or the upload progress bar -->
       <div *ngIf="currentImage; else upload;">
-        <button class="delete" mat-mini-fab (click)="delete()">
+        <button color="warn" class="delete" mat-mini-fab (click)="delete()">
           <mat-icon>close</mat-icon>
         </button>
         <img src="{{currentImage | storageUrl | async}}" width="100%">

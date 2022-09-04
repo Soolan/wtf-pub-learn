@@ -11,4 +11,20 @@
     color: var(--color-grey7);
     p {text-align: center}
   }
+
+  .wallet {
+    color: var(--color-primary);
+    font-size: 0.85em;
+    .address {font-size: larger}
+    span {
+      margin-right: var(--space-sm);
+      padding: var(--space-xs);
+      color: var(--color-grey7);
+      background-color: var(--color-greye);
+      border-radius: 5px;
+      .mat-icon {
+        font-size: inherit;
+      }
+    }
+  }
 }

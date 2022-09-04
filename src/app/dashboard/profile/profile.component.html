@@ -3,7 +3,7 @@
        class="profile" *ngIf="profile != undefined; else loading">
 
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" [formGroup]="form">
-      <div fxFlex="33" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div fxFlex="35" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <!--    <div fxFlex="100">-->
         <!--      <mat-slide-toggle formControlName="published" (change)="update()">-->
         <!--        <span [ngClass]="{'glow': form.get('published')?.value}">Publish</span>-->
@@ -19,8 +19,10 @@
         <div fxFlex="100">
           <mat-form-field appearance="fill">
             <mat-label>Display Name</mat-label>
-            <input matInput placeholder="Display Name" formControlName="display_name" (keydown.enter)="update('display_name')">
-            <mat-icon class="check" matSuffix (click)="update('display_name')" *ngIf="!clicked.displayName">check</mat-icon>
+            <input matInput placeholder="Display Name" formControlName="display_name"
+                   (keydown.enter)="update('display_name')">
+            <mat-icon class="check" matSuffix (click)="update('display_name')" *ngIf="!clicked.displayName">check
+            </mat-icon>
             <span class="saving" matSuffix *ngIf="clicked.displayName">SAVING</span>
           </mat-form-field>
         </div>
@@ -46,6 +48,15 @@
             <strong>last update: </strong>
             <p>{{profile.timestamps.updated_at | date: 'full'}}</p>
           </div>
+        </div>
+      </div>
+      <div fxFlex="60" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+        <div fxFlex="100" class="mat-caption wallet">
+          <strong class="address">Wallet: </strong>
+          <span>{{profile.wallet_address}}
+            <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
+          </span>
+          <button mat-flat-button color="primary">Manage</button>
         </div>
       </div>
     </div>
