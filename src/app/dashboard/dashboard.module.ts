@@ -12,6 +12,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SharedModule} from '../shared/shared.module';
 import {CourseModule} from '../courses/course.module';
 import {MatIconModule} from '@angular/material/icon';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -19,17 +23,21 @@ import {MatIconModule} from '@angular/material/icon';
     LandingComponent,
     ProfileComponent
   ],
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        FlexLayoutModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatProgressSpinnerModule,
-        MatProgressBarModule,
-        SharedModule,
-        CourseModule,
-        MatIconModule
-    ]
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    SharedModule,
+    CourseModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule
+  ]
 })
 export class DashboardModule { }
