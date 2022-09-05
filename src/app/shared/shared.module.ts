@@ -21,8 +21,12 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {AuthenticationComponent} from './components/dialogs/authentication/authentication.component';
 import {WalletComponent} from './components/dialogs/wallet/wallet.component';
 import {NotificationsComponent} from './components/dialogs/notifications/notifications.component';
-import {FirebaseUIModule} from 'firebaseui-angular';
 import {MatDialogModule} from '@angular/material/dialog';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
+import { DropzoneDirective } from './directives/dropzone.directive';
+import { UploadTaskComponent } from './components/image-uploader/upload-task/upload-task.component';
 
 @NgModule({
   declarations: [
@@ -37,17 +41,23 @@ import {MatDialogModule} from '@angular/material/dialog';
     AuthenticationComponent,
     WalletComponent,
     NotificationsComponent,
+    PageNotFoundComponent,
+    AccessDeniedComponent,
+    ImageUploaderComponent,
+    DropzoneDirective,
+    UploadTaskComponent,
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    StorageUrlPipe,
-    BlackRendererDirective,
-    BlankRendererDirective,
-    TypeInRendererDirective,
-    CardRendererDirective,
-    MatchRendererDirective,
-  ],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        StorageUrlPipe,
+        BlackRendererDirective,
+        BlankRendererDirective,
+        TypeInRendererDirective,
+        CardRendererDirective,
+        MatchRendererDirective,
+        ImageUploaderComponent,
+    ],
   imports: [
     CommonModule,
     FlexLayoutModule,
@@ -64,7 +74,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     RouterModule,
     MatTooltipModule,
-    FirebaseUIModule,
   ]
 })
 export class SharedModule {

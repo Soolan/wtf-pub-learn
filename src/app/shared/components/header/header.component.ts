@@ -7,6 +7,7 @@ import {WalletComponent} from '../dialogs/wallet/wallet.component';
 import {NotificationsComponent} from '../dialogs/notifications/notifications.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,14 +21,22 @@ export class HeaderComponent implements OnInit {
   profile!: Option[];
   color!: ThemePalette;
 
-  constructor(public auth: AngularFireAuth, public dialog: MatDialog) {}
+  constructor(
+    public auth: AngularFireAuth,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.products = PRODUCTS;
     this.profile = PROFILE;
   }
 
-  openDialog(name: string): void {
+  exit(): void {
+    this.router.navigate(['courses']).then().catch();
+  }
+
+  openDialog(name: string, uid?: string): void {
     switch (name) {
       case "login":
         this.dialog.open(AuthenticationComponent, {
@@ -37,14 +46,22 @@ export class HeaderComponent implements OnInit {
           data: {link: false}
         });
         break;
+      case "notifications":
+        this.dialog.open(NotificationsComponent, {
+          width: '350px',
+          enterAnimationDuration: DIALOG_DELAY,
+          exitAnimationDuration: DIALOG_DELAY,
+          data: {}
+        });
+        break;
       case this.profile[0].label:
         this.dialog.open(WalletComponent, {width: '250px'});
         break;
       case this.profile[1].label:
-        this.dialog.open(NotificationsComponent, {width: '250px'});
+        this.router.navigate(['dashboard', 'profile', uid]).then().catch();
         break;
       case this.profile[2].label:
-        // ToDo: navigate to the settings page
+        this.router.navigate(['dashboard']).then().catch();
         break;
       default:
         this.logout();

@@ -7,7 +7,8 @@
     </ng-container>
     <ng-container *ngSwitchCase="status.Resume">
       <div fxFlex="70" fxFlex.lt-md="65">
-        <strong>Next Up</strong><mat-icon>chevron_right</mat-icon>
+        <strong>Next Up</strong>
+        <mat-icon>chevron_right</mat-icon>
         <p>{{progress.lesson}}</p>
       </div>
       <button fxFlex="25" fxFlex.lt-md="35" mat-flat-button color="warn">{{statuses[progress.status]}}</button>
@@ -15,19 +16,21 @@
       <div fxFlex="70" fxFlex.lt-md="65" class="score" *ngIf="progress.score">
         <p>
           Previous score ({{progress.updated_at | date: 'longDate'}}):
-          <span [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">{{progress.score}}/100</span>
+          <span [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">{{progress.score}}
+            /100</span>
         </p>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase="status.Retake">
-      <div fxFlex="70" fxFlex.lt-md="65" class="score">
-        <strong>Passed</strong><mat-icon>done</mat-icon>
-        <p>
-          [{{progress.updated_at | date: 'longDate'}}] - final score:
-          <span [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">{{progress.score}}/100</span>
-        </p>
+      <div fxFlex="70" fxFlex.lt-lg="64" class="score">
+        <strong>Passed</strong>
+        <mat-icon>done</mat-icon>
+        <p class="mat-caption">{{progress.updated_at | date: 'longDate'}}</p>
+        <span class="mat-caption" [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">
+            final score: {{progress.score}}/100
+        </span>
       </div>
-      <button fxFlex="25" fxFlex.lt-md="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>
+      <button fxFlex="29" fxFlex.lt-lg="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>
     </ng-container>
   </ng-container>
 </div>

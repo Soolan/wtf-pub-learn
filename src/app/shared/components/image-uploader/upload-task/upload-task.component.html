@@ -1,0 +1,12 @@
+<div *ngIf="snapshot | async as snap " class="controls">
+  <div *ngIf="percentage | async as p" >
+    <div *ngIf="p < 100">
+      <progress [value]="p" max="100"></progress>
+      <p class="percent">{{ p | number:'2.0-1' }}%</p>
+      <p class="progress">{{ snap.bytesTransferred }} of {{ snap.totalBytes }}</p>
+    </div>
+    <button mat-button (click)="task.cancel()" *ngIf="isActive(snap)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

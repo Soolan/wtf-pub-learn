@@ -1,0 +1,89 @@
+.flip-card {
+  height: 15rem;
+  width: 80%;
+  background-color: transparent;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flip-card-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner > div {
+  position: absolute;
+  width: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  .dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 10vw;
+    font-weight: 200;
+    min-height: 13.5rem;
+    border: 2px dashed var(--color-primary);
+    border-radius: 5px;
+    background-color: var(--color-primary-dark);
+    margin: 10px 0;
+
+    &.hovering {
+      border: 2px solid var(--color-primary-light);
+      color: var(--color-aquamarine) !important;
+    }
+
+    .file-label {
+      font-size: 1.2em;
+    }
+
+    p {
+      color: var(--color-primary-light);
+      font-size: 1.5rem;
+      margin: 0.3rem;
+    }
+
+    span {
+      font-size: large;
+      color: var(--color-primary-light);
+      padding-top: var(--space-sm);
+      padding-bottom: var(--space-md);
+    }
+  }
+
+  progress::-webkit-progress-value {
+    transition: width 0.1s ease;
+  }
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  align-items: center;
+  justify-content: center;
+  min-width: 10vw;
+  min-height: 13.8rem;
+  border-radius: 5px;
+  margin: 10px 0;
+
+  img {
+    object-fit: cover;
+    height: 13.8rem;
+    border-radius: var(--space-xs);
+    border: 2px solid var(--color-grey3);
+  }
+
+  .delete {
+    position: absolute;
+    top: -1.2rem;
+    right: -1.2rem;
+    .mat-icon{
+      color: white !important;
+    }
+  }
+}

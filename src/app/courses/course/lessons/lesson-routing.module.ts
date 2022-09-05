@@ -4,7 +4,7 @@ import {LessonComponent} from './lesson/lesson.component';
 
 const routes: Routes = [
   {
-    path: 'courses/:courseId/lessons/:lessonId',
+    path: ':lessonId',
     component: LessonComponent,
     pathMatch: 'full'
   },

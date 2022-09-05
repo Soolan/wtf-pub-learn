@@ -1,0 +1,77 @@
+@mixin iconText() {
+  color: var(--color-grey7);
+  text-align: center;
+  .mat-icon {
+    font-size: inherit;
+  }
+}
+
+@mixin background($name) {
+  background-image: url($name);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: var(--space-xxl);
+}
+
+
+.profile {
+  margin: var(--space-xl) 0;
+
+  .avatar {
+    margin-bottom: var(--space-md);
+  }
+
+  .mat-form-field {
+    margin: 0;
+  }
+
+  .last_update {
+    margin-top: var(--space-xs);
+    color: var(--color-grey7);
+
+    p {
+      text-align: center;
+      margin-top: var(--space-sm);
+    }
+  }
+
+  .wallet {
+    @media screen and (max-width: 960px) {
+      margin-top: var(--space-sm)
+    }
+    font-size: 0.85em;
+
+    .address {
+      margin-right: var(--space-sm);
+      @media screen and (max-width: 960px) {
+        margin: var(--space-sm) 0
+      }
+      background-color: var(--color-greye);
+      border-radius: 5px;
+      @include iconText();
+    }
+
+    .balance {
+      @include iconText();
+    }
+  }
+
+  .loyalty {
+    margin: var(--space-lg) 0;
+    text-align: center;
+
+    .gold { @include background('~src/assets/images/logo-gold.png')}
+    .silver { @include background('~src/assets/images/logo-silver.png')}
+    .bronz { @include background('~src/assets/images/logo-bronz.png')}
+  }
+
+  .achievements {
+    text-align: center;
+  }
+
+  .thin {
+    font-weight: 100;
+    margin: 0;
+  }
+}

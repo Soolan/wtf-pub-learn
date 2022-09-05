@@ -27,22 +27,8 @@ import { ReleasesComponent } from './releases/releases.component';
 import { ReleaseNotesComponent } from './releases/release-notes/release-notes.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
-
-const firebaseUiAuthConfig: firebaseui.auth.Config = {
-  signInFlow: 'popup',
-  signInOptions: [
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-
-    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
-  ],
-  tosUrl: '<your-tos-link>',
-  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
-  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
-};
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -57,7 +43,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
     AngularFireAuthModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFirestoreModule,
     AngularFireAnalyticsModule,
     CourseModule,
@@ -77,6 +62,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatProgressSpinnerModule,
     MatChipsModule,
     MatExpansionModule,
+    DashboardModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService

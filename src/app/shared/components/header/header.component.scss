@@ -17,10 +17,6 @@
 .context-menu {
   text-align: end;
   margin-left: 0.4em;
-  span {
-    font-size: 0.81em;
-    position: relative;
-  }
   .avatar {
     background-size: cover;
     height: calc(var(--space-md) + var(--space-xxxs));
@@ -47,3 +43,4 @@ mat-icon {
 .bigger {
   transform: scale(1.2);
 }
+
