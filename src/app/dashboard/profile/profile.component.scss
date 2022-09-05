@@ -13,12 +13,20 @@
   }
 
   .wallet {
+    @media screen and (max-width: 960px){margin-top: var(--space-sm)}
+    .mat-icon {
+      vertical-align: sub;
+      margin-right: var(--space-xxs);
+    }
     color: var(--color-primary);
     font-size: 0.85em;
     .address {font-size: larger}
     span {
+      text-align: center;
       margin-right: var(--space-sm);
-      padding: var(--space-xs);
+      @media screen and (max-width: 960px){margin: var(--space-sm) 0}
+
+        //padding: calc(var(--space-xs) + var(--space-xxxs)) var(--space-xs);
       color: var(--color-grey7);
       background-color: var(--color-greye);
       border-radius: 5px;

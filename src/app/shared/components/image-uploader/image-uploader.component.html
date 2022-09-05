@@ -17,7 +17,7 @@
     </div>
     <div class="flip-card-back"> <!-- This is the side with either the image or the upload progress bar -->
       <div *ngIf="currentImage; else upload;">
-        <button color="warn" class="delete" mat-mini-fab (click)="delete()">
+        <button color="accent" class="delete" mat-mini-fab (click)="delete()">
           <mat-icon>close</mat-icon>
         </button>
         <img src="{{currentImage | storageUrl | async}}" width="100%">

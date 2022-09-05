@@ -2,8 +2,8 @@
   <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
        class="profile" *ngIf="profile != undefined; else loading">
 
-    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" [formGroup]="form">
-      <div fxFlex="35" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" [formGroup]="form">
+      <div fxFlex="35" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
         <!--    <div fxFlex="100">-->
         <!--      <mat-slide-toggle formControlName="published" (change)="update()">-->
         <!--        <span [ngClass]="{'glow': form.get('published')?.value}">Publish</span>-->
@@ -16,7 +16,7 @@
             [path]="path"
           ></app-image-uploader>
         </div>
-        <div fxFlex="100">
+        <div fxFlex="95">
           <mat-form-field appearance="fill">
             <mat-label>Display Name</mat-label>
             <input matInput placeholder="Display Name" formControlName="display_name"
@@ -26,7 +26,7 @@
             <span class="saving" matSuffix *ngIf="clicked.displayName">SAVING</span>
           </mat-form-field>
         </div>
-        <div fxFlex="48">
+        <div fxFlex="45">
           <mat-form-field appearance="fill">
             <mat-label>Firstname</mat-label>
             <input matInput placeholder="Firstname" formControlName="firstname" (keydown.enter)="update('firstname')">
@@ -34,7 +34,7 @@
             <span class="saving" matSuffix *ngIf="clicked.firstname">SAVING</span>
           </mat-form-field>
         </div>
-        <div fxFlex="48">
+        <div fxFlex="45">
           <mat-form-field appearance="fill">
             <mat-label>Lastname</mat-label>
             <input matInput placeholder="Lastname" formControlName="lastname" (keydown.enter)="update('lastname')">
@@ -43,20 +43,25 @@
           </mat-form-field>
         </div>
         <mat-divider fxFlex="100"></mat-divider>
-        <div fxFlex="100" class="last_update">
+        <div fxFlex="95" class="last_update">
           <div class="mat-caption">
             <strong>last update: </strong>
             <p>{{profile.timestamps.updated_at | date: 'full'}}</p>
           </div>
         </div>
       </div>
-      <div fxFlex="60" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-        <div fxFlex="100" class="mat-caption wallet">
-          <strong class="address">Wallet: </strong>
-          <span>{{profile.wallet_address}}
+      <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
+      <div fxFlex="60" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="mat-caption wallet">
+          <div class="address" fxFlex="15" fxFlex.lt-md="100">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <strong>Wallet</strong>
+          </div>
+          <span fxFlex fxFlex.lt-md="100">{{profile.wallet_address}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
-          <button mat-flat-button color="primary">Manage</button>
+          <button fxFlex="15" fxFlex.lt-md="100" mat-flat-button color="primary">Manage</button>
+
         </div>
       </div>
     </div>
