@@ -54,14 +54,18 @@
       <div fxFlex="60" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
         <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="mat-caption wallet">
           <div class="address" fxFlex="15" fxFlex.lt-md="100">
-            <mat-icon>account_balance_wallet</mat-icon>
+            <mat-icon class="icon">account_balance_wallet</mat-icon>
             <strong>Wallet</strong>
           </div>
           <span fxFlex fxFlex.lt-md="100">{{profile.wallet_address}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
           <button fxFlex="15" fxFlex.lt-md="100" mat-flat-button color="primary">Manage</button>
+          <div class="balance mat-caption" fxFlex="50" fxFlex.lt-md="100">
+            balance: 6,765 WTF - transactions
+            <button mat-icon-button><mat-icon>open_in_new</mat-icon></button>
 
+          </div>
         </div>
       </div>
     </div>

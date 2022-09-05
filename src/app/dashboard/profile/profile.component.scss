@@ -9,14 +9,16 @@
   .last_update {
     margin-top: var(--space-xs);
     color: var(--color-grey7);
-    p {text-align: center}
+    p {
+      text-align: center;
+      margin-top: var(--space-sm);
+    }
   }
 
   .wallet {
     @media screen and (max-width: 960px){margin-top: var(--space-sm)}
     .mat-icon {
-      vertical-align: sub;
-      margin-right: var(--space-xxs);
+      font-size: inherit;
     }
     color: var(--color-primary);
     font-size: 0.85em;
@@ -30,9 +32,15 @@
       color: var(--color-grey7);
       background-color: var(--color-greye);
       border-radius: 5px;
-      .mat-icon {
-        font-size: inherit;
-      }
     }
+    .balance {
+      color: var(--color-grey7);
+      text-align: center;
+    }
+  }
+
+  .icon {
+    vertical-align: middle;
+    margin-right: var(--space-xxs);
   }
 }
