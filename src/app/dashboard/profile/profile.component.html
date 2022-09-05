@@ -53,23 +53,30 @@
       <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
       <div fxFlex="60" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
         <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="mat-caption wallet">
-          <div class="address" fxFlex="15" fxFlex.lt-md="100">
-            <mat-icon class="icon">account_balance_wallet</mat-icon>
-            <strong>Wallet</strong>
-          </div>
-          <span fxFlex fxFlex.lt-md="100">{{profile.wallet_address}}
+          <button fxFlex="22" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <strong> Wallet</strong>
+          </button>
+          <span class="address" fxFlex="75" fxFlex.lt-md="100">{{profile.wallet_address}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
-          <button fxFlex="15" fxFlex.lt-md="100" mat-flat-button color="primary">Manage</button>
           <div class="balance mat-caption" fxFlex="50" fxFlex.lt-md="100">
             balance: 6,765 WTF - transactions
             <button mat-icon-button><mat-icon>open_in_new</mat-icon></button>
-
           </div>
         </div>
+        <mat-divider fxFlex="100"></mat-divider>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex="49" fxFlex.lt-md="100" class="loyalty">
+            <div class="mat-subheading-2 thin" appBlackRenderer content="Loyalty Level" keyword="Loyalty"></div>
+            <div class="silver"></div>
+            <div class="mat-headline thin">Silver</div>
+          </div>
+          <div fxFlex="49" fxFlex.lt-md="100" class="achievements mat-subheading-2 thin">Achievements</div>
+        </div>
+        <mat-divider fxFlex="100"></mat-divider>
       </div>
     </div>
-
   </div>
   <ng-template #loading>
     <div class="loading" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">

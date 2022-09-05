@@ -106,6 +106,7 @@ body {
   margin: 0.77rem auto;
   background-color: var(--color-black);
   color: var(--color-primary-light);
+  font-size: initial !important;
 }
 
 .mat-form-field-label {
@@ -142,11 +143,11 @@ body {
 .check {
   cursor: pointer;
   color: var(--color-primary-light);
-  margin-right: var(--space-xxs);
+  margin-right: var(--space-xs);
 }
 .saving {
   letter-spacing: var(--space-xxs);
-  color: var(--color-aquamarine);
+  color: var(--color-primary-dark);
 }
 
 .custom-button {
@@ -170,7 +171,7 @@ body {
 }
 
 @mixin save() {
-  color: var(--color-aquamarine);
+  color: var(--color-primary-dark);
   font-size: 0.8rem;
   font-weight: bold;
   position: relative;

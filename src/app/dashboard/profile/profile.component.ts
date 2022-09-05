@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
 import {FormService} from './form.service';
 import {Profile} from '../../shared/models/profile';
+import {MatDialog} from '@angular/material/dialog';
+import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +29,7 @@ export class ProfileComponent implements OnInit {
     private crud: CrudService,
     private route: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog,
   ) {
     const id = this.route.snapshot.paramMap.get('profileId');
     if (id) {
@@ -89,5 +92,7 @@ export class ProfileComponent implements OnInit {
     return PROFILES.path;
   }
 
-
+  openDialog(): void {
+    this.dialog.open(WalletComponent, {width: '250px'});
+  }
 }

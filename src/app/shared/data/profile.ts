@@ -14,10 +14,9 @@ export enum Loyalty {
   Bronze,
   Silver,
   Gold,
-  Platinum,
 }
 
-export const LOYALTY: string[] =  ["Bronze", "Silver", "Gold", "Platinum"];
+export const LOYALTY: string[] =  ["Bronze", "Silver", "Gold"];
 
 export enum Achievement {
   Finisher,
