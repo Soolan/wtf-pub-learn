@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   login = false;
-  products!: string[];
+  products!: Option[];
   profile!: Option[];
   color!: ThemePalette;
 
