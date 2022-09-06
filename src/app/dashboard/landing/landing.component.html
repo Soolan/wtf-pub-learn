@@ -10,7 +10,7 @@
       </div>
       <mat-progress-bar fxFlex="70" fxFlex.lt-md="90" mode="determinate" [value]="completed" color="primary"></mat-progress-bar>
       <div fxFlex="100" class="completion mat-caption">profile completed ({{completed}}%)</div>
-      <button fxFlex="70" fxFlex.lt-md="90" mat-button color="primary"> Edit Profile</button>
+      <button fxFlex="70" fxFlex.lt-md="90" mat-button color="primary" [routerLink]="['profile', user.uid]" > Edit Profile</button>
       <mat-divider fxFlex="70" fxFlex.lt-md="90"></mat-divider>
       <div fxFlex="100" class="mat-subheading-1 badges">Achievements</div>
       <div fxFlex="100" class="mat-subheading-1 badges">Earnings</div>
@@ -19,18 +19,6 @@
       <div appBlackRenderer content="Current Course" keyword="Current" class="active mat-headline"></div>
       <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
       <app-course [id]="progress.active" [isDashboard]=true></app-course>
-<!--      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" *ngIf="course; else loading">-->
-<!--        <div fxFlex="35" fxFlex.lt-md="100" class="image"-->
-<!--             [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>-->
-<!--        <div fxFlex="60" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
-<!--          <div fxFlex="100" class="mat-subheading-1">{{course.name}}</div>-->
-<!--          <p class="mat-body-1" fxFlex="100">{{course.description}} {{course.description}} </p>-->
-<!--        </div>-->
-
-<!--      </div>-->
-<!--      <ng-template #loading>-->
-<!--        <mat-spinner></mat-spinner>-->
-<!--      </ng-template>-->
       <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
            class="previous subheading mat-subheading-2">
         <div appBlackRenderer content="Previous Courses" keyword="Previous"></div>
