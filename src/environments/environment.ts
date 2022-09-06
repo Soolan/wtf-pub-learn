@@ -12,6 +12,7 @@ export const environment = {
     authDomain: 'wtf-pub.firebaseapp.com',
     messagingSenderId: '791303322884',
     measurementId: 'G-YJS1NWM7B5',
+    vapidKey: "AAAAuD1afQQ:APA91bHvrH0BueFRm2EMAcAuBjCza6bdK-PAbAZCVhDTDGv1C-C6lIz0I39kcDKWUJemqHdObi_aIlHBuZihALRsKLHc7mtaA0a_7axVC-iztecRrvgPTiZsDOFxXqMJeg3YvPVxwLG0"
   },
   production: false
 };
