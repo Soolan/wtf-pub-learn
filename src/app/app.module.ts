@@ -29,6 +29,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,12 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MatChipsModule,
     MatExpansionModule,
     DashboardModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
