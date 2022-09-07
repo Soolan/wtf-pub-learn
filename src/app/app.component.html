@@ -1,14 +1,5 @@
 <app-header class="header" *ngIf="toggle.headerSubject|async"></app-header>
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div style="z-index: 1000">
-    <div *ngIf="message;">
-      <h1>{{ message.notification.title }}</h1>
-      <h2>{{ message.notification.body }}</h2>
-    </div>
-    <div *ngIf="!message;">
-      No Message Arrived
-    </div>
-  </div>
   <div fxFlex="100">
     <router-outlet></router-outlet>
   </div>

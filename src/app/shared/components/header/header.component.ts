@@ -8,6 +8,8 @@ import {NotificationsComponent} from '../dialogs/notifications/notifications.com
 import {MatDialog} from '@angular/material/dialog';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Router} from '@angular/router';
+import {getMessaging, getToken, onMessage} from '@angular/fire/messaging';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,7 @@ export class HeaderComponent implements OnInit {
   products!: Option[];
   profile!: Option[];
   color!: ThemePalette;
+  message: any = null;
 
   constructor(
     public auth: AngularFireAuth,
@@ -30,7 +33,33 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.products = PRODUCTS;
     this.profile = PROFILE;
+    // ToDo: uncomment these when the notification mechanism was full implemented
+    // this.requestPermission();
+    // this.listen();
   }
+  requestPermission() {
+    const messaging = getMessaging();
+    getToken(messaging,
+      { vapidKey: environment.firebase.vapidKey}).then(
+      (currentToken) => {
+        if (currentToken) {
+          console.log("Hurraaa!!! we got the token.....");
+          console.log(currentToken);
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+        }
+      }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+  }
+  listen() {
+    const messaging = getMessaging();
+    onMessage(messaging, (payload) => {
+      console.log('Message received. ', payload);
+      this.message=payload;
+    });
+  }
+
 
   exit(): void {
     this.router.navigate(['courses']).then().catch();

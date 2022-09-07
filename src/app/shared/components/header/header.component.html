@@ -32,20 +32,27 @@
   <button mat-icon-button (click)="openDialog('notifications')">
     <mat-icon>notifications</mat-icon>
   </button>
-
-  <div class="context-menu">
-    <button mat-icon-button [matMenuTriggerFor]="apps">
-      <mat-icon class="bigger" [color]="color" #tooltip="matTooltip" matTooltip="WTF apps" matTooltipPosition="below"
-                matTooltipHideDelay="200" matTooltipClass="primary-tooltip">apps
-      </mat-icon>
-    </button>
-    <mat-menu #apps="matMenu">
-      <div class="products" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-        <div *ngFor="let product of products" class="product" fxFlex="27" fxLayout="row wrap" fxLayoutAlign="space-between center">
-          <mat-icon fxFlex="100">{{product.icon}}</mat-icon>
-          <span fxFlex="100">{{product.label | uppercase}}</span>
-        </div>
-        <div fxFlex="30"></div> <!-- hacky way to fill the gap -->
+  <!-- ToDo: Hnadle the notifications here. -->
+  <!--    <div *ngIf="message;">-->
+  <!--      <h1>{{ message.notification.title }}</h1>-->
+  <!--      <h2>{{ message.notification.body }}</h2>-->
+  <!--    </div>-->
+  <!--    <div *ngIf="!message;">-->
+  <!--      No Message Arrived-->
+  <!--    </div>
+      <div class="context-menu">
+        <button mat-icon-button [matMenuTriggerFor]="apps">
+          <mat-icon class="bigger" [color]="color" #tooltip="matTooltip" matTooltip="WTF apps" matTooltipPosition="below"
+                    matTooltipHideDelay="200" matTooltipClass="primary-tooltip">apps
+          </mat-icon>
+        </button>
+        <mat-menu #apps="matMenu">
+          <div class="products" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
+            <div *ngFor="let product of products" class="product" fxFlex="27" fxLayout="row wrap" fxLayoutAlign="space-between center">
+              <mat-icon fxFlex="100">{{product.icon}}</mat-icon>
+              <span fxFlex="100">{{product.label | uppercase}}</span>
+            </div>
+            <div fxFlex="30"></div> <!-- hacky way to fill the gap -->
       </div>
     </mat-menu>
   </div>
