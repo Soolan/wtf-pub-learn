@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ToggleHeaderFooterService} from './shared/services/toggle-header-footer.service';
 
 @Component({
@@ -7,9 +7,6 @@ import {ToggleHeaderFooterService} from './shared/services/toggle-header-footer.
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
   title = 'wtf-pub-learn';
-
-  constructor(public toggle: ToggleHeaderFooterService) {
-  }
+  constructor(public toggle: ToggleHeaderFooterService) { }
 }

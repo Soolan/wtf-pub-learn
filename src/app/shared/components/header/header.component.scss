@@ -17,10 +17,6 @@
 .context-menu {
   text-align: end;
   margin-left: 0.4em;
-  span {
-    font-size: 0.81em;
-    position: relative;
-  }
   .avatar {
     background-size: cover;
     height: calc(var(--space-md) + var(--space-xxxs));
@@ -28,6 +24,26 @@
     border-radius: 50%;
     margin: var(--space-xxs) auto;
   }
+}
+.products{
+  text-align: center;
+  font-size: small;
+  .product {
+    height: var(--space-xxl);
+    border-radius: var(--space-xxs);
+    margin: var(--space-sm) 0;
+    padding: var(--space-xs);
+    .mat-icon {scale: 1.5;}
+    span {
+      position: relative;
+      top: var(--space-xs);
+    }
+  }
+}
+
+.product:hover {
+  background-color: var(--color-aquamarine-background);
+  cursor: pointer;
 }
 
 .mobile {
@@ -47,3 +63,4 @@ mat-icon {
 .bigger {
   transform: scale(1.2);
 }
+

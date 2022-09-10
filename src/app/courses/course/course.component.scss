@@ -11,7 +11,6 @@
   }
 }
 .content {
-  margin: var(--space-xl) auto;
   .course, .summary {
     min-height: 10em;
     background-color: var(--color-greye);
@@ -44,7 +43,6 @@
     }
     .heading {
       font-weight: 100;
-      margin-top: -1.3em;
       margin-bottom: 0.5rem;
       padding-right: 1em;
       @media screen and (max-width: 600px) {
@@ -92,6 +90,32 @@
         color: var(--color-grey7);
         padding-top: var(--space-xxs);
         font-size: smaller;
+      }
+
+      .done {
+        margin-top: var(--space-xs);
+        text-align: end;
+        font-weight: bold;
+        span {
+          padding: var(--space-xxs);
+          background-color: var(--color-primary);
+          color: var(--color-greye);
+          border-radius: 10%;
+          letter-spacing: var(--space-xxxs);
+
+        }
+        .mat-icon {
+          vertical-align: middle;
+        }
+      }
+
+      .marker {
+        width: 0.4em;
+        height: 0.4em;
+        border: 2px solid var(--color-primary);
+        border-radius: 3px;
+        display: inline-block;
+        margin: 0.04em;
       }
     }
     .lesson:hover {

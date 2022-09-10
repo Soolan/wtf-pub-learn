@@ -20,29 +20,32 @@ import { ProgressComponent } from './course/progress/progress.component';
 
 
 @NgModule({
-  declarations: [
-    CourseComponent,
-    LandingComponent,
-    ProgressComponent
-  ],
-  imports: [
-    CommonModule,
-    CourseRoutingModule,
-    SharedModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatSidenavModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    MatIconModule,
-    LessonModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-  ]
+    declarations: [
+        CourseComponent,
+        LandingComponent,
+        ProgressComponent
+    ],
+    exports: [
+        CourseComponent
+    ],
+    imports: [
+        CommonModule,
+        CourseRoutingModule,
+        SharedModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatSidenavModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatCardModule,
+        MatListModule,
+        MatIconModule,
+        LessonModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+    ]
 })
 export class CourseModule {
 }

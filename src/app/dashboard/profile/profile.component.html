@@ -1,0 +1,86 @@
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+       class="profile" *ngIf="profile != undefined; else loading">
+
+    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" [formGroup]="form">
+      <div fxFlex="35" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+        <!--    <div fxFlex="100">-->
+        <!--      <mat-slide-toggle formControlName="published" (change)="update()">-->
+        <!--        <span [ngClass]="{'glow': form.get('published')?.value}">Publish</span>-->
+        <!--      </mat-slide-toggle>-->
+        <!--    </div>-->
+        <div fxFlex="100" class="avatar">
+          <app-image-uploader
+            (uploaderEvents)="updateImage($event)"
+            [currentImage]="profile.avatar"
+            [path]="path"
+          ></app-image-uploader>
+        </div>
+        <div fxFlex="95">
+          <mat-form-field appearance="fill">
+            <mat-label>Display Name</mat-label>
+            <input matInput placeholder="Display Name" formControlName="display_name"
+                   (keydown.enter)="update('display_name')">
+            <mat-icon class="check" matSuffix (click)="update('display_name')" *ngIf="!clicked.displayName">check
+            </mat-icon>
+            <span class="saving" matSuffix *ngIf="clicked.displayName">SAVING</span>
+          </mat-form-field>
+        </div>
+        <div fxFlex="45">
+          <mat-form-field appearance="fill">
+            <mat-label>Firstname</mat-label>
+            <input matInput placeholder="Firstname" formControlName="firstname" (keydown.enter)="update('firstname')">
+            <mat-icon class="check" matSuffix (click)="update('firstname')" *ngIf="!clicked.firstname">check</mat-icon>
+            <span class="saving" matSuffix *ngIf="clicked.firstname">SAVING</span>
+          </mat-form-field>
+        </div>
+        <div fxFlex="45">
+          <mat-form-field appearance="fill">
+            <mat-label>Lastname</mat-label>
+            <input matInput placeholder="Lastname" formControlName="lastname" (keydown.enter)="update('lastname')">
+            <mat-icon class="check" matSuffix (click)="update('lastname')" *ngIf="!clicked.lastname">check</mat-icon>
+            <span class="saving" matSuffix *ngIf="clicked.lastname">SAVING</span>
+          </mat-form-field>
+        </div>
+        <mat-divider fxFlex="100"></mat-divider>
+        <div fxFlex="95" class="last_update">
+          <div class="mat-caption">
+            <strong>last update: </strong>
+            <p>{{profile.timestamps.updated_at | date: 'full'}}</p>
+          </div>
+        </div>
+      </div>
+      <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
+      <div fxFlex="60" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="mat-caption wallet">
+          <button fxFlex="22" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <strong> Wallet</strong>
+          </button>
+          <span class="address" fxFlex="75" fxFlex.lt-md="100">{{profile.wallet_address}}
+            <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
+          </span>
+          <div class="balance mat-caption" fxFlex="50" fxFlex.lt-md="100">
+            balance: 6,765 WTF - transactions
+            <button mat-icon-button><mat-icon>open_in_new</mat-icon></button>
+          </div>
+        </div>
+        <mat-divider fxFlex="100"></mat-divider>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+          <div fxFlex="49" fxFlex.lt-md="100" class="loyalty">
+            <div class="mat-subheading-2 thin" appBlackRenderer content="Loyalty Level" keyword="Loyalty"></div>
+            <div class="silver"></div>
+            <div class="mat-headline thin">Silver</div>
+          </div>
+          <div fxFlex="49" fxFlex.lt-md="100" class="achievements mat-subheading-2 thin">Achievements</div>
+        </div>
+        <mat-divider fxFlex="100"></mat-divider>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="loading" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </ng-template>
+</div>

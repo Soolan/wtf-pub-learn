@@ -7,6 +7,9 @@ import {WalletComponent} from '../dialogs/wallet/wallet.component';
 import {NotificationsComponent} from '../dialogs/notifications/notifications.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {Router} from '@angular/router';
+import {getMessaging, getToken, onMessage} from '@angular/fire/messaging';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -16,18 +19,53 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 })
 export class HeaderComponent implements OnInit {
   login = false;
-  products!: string[];
+  products!: Option[];
   profile!: Option[];
   color!: ThemePalette;
+  message: any = null;
 
-  constructor(public auth: AngularFireAuth, public dialog: MatDialog) {}
+  constructor(
+    public auth: AngularFireAuth,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.products = PRODUCTS;
     this.profile = PROFILE;
+    // ToDo: uncomment these when the notification mechanism was full implemented
+    // this.requestPermission();
+    // this.listen();
+  }
+  requestPermission() {
+    const messaging = getMessaging();
+    getToken(messaging,
+      { vapidKey: environment.firebase.vapidKey}).then(
+      (currentToken) => {
+        if (currentToken) {
+          console.log("Hurraaa!!! we got the token.....");
+          console.log(currentToken);
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+        }
+      }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+    });
+  }
+  listen() {
+    const messaging = getMessaging();
+    onMessage(messaging, (payload) => {
+      console.log('Message received. ', payload);
+      this.message=payload;
+    });
   }
 
-  openDialog(name: string): void {
+
+  exit(): void {
+    this.router.navigate(['courses']).then().catch();
+  }
+
+  openDialog(name: string, uid?: string): void {
     switch (name) {
       case "login":
         this.dialog.open(AuthenticationComponent, {
@@ -37,14 +75,22 @@ export class HeaderComponent implements OnInit {
           data: {link: false}
         });
         break;
+      case "notifications":
+        this.dialog.open(NotificationsComponent, {
+          width: '350px',
+          enterAnimationDuration: DIALOG_DELAY,
+          exitAnimationDuration: DIALOG_DELAY,
+          data: {}
+        });
+        break;
       case this.profile[0].label:
         this.dialog.open(WalletComponent, {width: '250px'});
         break;
       case this.profile[1].label:
-        this.dialog.open(NotificationsComponent, {width: '250px'});
+        this.router.navigate(['dashboard', 'profile', uid]).then().catch();
         break;
       case this.profile[2].label:
-        // ToDo: navigate to the settings page
+        this.router.navigate(['dashboard']).then().catch();
         break;
       default:
         this.logout();

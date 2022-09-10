@@ -1,0 +1,41 @@
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+       class="dashboard" *ngIf="auth.user | async as user;else loading">
+    <div fxFlex="22" fxFlex.md="17"  fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="profile">
+      <div class="avatar" [ngStyle]="{'background-image': 'url(' + user.photoURL + ')'}"></div>
+      <div fxFlex="100" class="greetings mat-caption">Welcome back: {{user.displayName}}</div>
+      <div fxFlex="100" class="ip mat-caption">
+        <span>231.456.331.211</span>
+        <mat-icon>info_outline</mat-icon>
+      </div>
+      <mat-progress-bar fxFlex="70" fxFlex.lt-md="90" mode="determinate" [value]="completed" color="primary"></mat-progress-bar>
+      <div fxFlex="100" class="completion mat-caption">profile completed ({{completed}}%)</div>
+      <button fxFlex="70" fxFlex.lt-md="90" mat-button color="primary" [routerLink]="['profile', user.uid]" > Edit Profile</button>
+      <mat-divider fxFlex="70" fxFlex.lt-md="90"></mat-divider>
+      <div fxFlex="100" class="mat-subheading-1 badges">Achievements</div>
+      <div fxFlex="100" class="mat-subheading-1 badges">Earnings</div>
+    </div>
+    <div fxFlex="75" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
+      <div appBlackRenderer content="Current Course" keyword="Current" class="active mat-headline"></div>
+      <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+      <app-course [id]="progress.active" [isDashboard]=true></app-course>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+           class="previous subheading mat-subheading-2">
+        <div appBlackRenderer content="Previous Courses" keyword="Previous"></div>
+        <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+
+      </div>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+           class="bookmarks subheading mat-subheading-2">
+        <div appBlackRenderer content="Bookmarked Courses" keyword="Bookmarked"></div>
+        <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="loading" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </ng-template>
+</div>

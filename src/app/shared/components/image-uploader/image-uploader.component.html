@@ -1,0 +1,34 @@
+<div class="flip-card">
+  <div [@flip]="flipState" class="flip-card-inner">
+    <div class="flip-card-front"> <!-- This is the side with buttons and controls -->
+      <div class="dropzone"
+           appDropzone
+           (hovered)="toggleHover($event)"
+           (dropped)="onDrop($event)"
+           [class.hovering]="isHovering">
+        <p><strong>Drag Files Here</strong></p>
+        <span> - or - </span>
+        <input type="file" style="display: none" #fileInput accept="image/*" (change)="onChangeFileInput()"/>
+        <button mat-flat-button color="primary" (click)="onClickFileInputButton()" *ngIf="flipState === 'front'">
+          <mat-icon>add</mat-icon>
+          Choose File
+        </button>
+      </div>
+    </div>
+    <div class="flip-card-back"> <!-- This is the side with either the image or the upload progress bar -->
+      <div *ngIf="currentImage; else upload;">
+        <button color="accent" class="delete" mat-mini-fab (click)="delete()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <img src="{{currentImage | storageUrl | async}}" width="100%">
+      </div>
+      <ng-template #upload>
+        <div *ngFor="let file of files">
+          <app-upload-task [file]="file" [path]="path" [currentImage]="currentImage" (uploaderEvents)="handleEvent($event)">
+          </app-upload-task>
+        </div>
+        please wait...
+      </ng-template>
+    </div>
+  </div>
+</div>

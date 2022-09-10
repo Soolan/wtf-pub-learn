@@ -1,0 +1,17 @@
+.access-denied {
+  text-align: center;
+  min-height: 50vh;
+  .headline {
+    font-weight: 100;
+    margin-bottom: var(--space-md);
+  }
+  button {
+    margin: 0 var(--space-xxs);
+  }
+  .description {
+    color: var(--color-grey8);
+    font-size: large;
+    letter-spacing: var(--space-xxxs);
+    margin-bottom: var(--space-xs);
+  }
+}
