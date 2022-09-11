@@ -4,8 +4,17 @@
   .releases {
     margin-bottom: var(--space-xxl);
   }
+  .release-tag {
+    font-weight: bolder;
+    color: var(--color-primary-light);
+    padding: var(--space-xxs);
+    border-radius: var(--space-xxs);
+    .mat-icon {
+      vertical-align: sub;
+    }
+  }
   .date {
-    color: var(--color-grey7);
+    color: var(--color-grey5);
   }
   .tag {
     font-weight: bolder;
