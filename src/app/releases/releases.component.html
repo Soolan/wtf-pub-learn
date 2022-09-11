@@ -4,7 +4,7 @@
       <div fxFlex="90" class="mat-headline thin">Releases</div>
       <div fxFlex="90">
         <mat-accordion>
-          <mat-expansion-panel *ngFor="let r of releases">
+          <mat-expansion-panel *ngFor="let r of releases; let i=index" [expanded]="i == 0">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{r.version}}
@@ -25,25 +25,21 @@
     </div>
     <div fxFlex="30" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
       <div fxFlex="90" class="mat-headline thin">Road Map</div>
-      <div fxFlex="80" class="mat-body-1">
-        <mat-accordion>
-          <mat-expansion-panel *ngFor="let r of roadmaps">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{r.version}}
-              </mat-panel-title>
-              <mat-panel-description>
-                {{r.date | date}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div fxFlex="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
-              <app-release-notes fxFlex="100" title="Features" [bullets]="r.features"></app-release-notes>
-              <app-release-notes fxFlex="100" title="Improvements" [bullets]="r.improvements"></app-release-notes>
-              <app-release-notes fxFlex="100" title="Fixes" [bullets]="r.fixes"></app-release-notes>
-              <app-release-notes fxFlex="100" title="Operations" [bullets]="r.operations"></app-release-notes>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
+      <div fxFlex="80" *ngFor="let r of roadmaps" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div class="mat-title date thin" fxFlex="80">
+          {{r.date | date}}
+        </div>
+        <div class="mat-caption" fxFlex="20">
+          <span class="tag">{{r.version}}</span>
+        </div>
+        <mat-divider fxFlex="100"></mat-divider>
+
+        <div class="bullets" fxFlex="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
+          <app-release-notes fxFlex="100" title="Features" [bullets]="r.features"></app-release-notes>
+          <app-release-notes fxFlex="100" title="Improvements" [bullets]="r.improvements"></app-release-notes>
+          <app-release-notes fxFlex="100" title="Fixes" [bullets]="r.fixes"></app-release-notes>
+          <app-release-notes fxFlex="100" title="Operations" [bullets]="r.operations"></app-release-notes>
+        </div>
       </div>
     </div>
   </div>

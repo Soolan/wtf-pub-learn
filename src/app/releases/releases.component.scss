@@ -4,4 +4,19 @@
   .releases {
     margin-bottom: var(--space-xxl);
   }
+  .date {
+    color: var(--color-grey7);
+  }
+  .tag {
+    font-weight: bolder;
+    background-color: var(--color-primary-dark);
+    color: var(--color-primary-light);
+    position: relative;
+    bottom: var(--space-xs);
+    padding: var(--space-xs);
+    border-radius: var(--space-xxs);
+  }
+  .bullets {
+    margin-bottom: var(--space-lg);
+  }
 }

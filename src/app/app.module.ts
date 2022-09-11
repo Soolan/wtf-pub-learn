@@ -30,6 +30,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -38,39 +39,40 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ReleasesComponent,
     ReleaseNotesComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireAnalyticsModule,
-    CourseModule,
-    SharedModule,
-    FlexLayoutModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
-    provideMessaging(() => getMessaging()),
-    providePerformance(() => getPerformance()),
-    provideRemoteConfig(() => getRemoteConfig()),
-    provideStorage(() => getStorage()),
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatChipsModule,
-    MatExpansionModule,
-    DashboardModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
+        AngularFireAuthModule,
+        AngularFirestoreModule,
+        AngularFireAnalyticsModule,
+        CourseModule,
+        SharedModule,
+        FlexLayoutModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAnalytics(() => getAnalytics()),
+        provideAuth(() => getAuth()),
+        provideDatabase(() => getDatabase()),
+        provideFirestore(() => getFirestore()),
+        provideFunctions(() => getFunctions()),
+        provideMessaging(() => getMessaging()),
+        providePerformance(() => getPerformance()),
+        provideRemoteConfig(() => getRemoteConfig()),
+        provideStorage(() => getStorage()),
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatChipsModule,
+        MatExpansionModule,
+        DashboardModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        MatDividerModule,
+    ],
   providers: [
     ScreenTrackingService,UserTrackingService
   ],
