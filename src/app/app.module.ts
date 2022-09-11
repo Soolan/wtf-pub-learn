@@ -30,6 +30,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    MatDividerModule,
+    MatIconModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
