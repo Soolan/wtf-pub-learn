@@ -2,10 +2,10 @@ import {Release} from '../models/release';
 
 export const RELEASES: Release[] = [
   {
-    version: "v1.0.0",
-    date: "2022, Sep 11th",
+    version: "v1.1.1",
+    date: "2022-09-25",
     features: [
-      "New pages added: Release page with Release Notes and Road Map",
+      "Release page: It contains 'Release Notes' and 'Road Map'",
       "Sign up/Sign in: Users can register & be authenticated",
       "Profile: Users can manage their profile",
       "Dashboard: Users can see the summary of their learning progress + earning and achievements",
@@ -16,5 +16,21 @@ export const RELEASES: Release[] = [
     improvements: [],
     fixes: [],
     operations: ["Automated workflows: Github Actions for staging & production pipelines created"],
-  }
+  },
+  {
+    version: "v1.0.0",
+    date: "2022-09-11",
+    features: [
+      "Release page: It contains 'Release Notes' and 'Road Map'",
+      "Sign up/Sign in: Users can register & be authenticated",
+      "Profile: Users can manage their profile",
+      "Dashboard: Users can see the summary of their learning progress + earning and achievements",
+      "Notifications: Users will receive notifications on system events",
+      "New lesson: Lesson one draft is ready. Yay!",
+      "Products: A products popup is available next to the user icon.",
+    ],
+    improvements: [],
+    fixes: [],
+    operations: ["Automated workflows: Github Actions for staging & production pipelines created"],
+  },
 ]
