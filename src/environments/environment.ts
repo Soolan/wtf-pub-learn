@@ -14,7 +14,8 @@ export const environment = {
     measurementId: 'G-YJS1NWM7B5',
     vapidKey: "BMDsTrGRkJadURZZBoLlJUWHxwy2yhcG9gruEvbLmfNu-00IvebcmkwFXyLYr9289jiIdj5LD4-5P7kwLv75_MA"
   },
-  production: false
+  production: false,
+  useEmulators: true
 };
 
 /*
