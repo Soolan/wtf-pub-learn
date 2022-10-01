@@ -32,8 +32,19 @@ export enum Operation {
   Edit,
 }
 
-export enum Levels {
+export enum Level {
   Easy,
   Intermediate,
   Advanced
+}
+
+export enum WtfProduct {
+  Website,
+  Learn,
+  Dashboard,
+  Loor,
+  Wallet,
+  Faucet,
+  NFT,
+  DEX
 }

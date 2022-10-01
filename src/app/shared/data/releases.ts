@@ -1,9 +1,11 @@
 import {Release} from '../models/release';
+import {WtfProduct} from './enums';
 
 export const RELEASES: Release[] = [
   {
     version: "v1.1.1",
     date: "2022-09-25",
+    product: WtfProduct.Learn,
     features: [
       "Lesson 1: Lesson one finalized and published.",
     ],
@@ -11,7 +13,7 @@ export const RELEASES: Release[] = [
       "Release Notes: The roadmap/release notes are populated dynamically now based on given dates.",
     ],
     fixes: [
-      "Firebase Duplicatea: Duplicate docs on update, in collections and subcollections are fixed.",
+      "Firebase Duplicates: Duplicate docs on update, in collections and sub-collections are fixed.",
       "Order Updates: Updates on drag and drop lists for lessons/slides are fixed."
     ],
     operations: [
@@ -27,6 +29,7 @@ export const RELEASES: Release[] = [
   {
     version: "v1.0.0",
     date: "2022-09-11",
+    product: WtfProduct.Learn,
     features: [
       "Release page: It contains 'Release Notes' and 'Road Map'",
       "Sign up/Sign in: Users can register & be authenticated",

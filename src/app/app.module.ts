@@ -33,6 +33,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 
+import {USE_EMULATOR as USE_FIRESTORE_EMULATOR} from '@angular/fire/compat/firestore';
+import {USE_EMULATOR as USE_STORAGE_EMULATOR} from '@angular/fire/compat/storage';
+import {USE_EMULATOR as USE_DATABASE_EMULATOR} from '@angular/fire/compat/database';
+import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/compat/functions';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,34 +65,6 @@ import {MatIconModule} from '@angular/material/icon';
       }
       return auth;
     }),
-    provideFirestore(() => {
-      const firestore = getFirestore();
-      if (environment.useEmulators) {
-        connectFirestoreEmulator(firestore, 'localhost', 8070);
-      }
-      return firestore;
-    }),
-    provideDatabase(() => {
-      const database = getDatabase();
-      if (environment.useEmulators) {
-        connectDatabaseEmulator(database, 'localhost', 9000);
-      }
-      return database;
-    }),
-    provideStorage(() => {
-      const storage = getStorage();
-      if (environment.useEmulators) {
-        connectStorageEmulator(storage, 'localhost', 9199);
-      }
-      return storage;
-    }),
-    provideFunctions(() => {
-      const functions = getFunctions();
-      if (environment.useEmulators) {
-        connectFunctionsEmulator(functions, 'localhost', 5001);
-      }
-      return functions;
-    }),
     provideMessaging(() => getMessaging()),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
@@ -108,6 +85,16 @@ import {MatIconModule} from '@angular/material/icon';
   providers: [
     ScreenTrackingService, UserTrackingService,
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    ScreenTrackingService,UserTrackingService,
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+
+    // { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
+    // That is why we set them up like these
+    { provide: USE_DATABASE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9000] : undefined },
+    { provide: USE_STORAGE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9199] : undefined },
+    { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
+
 
   ],
   bootstrap: [AppComponent]
