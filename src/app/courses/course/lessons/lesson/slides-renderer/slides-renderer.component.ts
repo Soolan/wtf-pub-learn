@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+  import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SlideType} from '../../../../../shared/data/enums';
 import {Slide} from '../../../../../shared/models/slide';
 import {SlideService} from './slide.service';
@@ -26,6 +26,7 @@ export class SlidesRendererComponent implements OnChanges {
   }
 
   setCurrentSlide(index: number): void {
+    console.log(index)
     this.current = this.slides[index];
     console.log(this.current);
   }

@@ -6,11 +6,12 @@ import {SlideType} from '../../../../../../shared/data/enums';
 @Component({
   selector: 'app-start',
   templateUrl: './start.component.html',
-  styleUrls: ['./start.component.scss']
+  styleUrls: ['./start.component.scss', '../slides-renderer.component.scss']
 })
 export class StartComponent {
   @Input() slide: any;
-  constructor(private slideService: SlideService) { }
+  constructor(private slideService: SlideService) {
+  }
 
   proceed(): void {
     this.slideService.next({

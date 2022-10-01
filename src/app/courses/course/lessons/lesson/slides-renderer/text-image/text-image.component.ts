@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Position} from '../../../../../../shared/data/enums';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 
@@ -7,19 +7,21 @@ import {AngularFireStorage} from '@angular/fire/compat/storage';
   templateUrl: './text-image.component.html',
   styleUrls: ['./text-image.component.scss']
 })
-export class TextImageComponent implements OnInit {
+export class TextImageComponent implements OnChanges{
   @Input() content!: any;
   position = Position;
   text!: string;
   image!: string;
 
-  constructor(private storage: AngularFireStorage) {}
+  constructor(private storage: AngularFireStorage) { }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges) {
     this.text = this.content.text || this.content.question || this.content.summary;
-    this.storage.ref(this.content.image).getDownloadURL().subscribe({
-      next: url => this.image = `url(${url})`,
-      error: error => console.log(error)
-    });
+    if (this.content.image) {
+      this.storage.ref(this.content.image).getDownloadURL().subscribe({
+        next: url => this.image = `url(${url})`,
+        error: error => console.log(error)
+      });
+    }
   }
 }
