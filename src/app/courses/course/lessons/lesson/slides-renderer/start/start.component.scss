@@ -2,7 +2,8 @@
   margin-top: var(--space-sm);
   margin-left: var(--space-sm);
   span{
-    vertical-align: text-top;
+    position: relative;
+    bottom: var(--space-xxs);
   }
 }
 button{
