@@ -1,11 +1,11 @@
 export enum SlideType {
   Start,
   Static,
+  SingleChoice,
+  MultipleChoice,
   FixedFillIn,
   MixedFillIn,
   HintFillIn,
-  SingleChoice,
-  MultipleChoice,
   Swipe,
   Match,
   EasyReview,
