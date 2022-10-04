@@ -1,3 +1,14 @@
+.image {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.portrait {
+  min-height: 13em;
+}
+.landscape {
+  min-height: 8em;
+}
 .ghost-input {
   display: none;
   position: absolute;
