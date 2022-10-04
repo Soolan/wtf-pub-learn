@@ -56,8 +56,10 @@ export class MixedFillInComponent implements OnChanges {
     this.initOptions();
 
     this.answers.forEach(answer => {
+      let start = index * this.slide.content.options_per_set;
+      let end = start + this.slide.content.options_per_set - 1;
+      let options = this.slideService.randomizeOptions(this.slide.content.options_per_set, this.options.slice(start, end), answer);
       let isActive = this.currentSet == index++;
-      let options = this.slideService.randomizeOptions(this.slide.content.options_per_set, this.options, answer);
       let isSingle = this.slideService.isSingleColumn(options);
       this.optionSets.push({isActive, options, isSingle});
     });
