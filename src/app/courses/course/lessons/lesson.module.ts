@@ -27,6 +27,7 @@ import { TextImageComponent } from './lesson/slides-renderer/text-image/text-ima
 import { MultipleChoiceComponent } from './lesson/slides-renderer/multiple-choice/multiple-choice.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
+import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/blank-renderer/blank-renderer.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {MatChipsModule} from '@angular/material/chips';
     NotFoundComponent,
     TextImageComponent,
     MultipleChoiceComponent,
+    BlankRendererComponent,
   ],
     imports: [
         CommonModule,
