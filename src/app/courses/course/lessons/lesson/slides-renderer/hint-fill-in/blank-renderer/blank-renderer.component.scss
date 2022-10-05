@@ -1,0 +1,19 @@
+input {
+  width: 6em;
+  background: none;
+  border: 0 none;
+  outline: 0;
+  font-family: "Delius", cursive;
+  font-weight: bold;
+  font-size: larger;
+  line-height: 1.3em;
+  padding-left: var(--space-xxs);
+}
+
+input:focus {
+  outline: none !important;
+}
+
+.chunk {
+  line-height: initial;
+}
