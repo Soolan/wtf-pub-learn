@@ -59,6 +59,7 @@ import { ParserDirective } from './directives/parser.directive';
         CardRendererDirective,
         MatchRendererDirective,
         ImageUploaderComponent,
+        ParserDirective,
     ],
   imports: [
     CommonModule,

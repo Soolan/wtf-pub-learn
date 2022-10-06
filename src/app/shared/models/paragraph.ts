@@ -1,9 +1,5 @@
 export interface Paragraph {
   content: string;
-  bold: string;
-  italic: string;
-  url: Url;
-  tooltip: Tooltip;
 }
 
 export interface Url {
