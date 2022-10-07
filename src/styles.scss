@@ -249,9 +249,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .parser-tooltip-caption {
   color: var(--color-accent);
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: wavy underline;
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted var(--color-accent-light);
+  border-bottom: 1px dashed var(--color-accent-light);
 }
 
 .parser-tooltip-caption .parser-tooltip-info {
@@ -264,13 +268,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-weight: bold;
   letter-spacing: 1px;
   min-width: 8em;
-  visibility: hidden;
   text-align: center;
   position: absolute;
   z-index: 1;
   bottom: 100%;
   left: 50%;
   margin-left: -60%;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 .parser-tooltip-caption .parser-tooltip-info::after {
@@ -285,5 +290,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .parser-tooltip-caption:hover .parser-tooltip-info {
-  visibility: visible;
+  opacity: 1;
 }

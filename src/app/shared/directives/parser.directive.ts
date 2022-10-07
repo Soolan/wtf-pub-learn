@@ -1,29 +1,5 @@
 import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
-
-export enum ChunkFlags {
-  Normal,
-  Bold,
-  Italic,
-  BoldItalic,
-  UrlCaption,
-  UrlLink,
-  TooltipCaption,
-  TooltipInfo
-}
-
-export interface Chunk {
-  value: string,
-  flag: ChunkFlags
-}
-
-export const PARSER_CSS = {
-  BOLD: "parser-bold",
-  ITALIC: "parser-italic",
-  BOLD_ITALIC: "parser-bold-italic",
-  URL_CAPTION: "parser-url-caption",
-  TOOLTIP_CAPTION: "parser-tooltip-caption",
-  TOOLTIP_INFO: "parser-tooltip-info",
-}
+import {Chunk, ChunkFlags, PARSER_CSS, REGEX} from '../models/parser';
 
 @Directive({
   selector: '[appParser]'
@@ -33,11 +9,6 @@ export class ParserDirective {
   @Input() paragraph!: string;
   chunks: Chunk[] = [];
   index = 0;
-  boldRegex = /\*\*(.*?)\*\*/gm;
-  italicRegex = /\~\~(.*?)\~\~/gm;
-  boldItalicRegex = /\*\~\*(.*?)\*\~\*/gm;
-  urlRegex = /\[(.*?)\]\((https:\/\/.*?)\)/gm;
-  tooltipRegex = /\[([^\[]+)\]\<(.*)\>/gm;
 
   constructor(
     private renderer: Renderer2,
@@ -65,26 +36,26 @@ export class ParserDirective {
 
     // process italic
     setTimeout(_ => {
-      this.process(this.italicRegex, ChunkFlags.Italic);
+      this.process(REGEX.ITALIC, ChunkFlags.Italic);
     }, 100)
 
     // process bold italic
     setTimeout(_ => {
-      this.process(this.boldItalicRegex, ChunkFlags.BoldItalic);
+      this.process(REGEX.BOLD_ITALIC, ChunkFlags.BoldItalic);
     }, 80)
 
     // process url
     setTimeout(_ => {
-      this.process(this.urlRegex, ChunkFlags.UrlCaption);
+      this.process(REGEX.URL, ChunkFlags.UrlCaption);
       const index = this.chunks.findIndex(chunk => chunk.flag == ChunkFlags.UrlCaption);
-      this.chunks[index+1].flag = ChunkFlags.UrlLink;
+      this.chunks[index + 1].flag = ChunkFlags.UrlLink;
     }, 60)
 
     // process url
     setTimeout(_ => {
-      this.process(this.tooltipRegex, ChunkFlags.TooltipCaption);
+      this.process(REGEX.TOOLTIP, ChunkFlags.TooltipCaption);
       const index = this.chunks.findIndex(chunk => chunk.flag == ChunkFlags.TooltipCaption);
-      this.chunks[index+1].flag = ChunkFlags.TooltipInfo;
+      this.chunks[index + 1].flag = ChunkFlags.TooltipInfo;
     }, 40)
   }
 
@@ -92,13 +63,15 @@ export class ParserDirective {
   processBold(): void {
     let match = null;
     let matches: string[] = [];
-    let chunks = this.paragraph.split(this.boldRegex);
-    while ((match = this.boldRegex.exec(this.paragraph)) != null) {
+    let chunks = this.paragraph.split(REGEX.BOLD);
+    match = REGEX.BOLD.exec(this.paragraph);
+    while (match != null) {
       matches.push(match[1]);
     }
     chunks.forEach(chunk => {
       this.chunks.push({value: chunk, flag: matches.includes(chunk) ? ChunkFlags.Bold : ChunkFlags.Normal});
     })
+
   }
 
   process(regex: RegExp, flag: ChunkFlags): void {
@@ -125,22 +98,29 @@ export class ParserDirective {
       } else {
         index++
       }
-      console.log(this.chunks);
     })
   }
 
   render(): void {
     this.chunks.forEach((chunk, index) => {
       switch (chunk.flag) {
-        case ChunkFlags.Normal: this.addSpan(chunk.value); break;
-        case ChunkFlags.Bold: this.addSpan(chunk.value, PARSER_CSS.BOLD); break;
-        case ChunkFlags.Italic: this.addSpan(chunk.value, PARSER_CSS.ITALIC); break;
-        case ChunkFlags.BoldItalic: this.addSpan(chunk.value, PARSER_CSS.BOLD_ITALIC); break;
+        case ChunkFlags.Normal:
+          this.addSpan(chunk.value);
+          break;
+        case ChunkFlags.Bold:
+          this.addSpan(chunk.value, PARSER_CSS.BOLD);
+          break;
+        case ChunkFlags.Italic:
+          this.addSpan(chunk.value, PARSER_CSS.ITALIC);
+          break;
+        case ChunkFlags.BoldItalic:
+          this.addSpan(chunk.value, PARSER_CSS.BOLD_ITALIC);
+          break;
         case ChunkFlags.UrlCaption:
-          this.addUrl(chunk.value, this.chunks[index+1].value, PARSER_CSS.URL_CAPTION);
+          this.addUrl(chunk.value, this.chunks[index + 1].value, PARSER_CSS.URL_CAPTION);
           break;
         case ChunkFlags.TooltipCaption:
-          this.addTooltip(chunk.value, PARSER_CSS.TOOLTIP_CAPTION, this.chunks[index+1].value, PARSER_CSS.TOOLTIP_INFO);
+          this.addTooltip(chunk.value, PARSER_CSS.TOOLTIP_CAPTION, this.chunks[index + 1].value, PARSER_CSS.TOOLTIP_INFO);
           break;
       }
     })
@@ -184,9 +164,6 @@ export class ParserDirective {
     const text = this.renderer.createText(caption);
     this.renderer.appendChild(captionSpan, text);
 
-    const icon = this.addIcon('info');
-    this.renderer.appendChild(captionSpan, icon);
-
     const descriptionSpan = this.renderer.createElement('span');
     this.renderer.addClass(descriptionSpan, cssDescription);
     const descriptionText = this.renderer.createText(description);
@@ -194,7 +171,9 @@ export class ParserDirective {
 
     this.renderer.appendChild(captionSpan, descriptionSpan);
     this.renderer.appendChild(this.elementRef.nativeElement, captionSpan);
+
+    const icon = this.addIcon('info');
+    this.renderer.setStyle(icon, 'color', 'var(--color-accent)')
+    this.renderer.appendChild(this.elementRef.nativeElement, icon);
   }
-
-
 }
