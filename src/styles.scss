@@ -221,3 +221,38 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.parser-normal {
+}
+
+.parser-bold {
+  font-weight: bold;
+}
+
+.parser-italic {
+  font-style: italic;
+}
+
+.parser-bold-italic {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.parser-url-caption {
+  color: var(--color-primary-dark)
+}
+
+.parser-tooltip-caption {
+  color: var(--color-accent-dark);
+}
+
+.parser-tooltip-info {
+  padding: var(--space-xs);
+  border-radius: var(--space-xs);
+  position: relative;
+  bottom: var(--space-lg);
+  right: var(--space-xxl);
+  background-color: var(--color-accent-dark);
+  color: var(--color-accent-light);
+}

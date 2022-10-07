@@ -16,6 +16,16 @@ export interface Chunk {
   flag: ChunkFlags
 }
 
+export const PARSER_CSS = {
+  BOLD: "parser-bold",
+  ITALIC: "parser-italic",
+  BOLD_ITALIC: "parser-bold-italic",
+  URL_CAPTION: "parser-url-caption",
+  URL_LINK: "parser-url-link",
+  TOOLTIP_CAPTION: "parser-tooltip-caption",
+  TOOLTIP_INFO: "parser-tooltip-info",
+}
+
 @Directive({
   selector: '[appParser]'
 })
@@ -39,6 +49,9 @@ export class ParserDirective {
   ngOnInit(): void {
     this.cleanUp();
     this.parse();
+    setTimeout(_ => {
+      this.render();
+    }, 100)
   }
 
   cleanUp(): void {
@@ -49,7 +62,6 @@ export class ParserDirective {
 
   parse(): void {
     // process bold
-
     this.processBold();
 
     // process italic
@@ -75,14 +87,6 @@ export class ParserDirective {
       const index = this.chunks.findIndex(chunk => chunk.flag == ChunkFlags.TooltipCaption);
       this.chunks[index+1].flag = ChunkFlags.TooltipInfo;
     }, 40)
-
-    // setTimeout(_ => {
-    //
-    // },120)
-    const span = this.renderer.createElement('span');
-    const text = this.renderer.createText(this.paragraph);
-    this.renderer.appendChild(span, text);
-    this.renderer.appendChild(this.elementRef.nativeElement, span);
   }
 
 
@@ -122,22 +126,32 @@ export class ParserDirective {
       } else {
         index++
       }
-      console.log(this.chunks);
+      // console.log(this.chunks);
     })
   }
 
-  addText(chunk: string): void {
+  render(): void {
+    this.chunks.forEach((chunk, index) => {
+      console.log(chunk.flag, chunk.value);
+      switch (chunk.flag) {
+        case ChunkFlags.Normal: this.addSpan(chunk.value); break;
+        case ChunkFlags.Bold: this.addSpan(chunk.value, PARSER_CSS.BOLD); break;
+        case ChunkFlags.Italic: this.addSpan(chunk.value, PARSER_CSS.ITALIC); break;
+        case ChunkFlags.BoldItalic: this.addSpan(chunk.value, PARSER_CSS.BOLD_ITALIC); break;
+        case ChunkFlags.UrlCaption: this.addUrl(chunk.value, this.chunks[index+1].value); break;
+        case ChunkFlags.TooltipCaption: this.addTooltip(chunk.value, this.chunks[index+1].value); break;
+      }
+    })
+  }
+
+  addSpan(chunk: string, cssClass: string = 'normal'): void {
     const span = this.renderer.createElement('span');
+    this.renderer.addClass(span, cssClass);
     const text = this.renderer.createText(chunk);
     this.renderer.appendChild(span, text);
     this.renderer.appendChild(this.elementRef.nativeElement, span);
   }
 
-  addBlack(chunk: string): void {
-    const span = this.renderer.createElement('span');
-    this.renderer.addClass(span, 'black');
-    const text = this.renderer.createText(chunk);
-    this.renderer.appendChild(span, text);
-    this.renderer.appendChild(this.elementRef.nativeElement, span);
-  }
+  addUrl(caption: string, link: string): void {}
+  addTooltip(caption: string, description: string): void {}
 }
