@@ -21,7 +21,6 @@ export const PARSER_CSS = {
   ITALIC: "parser-italic",
   BOLD_ITALIC: "parser-bold-italic",
   URL_CAPTION: "parser-url-caption",
-  URL_LINK: "parser-url-link",
   TOOLTIP_CAPTION: "parser-tooltip-caption",
   TOOLTIP_INFO: "parser-tooltip-info",
 }
@@ -38,7 +37,7 @@ export class ParserDirective {
   italicRegex = /\~\~(.*?)\~\~/gm;
   boldItalicRegex = /\*\~\*(.*?)\*\~\*/gm;
   urlRegex = /\[(.*?)\]\((https:\/\/.*?)\)/gm;
-  tooltipRegex = /\[([^\[]+)\](\<.*\>)/gm;
+  tooltipRegex = /\[([^\[]+)\]\<(.*)\>/gm;
 
   constructor(
     private renderer: Renderer2,
@@ -126,20 +125,23 @@ export class ParserDirective {
       } else {
         index++
       }
-      // console.log(this.chunks);
+      console.log(this.chunks);
     })
   }
 
   render(): void {
     this.chunks.forEach((chunk, index) => {
-      console.log(chunk.flag, chunk.value);
       switch (chunk.flag) {
         case ChunkFlags.Normal: this.addSpan(chunk.value); break;
         case ChunkFlags.Bold: this.addSpan(chunk.value, PARSER_CSS.BOLD); break;
         case ChunkFlags.Italic: this.addSpan(chunk.value, PARSER_CSS.ITALIC); break;
         case ChunkFlags.BoldItalic: this.addSpan(chunk.value, PARSER_CSS.BOLD_ITALIC); break;
-        case ChunkFlags.UrlCaption: this.addUrl(chunk.value, this.chunks[index+1].value); break;
-        case ChunkFlags.TooltipCaption: this.addTooltip(chunk.value, this.chunks[index+1].value); break;
+        case ChunkFlags.UrlCaption:
+          this.addUrl(chunk.value, this.chunks[index+1].value, PARSER_CSS.URL_CAPTION);
+          break;
+        case ChunkFlags.TooltipCaption:
+          this.addTooltip(chunk.value, PARSER_CSS.TOOLTIP_CAPTION, this.chunks[index+1].value, PARSER_CSS.TOOLTIP_INFO);
+          break;
       }
     })
   }
@@ -152,6 +154,47 @@ export class ParserDirective {
     this.renderer.appendChild(this.elementRef.nativeElement, span);
   }
 
-  addUrl(caption: string, link: string): void {}
-  addTooltip(caption: string, description: string): void {}
+  addUrl(caption: string, link: string, cssClass: string): void {
+    const a = this.renderer.createElement('a');
+    this.renderer.addClass(a, cssClass);
+    const text = this.renderer.createText(caption);
+    this.renderer.setProperty(a, 'href', link);
+    this.renderer.setProperty(a, 'target', 'blank');
+    this.renderer.appendChild(a, text);
+
+    const icon = this.addIcon('open_in_new');
+    this.renderer.appendChild(a, icon);
+
+    this.renderer.appendChild(this.elementRef.nativeElement, a);
+  }
+
+  private addIcon(matIcon: string) {
+    const icon = this.renderer.createElement('span');
+    this.renderer.addClass(icon, "material-icons");
+    this.renderer.setStyle(icon, 'font-size', 'inherit')
+    const iconText = this.renderer.createText(matIcon);
+    this.renderer.appendChild(icon, iconText);
+    return icon;
+  }
+
+  addTooltip(caption: string, cssCaption: string, description: string, cssDescription: string): void {
+    const captionSpan = this.renderer.createElement('span');
+    this.renderer.addClass(captionSpan, cssCaption);
+
+    const text = this.renderer.createText(caption);
+    this.renderer.appendChild(captionSpan, text);
+
+    const icon = this.addIcon('info');
+    this.renderer.appendChild(captionSpan, icon);
+
+    const descriptionSpan = this.renderer.createElement('span');
+    this.renderer.addClass(descriptionSpan, cssDescription);
+    const descriptionText = this.renderer.createText(description);
+    this.renderer.appendChild(descriptionSpan, descriptionText);
+
+    this.renderer.appendChild(captionSpan, descriptionSpan);
+    this.renderer.appendChild(this.elementRef.nativeElement, captionSpan);
+  }
+
+
 }

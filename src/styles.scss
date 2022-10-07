@@ -240,19 +240,50 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .parser-url-caption {
-  color: var(--color-primary-dark)
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: var(--color-primary);
+  font-size: 18px;
+  text-decoration-style: dotted;
 }
 
 .parser-tooltip-caption {
-  color: var(--color-accent-dark);
+  color: var(--color-accent);
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted var(--color-accent-light);
 }
 
-.parser-tooltip-info {
-  padding: var(--space-xs);
+.parser-tooltip-caption .parser-tooltip-info {
+  padding: var(--space-sm);
   border-radius: var(--space-xs);
-  position: relative;
-  bottom: var(--space-lg);
-  right: var(--space-xxl);
   background-color: var(--color-accent-dark);
   color: var(--color-accent-light);
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  min-width: 8em;
+  visibility: hidden;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60%;
+}
+
+.parser-tooltip-caption .parser-tooltip-info::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 25%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.parser-tooltip-caption:hover .parser-tooltip-info {
+  visibility: visible;
 }
