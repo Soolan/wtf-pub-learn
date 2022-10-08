@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
-import {Chunk, ChunkFlags, PARSER_CSS, REGEX} from '../models/parser';
+import {Chunk, ChunkFlag, PARSER_CSS, REGEX} from '../models/parser';
 
 @Directive({
   selector: '[appParser]'
@@ -7,120 +7,135 @@ import {Chunk, ChunkFlags, PARSER_CSS, REGEX} from '../models/parser';
 
 export class ParserDirective {
   @Input() paragraph!: string;
-  chunks: Chunk[] = [];
   index = 0;
 
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
-  ) {
-  }
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
   ngOnInit(): void {
     this.cleanUp();
-    this.parse();
-    setTimeout(_ => {
-      this.render();
-    }, 100)
+    this.parse().then(chunks => this.render(chunks));
   }
 
   cleanUp(): void {
-    Array.from(this.elementRef.nativeElement.children).forEach(
-      child => this.renderer.removeChild(this.elementRef.nativeElement, child)
-    );
+    Array.from(this.elementRef.nativeElement.children)
+      .forEach(child => this.renderer.removeChild(this.elementRef.nativeElement, child));
   }
 
-  parse(): void {
-    // process bold
-    this.processBold();
+  parse(): Promise<Chunk[]> {
+    let chunks: Chunk[] = [];
 
-    // process italic
-    setTimeout(_ => {
-      this.process(REGEX.ITALIC, ChunkFlags.Italic);
-    }, 100)
+    return new Promise((resolve, reject) => {
+      console.log(
+        REGEX.BOLD.test(this.paragraph),
+        REGEX.ITALIC.test(this.paragraph),
+        REGEX.BOLD_ITALIC.test(this.paragraph),
+        REGEX.URL.test(this.paragraph),
+        REGEX.TOOLTIP.test(this.paragraph),
+      );
 
-    // process bold italic
-    setTimeout(_ => {
-      this.process(REGEX.BOLD_ITALIC, ChunkFlags.BoldItalic);
-    }, 80)
+      // process bold
+      if (REGEX.BOLD.test(this.paragraph)) {
+        console.log("bold",);
+        this.processBold()
+          .then(chunks => {
+            // process italic
+            // if (REGEX.ITALIC.test(this.paragraph)) {
+            this.process(REGEX.ITALIC, ChunkFlag.Italic, chunks)
+              .then(chunks => {
+                // process bold italic
+                this.process(REGEX.BOLD_ITALIC, ChunkFlag.BoldItalic, chunks)
+                  .then(chunks => {
+                    // process url
+                    this.process(REGEX.URL, ChunkFlag.UrlCaption, chunks)
+                      .then(chunks => {
+                        const index = chunks.findIndex(chunk => chunk.flag == ChunkFlag.UrlCaption);
+                        chunks[index + 1].flag = ChunkFlag.UrlLink;
 
-    // process url
-    setTimeout(_ => {
-      this.process(REGEX.URL, ChunkFlags.UrlCaption);
-      const index = this.chunks.findIndex(chunk => chunk.flag == ChunkFlags.UrlCaption);
-      this.chunks[index + 1].flag = ChunkFlags.UrlLink;
-    }, 60)
-
-    // process url
-    setTimeout(_ => {
-      this.process(REGEX.TOOLTIP, ChunkFlags.TooltipCaption);
-      const index = this.chunks.findIndex(chunk => chunk.flag == ChunkFlags.TooltipCaption);
-      this.chunks[index + 1].flag = ChunkFlags.TooltipInfo;
-    }, 40)
+                        // process tooltip
+                        if (REGEX.TOOLTIP.test(this.paragraph)) {
+                          this.process(REGEX.TOOLTIP, ChunkFlag.TooltipCaption, chunks);
+                          const index = chunks.findIndex(chunk => chunk.flag == ChunkFlag.TooltipCaption);
+                          chunks[index + 1].flag = ChunkFlag.TooltipInfo;
+                        }
+                      })
+                  })
+              })
+          })
+      }
+      resolve(chunks);
+    })
   }
 
-
-  processBold(): void {
+  processBold(): Promise<any> {
+    let result: Chunk[];
     let match = null;
     let matches: string[] = [];
-    let chunks = this.paragraph.split(REGEX.BOLD);
-    match = REGEX.BOLD.exec(this.paragraph);
-    while (match != null) {
-      matches.push(match[1]);
-    }
-    chunks.forEach(chunk => {
-      this.chunks.push({value: chunk, flag: matches.includes(chunk) ? ChunkFlags.Bold : ChunkFlags.Normal});
+    let splits = this.paragraph.split(REGEX.BOLD);
+    return new Promise((resolve, reject) => {
+      while ((match = REGEX.BOLD.exec(this.paragraph)) != null) {
+        matches.push(match[1]);
+      }
+      splits.forEach(chunk => {
+        result.push({value: chunk, flag: matches.includes(chunk) ? ChunkFlag.Bold : ChunkFlag.Normal});
+      });
+      resolve(result);
     })
-
   }
 
-  process(regex: RegExp, flag: ChunkFlags): void {
+  process(regex: RegExp, flag: ChunkFlag, chunks: Chunk[]): Promise<Chunk[]> {
     let match = null;
     let matches: string[] = [];
     let index = 0;
-    this.chunks.forEach(chunk => {
-      if (chunk.flag === ChunkFlags.Normal) {
-        let chunks = chunk.value.split(regex);
-        if (chunks.length > 1) {
-          while ((match = regex.exec(chunk.value)) != null) {
-            console.log("match found at " + match[1]);
-            matches.push(match[1]);
+    // if (this.chunks.length === 0) this.chunks.push({value:this.paragraph, flag:ChunkFlags.Normal});
+    return new Promise((resolve, reject) => {
+      chunks.forEach(chunk => {
+        if (chunk.flag === ChunkFlag.Normal) {
+          let fragments = chunk.value.split(regex);
+          if (fragments.length > 1) {
+            while ((match = regex.exec(chunk.value)) != null) {
+              matches.push(match[1]);
+            }
+            let deleteIt = true;
+            fragments.forEach(fragment => {
+              chunks.splice(++index, deleteIt ? 1 : 0, {
+                value: fragment,
+                flag: matches.includes(fragment) ? flag : ChunkFlag.Normal
+              });
+              deleteIt = false;
+            })
           }
-          let deleteIt = true;
-          chunks.forEach(chunk => {
-            this.chunks.splice(++index, deleteIt ? 1 : 0, {
-              value: chunk,
-              flag: matches.includes(chunk) ? flag : ChunkFlags.Normal
-            });
-            deleteIt = false;
-          })
+        } else {
+          index++;
         }
-      } else {
-        index++
-      }
+      })
+      resolve(chunks);
     })
   }
 
-  render(): void {
-    this.chunks.forEach((chunk, index) => {
+  render(chunks: Chunk[]): void {
+    if (chunks.length === 0) {
+      this.addSpan(this.paragraph);
+      return;
+    }
+    chunks.forEach((chunk, index) => {
       switch (chunk.flag) {
-        case ChunkFlags.Normal:
+        case ChunkFlag.Normal:
           this.addSpan(chunk.value);
           break;
-        case ChunkFlags.Bold:
+        case ChunkFlag.Bold:
           this.addSpan(chunk.value, PARSER_CSS.BOLD);
           break;
-        case ChunkFlags.Italic:
+        case ChunkFlag.Italic:
           this.addSpan(chunk.value, PARSER_CSS.ITALIC);
           break;
-        case ChunkFlags.BoldItalic:
+        case ChunkFlag.BoldItalic:
           this.addSpan(chunk.value, PARSER_CSS.BOLD_ITALIC);
           break;
-        case ChunkFlags.UrlCaption:
-          this.addUrl(chunk.value, this.chunks[index + 1].value, PARSER_CSS.URL_CAPTION);
+        case ChunkFlag.UrlCaption:
+          this.addUrl(chunk.value, chunks[index + 1].value, PARSER_CSS.URL_CAPTION);
           break;
-        case ChunkFlags.TooltipCaption:
-          this.addTooltip(chunk.value, PARSER_CSS.TOOLTIP_CAPTION, this.chunks[index + 1].value, PARSER_CSS.TOOLTIP_INFO);
+        case ChunkFlag.TooltipCaption:
+          this.addTooltip(chunk.value, PARSER_CSS.TOOLTIP_CAPTION, chunks[index + 1].value, PARSER_CSS.TOOLTIP_INFO);
           break;
       }
     })

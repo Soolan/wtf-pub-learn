@@ -5,30 +5,30 @@
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.margin-bottom]="'var(--space-md)'"></div>
-    <p fxFlex="100" class="mat-body-2" *ngFor="let p of text as Paragraph" appParser [paragraph]="p.content"></p>
+    <p fxFlex="100" class="mat-body-2" *ngFor="let p of text" appParser [paragraph]="p.content"></p>
   </div>
-<!--  <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
-<!--    <p fxFlex="100" class="mat-body-2" *ngFor="let p of text">{{p["paragraph"]}}</p>-->
-<!--    <div fxFlex="100" class="image" *ngIf="content.image"-->
-<!--         [style.background-image]="image"-->
-<!--         [style.background-size]="image ? 'contain' : '34.87px 24.42px'"-->
-<!--         [style.background-repeat]="image ? 'no-repeat' : ''"-->
-<!--         [style.margin-top]="'var(&#45;&#45;space-md)'"></div>-->
-<!--  </div>-->
-<!--  <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
-<!--    <p fxFlex class="mat-body-2" [style.margin-right]="'var(&#45;&#45;space-md)'" *ngFor="let p of text">{{p["paragraph"]}}</p>-->
-<!--    <div fxFlex="30" class="image" *ngIf="content.image"-->
-<!--         [style.background-image]="image"-->
-<!--         [style.background-size]="image ? 'contain' : '34.87px 24.42px'"-->
-<!--         [style.background-repeat]="image ? 'no-repeat' : ''"-->
-<!--         [style.min-height]="'13em'"></div>-->
-<!--  </div>-->
-<!--  <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
-<!--    <div fxFlex="30" class="image" *ngIf="content.image"-->
-<!--         [style.background-image]="image"-->
-<!--         [style.background-size]="image ? 'contain' : '34.87px 24.42px'"-->
-<!--         [style.background-repeat]="image ? 'no-repeat' : ''"-->
-<!--         [style.min-height]="'13em'"></div>-->
-<!--    <p fxFlex class="mat-body-2" [style.margin-left]="'var(&#45;&#45;space-md)'" *ngFor="let p of text">{{p["paragraph"]}}</p>-->
-<!--  </div>-->
+  <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <p fxFlex="100" class="mat-body-2" *ngFor="let p of text" appParser [paragraph]="p.content"></p>
+    <div fxFlex="100" class="image" *ngIf="content.image"
+         [style.background-image]="image"
+         [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
+         [style.background-repeat]="image ? 'no-repeat' : ''"
+         [style.margin-top]="'var(--space-md)'"></div>
+  </div>
+  <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <p fxFlex class="mat-body-2" [style.margin-right]="'var(--space-md)'" *ngFor="let p of text" appParser [paragraph]="p.content"></p>
+    <div fxFlex="30" class="image" *ngIf="content.image"
+         [style.background-image]="image"
+         [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
+         [style.background-repeat]="image ? 'no-repeat' : ''"
+         [style.min-height]="'13em'"></div>
+  </div>
+  <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div fxFlex="30" class="image" *ngIf="content.image"
+         [style.background-image]="image"
+         [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
+         [style.background-repeat]="image ? 'no-repeat' : ''"
+         [style.min-height]="'13em'"></div>
+    <p fxFlex class="mat-body-2" [style.margin-left]="'var(--space-md)'" *ngFor="let p of text" appParser [paragraph]="p.content"></p>
+  </div>
 </ng-container>

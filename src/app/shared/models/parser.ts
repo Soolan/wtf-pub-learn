@@ -1,9 +1,9 @@
 export interface Chunk {
   value: string,
-  flag: ChunkFlags
+  flag: ChunkFlag
 }
 
-export enum ChunkFlags {
+export enum ChunkFlag {
   Normal,
   Bold,
   Italic,
