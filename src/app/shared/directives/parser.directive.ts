@@ -9,11 +9,15 @@ export class ParserDirective {
   @Input() paragraph!: string;
   index = 0;
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) {
+  }
 
   ngOnInit(): void {
+    console.log(this.paragraph);
     this.cleanUp();
-    this.parse().then(chunks => this.render(chunks));
+    this.parse().then(chunks => {
+      this.render(chunks)
+    });
   }
 
   cleanUp(): void {
@@ -22,62 +26,52 @@ export class ParserDirective {
   }
 
   parse(): Promise<Chunk[]> {
-    let chunks: Chunk[] = [];
-
-    return new Promise((resolve, reject) => {
-      console.log(
-        REGEX.BOLD.test(this.paragraph),
-        REGEX.ITALIC.test(this.paragraph),
-        REGEX.BOLD_ITALIC.test(this.paragraph),
-        REGEX.URL.test(this.paragraph),
-        REGEX.TOOLTIP.test(this.paragraph),
-      );
-
+    return new Promise(async (resolve, reject) => {
       // process bold
       if (REGEX.BOLD.test(this.paragraph)) {
         console.log("bold",);
-        this.processBold()
-          .then(chunks => {
-            // process italic
-            // if (REGEX.ITALIC.test(this.paragraph)) {
-            this.process(REGEX.ITALIC, ChunkFlag.Italic, chunks)
-              .then(chunks => {
-                // process bold italic
-                this.process(REGEX.BOLD_ITALIC, ChunkFlag.BoldItalic, chunks)
-                  .then(chunks => {
-                    // process url
-                    this.process(REGEX.URL, ChunkFlag.UrlCaption, chunks)
-                      .then(chunks => {
-                        const index = chunks.findIndex(chunk => chunk.flag == ChunkFlag.UrlCaption);
-                        chunks[index + 1].flag = ChunkFlag.UrlLink;
-
-                        // process tooltip
-                        if (REGEX.TOOLTIP.test(this.paragraph)) {
-                          this.process(REGEX.TOOLTIP, ChunkFlag.TooltipCaption, chunks);
-                          const index = chunks.findIndex(chunk => chunk.flag == ChunkFlag.TooltipCaption);
-                          chunks[index + 1].flag = ChunkFlag.TooltipInfo;
-                        }
-                      })
-                  })
-              })
-          })
+        await resolve(this.processBold());
+        // .then(async chunks => {
+        //   // process italic
+        //   // if (REGEX.ITALIC.test(this.paragraph)) {
+        //   // await this.process(REGEX.ITALIC, ChunkFlag.Italic, chunks)
+        //   //   .then(chunks => {
+        //   //     console.log(chunks);
+        //
+        //       // process bold italic
+        //       // this.process(REGEX.BOLD_ITALIC, ChunkFlag.BoldItalic, chunks)
+        //       //   .then(chunks => {
+        //       //     // process url
+        //       //     this.process(REGEX.URL, ChunkFlag.UrlCaption, chunks)
+        //       //       .then(chunks => {
+        //       //         const index = chunks.findIndex(chunk => chunk.flag == ChunkFlag.UrlCaption);
+        //       //         chunks[index + 1].flag = ChunkFlag.UrlLink;
+        //       //
+        //       //         // process tooltip
+        //       //         if (REGEX.TOOLTIP.test(this.paragraph)) {
+        //       //           this.process(REGEX.TOOLTIP, ChunkFlag.TooltipCaption, chunks);
+        //       //           const index = chunks.findIndex(chunk => chunk.flag == ChunkFlag.TooltipCaption);
+        //       //           chunks[index + 1].flag = ChunkFlag.TooltipInfo;
+        //       //         }
+        //       //       })
+        //       //   })
+        //     // })
+        // })
       }
-      resolve(chunks);
     })
   }
 
   processBold(): Promise<any> {
-    let result: Chunk[];
+    let result: Chunk[] = [];
     let match = null;
-    let matches: string[] = [];
     let splits = this.paragraph.split(REGEX.BOLD);
     return new Promise((resolve, reject) => {
-      while ((match = REGEX.BOLD.exec(this.paragraph)) != null) {
-        matches.push(match[1]);
-      }
       splits.forEach(chunk => {
-        result.push({value: chunk, flag: matches.includes(chunk) ? ChunkFlag.Bold : ChunkFlag.Normal});
+        result.push({value: chunk, flag: splits[1]?.includes(chunk) ? ChunkFlag.Bold : ChunkFlag.Normal});
+        console.log({value: chunk, flag: splits[1]?.includes(chunk) ? ChunkFlag.Bold : ChunkFlag.Normal});
       });
+      match = null;
+      splits = [];
       resolve(result);
     })
   }
@@ -147,6 +141,7 @@ export class ParserDirective {
     const text = this.renderer.createText(chunk);
     this.renderer.appendChild(span, text);
     this.renderer.appendChild(this.elementRef.nativeElement, span);
+    console.log("DONE!")
   }
 
   addUrl(caption: string, link: string, cssClass: string): void {
