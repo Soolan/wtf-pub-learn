@@ -222,29 +222,15 @@ body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
-.parser-normal {
-}
-
-.parser-bold {
-  font-weight: bold;
-}
-
-.parser-italic {
-  font-style: italic;
-}
-
-.parser-bold-italic {
-  font-weight: bold;
-  font-style: italic;
-}
-
-.parser-url-caption {
-  letter-spacing: 1px;
+a {
   font-weight: bold;
   color: var(--color-primary);
-  font-size: 18px;
   text-decoration-style: dotted;
+}
+
+strong, em, a {
+  letter-spacing: 0.5px;
+  font-size: 19px;
 }
 
 .parser-tooltip-caption {

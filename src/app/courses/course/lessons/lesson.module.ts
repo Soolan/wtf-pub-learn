@@ -28,6 +28,7 @@ import { MultipleChoiceComponent } from './lesson/slides-renderer/multiple-choic
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
 import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/blank-renderer/blank-renderer.component';
+import {MarkdownModule} from 'ngx-markdown';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/bl
         MatButtonModule,
         SharedModule,
         ReactiveFormsModule,
-        MatChipsModule
+        MatChipsModule,
+        MarkdownModule
     ]
 })
 export class LessonModule {

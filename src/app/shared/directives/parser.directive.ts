@@ -13,24 +13,16 @@ export class ParserDirective {
   }
 
   ngOnInit(): void {
-    console.log(this.paragraph);
-    this.cleanUp();
-    this.parse().then(chunks => {
-      this.render(chunks)
-    });
+
   }
 
-  cleanUp(): void {
-    Array.from(this.elementRef.nativeElement.children)
-      .forEach(child => this.renderer.removeChild(this.elementRef.nativeElement, child));
-  }
+
 
   parse(): Promise<Chunk[]> {
     return new Promise(async (resolve, reject) => {
       // process bold
       if (REGEX.BOLD.test(this.paragraph)) {
         console.log("bold",);
-        await resolve(this.processBold());
         // .then(async chunks => {
         //   // process italic
         //   // if (REGEX.ITALIC.test(this.paragraph)) {
@@ -61,20 +53,6 @@ export class ParserDirective {
     })
   }
 
-  processBold(): Promise<any> {
-    let result: Chunk[] = [];
-    let match = null;
-    let splits = this.paragraph.split(REGEX.BOLD);
-    return new Promise((resolve, reject) => {
-      splits.forEach(chunk => {
-        result.push({value: chunk, flag: splits[1]?.includes(chunk) ? ChunkFlag.Bold : ChunkFlag.Normal});
-        console.log({value: chunk, flag: splits[1]?.includes(chunk) ? ChunkFlag.Bold : ChunkFlag.Normal});
-      });
-      match = null;
-      splits = [];
-      resolve(result);
-    })
-  }
 
   process(regex: RegExp, flag: ChunkFlag, chunks: Chunk[]): Promise<Chunk[]> {
     let match = null;
@@ -106,34 +84,6 @@ export class ParserDirective {
     })
   }
 
-  render(chunks: Chunk[]): void {
-    if (chunks.length === 0) {
-      this.addSpan(this.paragraph);
-      return;
-    }
-    chunks.forEach((chunk, index) => {
-      switch (chunk.flag) {
-        case ChunkFlag.Normal:
-          this.addSpan(chunk.value);
-          break;
-        case ChunkFlag.Bold:
-          this.addSpan(chunk.value, PARSER_CSS.BOLD);
-          break;
-        case ChunkFlag.Italic:
-          this.addSpan(chunk.value, PARSER_CSS.ITALIC);
-          break;
-        case ChunkFlag.BoldItalic:
-          this.addSpan(chunk.value, PARSER_CSS.BOLD_ITALIC);
-          break;
-        case ChunkFlag.UrlCaption:
-          this.addUrl(chunk.value, chunks[index + 1].value, PARSER_CSS.URL_CAPTION);
-          break;
-        case ChunkFlag.TooltipCaption:
-          this.addTooltip(chunk.value, PARSER_CSS.TOOLTIP_CAPTION, chunks[index + 1].value, PARSER_CSS.TOOLTIP_INFO);
-          break;
-      }
-    })
-  }
 
   addSpan(chunk: string, cssClass: string = 'normal'): void {
     const span = this.renderer.createElement('span');
