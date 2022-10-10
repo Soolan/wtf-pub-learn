@@ -1,7 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {Position} from '../../../../../../shared/data/enums';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
-import {Paragraph} from '../../../../../../shared/models/paragraph';
 
 @Component({
   selector: 'app-text-image',
@@ -11,13 +10,13 @@ import {Paragraph} from '../../../../../../shared/models/paragraph';
 export class TextImageComponent implements OnChanges{
   @Input() content!: any;
   position = Position;
-  text!: Paragraph[];
+  text!: string;
   image!: string;
 
   constructor(private storage: AngularFireStorage) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.text = this.content.paragraphs || this.content.text || this.content.question || this.content.summary;
+    this.text = this.content.text || this.content.question || this.content.summary;
     if (this.content.image) {
       this.storage.ref(this.content.image).getDownloadURL().subscribe({
         next: url => this.image = `url(${url})`,

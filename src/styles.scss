@@ -228,23 +228,20 @@ a {
   text-decoration-style: dotted;
 }
 
-strong, em, a {
+strong, em, a, .tooltip-caption {
   letter-spacing: 0.5px;
   font-size: 19px;
 }
 
-.parser-tooltip-caption {
+.tooltip-caption {
   color: var(--color-accent);
-  letter-spacing: 1px;
   font-weight: bold;
-  font-size: 18px;
-  text-decoration: wavy underline;
+  text-decoration: underline wavy 1.2px var(--color-accent-light);
   position: relative;
   display: inline-block;
-  border-bottom: 1px dashed var(--color-accent-light);
 }
 
-.parser-tooltip-caption .parser-tooltip-info {
+.tooltip-caption .tooltip-info {
   padding: var(--space-sm);
   border-radius: var(--space-xs);
   background-color: var(--color-accent-dark);
@@ -264,7 +261,7 @@ strong, em, a {
   transition: opacity 0.2s;
 }
 
-.parser-tooltip-caption .parser-tooltip-info::after {
+.tooltip-caption .tooltip-info::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -275,6 +272,6 @@ strong, em, a {
   border-color: black transparent transparent transparent;
 }
 
-.parser-tooltip-caption:hover .parser-tooltip-info {
+.tooltip-caption:hover .tooltip-info {
   opacity: 1;
 }
