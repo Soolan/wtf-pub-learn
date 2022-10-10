@@ -200,6 +200,19 @@ body {
   font-weight: 900;
 }
 
+.thin {
+  font-weight: 100;
+}
+
+ul {
+  list-style-image: url('~src/assets/images/keyboard_arrow_right_black_24dp.svg');
+}
+
+ul li span {
+  position: relative;
+  bottom: 4px;
+}
+
 .mat-list-item {
   font-family: 'Titillium Web', sans-serif !important;
   .name {

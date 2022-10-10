@@ -1,10 +1,4 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-<!--  <div fxFlex="100" class="mat-headline thin">{{slide.content.title}}</div>-->
-<!--  <div fxFlex="100" class="mat-body-2 ">{{slide.content.subtitle}}</div>-->
-<!--  <div fxFlex="100" class="mat-body-1 bullet" *ngFor="let item of slide.content.bullet_points">-->
-<!--    <mat-icon>chevron_right</mat-icon>-->
-<!--    <span>{{item.value}}</span>-->
-<!--  </div>-->
   <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
 
   <button mat-flat-button color="primary" (click)="proceed()">
