@@ -75,9 +75,9 @@ export class MixedFillInComponent implements OnChanges {
   }
 
   initBlanks() {
-    let index = 0;
+    let index = 1;
     this.answers.forEach(answer => {
-      this.blanks.push(this.scenario.nativeElement.children['blank' + index++]);
+      this.blanks.push(document.getElementsByClassName(`blank${index++}`)[0]);
     });
   }
 
