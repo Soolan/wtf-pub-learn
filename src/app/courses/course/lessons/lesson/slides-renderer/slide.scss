@@ -41,26 +41,6 @@
   }
 }
 
-.blank {
-  width: 6rem;
-  height: 1.77rem;
-  background-color: var(--color-greye);
-  border-radius: 2px;
-  box-shadow: 0 0 6px 2px var(--color-greyb) inset;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.type-in {
-  min-width: 8em;
-  height: calc(var(--space-md) + var(--space-xs) + var(--space-xxs));
-  padding: 9 var(--space-xxs) 0 var(--space-xxs);
-  background-color: var(--color-greye);
-  border-bottom: 1px solid var(--color-primary-light);
-  display: inline-block;
-  cursor: text;
-}
-
 .response {
   position: fixed;
   right: 0;
@@ -68,12 +48,6 @@
   width: 100%;
   padding: 1rem;
   font-size: smaller;
-}
-
-.answer {
-  color: var(--color-primary-light);
-  font-weight: bold;
-  font-size: 1.07em;
 }
 
 .incorrect {

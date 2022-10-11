@@ -241,12 +241,37 @@ a {
   text-decoration-style: dotted;
 }
 
-strong, em, a, .tooltip-caption {
+strong, em, a, .tooltip, .answer {
   letter-spacing: 0.5px;
   font-size: 19px;
 }
 
-.tooltip-caption {
+.blank {
+  width: 6rem;
+  height: 1.77rem;
+  background-color: var(--color-greye);
+  border-radius: 2px;
+  box-shadow: 0 0 6px 2px var(--color-greyb) inset;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.type-in {
+  min-width: 8em;
+  height: calc(var(--space-md) + var(--space-xs) + var(--space-xxs));
+  padding: 9 var(--space-xxs) 0 var(--space-xxs);
+  background-color: var(--color-greye);
+  border-bottom: 1px solid var(--color-primary-light);
+  display: inline-block;
+  cursor: text;
+}
+
+.answer {
+  color: var(--color-primary-light);
+  font-weight: bold;
+}
+
+.tooltip {
   color: var(--color-accent);
   font-weight: bold;
   text-decoration: underline wavy 1.2px var(--color-accent-light);
@@ -254,7 +279,7 @@ strong, em, a, .tooltip-caption {
   display: inline-block;
 }
 
-.tooltip-caption .tooltip-info {
+.tooltip .tooltip-info {
   padding: var(--space-sm);
   border-radius: var(--space-xs);
   background-color: var(--color-accent-dark);
@@ -274,7 +299,7 @@ strong, em, a, .tooltip-caption {
   transition: opacity 0.2s;
 }
 
-.tooltip-caption .tooltip-info::after {
+.tooltip .tooltip-info::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -285,6 +310,6 @@ strong, em, a, .tooltip-caption {
   border-color: black transparent transparent transparent;
 }
 
-.tooltip-caption:hover .tooltip-info {
+.tooltip:hover .tooltip-info {
   opacity: 1;
 }

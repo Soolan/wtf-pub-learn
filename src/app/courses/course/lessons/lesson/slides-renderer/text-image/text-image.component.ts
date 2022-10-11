@@ -16,7 +16,7 @@ export class TextImageComponent implements OnChanges{
   constructor(private storage: AngularFireStorage) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.text = this.content.text || this.content.question || this.content.summary;
+    this.text = this.content.text || this.content.scenario || this.content.question || this.content.summary;
     console.log(this.text)
     if (this.content.image) {
       this.storage.ref(this.content.image).getDownloadURL().subscribe({
