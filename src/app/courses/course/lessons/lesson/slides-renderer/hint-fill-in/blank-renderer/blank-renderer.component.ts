@@ -54,8 +54,8 @@ export class BlankRendererComponent implements OnInit, AfterViewInit {
     } else {
       this.chunks.splice(1, 0, BLANK_PLACEHOLDER); // insert at index 1
     }
-    console.log(this.chunks);
   }
+
   checkOnKeyStroke() {
     this.form.controls['blank_field'].valueChanges.subscribe(value => {
       console.log(value);

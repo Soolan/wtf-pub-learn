@@ -13,7 +13,7 @@
   </div>
   <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="47"
        fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!ui.completed && hintFillInSlide">
-    <button mat-flat-button color="accent" fxFlex="100"
+    <button mat-flat-button color="accent" fxFlex="100" class="hint"
             [disabled]="ui.response !== ''" [@bounceInOut] (click)="hint()">
       <mat-icon>lightbulb</mat-icon>
       <span>HINT</span>
