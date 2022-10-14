@@ -1,34 +1,37 @@
-<ng-container [ngSwitch]="content.position">
+<ng-container [ngSwitch]="content.position" *ngIf="content.image; else text_only">
   <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <div fxFlex="100" class="image" *ngIf="content.image"
+    <div fxFlex="100" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.margin-bottom]="'var(--space-md)'"></div>
-    <p fxFlex="100" class="mat-body-2">{{text}}</p>
+      <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2">{{text}}</markdown>
   </div>
   <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <p fxFlex="100" class="mat-body-2">{{text}}</p>
-    <div fxFlex="100" class="image" *ngIf="content.image"
+    <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2">{{text}}</markdown>
+    <div fxFlex="100" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.margin-top]="'var(--space-md)'"></div>
   </div>
   <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <p fxFlex class="mat-body-2" [style.margin-right]="'var(--space-md)'">{{text}}</p>
-    <div fxFlex="30" class="image" *ngIf="content.image"
+    <markdown ngPreserveWhitespaces  fxFlex="69" fxFlex.lt-md="64" class="mat-body-2">{{text}}</markdown>
+    <div fxFlex="30" fxFlex.lt-md="35" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.min-height]="'13em'"></div>
   </div>
   <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <div fxFlex="30" class="image" *ngIf="content.image"
+    <div fxFlex="30" fxFlex.lt-md="35" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.min-height]="'13em'"></div>
-    <p fxFlex class="mat-body-2" [style.margin-left]="'var(--space-md)'">{{text}}</p>
+    <markdown ngPreserveWhitespaces fxFlex="69" fxFlex.lt-md="64" class="mat-body-2">{{text}}</markdown>
   </div>
 </ng-container>
+<ng-template #text_only>
+  <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2">{{text}}</markdown>
+</ng-template>

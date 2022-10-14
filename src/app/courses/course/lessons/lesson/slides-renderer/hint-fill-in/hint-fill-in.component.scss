@@ -1,20 +1,11 @@
-.ghost-input {
-  display: none;
-  position: absolute;
-
-  input {
-    width: 6em;
-    background: none;
-    border: 0 none;
-    outline: 0;
-    font-family: "Delius", cursive;
-    font-weight: bold;
-    font-size: larger;
-    line-height: 1.3em;
-    padding-left: var(--space-xxs);
-  }
-
-  input:focus {
-    outline: none !important;
-  }
+.image {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.portrait {
+  min-height: 13em;
+}
+.landscape {
+  min-height: 8em;
 }

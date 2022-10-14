@@ -81,6 +81,9 @@
     },
     "ui": {
       "enabled": true
+    },
+    "eventarc": {
+      "port": 9299
     }
   },
   "remoteconfig": {

@@ -1,11 +1,11 @@
 export enum SlideType {
   Start,
   Static,
+  SingleChoice,
+  MultipleChoice,
   FixedFillIn,
   MixedFillIn,
   HintFillIn,
-  SingleChoice,
-  MultipleChoice,
   Swipe,
   Match,
   EasyReview,
@@ -32,8 +32,19 @@ export enum Operation {
   Edit,
 }
 
-export enum Levels {
+export enum Level {
   Easy,
   Intermediate,
   Advanced
+}
+
+export enum WtfProduct {
+  Website,
+  Learn,
+  Dashboard,
+  Loor,
+  Wallet,
+  Faucet,
+  NFT,
+  DEX
 }

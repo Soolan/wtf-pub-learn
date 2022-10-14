@@ -11,7 +11,6 @@ import {SlideService} from '../slide.service';
 })
 export class FixedFillInComponent implements OnChanges {
   @Input() slide!: any;
-  @ViewChild('scenario') scenarioRef!: ElementRef;
   @ViewChild('optionSet') optionSetRef!: ElementRef;
 
   blank: any = null;
@@ -51,7 +50,7 @@ export class FixedFillInComponent implements OnChanges {
   }
 
   check(answer: string, $event: Event): void {
-    this.blank = this.scenarioRef.nativeElement.children['blank0'];
+    this.blank = document.getElementsByClassName('blank1')[0];
     this.isCorrect = this.answer === answer;
     if ($event.target) {
       this.isCorrect ? this.markAsComplete($event.target, answer) : this.slideService.markAsIncorrect($event.target);

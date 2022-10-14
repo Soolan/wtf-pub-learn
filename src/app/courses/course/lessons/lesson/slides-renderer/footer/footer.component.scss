@@ -36,3 +36,9 @@ button {
     line-height: inherit;
   }
 }
+
+.hint {
+  .mat-icon, span {
+    color: var(--color-greye) !important;
+  }
+}
