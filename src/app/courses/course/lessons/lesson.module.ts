@@ -29,6 +29,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
 import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/blank-renderer/blank-renderer.component';
 import {MarkdownModule} from 'ngx-markdown';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import {MarkdownModule} from 'ngx-markdown';
         SharedModule,
         ReactiveFormsModule,
         MatChipsModule,
-        MarkdownModule
+        MarkdownModule,
+        MatDividerModule
     ]
 })
 export class LessonModule {
