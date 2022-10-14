@@ -13,7 +13,7 @@
   </div>
   <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="47"
        fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!ui.completed && hintFillInSlide">
-    <button mat-flat-button color="accent" fxFlex="100"
+    <button mat-flat-button color="accent" fxFlex="100" class="hint"
             [disabled]="ui.response !== ''" [@bounceInOut] (click)="hint()">
       <mat-icon>lightbulb</mat-icon>
       <span>HINT</span>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="response"
-     [style.background-color]="hintFillInSlide ? 'var(--color-accent-light)' : ui.correct ? 'var(--color-primary)' : 'var(--color-warn-light)'"
+     [style.background-color]="hintFillInSlide ? 'var(--color-accent-light)' : ui.correct ? 'var(--color-primary)' : 'var(--color-warn)'"
      [style.padding-bottom]="ui.completed ? 'var(--space-xl)' : hintFillInSlide ? 'var(--space-xl)' : 0"
      [@stretchUpOut] *ngIf="response">
   <p class="mat-caption" [style.font-weight]="hintFillInSlide ? 'bold' : ''">{{response}}</p>

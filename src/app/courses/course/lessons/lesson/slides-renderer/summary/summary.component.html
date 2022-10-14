@@ -1,5 +1,6 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
   <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
+  <mat-divider fxFlex="100"></mat-divider>
   <div fxFlex="100" class="mat-subheading-2 keywords">Keywords</div>
   <mat-chip-list aria-label="terms">
     <mat-chip color="primary" *ngFor="let term of terms">

@@ -19,17 +19,18 @@ export class BlankRendererDirective implements OnChanges {
       this.renderer.removeChild(this.elementRef.nativeElement, child);
     })
     let chunks = this.scenario.split(BLANK_PLACEHOLDER);
-
-    if (this.scenario.indexOf(BLANK_PLACEHOLDER) == 0) {
-      this.addBlank();
-    }
-
-    chunks.forEach(chunk => {
-      this.addText(chunk);
-      if (chunks.length > this.index+1) {
+    if (chunks.length > 0) {
+      if (this.scenario.indexOf(BLANK_PLACEHOLDER) == 0) {
         this.addBlank();
       }
-    })
+
+      chunks.forEach(chunk => {
+        this.addText(chunk);
+        if (chunks.length > this.index+1) {
+          this.addBlank();
+        }
+      })
+    }
   }
 
   addText(chunk: string) {

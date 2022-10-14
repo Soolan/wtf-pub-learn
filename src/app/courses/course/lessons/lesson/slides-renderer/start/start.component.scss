@@ -1,10 +1,6 @@
-.bullet{
-  margin-top: var(--space-sm);
-  margin-left: var(--space-sm);
-  span{
-    vertical-align: text-top;
-  }
-}
 button{
   margin-top: var(--space-md);
+  span {
+    margin-right: var(--space-xxs);
+  }
 }

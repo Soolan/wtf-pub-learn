@@ -38,3 +38,15 @@
 .centered {
   text-align: center;
 }
+
+.swipe-button {
+  span {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: bold;
+    color: var(--color-grey5);
+    letter-spacing: 0.5px;
+  }
+  .mat-icon {
+    vertical-align: sub;
+  }
+}

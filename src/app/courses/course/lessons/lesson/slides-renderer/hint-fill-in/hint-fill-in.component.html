@@ -1,34 +1,24 @@
 <div fxLayout="row wrap" fxFlex="100">
   <ng-container [ngSwitch]="slide.content.position">
     <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <div fxFlex="100" class="image"
+      <div fxFlex="100" class="image landscape"
            [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
            [style.margin-bottom]="'var(--space-md)'"></div>
-      <p fxFlex="100" class="mat-body-2" #top
-         appTypeInRenderer [scenario]="slide.content.scenario" [position]="slide.content.position"></p>
+      <app-blank-renderer fxFlex="100" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
     </div>
-
     <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <p fxFlex="100" class="mat-body-2" #bottom
-         appTypeInRenderer [scenario]="slide.content.scenario" [position]="slide.content.position"></p>
-      <div fxFlex="100" class="image" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
+      <app-blank-renderer fxFlex="100" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
+      <div fxFlex="100" class="image landscape" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
            [style.margin-top]="'var(--space-md)'"></div>
     </div>
-    <div *ngSwitchCase="position.Right" #right fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <p fxFlex="65" class="mat-body-2"
-         appTypeInRenderer [scenario]="slide.content.scenario" [position]="slide.content.position"></p>
-      <div fxFlex="30" class="image" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
-           [style.min-height]="'13em'"></div>
+    <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <app-blank-renderer fxFlex="65" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
+
+      <div fxFlex="30" class="image portrait" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"></div>
     </div>
-    <div *ngSwitchCase="position.Left" #left fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <div fxFlex="30" class="image" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
-           [style.min-height]="'13em'"></div>
-      <p fxFlex="65" class="mat-body-2"
-         appTypeInRenderer [scenario]="slide.content.scenario" [position]="slide.content.position"></p>
+    <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div fxFlex="30" class="image portrait" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"></div>
+      <app-blank-renderer fxFlex="65" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
     </div>
   </ng-container>
-
-  <div class="ghost-input" [formGroup]="form" #blank_div>
-    <input formControlName="blank_field" id="input_field" #blank_field>
-  </div>
 </div>

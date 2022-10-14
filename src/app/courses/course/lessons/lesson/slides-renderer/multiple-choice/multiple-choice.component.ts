@@ -88,12 +88,12 @@ export class MultipleChoiceComponent implements OnChanges {
         this.slideService.markAsIncorrect($event.target);
       }
     }
+    this.updateUI();
   }
 
   markAsComplete(button: EventTarget): void {
     this.isCompleted = true;
     this.slideService.markAsCorrect(button);
-    this.updateUI();
   }
 
   updateUI(): void {

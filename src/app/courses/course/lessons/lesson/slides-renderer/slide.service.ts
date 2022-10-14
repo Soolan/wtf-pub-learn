@@ -62,7 +62,6 @@ export class SlideService {
   randomizeOptions(optionsPerSet: number, options: string[], answer: string) {
     let result: string[] = [];
     let index: number = 0;
-
     result.push(answer);     // each set should contain the right answer
     while (result.length < optionsPerSet) {
       // pick a random option from options pool and push it to the set
@@ -178,6 +177,7 @@ export class SlideService {
       this.renderer.removeChild(node.nativeElement, child);
     }
   }
+
 
   addChild(node: ElementRef, text: string) {
     const content = this.renderer.createText(text);

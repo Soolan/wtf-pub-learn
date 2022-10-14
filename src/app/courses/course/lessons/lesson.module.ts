@@ -27,6 +27,9 @@ import { TextImageComponent } from './lesson/slides-renderer/text-image/text-ima
 import { MultipleChoiceComponent } from './lesson/slides-renderer/multiple-choice/multiple-choice.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
+import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/blank-renderer/blank-renderer.component';
+import {MarkdownModule} from 'ngx-markdown';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 @NgModule({
@@ -49,6 +52,7 @@ import {MatChipsModule} from '@angular/material/chips';
     NotFoundComponent,
     TextImageComponent,
     MultipleChoiceComponent,
+    BlankRendererComponent,
   ],
     imports: [
         CommonModule,
@@ -59,7 +63,9 @@ import {MatChipsModule} from '@angular/material/chips';
         MatButtonModule,
         SharedModule,
         ReactiveFormsModule,
-        MatChipsModule
+        MatChipsModule,
+        MarkdownModule,
+        MatDividerModule
     ]
 })
 export class LessonModule {

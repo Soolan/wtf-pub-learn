@@ -27,6 +27,7 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { DropzoneDirective } from './directives/dropzone.directive';
 import { UploadTaskComponent } from './components/image-uploader/upload-task/upload-task.component';
+import { ParserDirective } from './directives/parser.directive';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { UploadTaskComponent } from './components/image-uploader/upload-task/upl
     ImageUploaderComponent,
     DropzoneDirective,
     UploadTaskComponent,
+    ParserDirective,
   ],
     exports: [
         HeaderComponent,
@@ -57,6 +59,7 @@ import { UploadTaskComponent } from './components/image-uploader/upload-task/upl
         CardRendererDirective,
         MatchRendererDirective,
         ImageUploaderComponent,
+        ParserDirective,
     ],
   imports: [
     CommonModule,
