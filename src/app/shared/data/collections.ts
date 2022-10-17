@@ -2,7 +2,15 @@ import {Collection} from '../models/collection';
 import {Lesson} from '../models/lesson';
 import {Course} from '../models/course';
 import {Slide} from '../models/slide';
-import {Position, SlideType} from './enums';
+import {Position, SlideType, WtfProduct} from './enums';
+
+//------------------------------------------------- Releases
+export const RELEASES: Collection = {
+  path: 'releases',
+  limit: 50,
+  where: {field: 'product', operator: '==', value: WtfProduct.Learn},
+  orderBy: {field: 'date', direction: 'desc'}
+};
 
 //------------------------------------------------- PROFILES
 export const PROFILES: Collection = {
