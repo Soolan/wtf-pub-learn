@@ -1,5 +1,8 @@
 .notes {
   margin-top: var(--space-md);
+  ul {
+    list-style-image: initial;
+  }
   li {
     font-size: 1rem;
     line-height: var(--space-md);
