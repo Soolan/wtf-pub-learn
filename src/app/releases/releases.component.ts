@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {RELEASES} from '../shared/data/releases';
 import {Release} from '../shared/models/release';
+import {CrudService} from '../shared/services/crud.service';
+import {RELEASES} from '../shared/data/collections';
+import {map} from 'rxjs';
+
+import firebase from 'firebase/compat/app';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'app-releases',
@@ -10,14 +15,22 @@ import {Release} from '../shared/models/release';
 export class ReleasesComponent implements OnInit {
   releases: Release[] = [];
   roadmaps: Release[] = [];
-  constructor() { }
+  constructor(private crud: CrudService) { }
 
   ngOnInit(): void {
-    // console.log(new Date(this.releases[0].date));
-    RELEASES.forEach(release => {
-      (new Date(release.date) > new Date()) ?
-        this.roadmaps.push(release):
-        this.releases.push(release);
-    })
+    this.crud.colRefQuery(RELEASES).pipe(
+      map(this.crud.mapId),
+    ).subscribe(
+      {
+        next: releases => {
+          releases.forEach((release: Release)  => {
+            (release.date > Timestamp.now()) ?
+              this.roadmaps.push(release):
+              this.releases.push(release);
+          })
+        },
+        error: error => console.log(error)
+      }
+    );
   }
 }

@@ -4,6 +4,14 @@ import {Course} from '../models/course';
 import {Slide} from '../models/slide';
 import {Position, SlideType} from './enums';
 
+//------------------------------------------------- Releases
+export const RELEASES: Collection = {
+  path: 'releases',
+  limit: 50,
+  where: {field: 'date', operator: '!=', value: ''},
+  orderBy: {field: 'date', direction: 'desc'}
+};
+
 //------------------------------------------------- PROFILES
 export const PROFILES: Collection = {
   path: 'profiles',
