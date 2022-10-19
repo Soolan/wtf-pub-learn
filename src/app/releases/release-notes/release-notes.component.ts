@@ -20,5 +20,4 @@ export class ReleaseNotesComponent implements OnInit {
   ngOnInit(): void {
     this.bullets = this.bullets.map(bullet => bullet[this.entry[this.title]]);
   }
-
 }
