@@ -47,7 +47,7 @@ export const LESSONS: Collection = {
   path: 'lessons',
   limit: 6,
   where: {field: 'published', operator: '==', value: true},
-  orderBy: {field: 'timestamps.created_at', direction: 'desc'}
+  orderBy: {field: 'order', direction: 'asc'}
 
 };
 
