@@ -6,8 +6,8 @@
       <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     </div>
     <div *ngIf="course" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-      <div fxFlex="100" class="image" *ngIf="course.image"
-           [ngStyle]="{'background-image': 'url('+(course.image|storageUrl|async)+')'}"></div>
+      <div fxFlex="100" class="image" *ngIf="course.banner"
+           [ngStyle]="{'background-image': 'url('+(course.banner|storageUrl|async)+')'}"></div>
       <div fxFlexOffset="90" fxFlex="10">
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
       </div>
