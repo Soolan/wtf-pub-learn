@@ -29,7 +29,7 @@ export const COURSES: Collection = {
 
 export const COURSE: Course = {
   name: 'new course',
-  image: '',
+  banner: '',
   avatar: '',
   description: 'add description here',
   published: false,

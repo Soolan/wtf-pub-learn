@@ -3,7 +3,7 @@ import {Status} from '../data/enums';
 
 export interface Course {
   name: string;
-  image: string;
+  banner: string;
   avatar: string;
   description: string;
   published: boolean;
