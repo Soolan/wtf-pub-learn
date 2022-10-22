@@ -1,17 +1,19 @@
 <div fxFlex.gt-lg="70" fxFlex.lg="80" fxFlex.md="90" fxFlex.sm="95" fxFlex.lt-sm="100"
      fxLayout="row wrap" fxLayoutAlign="space-around start" class="content">
   <mat-card fxFlex="30" fxFlex.sm="47" fxFlex.lt-sm="95" *ngFor="let course of courses">
-    <div mat-card-image *ngIf="course.banner"
+    <div mat-card-image *ngIf="course.banner;"
          [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
     <mat-card-header>
-      <div mat-card-avatar [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
+      <div mat-card-avatar *ngIf="course.banner; else avatar"
+           [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
+      <ng-template #avatar>
+        <div mat-card-avatar></div>
+      </ng-template>
       <mat-card-title>{{course.name}}</mat-card-title>
       <mat-card-subtitle>{{course.level}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        {{course.description}}
-      </p>
+      <markdown ngPreserveWhitespaces>{{course.description}}</markdown>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="navigate('courses', course.id)">{{action}}</button>
