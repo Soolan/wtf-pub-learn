@@ -26,15 +26,18 @@ export class LandingComponent implements OnInit {
       map(this.crud.mapId),
     ).subscribe(
       {
-        next: courses =>  this.courses = courses,
+        next: courses =>  {
+          this.courses = courses;
+          console.log(this.courses);
+        },
         error: error => console.log(error)
       }
     );
   }
 
-  get Levels(): string[] {
-    return LEVELS;
-  }
+  // get Levels(): string[] {
+  //   return LEVELS;
+  // }
 
   navigate(collection: string, id: string): void {
     const path = this.id ? `courses/${this.id}/${collection}` : collection;

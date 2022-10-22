@@ -1,12 +1,12 @@
 <div fxFlex.gt-lg="70" fxFlex.lg="80" fxFlex.md="90" fxFlex.sm="95" fxFlex.lt-sm="100"
      fxLayout="row wrap" fxLayoutAlign="space-around start" class="content">
   <mat-card fxFlex="30" fxFlex.sm="47" fxFlex.lt-sm="95" *ngFor="let course of courses">
-    <div mat-card-image *ngIf="course.image"
-         [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
+    <div mat-card-image *ngIf="course.banner"
+         [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
     <mat-card-header>
-      <div mat-card-avatar></div>
+      <div mat-card-avatar [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
       <mat-card-title>{{course.name}}</mat-card-title>
-      <mat-card-subtitle>{{Levels[course.level]}}</mat-card-subtitle>
+      <mat-card-subtitle>{{course.level}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p>
