@@ -17,6 +17,7 @@ import { LessonModule } from './course/lessons/lesson.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ProgressComponent } from './course/progress/progress.component';
+import {MarkdownModule} from 'ngx-markdown';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ProgressComponent } from './course/progress/progress.component';
         LessonModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
+        MarkdownModule,
     ]
 })
 export class CourseModule {

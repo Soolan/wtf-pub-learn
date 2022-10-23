@@ -112,9 +112,6 @@ export function markedOptionsFactory(): MarkedOptions {
   providers: [
     ScreenTrackingService, UserTrackingService,
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
-    ScreenTrackingService,UserTrackingService,
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
-
     // { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
     // That is why we set them up like these
     { provide: USE_DATABASE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9000] : undefined },

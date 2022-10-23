@@ -2,7 +2,15 @@ import {Collection} from '../models/collection';
 import {Lesson} from '../models/lesson';
 import {Course} from '../models/course';
 import {Slide} from '../models/slide';
-import {Position, SlideType} from './enums';
+import {Position, SlideType, WtfProduct} from './enums';
+
+//------------------------------------------------- Releases
+export const RELEASES: Collection = {
+  path: 'releases',
+  limit: 50,
+  where: {field: 'product', operator: '==', value: WtfProduct.Learn},
+  orderBy: {field: 'date', direction: 'desc'}
+};
 
 //------------------------------------------------- PROFILES
 export const PROFILES: Collection = {
@@ -21,7 +29,7 @@ export const COURSES: Collection = {
 
 export const COURSE: Course = {
   name: 'new course',
-  image: '',
+  banner: '',
   avatar: '',
   description: 'add description here',
   published: false,
@@ -39,7 +47,7 @@ export const LESSONS: Collection = {
   path: 'lessons',
   limit: 6,
   where: {field: 'published', operator: '==', value: true},
-  orderBy: {field: 'timestamps.created_at', direction: 'desc'}
+  orderBy: {field: 'order', direction: 'asc'}
 
 };
 
