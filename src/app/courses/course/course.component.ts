@@ -13,7 +13,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
-  @Input() isDashboard! : boolean;
+  @Input() isDashboard!: boolean;
   @Input() id!: string;
   course!: any;
   lessons!: any[];
@@ -49,7 +49,7 @@ export class CourseComponent implements OnInit {
         next: data => {
           this.course = data;
           this.loading.course = false;
-          this.extractTags(this.course.tags);
+          this.keyword = this.getKeyword();
         },
         error: error => console.log(error)
       }
@@ -71,9 +71,9 @@ export class CourseComponent implements OnInit {
     );
   }
 
-  extractTags(input: string): void {
-    const tags = this.course.tags.split(',');
-    this.keyword = tags[0];
+  getKeyword(): string {
+    const firstTag = this.course.tags[0];
+    return this.course.name.includes(firstTag)? firstTag: '';
   }
 
   open(lessonId: string): void {

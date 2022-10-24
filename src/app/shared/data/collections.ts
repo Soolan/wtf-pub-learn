@@ -48,7 +48,6 @@ export const LESSONS: Collection = {
   limit: 6,
   where: {field: 'published', operator: '==', value: true},
   orderBy: {field: 'order', direction: 'asc'}
-
 };
 
 export const LESSON: Lesson = {
