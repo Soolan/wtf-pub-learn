@@ -15,8 +15,12 @@
            ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">{{course.name}}</div>
       <ng-template #guest_view>
         <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
-             ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title"
-             appBlackRenderer #content [content]="course.name" [keyword]="keyword"></div>
+             ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
+          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name" [keyword]="keyword"></span>
+          <ng-template #no_keyword>
+            {{course.name}}
+          </ng-template>
+        </div>
       </ng-template>
       <div fxFlex="95" class="mat-body-2 description">{{course.description}}</div>
     </div>
