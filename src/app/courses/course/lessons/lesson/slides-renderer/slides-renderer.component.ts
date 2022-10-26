@@ -1,4 +1,4 @@
-  import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {SlideType} from '../../../../../shared/data/enums';
 import {Slide} from '../../../../../shared/models/slide';
 import {SlideService} from './slide.service';

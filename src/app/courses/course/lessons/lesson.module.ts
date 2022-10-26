@@ -30,7 +30,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/blank-renderer/blank-renderer.component';
 import {MarkdownModule} from 'ngx-markdown';
 import {MatDividerModule} from '@angular/material/divider';
-import { PollComponent } from './lesson/slide-renderer/poll/poll.component';
+import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
 
 
 @NgModule({

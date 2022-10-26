@@ -12,6 +12,13 @@ export const RELEASES: Collection = {
   orderBy: {field: 'date', direction: 'desc'}
 };
 
+//------------------------------------------------- Polls
+export const POLLS: Collection = {
+  path: 'polls',
+  limit: 1,
+  where: {field: 'timestamp.deleted_at', operator: '!=', value: null},
+};
+
 //------------------------------------------------- PROFILES
 export const PROFILES: Collection = {
   path: 'profiles',
