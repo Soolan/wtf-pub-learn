@@ -20,6 +20,24 @@
   text-align: center;
   z-index: 20;
 
+  .poll {
+    text-align: left;
+    margin: 1rem auto;
+    width: 95%;
+    color: var(--color-primary);
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px var(--color-greye) solid;
+    padding: 0.8rem;
+    transition: box-shadow .2s ease-out;
+  }
+
+  .poll:hover {
+    color: white;
+    background-color: var(--color-primary-light);
+    box-shadow: 0 0 6px 2px var(--color-primary-lighter);
+  }
+
   .double-columns {
     margin: 0 1rem 2rem 1rem;
     width: 38%;

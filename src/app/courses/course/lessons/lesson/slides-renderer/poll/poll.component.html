@@ -1,10 +1,8 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <app-text-image fxFlex="100" [content]="slide.content" ></app-text-image>
-  <div fxFlex="100">
-    <div [@fadeInOut] class="options" >
-      <div *ngFor="let vote of slide.content.votes; let i = index" (click)="cast(i)" class="single-column">
-        {{vote.option}}
-      </div>
+  <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
+  <div fxFlex="100" [@fadeInOut] class="options">
+    <div *ngFor="let vote of slide.content.votes; let i = index" (click)="cast(i)" class="poll mat-subheading-2">
+      {{stringRef.fromCharCode(i+1+64)}}) {{vote.option}}
     </div>
   </div>
 </div>

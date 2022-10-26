@@ -14,6 +14,7 @@ export const ACTIONS = [
   'match: answers->questions',
   '',
   '',
+  'poll: pick anything',
   'congratulations!'
 ];
 
