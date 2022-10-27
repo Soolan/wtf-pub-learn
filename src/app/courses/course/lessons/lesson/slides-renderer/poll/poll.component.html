@@ -2,16 +2,26 @@
   <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
   <div fxFlex="100" [@fadeInOut] class="options" *ngIf="canVote; else show_results">
     <div *ngFor="let vote of slide.content.votes; let i = index" (click)="cast(i)" class="poll mat-subheading-2">
-      {{stringRef.fromCharCode(i+1+64)}}) {{vote.option}}
+      {{stringRef.fromCharCode(i + 1 + 64)}}) {{vote.option}}
     </div>
   </div>
   <ng-template #show_results>
-    <div fxFlex="100" *ngFor="let p of percentages; let i = index;">
-      <div class="label">{{stringRef.fromCharCode( i+1+64)}}) {{p.option}}</div>
-      <div class="meter">
-        <span class="bar" [style.width.%]="p.percentage"></span>
-        <span class="percent">{{p.percentage|number: '1.1-1'}} %</span>
-      </div>
+    <div *ngIf="!poll;else results" fxFlex="100">
+      <mat-spinner></mat-spinner>
     </div>
+    <ng-template #results>
+      <div fxFlex="90" *ngFor="let p of percentages; let i = index;">
+        <div class="label">{{stringRef.fromCharCode(i + 1 + 64)}}) {{p.option}}</div>
+        <div class="meter">
+          <span class="bar" [style.width.%]="p.percentage"></span>
+          <mat-icon *ngIf="lastVote.optionIndex == i">check_circle_outline</mat-icon>
+          <span class="percent">{{p.percentage|number: '1.1-1'}} %</span>
+        </div>
+      </div>
+      <div fxFlex="100" class="details">
+        <span class="date">You voted on {{lastVote.date| date: 'long'}}</span>
+        <span class="total">Total: {{total}} votes</span>
+      </div>
+    </ng-template>
   </ng-template>
 </div>

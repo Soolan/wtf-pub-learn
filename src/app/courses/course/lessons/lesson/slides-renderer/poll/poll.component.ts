@@ -8,6 +8,11 @@ export interface Percentage {
   percentage: number;
 }
 
+export interface MyVote {
+  optionIndex: number;
+  date: number;
+}
+
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
@@ -16,7 +21,9 @@ export interface Percentage {
 export class PollComponent implements OnInit {
   @Input() slide: any;
   poll!: Poll;
+  total!: number;
   stringRef = String;
+  lastVote!: MyVote;
 
   constructor(private crud: CrudService) {
   }
@@ -31,34 +38,36 @@ export class PollComponent implements OnInit {
   cast(index: number): void {
     this.poll.votes[index].count++;
     this.poll.timestamps.updated_at = Date.now();
+    const vote: MyVote = {
+      optionIndex: index,
+      date: Date.now()
+    }
     this.crud.set(POLLS.path, this.slide.id, this.poll)
-      .then(_ => {
-        localStorage.setItem('voted', Date.now().toString())
-      })
+      .then(_ => localStorage.setItem(`wtf-poll-${this.slide.id}`, JSON.stringify(vote)))
       .catch(error => console.log(error))
     ;
   }
 
   get canVote(): boolean {
-    const votedAt = localStorage.getItem('voted');
-    if (votedAt) {
+    const vote = localStorage.getItem(`wtf-poll-${this.slide.id}`);
+    if (vote) {
+      this.lastVote  = JSON.parse(vote);
       const week = 7 * 24 * 60 * 60 * 1000;
       const lastWeek = Date.now() - week;
-      return parseInt(votedAt) < lastWeek;
+      return this.lastVote.date < lastWeek;
     }
     return true;
   }
 
   get percentages(): Percentage[] {
     let percentages: Percentage[] = [];
-    const total = this.poll.votes.reduce((vote, {count}) => vote + count, 0);
+    this.total = this.poll.votes.reduce((vote, {count}) => vote + count, 0);
     this.poll.votes.forEach(vote => {
       percentages.push({
         option: vote.option,
-        percentage: vote.count / total * 100
+        percentage: vote.count / this.total * 100
       })
     })
-    console.log(percentages)
     return percentages;
   }
 }

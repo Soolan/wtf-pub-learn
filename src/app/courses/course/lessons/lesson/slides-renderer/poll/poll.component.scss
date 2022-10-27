@@ -24,7 +24,7 @@
   box-sizing: content-box;
   height: calc(var(--space-md) + var(--space-xs));
   position: relative;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   background: var(--color-grey5);
   border-radius: 25px;
   padding: var(--space-xxs);
@@ -39,6 +39,11 @@
     inset 0 -2px 6px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
+    animation: expandWidth 3s ease-in-out;
+    @keyframes expandWidth {
+      0% { width: 0; }
+      100% { width: auto; }
+    }
   }
   .bar:after {
     content: "";
@@ -73,5 +78,27 @@
     text-align: right;
     color: var(--color-primary-lighter);
     font-weight: 700;
+  }
+  .mat-icon{
+    position: absolute;
+    top: 9.5px;
+    left: 9px;
+    color: #dfe !important;
+    text-shadow: 0 0 3px var(--color-primary-dark);
+    scale: 1.4;
+  }
+}
+
+.details {
+  text-align: center;
+  font-family: "Ubuntu Mono", monospace;
+  margin-top: var(--space-md);
+  .date {
+    color: var(--color-grey9);
+  }
+  .total {
+    display: block;
+    color: var(--color-grey5);
+    margin-top: var(--space-xs);
   }
 }
