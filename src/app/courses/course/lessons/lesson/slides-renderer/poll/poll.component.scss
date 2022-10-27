@@ -39,11 +39,6 @@
     inset 0 -2px 6px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
-    animation: expandWidth 3s ease-in-out;
-    @keyframes expandWidth {
-      0% { width: 0; }
-      100% { width: auto; }
-    }
   }
   .bar:after {
     content: "";
@@ -71,6 +66,7 @@
     border-bottom-left-radius: 20px;
     overflow: hidden;
   }
+
   .percent {
     position: absolute;
     right: 15px;
