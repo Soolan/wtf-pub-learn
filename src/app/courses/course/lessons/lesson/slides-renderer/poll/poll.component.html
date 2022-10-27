@@ -1,8 +1,17 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
   <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
-  <div fxFlex="100" [@fadeInOut] class="options">
+  <div fxFlex="100" [@fadeInOut] class="options" *ngIf="canVote; else show_results">
     <div *ngFor="let vote of slide.content.votes; let i = index" (click)="cast(i)" class="poll mat-subheading-2">
       {{stringRef.fromCharCode(i+1+64)}}) {{vote.option}}
     </div>
   </div>
+  <ng-template #show_results>
+    <div fxFlex="100" *ngFor="let p of percentages; let i = index;">
+      <div class="label">{{stringRef.fromCharCode( i+1+64)}}) {{p.option}}</div>
+      <div class="meter">
+        <span class="bar" [style.width.%]="p.percentage"></span>
+        <span class="percent">{{p.percentage|number: '1.1-1'}} %</span>
+      </div>
+    </div>
+  </ng-template>
 </div>

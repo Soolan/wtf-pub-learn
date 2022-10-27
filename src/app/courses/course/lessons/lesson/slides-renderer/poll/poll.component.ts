@@ -15,18 +15,15 @@ export interface Percentage {
 })
 export class PollComponent implements OnInit {
   @Input() slide: any;
-  voted = false;
   poll!: Poll;
   stringRef = String;
 
-  constructor(private crud: CrudService) { }
+  constructor(private crud: CrudService) {
+  }
 
   ngOnInit(): void {
     this.crud.docRef(POLLS.path, this.slide.id).get()
-      .then(snap => {
-        this.poll = snap.data();
-        this.voted = localStorage.getItem('voted') === 'yes';
-      })
+      .then(snap => this.poll = snap.data())
       .catch()
     ;
   }
@@ -36,11 +33,20 @@ export class PollComponent implements OnInit {
     this.poll.timestamps.updated_at = Date.now();
     this.crud.set(POLLS.path, this.slide.id, this.poll)
       .then(_ => {
-        this.voted = true;
-        localStorage.setItem('voted', 'yes')
+        localStorage.setItem('voted', Date.now().toString())
       })
       .catch(error => console.log(error))
     ;
+  }
+
+  get canVote(): boolean {
+    const votedAt = localStorage.getItem('voted');
+    if (votedAt) {
+      const week = 7 * 24 * 60 * 60 * 1000;
+      const lastWeek = Date.now() - week;
+      return parseInt(votedAt) < lastWeek;
+    }
+    return true;
   }
 
   get percentages(): Percentage[] {
@@ -49,7 +55,7 @@ export class PollComponent implements OnInit {
     this.poll.votes.forEach(vote => {
       percentages.push({
         option: vote.option,
-        percentage: vote.count/total * 100
+        percentage: vote.count / total * 100
       })
     })
     console.log(percentages)
