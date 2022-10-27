@@ -10,6 +10,7 @@ export enum SlideType {
   Match,
   EasyReview,
   HardReview,
+  Poll,
   Summary
 }
 
