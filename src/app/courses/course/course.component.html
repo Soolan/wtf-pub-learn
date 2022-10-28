@@ -40,10 +40,7 @@
         <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
-      <div fxFlex="29" *ngIf="!progress; else status_check">
-        <button mat-flat-button>Start</button>
-      </div>
-      <ng-template #status_check>
+      <div fxFlex="29" *ngIf="auth.user | async; else guest">
         <ng-container [ngSwitch]="progress.status">
           <div fxFlex="29" *ngSwitchCase="status.Start" class="mat-caption done">
             <button mat-flat-button>{{statuses[status.Start]}}</button>
@@ -59,6 +56,9 @@
             <button mat-flat-button>{{statuses[status.Resume]}}</button>
           </div>
         </ng-container>
+      </div>
+      <ng-template #guest>
+        <button mat-flat-button>Start</button>
       </ng-template>
     </div>
     <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>

@@ -23,61 +23,58 @@ export class CourseComponent implements OnInit {
   loading!: any;
   keyword!: string;
   levels = LEVELS;
-  userId!: any;
+  userId!: string;
   progress!: Progress;
   status = Status;
 
-  currentSlide = 7;
-  slides = 12;
 
   constructor(
     private crud: CrudService,
-    private auth: AngularFireAuth,
+    public auth: AngularFireAuth,
     private route: ActivatedRoute,
     private current: CurrentService,
     private navigate: NavigateService
   ) {
     this.id = this.route.snapshot.paramMap.get('courseId') || '';
-    this.auth.currentUser
-      .then(user => this.userId = user?.uid)
-      .catch(error => console.log(error))
-    ;
+    this.auth.authState.subscribe({
+      next: user => {
+        if (user) {
+          this.userId = user.uid;
+          this.initProgress();
+        }
+      },
+      error: error => console.log(error)
+    });
   }
 
   ngOnInit(): void {
     this.loading = {course: true, lessons: true};
     if (this.id) {
       this.initCourse();
+      this.initLessons();
     } else {
       // ToDo: implement dialog box
     }
   }
 
   initCourse() {
-    this.crud.get(COURSES.path, this.id).subscribe(
-      {
-        next: data => {
-          this.course = data;
-          this.loading.course = false;
-          this.keyword = this.getKeyword();
-          this.initProgress();
-        },
-        error: error => console.log(error)
-      }
-    );
+    this.crud.docRef(COURSES.path, this.id).get()
+      .then(snap => {
+        this.course = snap.data();
+        this.loading.course = false;
+        this.keyword = this.getKeyword();
+      })
+      .catch(error => console.log(error))
+    ;
   }
 
   initProgress() {
-    console.log(this.userId);
-    this.crud.get(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id).subscribe(
-      {
-        next: progress => {
-          this.progress = progress;
-          this.initLessons();
-        },
-        error: error => console.log(error)
-      }
-    );
+    this.crud.docRef(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id).get()
+      .then(snap => {
+        this.progress = snap.data();
+      })
+      .catch(error => console.log(error))
+    ;
   }
 
   initLessons(): void {
