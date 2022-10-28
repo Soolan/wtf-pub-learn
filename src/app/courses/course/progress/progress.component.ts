@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
 import {STATUSES} from '../../../shared/data/generic';
-import {Progress} from '../../../shared/models/course';
 import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
+import {Progress} from '../../../shared/models/profile';
 
 @Component({
   selector: 'app-progress',
@@ -10,22 +10,14 @@ import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
+  @Input() courseId!: string;
   action!: string;
   status = Status;
-  userStatus!:number;
   progress!: Progress;
   constructor() { }
 
   ngOnInit(): void {
-    this.progress = {
-      status: Status.Retake,
-      course_id: 'some course id',
-      lesson: 'Lesson 2 - some blah blah bloody blah',
-      slide: 4,
-      score: 57,
-      updated_at: Date.now()
-    }
-    this.action = STATUSES[this.progress.status];
+
   }
 
   get statuses(): string[] {

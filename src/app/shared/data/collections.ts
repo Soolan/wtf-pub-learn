@@ -26,6 +26,13 @@ export const PROFILES: Collection = {
   where: {field: 'created_at', operator: '!=', value: null}
 };
 
+//------------------------------------------------- PROFILES
+export const PROGRESSES: Collection = {
+  path: 'progresses',
+  limit: 25,
+  where: {field: 'lessons', operator: '!=', value: null}
+};
+
 //------------------------------------------------- Course
 export const COURSES: Collection = {
   path: 'courses',

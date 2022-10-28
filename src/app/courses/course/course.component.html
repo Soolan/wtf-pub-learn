@@ -16,7 +16,8 @@
       <ng-template #guest_view>
         <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
              ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
-          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name" [keyword]="keyword"></span>
+          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name"
+                [keyword]="keyword"></span>
           <ng-template #no_keyword>
             {{course.name}}
           </ng-template>
@@ -30,7 +31,7 @@
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
-    <app-progress fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></app-progress>
+    <!--    <app-progress fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" [courseId]="course.id"></app-progress>-->
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
          *ngFor="let lesson of lessons" (click)="open(lesson.id)">
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -39,17 +40,27 @@
         <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
-      <div fxFlex="29" *ngIf="true; else active" class="mat-caption done">
-        <span>DONE</span>
-        <mat-icon>done</mat-icon>
+      <div fxFlex="29" *ngIf="!progress; else status_check">
+        <button mat-flat-button>Start</button>
       </div>
-      <ng-template #active>
-        <div fxFlex="29">
-          <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
-                [style.background-color]="i <= currentSlide ? 'var(--color-primary)' : ''"></span>
-        </div>
+      <ng-template #status_check>
+        <ng-container [ngSwitch]="progress.status">
+          <div fxFlex="29" *ngSwitchCase="status.Start" class="mat-caption done">
+            <button mat-flat-button>{{statuses[status.Start]}}</button>
+          </div>
+          <div fxFlex="29" *ngSwitchCase="status.Retake" class="mat-caption done">
+            <button mat-flat-button>{{statuses[status.Retake]}}</button>
+            <mat-icon>done</mat-icon>
+          </div>
+          <div fxFlex="29" *ngSwitchCase="status.Resume" class="mat-caption done">
+          <span *ngFor="let square of [].constructor(getTotalSlides(lesson.id)); let i = index" class="marker"
+                [style.background-color]="i <= getCurrentSlide(lesson.id) ? 'var(--color-primary)' : ''">
+          </span>
+            <button mat-flat-button>{{statuses[status.Resume]}}</button>
+          </div>
+        </ng-container>
       </ng-template>
     </div>
+    <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>
   </div>
-  <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>
 </div>

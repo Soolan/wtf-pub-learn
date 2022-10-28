@@ -1,11 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {COURSES, LESSONS} from '../../shared/data/collections';
+import {COURSES, LESSONS, PROFILES, PROGRESSES} from '../../shared/data/collections';
 import {map} from 'rxjs';
 import {CrudService} from '../../shared/services/crud.service';
-import {LEVELS} from '../../shared/data/generic';
+import {LEVELS, STATUSES} from '../../shared/data/generic';
 import {CurrentService} from '../../shared/services/current.service';
 import {NavigateService} from '../../shared/services/navigate.service';
 import {ActivatedRoute} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {Progress} from '../../shared/models/profile';
+import {Status} from '../../shared/data/enums';
 
 @Component({
   selector: 'app-course',
@@ -20,36 +23,57 @@ export class CourseComponent implements OnInit {
   loading!: any;
   keyword!: string;
   levels = LEVELS;
+  userId!: any;
+  progress!: Progress;
+  status = Status;
 
   currentSlide = 7;
   slides = 12;
 
   constructor(
     private crud: CrudService,
+    private auth: AngularFireAuth,
     private route: ActivatedRoute,
     private current: CurrentService,
-    private navigate: NavigateService,
+    private navigate: NavigateService
   ) {
     this.id = this.route.snapshot.paramMap.get('courseId') || '';
+    this.auth.currentUser
+      .then(user => this.userId = user?.uid)
+      .catch(error => console.log(error))
+    ;
   }
 
   ngOnInit(): void {
     this.loading = {course: true, lessons: true};
     if (this.id) {
       this.initCourse();
-      this.initLessons();
     } else {
       // ToDo: implement dialog box
     }
   }
 
-  private initCourse() {
+  initCourse() {
     this.crud.get(COURSES.path, this.id).subscribe(
       {
         next: data => {
           this.course = data;
           this.loading.course = false;
           this.keyword = this.getKeyword();
+          this.initProgress();
+        },
+        error: error => console.log(error)
+      }
+    );
+  }
+
+  initProgress() {
+    console.log(this.userId);
+    this.crud.get(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id).subscribe(
+      {
+        next: progress => {
+          this.progress = progress;
+          this.initLessons();
         },
         error: error => console.log(error)
       }
@@ -64,11 +88,47 @@ export class CourseComponent implements OnInit {
       {
         next: lessons => {
           this.lessons = lessons;
+          if (this.userId && !this.progress) this.setProgress();
           this.loading.lessons = false;
         },
         error: error => console.log(error)
       }
     );
+  }
+
+  setProgress(): void {
+      const progress: Progress = {
+        status: Status.Start,
+        lessons: []
+      };
+      this.lessons.forEach(lesson => {
+        const lessonProgress = {
+          lesson_id: lesson.id,
+          current_slide: 0,
+          total_slides: 0,
+          slide_id: '',
+          status: Status.Start,
+          score: 0,
+          updated_at: Date.now()
+        }
+        progress.lessons.push(lessonProgress);
+      });
+      this.crud.set(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id, progress)
+        .then(_ => console.log('progress initiated for the first time', ))
+        .catch(error => console.log(error))
+      ;
+  }
+
+  getTotalSlides(lessonId: string): number {
+    return this.progress.lessons.find(l => l.lesson_id == lessonId)?.total_slides || 0;
+  }
+
+  getCurrentSlide(lessonId: string): number {
+    return this.progress.lessons.find(l => l.lesson_id == lessonId)?.current_slide || 0;
+  }
+
+  get statuses(): string[] {
+    return STATUSES;
   }
 
   getKeyword(): string {
