@@ -68,52 +68,54 @@ export class CourseComponent implements OnInit {
     ;
   }
 
+  initLessons(): void {
+    LESSONS.path = `${COURSES.path}/${this.id}/lessons`;
+    this.crud.colRef(LESSONS.path).get()
+      .then(snap => {
+        this.lessons = snap.docs
+          .filter(doc => doc.data().published == true)
+          .map(doc => {
+            return {id: doc.id, ...doc.data()}
+          })
+        console.log(this.lessons);
+        this.loading.lessons = false;
+      })
+      .catch()
+    ;
+  }
+
   initProgress() {
     this.crud.docRef(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id).get()
       .then(snap => {
         this.progress = snap.data();
+        if (!this.progress) this.setProgress();
+        console.log(this.progress);
       })
       .catch(error => console.log(error))
     ;
   }
 
-  initLessons(): void {
-    LESSONS.path = `${COURSES.path}/${this.id}/lessons`
-    this.crud.colRefQuery(LESSONS).pipe(
-      map(this.crud.mapId),
-    ).subscribe(
-      {
-        next: lessons => {
-          this.lessons = lessons;
-          if (this.userId && !this.progress) this.setProgress();
-          this.loading.lessons = false;
-        },
-        error: error => console.log(error)
-      }
-    );
-  }
-
   setProgress(): void {
-      const progress: Progress = {
+    const progress: Progress = {
+      status: Status.Start,
+      lessons: []
+    };
+    this.lessons.forEach(lesson => {
+      const lessonProgress = {
+        lesson_id: lesson.id,
+        current_slide: 0,
+        total_slides: 0,
+        slide_id: '',
         status: Status.Start,
-        lessons: []
-      };
-      this.lessons.forEach(lesson => {
-        const lessonProgress = {
-          lesson_id: lesson.id,
-          current_slide: 0,
-          total_slides: 0,
-          slide_id: '',
-          status: Status.Start,
-          score: 0,
-          updated_at: Date.now()
-        }
-        progress.lessons.push(lessonProgress);
-      });
-      this.crud.set(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id, progress)
-        .then(_ => console.log('progress initiated for the first time', ))
-        .catch(error => console.log(error))
-      ;
+        score: 0,
+        updated_at: Date.now()
+      }
+      progress.lessons.push(lessonProgress);
+    });
+    this.crud.set(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id, progress)
+      .then(_ => console.log('progress initiated for the first time',))
+      .catch(error => console.log(error))
+    ;
   }
 
   getTotalSlides(lessonId: string): number {
@@ -130,7 +132,7 @@ export class CourseComponent implements OnInit {
 
   getKeyword(): string {
     const firstTag = this.course.tags[0];
-    return this.course.name.includes(firstTag)? firstTag: '';
+    return this.course.name.includes(firstTag) ? firstTag : '';
   }
 
   open(lessonId: string): void {
