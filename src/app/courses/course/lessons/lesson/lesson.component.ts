@@ -29,7 +29,6 @@ export class LessonComponent implements OnInit {
     private route: ActivatedRoute,
     private navigate: NavigateService,
     private slideService: SlideService,
-    private courseLesson: CurrentService,
     private headerFooter: ToggleHeaderFooterService
   ) {
     headerFooter.toggle(false, true);   // switch off header
@@ -77,22 +76,8 @@ export class LessonComponent implements OnInit {
   }
 
   setNames(): void {
-    this.courseLesson.current.subscribe({
-      next: current => {
-        if (current.course) {             // try the names in the service first
-          this.course = current.course;
-        } else {                          // if they don't exist, hit the db
-          this.setCourseName();
-        }
-
-        if (current.lesson) {
-          this.lesson = current.lesson;
-        } else {
-          this.setLessonName();
-        }
-      },
-      error: error => console.log(error)
-    })
+    this.setCourseName();
+    this.setLessonName();
   }
 
   setCourseName(): void {

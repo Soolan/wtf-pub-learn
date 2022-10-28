@@ -5,6 +5,8 @@ import {Progress} from '../../../shared/models/profile';
 import {CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
 import {LESSONS} from '../../../shared/data/collections';
+import {Course} from '../../../shared/models/course';
+import {Lesson} from '../../../shared/models/lesson';
 
 @Component({
   selector: 'app-progress',
@@ -12,8 +14,8 @@ import {LESSONS} from '../../../shared/data/collections';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
-  @Input() courseId!: string;
-  @Input() lessonId!: string;
+  @Input() course!: any;
+  @Input() lesson!: any;
   @Input() progress!: Progress;
   status = Status;
   totalSlides!: number;
@@ -25,7 +27,7 @@ export class ProgressComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const lesson = this.progress.lessons.find(l => l.lesson_id == this.lessonId);
+    const lesson = this.progress.lessons.find(l => l.lesson_id == this.lesson.id);
     this.totalSlides = lesson?.total_slides || 0;
     this.currentSlide = lesson?.current_slide || 0;
   }
@@ -35,14 +37,14 @@ export class ProgressComponent implements OnInit {
   }
 
   open(): void {
-    this.navigate.goto(LESSONS.path, this.courseId, this.lessonId);
+    this.current.next({
+      courseId: this.course.id,
+      course: this.course.name,
+      lessonId: this.lesson.id,
+      lesson: this.lesson.name
+    });
+    console.log(this.current.current.value.courseId);
+    this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id);
   }
 
-  // setCurrent(lessonId: string): void {
-  //   const lessonName = this.lessons.find(lesson => lesson.id === lessonId).name;
-  //   this.current.next({
-  //     course: this.course.name,
-  //     lesson: lessonName
-  //   })
-  // }
 }

@@ -31,7 +31,6 @@
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
-    <!--    <app-progress fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" [courseId]="course.id"></app-progress>-->
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson" *ngFor="let lesson of lessons">
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <div fxFlex class="avatar"
@@ -40,7 +39,7 @@
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
       <div fxFlex="29" *ngIf="auth.user | async; else guest">
-        <app-progress [progress]="progress" [lessonId]="lesson.id" [courseId]="id"></app-progress>
+        <app-progress [progress]="progress" [lesson]="lesson" [course]="course"></app-progress>
       </div>
       <ng-template #guest>
         <button mat-flat-button>Start</button>

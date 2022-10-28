@@ -65,15 +65,13 @@ export class CourseComponent implements OnInit {
   }
 
   initLessons(): void {
-    LESSONS.path = `${COURSES.path}/${this.id}/lessons`;
-    this.crud.colRef(LESSONS.path).get()
+    this.crud.colRef(`${COURSES.path}/${this.id}/${LESSONS.path}`).get()
       .then(snap => {
         this.lessons = snap.docs
           .filter(doc => doc.data().published == true)
           .map(doc => {
             return {id: doc.id, ...doc.data()}
           })
-        console.log(this.lessons);
         this.loading.lessons = false;
       })
       .catch()
