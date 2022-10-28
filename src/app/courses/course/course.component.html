@@ -32,8 +32,7 @@
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
     <!--    <app-progress fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" [courseId]="course.id"></app-progress>-->
-    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
-         *ngFor="let lesson of lessons" (click)="open(lesson.id)">
+    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson" *ngFor="let lesson of lessons">
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <div fxFlex class="avatar"
              [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
@@ -41,21 +40,7 @@
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
       <div fxFlex="29" *ngIf="auth.user | async; else guest">
-        <ng-container [ngSwitch]="progress.status">
-          <div fxFlex="29" *ngSwitchCase="status.Start" class="mat-caption done">
-            <button mat-flat-button>{{statuses[status.Start]}}</button>
-          </div>
-          <div fxFlex="29" *ngSwitchCase="status.Retake" class="mat-caption done">
-            <button mat-flat-button>{{statuses[status.Retake]}}</button>
-            <mat-icon>done</mat-icon>
-          </div>
-          <div fxFlex="29" *ngSwitchCase="status.Resume" class="mat-caption done">
-          <span *ngFor="let square of [].constructor(getTotalSlides(lesson.id)); let i = index" class="marker"
-                [style.background-color]="i <= getCurrentSlide(lesson.id) ? 'var(--color-primary)' : ''">
-          </span>
-            <button mat-flat-button>{{statuses[status.Resume]}}</button>
-          </div>
-        </ng-container>
+        <app-progress [progress]="progress" [lessonId]="lesson.id" [courseId]="id"></app-progress>
       </div>
       <ng-template #guest>
         <button mat-flat-button>Start</button>

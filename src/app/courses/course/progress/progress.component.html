@@ -1,18 +1,25 @@
-<!--<div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">-->
-<!--  <ng-container [ngSwitch]="progress.status">-->
-<!--    <ng-container *ngSwitchCase="status.Start">-->
-<!--      <button fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" fxFlex.lt-md="100" mat-flat-button color="primary">-->
-<!--        {{statuses[progress.status]}}-->
-<!--      </button>-->
-<!--    </ng-container>-->
-<!--    <ng-container *ngSwitchCase="status.Resume">-->
-<!--      <div fxFlex="70" fxFlex.lt-md="65">-->
-<!--        <strong>Next Up</strong>-->
-<!--        <mat-icon>chevron_right</mat-icon>-->
-<!--        <p>{{progress.lesson}}</p>-->
-<!--      </div>-->
-<!--      <button fxFlex="25" fxFlex.lt-md="35" mat-flat-button color="warn">{{statuses[progress.status]}}</button>-->
-<!--      &lt;!&ndash; Are they taking the course again? &ndash;&gt;-->
+<div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+  <ng-container *ngIf="progress" [ngSwitch]="progress.status">
+    <div fxFlex="29" *ngSwitchCase="status.Start" class="mat-caption done">
+      <button mat-flat-button (click)="open()">{{statuses[status.Start]}}</button>
+    </div>
+    <div fxFlex="29" *ngSwitchCase="status.Retake" class="mat-caption done">
+      <button mat-flat-button>{{statuses[status.Retake]}}</button>
+      <mat-icon>done</mat-icon>
+    </div>
+    <div fxFlex="29" *ngSwitchCase="status.Resume" class="mat-caption done">
+          <span *ngFor="let square of [].constructor(totalSlides); let i = index" class="marker"
+                [style.background-color]="i <= currentSlide ? 'var(--color-primary)' : ''">
+          </span>
+      <button mat-flat-button>{{statuses[status.Resume]}}</button>
+    </div>
+  </ng-container>
+
+</div>
+
+
+
+<!-- Are they taking the course again? -->
 <!--      <div fxFlex="70" fxFlex.lt-md="65" class="score" *ngIf="progress.grade>-->
 <!--        <p>-->
 <!--          Previous score ({{progress.updated_at | date: 'longDate'}}):-->
@@ -20,7 +27,7 @@
 <!--            /100</span>-->
 <!--        </p>-->
 <!--      </div>-->
-<!--    </ng-container>-->
+
 <!--    <ng-container *ngSwitchCase="status.Retake">-->
 <!--      <div fxFlex="70" fxFlex.lt-lg="64" class="score">-->
 <!--        <strong>Passed</strong>-->
@@ -32,5 +39,3 @@
 <!--      </div>-->
 <!--      <button fxFlex="29" fxFlex.lt-lg="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>-->
 <!--    </ng-container>-->
-<!--  </ng-container>-->
-<!--</div>-->

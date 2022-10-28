@@ -25,15 +25,11 @@ export class CourseComponent implements OnInit {
   levels = LEVELS;
   userId!: string;
   progress!: Progress;
-  status = Status;
-
 
   constructor(
     private crud: CrudService,
     public auth: AngularFireAuth,
-    private route: ActivatedRoute,
-    private current: CurrentService,
-    private navigate: NavigateService
+    private route: ActivatedRoute
   ) {
     this.id = this.route.snapshot.paramMap.get('courseId') || '';
     this.auth.authState.subscribe({
@@ -112,39 +108,15 @@ export class CourseComponent implements OnInit {
       }
       progress.lessons.push(lessonProgress);
     });
+    this.progress = progress;
     this.crud.set(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id, progress)
       .then(_ => console.log('progress initiated for the first time',))
       .catch(error => console.log(error))
     ;
   }
 
-  getTotalSlides(lessonId: string): number {
-    return this.progress.lessons.find(l => l.lesson_id == lessonId)?.total_slides || 0;
-  }
-
-  getCurrentSlide(lessonId: string): number {
-    return this.progress.lessons.find(l => l.lesson_id == lessonId)?.current_slide || 0;
-  }
-
-  get statuses(): string[] {
-    return STATUSES;
-  }
-
   getKeyword(): string {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
-  }
-
-  open(lessonId: string): void {
-    this.setCurrent(lessonId);
-    this.navigate.goto('lessons', this.id, lessonId);
-  }
-
-  setCurrent(lessonId: string): void {
-    const lessonName = this.lessons.find(lesson => lesson.id === lessonId).name;
-    this.current.next({
-      course: this.course.name,
-      lesson: lessonName
-    })
   }
 }
