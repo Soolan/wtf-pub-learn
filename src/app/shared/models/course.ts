@@ -15,7 +15,12 @@ export interface Course {
 export interface Progress {
   status: Status;
   course_id: string;
-  lesson: string;
+  lessons: LessonProgress[];
+  grade: number;
+}
+
+export interface LessonProgress {
+  lesson_id: string;
   slide: number;
   score: number;
   updated_at: number;
