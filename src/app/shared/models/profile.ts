@@ -18,16 +18,20 @@ export interface UserActivity {
   code: Activity;
 }
 
-export interface Progress {
-  status: Status;
-  lessons: LessonProgress[];
+export interface Course {
+  course: string;
+  info: Info;
 }
 
-export interface LessonProgress {
-  lesson_id: string;
+export interface Lesson {
+  lesson: string;
+  info: Info;
   current_slide: number;
   total_slides: number;
   slide_id: string;
+}
+
+export interface Info {
   status: Status;
   score: number;
   updated_at: number;

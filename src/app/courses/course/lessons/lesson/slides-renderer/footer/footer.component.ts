@@ -45,7 +45,7 @@ export class FooterComponent implements OnInit {
           this.progressRef.get()
             .then(snap => {
               this.progress = snap.data();
-              this.lessonProgress = this.progress.lessons.find(l => l.lesson_id == this.lessonId);
+              this.lessonProgress = this.progress.lessons.find((l: any) => l.lesson_id == this.lessonId);
             })
             .catch()
           ;
