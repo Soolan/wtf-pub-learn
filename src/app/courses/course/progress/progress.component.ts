@@ -27,6 +27,7 @@ export class ProgressComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     const lesson = this.progress.lessons.find(l => l.lesson_id == this.lesson.id);
     this.totalSlides = lesson?.total_slides || 0;
     this.currentSlide = lesson?.current_slide || 0;

@@ -1,13 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {COURSES, LESSONS, PROFILES, PROGRESSES} from '../../shared/data/collections';
-import {map} from 'rxjs';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
-import {LEVELS, STATUSES} from '../../shared/data/generic';
-import {CurrentService} from '../../shared/services/current.service';
-import {NavigateService} from '../../shared/services/navigate.service';
+import {LEVELS} from '../../shared/data/generic';
 import {ActivatedRoute} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {Progress} from '../../shared/models/profile';
+import {Course, Info, Lesson} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
 
 @Component({
@@ -24,14 +21,13 @@ export class CourseComponent implements OnInit {
   keyword!: string;
   levels = LEVELS;
   userId!: string;
-  progress!: Progress;
+  progress!: Course;
 
   constructor(
     private crud: CrudService,
     public auth: AngularFireAuth,
     private route: ActivatedRoute
   ) {
-    this.id = this.route.snapshot.paramMap.get('courseId') || '';
     this.auth.authState.subscribe({
       next: user => {
         if (user) {
@@ -79,7 +75,7 @@ export class CourseComponent implements OnInit {
   }
 
   initProgress() {
-    this.crud.docRef(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id).get()
+    this.crud.docRef(`${PROFILES.path}/${this.userId}/${P_COURSES.path}`, this.id).get()
       .then(snap => {
         this.progress = snap.data();
         if (!this.progress) this.setProgress();
@@ -90,27 +86,24 @@ export class CourseComponent implements OnInit {
   }
 
   setProgress(): void {
-    const progress: Progress = {
-      status: Status.Start,
-      lessons: []
-    };
-    this.lessons.forEach(lesson => {
-      const lessonProgress = {
-        lesson_id: lesson.id,
-        current_slide: 0,
-        total_slides: 0,
-        slide_id: '',
-        status: Status.Start,
-        score: 0,
-        updated_at: Date.now()
-      }
-      progress.lessons.push(lessonProgress);
-    });
-    this.progress = progress;
-    this.crud.set(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.id, progress)
-      .then(_ => console.log('progress initiated for the first time',))
+    const info: Info = {status: Status.Start, score: 0, updated_at: Date.now()};
+    const courseProgress: Course = {name: this.course.name, info};
+    const lessonProgress: Lesson = {name: '', current_slide: 0, total_slides: 0, slide_id: '', info};
+    const path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`
+
+    this.crud.set(path, this.id, courseProgress)
+      .then(_ => console.log('course progress initiated for the first time',))
       .catch(error => console.log(error))
     ;
+
+    this.lessons.forEach(lesson => {
+      lessonProgress.name = lesson.name;
+      this.crud.set(`${path}/${this.id}/${P_LESSONS.path}`, lesson.id, lessonProgress)
+        .then(_ => console.log('lesson progress initiated for the first time',))
+        .catch(error => console.log(error))
+      ;
+    });
+
   }
 
   getKeyword(): string {

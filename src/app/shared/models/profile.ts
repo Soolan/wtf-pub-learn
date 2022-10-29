@@ -19,12 +19,12 @@ export interface UserActivity {
 }
 
 export interface Course {
-  course: string;
+  name: string;
   info: Info;
 }
 
 export interface Lesson {
-  lesson: string;
+  name: string;
   info: Info;
   current_slide: number;
   total_slides: number;
