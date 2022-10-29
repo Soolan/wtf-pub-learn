@@ -39,7 +39,7 @@
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
       <div fxFlex="29" *ngIf="auth.user | async; else guest">
-        <app-progress [progress]="progress" [lesson]="lesson" [course]="course"></app-progress>
+        <app-progress [lesson]="lesson" [course]="course"></app-progress>
       </div>
       <ng-template #guest>
         <button mat-flat-button>Start</button>

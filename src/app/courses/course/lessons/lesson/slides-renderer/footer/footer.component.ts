@@ -7,10 +7,10 @@ import {SlideHeaderFooter} from '../../../../../../shared/models/slide';
 import {SlideType} from '../../../../../../shared/data/enums';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {CrudService} from '../../../../../../shared/services/crud.service';
-import {PROFILES, PROGRESSES} from '../../../../../../shared/data/collections';
+import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/collections';
 import firebase from 'firebase/compat';
 import DocumentReference = firebase.firestore.DocumentReference;
-import {LessonProgress, Progress} from '../../../../../../shared/models/profile';
+import {Lesson} from '../../../../../../shared/models/profile';
 
 @Component({
   selector: 'app-renderer-footer',
@@ -30,7 +30,7 @@ export class FooterComponent implements OnInit {
   userId!: string | undefined;
   progressRef!: DocumentReference;
   progress!: any;
-  lessonProgress!: LessonProgress;
+  lessonProgress!: Lesson;
 
   constructor(
     private crud: CrudService,
@@ -41,7 +41,7 @@ export class FooterComponent implements OnInit {
       .then(user => {
         this.userId = user?.uid;
         if(this.userId) {
-          this.progressRef = this.crud.docRef(`${PROFILES.path}/${this.userId}/${PROGRESSES.path}`, this.courseId);
+          this.progressRef = this.crud.docRef(`${PROFILES.path}/${this.userId}/${P_COURSES.path}`, this.courseId);
           this.progressRef.get()
             .then(snap => {
               this.progress = snap.data();
