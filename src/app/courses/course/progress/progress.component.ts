@@ -27,7 +27,12 @@ export class ProgressComponent implements OnInit {
     public auth: AngularFireAuth,
     private current: CurrentService,
     private navigate: NavigateService
-  ) {
+  ) { }
+
+  ngOnInit(): void {
+    this.totalSlides = 0;
+    this.currentSlide = 0;
+    this.lessonStatus = Status.Start;
     this.auth.authState.subscribe({
       next: user => {
         if (user) {
@@ -39,25 +44,20 @@ export class ProgressComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.totalSlides = 0;
-    this.currentSlide = 0;
-    this.lessonStatus = Status.Start;
-    this.initProgress();
-  }
-
   initProgress() {
-    this.crud.docRef(`${PROFILES.path}/${this.userId}/${P_COURSES.path}/${this.course.id}`, this.lesson.id).get()
+    const path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}/${this.course.id}/${P_LESSONS.path}`;
+    this.crud.docRef(path, this.lesson.id).get()
       .then(snap => {
-        snap.data() ? this.setSlides(snap.data()) : this.setProgress();
+        if(snap.data()) {
+          console.log(snap.data())
+          this.totalSlides = snap.data().total_slides;
+          this.currentSlide = snap.data().current_slide;
+        } else {
+          this.setProgress();
+        }
       })
       .catch(error => console.log(error))
     ;
-  }
-
-  setSlides(lessonProgress: Lesson): void {
-    this.totalSlides = lessonProgress.total_slides;
-    this.currentSlide = lessonProgress.current_slide;
   }
 
   setProgress(): void {

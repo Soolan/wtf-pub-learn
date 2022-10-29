@@ -3,6 +3,7 @@ import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/dat
 import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -11,7 +12,8 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 })
 export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
-  @Input() id!: string;
+  @Input() id!: string; // needed when it is called from user dashboard
+  courseId!: string;
   course!: any;
   lessons!: any[];
   loading!: any;
@@ -20,38 +22,43 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private crud: CrudService,
-    public auth: AngularFireAuth
-  ) { }
+    public auth: AngularFireAuth,
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
     this.loading = {course: true, lessons: true};
-    if (this.id) {
+    this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
+    console.log(this.courseId, this.route.snapshot.paramMap.get('courseId'), this.id);
+    if (this.courseId) {
       this.initCourse();
-      this.initLessons();
     } else {
       // ToDo: implement dialog box
     }
   }
 
   initCourse() {
-    this.crud.docRef(COURSES.path, this.id).get()
+    this.crud.docRef(COURSES.path, this.courseId).get()
       .then(snap => {
         this.course = snap.data();
+        this.course.id = snap.id;
         this.loading.course = false;
         this.keyword = this.getKeyword();
+        this.initLessons();
       })
       .catch(error => console.log(error))
     ;
   }
 
   initLessons(): void {
-    this.crud.colRef(`${COURSES.path}/${this.id}/${LESSONS.path}`).get()
+    this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}`).get()
       .then(snap => {
         this.lessons = snap.docs
           .filter(doc => doc.data().published == true)
           .map(doc => {
             return {id: doc.id, ...doc.data()}
-          })
+          });
         this.loading.lessons = false;
       })
       .catch()

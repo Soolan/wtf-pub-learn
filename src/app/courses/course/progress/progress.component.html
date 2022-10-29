@@ -1,5 +1,5 @@
 <div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-  <ng-container [ngSwitch]="status">
+  <ng-container [ngSwitch]="lessonStatus">
     <div fxFlex="29" *ngSwitchCase="status.Start" class="mat-caption done">
       <button mat-flat-button (click)="open()">{{statuses[status.Start]}}</button>
     </div>
