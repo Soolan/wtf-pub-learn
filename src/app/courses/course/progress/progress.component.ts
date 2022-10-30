@@ -52,10 +52,11 @@ export class ProgressComponent implements OnInit {
   initProgress() {
     this.crud.docRef(`${this.path}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id).get()
       .then(snap => {
-        if(snap.data()) {
-          console.log(snap.data())
-          this.totalSlides = snap.data().total_slides;
-          this.currentSlide = snap.data().current_slide;
+        const progress = snap.data();
+        if(progress) {
+          this.totalSlides = progress.total_slides;
+          this.currentSlide = progress.current_slide;
+          this.lessonStatus = progress.info.status;
         } else {
           this.setProgress();
         }
@@ -76,7 +77,7 @@ export class ProgressComponent implements OnInit {
         const lessonProgress: Lesson = {
           name: this.lesson.name,
           info: this.info,
-          current_slide: 0,
+          current_slide: 1,
           total_slides: this.totalSlides,
           slide_id: ''
         };
@@ -94,6 +95,9 @@ export class ProgressComponent implements OnInit {
   }
 
   open(): void {
-    this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id);
+    this.crud.update(this.path, this.course.id, {info: {status: Status.Resume, score: 0, updated_at: Date.now()}})
+      .then(_ => this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id))
+      .catch(error => console.log(error))
+    ;
   }
 }

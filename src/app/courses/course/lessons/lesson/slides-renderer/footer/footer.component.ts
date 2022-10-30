@@ -4,13 +4,13 @@ import {BOUNCE} from '../../../../../../shared/animations/bounce';
 import {STRETCH} from '../../../../../../shared/animations/strech';
 import {ACTIONS} from '../../../../../../shared/data/generic';
 import {SlideHeaderFooter} from '../../../../../../shared/models/slide';
-import {SlideType} from '../../../../../../shared/data/enums';
+import {SlideType, Status} from '../../../../../../shared/data/enums';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/collections';
 import firebase from 'firebase/compat';
-import DocumentReference = firebase.firestore.DocumentReference;
 import {Lesson} from '../../../../../../shared/models/profile';
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Component({
   selector: 'app-renderer-footer',
@@ -29,7 +29,6 @@ export class FooterComponent implements OnInit {
   ui!: SlideHeaderFooter;
   userId!: string | undefined;
   progressRef!: DocumentReference;
-  progress!: any;
   lessonProgress!: Lesson;
 
   constructor(
@@ -41,12 +40,10 @@ export class FooterComponent implements OnInit {
       .then(user => {
         this.userId = user?.uid;
         if(this.userId) {
-          this.progressRef = this.crud.docRef(`${PROFILES.path}/${this.userId}/${P_COURSES.path}`, this.courseId);
+          const path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}/${this.courseId}/${P_LESSONS.path}`;
+          this.progressRef = this.crud.docRef(path, this.lessonId);
           this.progressRef.get()
-            .then(snap => {
-              this.progress = snap.data();
-              this.lessonProgress = this.progress.lessons.find((l: any) => l.lesson_id == this.lessonId);
-            })
+            .then(snap => this.lessonProgress = snap.data() as Lesson)
             .catch()
           ;
         }
@@ -89,9 +86,12 @@ export class FooterComponent implements OnInit {
       correct: false,
       completed: false
     })
-    if(this.userId) {
-
-
+    if(this.userId || forward) {
+      this.lessonProgress.info.updated_at = Date.now();
+      this.lessonProgress.current_slide ++;
+      this.lessonProgress.info.status =
+        this.lessonProgress.current_slide == this.lessonProgress.total_slides ? Status.Retake : Status.Resume;
+      this.progressRef.update(this.lessonProgress);
     }
   }
 

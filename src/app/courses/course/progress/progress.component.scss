@@ -6,6 +6,20 @@
     vertical-align: middle;
   }
 
+  .markers{
+    margin: var(--space-md) auto;
+    text-align: center;
+    .marker {
+      width: 0.4em;
+      height: 0.4em;
+      border: 2px solid var(--color-accent);
+      border-radius: 3px;
+      display: inline-block;
+      margin: 0.04em;
+    }
+  }
+
+
   .score {
     font-size: smaller;
     p {
