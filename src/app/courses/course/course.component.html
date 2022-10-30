@@ -16,7 +16,8 @@
       <ng-template #guest_view>
         <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
              ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
-          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name" [keyword]="keyword"></span>
+          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name"
+                [keyword]="keyword"></span>
           <ng-template #no_keyword>
             {{course.name}}
           </ng-template>
@@ -25,31 +26,26 @@
       <div fxFlex="95" class="mat-body-2 description">{{course.description}}</div>
     </div>
   </div>
-  <div class="lessons" fxFlex="42" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap"
-       fxLayoutAlign="space-between start">
+  <div fxFlex="42" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-between start"
+       class="lessons">
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
-    <app-progress fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></app-progress>
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
-         *ngFor="let lesson of lessons" (click)="open(lesson.id)">
+         *ngFor="let lesson of lessons">
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <div fxFlex class="avatar"
              [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
         <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
-      <div fxFlex="29" *ngIf="true; else active" class="mat-caption done">
-        <span>DONE</span>
-        <mat-icon>done</mat-icon>
+      <div fxFlex="29" *ngIf="(auth.user | async) && lesson ; else guest">
+        <app-progress [lesson]="lesson" [course]="course"></app-progress>
       </div>
-      <ng-template #active>
-        <div fxFlex="29">
-          <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
-                [style.background-color]="i <= currentSlide ? 'var(--color-primary)' : ''"></span>
-        </div>
+      <ng-template #guest>
+        <button mat-flat-button>Start</button>
       </ng-template>
     </div>
+    <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>
   </div>
-  <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>
 </div>

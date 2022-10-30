@@ -69,7 +69,6 @@
     .lesson {
       padding: var(--space-xs);
       margin-bottom: var(--space-sm);
-      cursor: pointer;
       .avatar {
         border-right: 1px solid;
         background-repeat: no-repeat;
@@ -107,15 +106,6 @@
         .mat-icon {
           vertical-align: middle;
         }
-      }
-
-      .marker {
-        width: 0.4em;
-        height: 0.4em;
-        border: 2px solid var(--color-primary);
-        border-radius: 3px;
-        display: inline-block;
-        margin: 0.04em;
       }
     }
     .lesson:hover {

@@ -1,4 +1,4 @@
-export const STATUSES = ['Start Here', 'Resume', 'Retake'];
+export const STATUSES = ['Start', 'Resume', 'Retake'];
 
 export const LEVELS = ['Beginner', 'Moderate', 'Advanced'];
 

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
 export interface Current {
+  courseId: string;
   course: string;
+  lessonId: string;
   lesson: string;
 }
 
@@ -14,7 +16,9 @@ export class CurrentService {
 
   constructor() {
     this.current = new BehaviorSubject<Current>({
+      courseId: '',
       course: '',
+      lessonId: '',
       lesson: ''
     });
   }

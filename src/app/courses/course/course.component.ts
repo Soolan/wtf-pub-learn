@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {COURSES, LESSONS} from '../../shared/data/collections';
-import {map} from 'rxjs';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
-import {CurrentService} from '../../shared/services/current.service';
-import {NavigateService} from '../../shared/services/navigate.service';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -14,78 +12,61 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
-  @Input() id!: string;
+  @Input() id!: string; // needed when it is called from user dashboard
+  courseId!: string;
   course!: any;
   lessons!: any[];
   loading!: any;
   keyword!: string;
   levels = LEVELS;
 
-  currentSlide = 7;
-  slides = 12;
-
   constructor(
     private crud: CrudService,
-    private route: ActivatedRoute,
-    private current: CurrentService,
-    private navigate: NavigateService,
+    public auth: AngularFireAuth,
+    private route: ActivatedRoute
   ) {
-    this.id = this.route.snapshot.paramMap.get('courseId') || '';
   }
 
   ngOnInit(): void {
     this.loading = {course: true, lessons: true};
-    if (this.id) {
+    this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
+    console.log(this.courseId, this.route.snapshot.paramMap.get('courseId'), this.id);
+    if (this.courseId) {
       this.initCourse();
-      this.initLessons();
     } else {
       // ToDo: implement dialog box
     }
   }
 
-  private initCourse() {
-    this.crud.get(COURSES.path, this.id).subscribe(
-      {
-        next: data => {
-          this.course = data;
-          this.loading.course = false;
-          this.keyword = this.getKeyword();
-        },
-        error: error => console.log(error)
-      }
-    );
+  initCourse() {
+    this.crud.docRef(COURSES.path, this.courseId).get()
+      .then(snap => {
+        this.course = snap.data();
+        this.course.id = snap.id;
+        this.loading.course = false;
+        this.keyword = this.getKeyword();
+        this.initLessons();
+      })
+      .catch(error => console.log(error))
+    ;
   }
 
   initLessons(): void {
-    LESSONS.path = `${COURSES.path}/${this.id}/lessons`
-    this.crud.colRefQuery(LESSONS).pipe(
-      map(this.crud.mapId),
-    ).subscribe(
-      {
-        next: lessons => {
-          this.lessons = lessons;
-          this.loading.lessons = false;
-        },
-        error: error => console.log(error)
-      }
-    );
+    this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}`).get()
+      .then(snap => {
+        this.lessons = snap.docs
+          .filter(doc => doc.data().published == true)
+          .map(doc => {
+            return {id: doc.id, ...doc.data()}
+          });
+        this.loading.lessons = false;
+      })
+      .catch()
+    ;
   }
 
   getKeyword(): string {
     const firstTag = this.course.tags[0];
-    return this.course.name.includes(firstTag)? firstTag: '';
-  }
-
-  open(lessonId: string): void {
-    this.setCurrent(lessonId);
-    this.navigate.goto('lessons', this.id, lessonId);
-  }
-
-  setCurrent(lessonId: string): void {
-    const lessonName = this.lessons.find(lesson => lesson.id === lessonId).name;
-    this.current.next({
-      course: this.course.name,
-      lesson: lessonName
-    })
+    return this.course.name.includes(firstTag) ? firstTag : '';
   }
 }
