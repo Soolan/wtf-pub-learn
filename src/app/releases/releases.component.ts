@@ -36,6 +36,7 @@ export class ReleasesComponent implements OnInit {
             (release.date > Timestamp.now()) ?
               this.roadmaps.push(release):
               this.releases.push(release);
+            console.log(this.roadmaps)
           });
           this.setQuarters();
         },
@@ -47,6 +48,7 @@ export class ReleasesComponent implements OnInit {
   setQuarters(): void {
     let quarter: string;
     this.roadmaps.forEach(r => {
+      console.log(r)
       quarter = this.getQuarter(r.date);
       if (this.quarters.length === 0) {
         this.quarters.push({quarter: quarter, items: this.aggregate(r)});

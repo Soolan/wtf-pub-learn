@@ -17,7 +17,5 @@ export class ReleaseNotesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.bullets = this.bullets.map(bullet => bullet[this.entry[this.title]]);
-  }
+  ngOnInit(): void { }
 }
