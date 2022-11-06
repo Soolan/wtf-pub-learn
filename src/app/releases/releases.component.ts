@@ -7,6 +7,11 @@ import {map} from 'rxjs';
 import firebase from 'firebase/compat/app';
 import Timestamp = firebase.firestore.Timestamp;
 
+export interface Quarter {
+  quarter: string;
+  items: string[];
+}
+
 @Component({
   selector: 'app-releases',
   templateUrl: './releases.component.html',
@@ -15,6 +20,7 @@ import Timestamp = firebase.firestore.Timestamp;
 export class ReleasesComponent implements OnInit {
   releases: Release[] = [];
   roadmaps: Release[] = [];
+  quarters!: Quarter[];
   constructor(private crud: CrudService) { }
 
   ngOnInit(): void {
