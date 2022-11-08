@@ -241,6 +241,34 @@ strong, em, a, .tooltip, .answer {
   font-size: 19px;
 }
 
+.response{
+  a {
+    font-weight: bold;
+    color: var(--color-primary-lighter);
+    text-decoration-style: dotted;
+  }
+
+  strong, em, a, .tooltip {
+    letter-spacing: 0.5px;
+    font-size: 16px;
+  }
+
+  p {
+    padding: var(--space-sm) var(--space-xs) var(--space-xxs);
+    font-size: 17px;
+    line-height: normal;
+  }
+
+  .tooltip {
+    color: var(--color-accent-lighter);
+    font-weight: bold;
+    text-decoration: underline wavy 1.2px var(--color-accent-light);
+    position: relative;
+    display: inline-block;
+  }
+}
+
+
 .blank {
   width: 6rem;
   height: 1.77rem;
