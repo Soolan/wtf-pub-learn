@@ -13,6 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
   @Input() id!: string; // needed when it is called from user dashboard
+  userId!: string | undefined;
   courseId!: string;
   course!: any;
   lessons!: any[];
@@ -35,6 +36,10 @@ export class CourseComponent implements OnInit {
     } else {
       // ToDo: implement dialog box
     }
+    this.auth.authState.subscribe({
+      next: user => this.userId = user?.uid,
+      error: err => console.log(err)
+    })
   }
 
   initCourse() {

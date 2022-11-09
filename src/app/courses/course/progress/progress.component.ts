@@ -5,7 +5,6 @@ import {Course, Info, Lesson} from '../../../shared/models/profile';
 import {CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
-import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {CrudService} from '../../../shared/services/crud.service';
 
 @Component({
@@ -14,20 +13,18 @@ import {CrudService} from '../../../shared/services/crud.service';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent implements OnInit {
+  @Input() userId!: any;
   @Input() course!: any;
-  @Input() lesson!: any;
+  @Input() lesson?: any;
   status = Status;
   totalSlides!: number;
   currentSlide!: number;
   lessonStatus!: Status;
-  userId!: string;
   path!: string;
   info!: Info;
 
-
   constructor(
     private crud: CrudService,
-    public auth: AngularFireAuth,
     private current: CurrentService,
     private navigate: NavigateService
   ) { }
@@ -37,27 +34,23 @@ export class ProgressComponent implements OnInit {
     this.currentSlide = 0;
     this.lessonStatus = Status.Start;
     this.info = {status: Status.Start, score: 0, updated_at: Date.now()};
-    this.auth.authState.subscribe({
-      next: user => {
-        if (user) {
-          this.userId = user.uid;
-          this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`
-          this.initProgress();
-        }
-      },
-      error: error => console.log(error)
-    });
+    this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
+    this.initProgress();
   }
 
   initProgress() {
-    this.crud.docRef(`${this.path}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id).get()
+    if(this.lesson) this.path += `/${this.course.id}/${P_LESSONS.path}`;
+    this.crud.docRef(this.path, this.lesson ? this.lesson.id : this.course.id).get()
       .then(snap => {
         const progress = snap.data();
-        if(progress) {
+        if (progress && this.lesson) {
           this.totalSlides = progress.total_slides;
           this.currentSlide = progress.current_slide;
           this.lessonStatus = progress.info.status;
-        } else {
+        } else if(progress && !this.lesson) {
+
+        }
+        else {
           this.setProgress();
         }
       })
@@ -65,22 +58,28 @@ export class ProgressComponent implements OnInit {
     ;
   }
 
-
   setProgress(): void {
-    const courseProgress: Course = {name: this.course.name, info: this.info};
-    this.crud.set(this.path, this.course.id, courseProgress).then().catch(error => console.log(error));
+    this.setCourseProgress({name: this.course.name, info: this.info});
+    this.crud.colRef(`${this.path}/${this.course.id}/${P_LESSONS.path}`).get()
+    this.setLessonProgress({
+      name: this.lesson.name,
+      info: this.info,
+      current_slide: 1,
+      total_slides: this.totalSlides,
+      slide_id: ''
+    });
+  }
 
+  setCourseProgress(courseProgress: Course): void {
+    this.crud.set(this.path, this.course.id, courseProgress).then().catch(error => console.log(error));
+  }
+
+  setLessonProgress(lessonProgress: Lesson): void {
     const slidesPath = `${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`;
     this.crud.colRef(slidesPath).get()
       .then(snap => {
         this.totalSlides = snap.docs.length;
-        const lessonProgress: Lesson = {
-          name: this.lesson.name,
-          info: this.info,
-          current_slide: 1,
-          total_slides: this.totalSlides,
-          slide_id: ''
-        };
+
         this.crud.set(`${this.path}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id, lessonProgress)
           .then(_ => console.log('lesson progress initiated for the first time',))
           .catch(error => console.log(error))
