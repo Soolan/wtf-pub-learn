@@ -95,6 +95,7 @@ export class ProgressComponent implements OnInit {
   }
 
   open(): void {
+    console.log('yaw')
     this.crud.update(this.path, this.course.id, {info: {status: Status.Resume, score: 0, updated_at: Date.now()}})
       .then(_ => this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id))
       .catch(error => console.log(error))

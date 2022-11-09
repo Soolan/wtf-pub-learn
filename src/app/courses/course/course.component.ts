@@ -30,7 +30,6 @@ export class CourseComponent implements OnInit {
   ngOnInit(): void {
     this.loading = {course: true, lessons: true};
     this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
-    console.log(this.courseId, this.route.snapshot.paramMap.get('courseId'), this.id);
     if (this.courseId) {
       this.initCourse();
     } else {

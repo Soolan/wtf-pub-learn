@@ -17,7 +17,6 @@ export class TextImageComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges) {
     this.text = this.content.text || this.content.scenario || this.content.question || this.content.summary;
-    console.log(this.text)
     if (this.content.image) {
       this.storage.ref(this.content.image).getDownloadURL().subscribe({
         next: url => this.image = `url(${url})`,
