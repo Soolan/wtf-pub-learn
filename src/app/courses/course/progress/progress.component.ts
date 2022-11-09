@@ -43,14 +43,14 @@ export class ProgressComponent implements OnInit {
     this.crud.docRef(this.path, this.lesson ? this.lesson.id : this.course.id).get()
       .then(snap => {
         const progress = snap.data();
-        if (progress && this.lesson) {
-          this.totalSlides = progress.total_slides;
-          this.currentSlide = progress.current_slide;
-          this.lessonStatus = progress.info.status;
-        } else if(progress && !this.lesson) {
-
-        }
-        else {
+        if (progress) {
+          // set course only vars (landing + dashboard)
+          if (this.lesson) {
+            this.totalSlides = progress.total_slides;
+            this.currentSlide = progress.current_slide;
+            this.lessonStatus = progress.info.status;
+          }
+        } else {
           this.setProgress();
         }
       })
@@ -59,28 +59,36 @@ export class ProgressComponent implements OnInit {
   }
 
   setProgress(): void {
+    let lesson: any;
     this.setCourseProgress({name: this.course.name, info: this.info});
     this.crud.colRef(`${this.path}/${this.course.id}/${P_LESSONS.path}`).get()
-    this.setLessonProgress({
-      name: this.lesson.name,
-      info: this.info,
-      current_slide: 1,
-      total_slides: this.totalSlides,
-      slide_id: ''
-    });
+      .then(snap => {
+        lesson = snap.docs.filter(doc => doc.data().published == true)
+          .map(doc => {
+            return {id: doc.id, ...doc.data()}
+          })[0];
+        this.setLessonProgress({
+          name: lesson.name,
+          info: this.info,
+          current_slide: 1,
+          total_slides: this.totalSlides,
+          slide_id: ''
+        }, lesson.id);
+      })
+      .catch();
   }
 
   setCourseProgress(courseProgress: Course): void {
     this.crud.set(this.path, this.course.id, courseProgress).then().catch(error => console.log(error));
   }
 
-  setLessonProgress(lessonProgress: Lesson): void {
-    const slidesPath = `${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`;
+  setLessonProgress(lessonProgress: Lesson, id: string): void {
+    const slidesPath = `${COURSES.path}/${this.course.id}/${LESSONS.path}/${id}/${SLIDES.path}`;
     this.crud.colRef(slidesPath).get()
       .then(snap => {
         this.totalSlides = snap.docs.length;
 
-        this.crud.set(`${this.path}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id, lessonProgress)
+        this.crud.set(`${this.path}/${this.course.id}/${P_LESSONS.path}`, id, lessonProgress)
           .then(_ => console.log('lesson progress initiated for the first time',))
           .catch(error => console.log(error))
         ;
