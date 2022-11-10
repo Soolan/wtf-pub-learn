@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
 import {ACTIONS, STATUSES} from '../../../shared/data/generic';
 import {Course, Info, Lesson} from '../../../shared/models/profile';
@@ -7,13 +7,14 @@ import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
 import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-progress',
   templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.scss']
 })
-export class ProgressComponent implements OnInit {
+export class ProgressComponent implements OnInit, OnChanges {
   @Input() userId!: any;
   @Input() course!: any;
   @Input() lesson!: any;
@@ -27,13 +28,16 @@ export class ProgressComponent implements OnInit {
   courseScore!: number;
   path!: string;
   info!: Info;
+  mySlides!: any[];
 
   constructor(
     private crud: CrudService,
     private current: CurrentService,
     private navigate: NavigateService,
-    private slideService: SlideService
-  ) {}
+    private slideService: SlideService,
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit(): void {
     this.currentSlide = 0;
@@ -41,6 +45,22 @@ export class ProgressComponent implements OnInit {
     this.info = {status: Status.Start, score: 0, updated_at: Date.now()};
     this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
     this.initProgress();
+    this.initSlides()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+  }
+
+  initSlides() {
+    this.crud.colRef(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`).get()
+      .then(snap => {
+        this.mySlides = snap.docs.map(doc => doc.data());
+        this.mySlides.sort((a,b) => {return a.order - b.order});
+        console.log(this.mySlides)
+      })
+      .catch()
+    ;
   }
 
   initProgress() {
@@ -63,10 +83,10 @@ export class ProgressComponent implements OnInit {
     this.crud.docRef(`${this.path}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id).get()
       .then(snap => {
         const progress = snap.data();
-        if(progress) {
+        if (progress) {
           this.currentSlide = progress.current_slide;
           this.lessonStatus = progress.info.status;
-          this.lessonScore  = progress.lessonScore;
+          this.lessonScore = progress.lessonScore;
         }
       })
       .catch(error => console.log(error))
@@ -94,7 +114,7 @@ export class ProgressComponent implements OnInit {
     if (isResume) {
       this.slideService.next({
         marker: this.currentSlide,
-        action: ACTIONS[this.slideService.slides[this.currentSlide].type],
+        action: ACTIONS[this.mySlides[this.currentSlide].type],
         response: '',
         correct: false,
         completed: false

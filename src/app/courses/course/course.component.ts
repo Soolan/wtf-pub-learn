@@ -29,13 +29,22 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(
+      params => {
+        this.courseId = params['courseId'] || this.id;
+        if (this.courseId) {
+          this.initCourse();
+        } else {
+          // ToDo: implement dialog box
+        }
+      });
     this.loading = {course: true, lessons: true};
-    this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
-    if (this.courseId) {
-      this.initCourse();
-    } else {
-      // ToDo: implement dialog box
-    }
+    // this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
+    // if (this.courseId) {
+    //   this.initCourse();
+    // } else {
+    //   // ToDo: implement dialog box
+    // }
     this.auth.authState.subscribe({
       next: user => this.userId = user?.uid,
       error: err => console.log(err)
