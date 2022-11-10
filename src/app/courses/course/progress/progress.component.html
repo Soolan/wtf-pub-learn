@@ -10,7 +10,7 @@
     <div *ngSwitchCase="status.Resume" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
       <button fxFlex="100" mat-flat-button color="accent">{{statuses[status.Resume]}}</button>
       <div fxFlex="90" class="markers">
-      <span *ngFor="let square of [].constructor(totalSlides); let i = index" class="marker"
+      <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
             [style.background-color]="i <= currentSlide ? 'var(--color-accent-light)' : ''">
       </span>
       </div>
