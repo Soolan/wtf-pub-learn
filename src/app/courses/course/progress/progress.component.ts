@@ -67,8 +67,6 @@ export class ProgressComponent implements OnInit {
           this.currentSlide = progress.current_slide;
           this.lessonStatus = progress.info.status;
           this.lessonScore  = progress.lessonScore;
-        } else {
-          this.setLessonProgress({name: this.lesson.name, current_slide: 1, slide_id: '', info: this.info});
         }
       })
       .catch(error => console.log(error))
@@ -76,7 +74,9 @@ export class ProgressComponent implements OnInit {
   }
 
   setCourseProgress(courseProgress: Course): void {
-    this.crud.set(this.path, this.course.id, courseProgress).then().catch(error => console.log(error));
+    this.crud.set(this.path, this.course.id, courseProgress)
+      .then(_ => this.setLessonProgress({name: this.lesson.name, current_slide: 1, slide_id: '', info: this.info}))
+      .catch(error => console.log(error));
   }
 
   setLessonProgress(lessonProgress: Lesson): void {
