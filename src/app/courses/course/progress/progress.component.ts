@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
-import {STATUSES} from '../../../shared/data/generic';
+import {ACTIONS, STATUSES} from '../../../shared/data/generic';
 import {Course, Info, Lesson} from '../../../shared/models/profile';
 import {CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
+import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
 
 @Component({
   selector: 'app-progress',
@@ -30,9 +31,9 @@ export class ProgressComponent implements OnInit {
   constructor(
     private crud: CrudService,
     private current: CurrentService,
-    private navigate: NavigateService
-  ) {
-  }
+    private navigate: NavigateService,
+    private slideService: SlideService
+  ) {}
 
   ngOnInit(): void {
     this.currentSlide = 0;
@@ -89,8 +90,16 @@ export class ProgressComponent implements OnInit {
     return STATUSES;
   }
 
-  open(): void {
-    console.log('yaw')
+  open(isResume?: boolean): void {
+    if (isResume) {
+      this.slideService.next({
+        marker: this.currentSlide,
+        action: ACTIONS[this.slideService.slides[this.currentSlide].type],
+        response: '',
+        correct: false,
+        completed: false
+      })
+    }
     this.crud.update(this.path, this.course.id, {info: {status: Status.Resume, score: 0, updated_at: Date.now()}})
       .then(_ => this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id))
       .catch(error => console.log(error))

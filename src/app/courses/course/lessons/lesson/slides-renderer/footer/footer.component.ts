@@ -79,7 +79,7 @@ export class FooterComponent implements OnInit {
 
   move(forward: boolean): void {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
-    console.log(index, ACTIONS[this.slideService.slides[index].type], this.slideService.slides[index])
+    console.log(forward, index);
     this.slideService.next({
       marker: index,
       action: ACTIONS[this.slideService.slides[index].type],
@@ -87,7 +87,7 @@ export class FooterComponent implements OnInit {
       correct: false,
       completed: false
     })
-    if(this.userId || forward) {
+    if(this.userId && forward) {
       this.lessonProgress.info.updated_at = Date.now();
       this.lessonProgress.current_slide ++;
       this.lessonProgress.info.status =
