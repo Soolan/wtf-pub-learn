@@ -21,6 +21,7 @@ import DocumentReference = firebase.firestore.DocumentReference;
 export class FooterComponent implements OnInit {
   @Input() courseId!: any;
   @Input() lessonId!: any;
+  @Input() totalSlides!: number;
   response!: string;
   width = 0;
   startSlide = false;
@@ -90,7 +91,7 @@ export class FooterComponent implements OnInit {
       this.lessonProgress.info.updated_at = Date.now();
       this.lessonProgress.current_slide ++;
       this.lessonProgress.info.status =
-        this.lessonProgress.current_slide == this.lessonProgress.total_slides ? Status.Retake : Status.Resume;
+        this.lessonProgress.current_slide == this.totalSlides ? Status.Retake : Status.Resume;
       this.progressRef.update(this.lessonProgress);
     }
   }

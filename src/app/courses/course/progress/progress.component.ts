@@ -15,11 +15,14 @@ import {CrudService} from '../../../shared/services/crud.service';
 export class ProgressComponent implements OnInit {
   @Input() userId!: any;
   @Input() course!: any;
-  @Input() lesson?: any;
+  @Input() lesson!: any;
   status = Status;
   totalSlides!: number;
   currentSlide!: number;
   lessonStatus!: Status;
+  lessonScore!: number;
+  courseStatus!: Status;
+  courseScore!: number;
   path!: string;
   info!: Info;
 
@@ -27,7 +30,8 @@ export class ProgressComponent implements OnInit {
     private crud: CrudService,
     private current: CurrentService,
     private navigate: NavigateService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.totalSlides = 0;
@@ -39,20 +43,29 @@ export class ProgressComponent implements OnInit {
   }
 
   initProgress() {
-    if(this.lesson) this.path += `/${this.course.id}/${P_LESSONS.path}`;
-    this.crud.docRef(this.path, this.lesson ? this.lesson.id : this.course.id).get()
+    this.crud.docRef(this.path, this.course.id).get()
       .then(snap => {
         const progress = snap.data();
         if (progress) {
-          // set course only vars (landing + dashboard)
-          if (this.lesson) {
-            this.totalSlides = progress.total_slides;
-            this.currentSlide = progress.current_slide;
-            this.lessonStatus = progress.info.status;
-          }
+          this.courseScore = progress.info.score;
+          this.courseStatus = progress.info.status;
+          this.getLessonProgress();
         } else {
           this.setProgress();
         }
+      })
+      .catch(error => console.log(error))
+    ;
+  }
+
+  getLessonProgress(): void {
+    this.path += `/${this.course.id}/${P_LESSONS.path}`;
+    this.crud.docRef(this.path, this.lesson.id).get()
+      .then(snap => {
+        const progress = snap.data();
+        this.totalSlides = progress.total_slides;
+        this.currentSlide = progress.current_slide;
+        this.lessonStatus = progress.info.status;
       })
       .catch(error => console.log(error))
     ;
@@ -71,7 +84,6 @@ export class ProgressComponent implements OnInit {
           name: lesson.name,
           info: this.info,
           current_slide: 1,
-          total_slides: this.totalSlides,
           slide_id: ''
         }, lesson.id);
       })
