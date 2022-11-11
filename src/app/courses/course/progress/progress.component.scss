@@ -1,10 +1,26 @@
 .progress {
   margin-bottom: var(--space-sm);
   padding-bottom: var(--space-sm);
-  //border-bottom: 1px solid var(--color-greyb);
-  .mat-icon{
-    vertical-align: middle;
+
+  .start, .retake {
+    color: var(--color-primary-lighter);
+    .mat-icon{
+      color: var(--color-primary-lighter) !important;
+    }
   }
+
+  .resume {
+    color: var(--color-accent-lighter);
+    .mat-icon{
+      color: var(--color-accent-lighter) !important;
+    }
+  }
+
+  .mat-icon {
+    position: relative;
+    bottom: 1px;
+  }
+
 
   .markers{
     margin: var(--space-md) auto;
@@ -21,7 +37,7 @@
 
 
   .score {
-    font-size: smaller;
+    margin: var(--space-sm) 0;
     p {
       color: var(--color-grey7);
     }

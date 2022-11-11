@@ -24,14 +24,13 @@ export class LandingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let query = COURSES;
+    const query = {...COURSES};  // make a copy to prevent altering thr original values
     query.limit = 1;
     this.crud.colRefQuery(query).pipe(
       map(this.crud.mapId),
     ).subscribe({
       next: courses => {
         this.course = courses[0];
-        console.log(this.course);
       },
       error: error => console.error(error)
     });

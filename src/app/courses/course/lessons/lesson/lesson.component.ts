@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
@@ -53,8 +53,10 @@ export class LessonComponent implements OnInit {
   }
 
   initSlides(): void {
-    this.setSlidesPath();
-    this.crud.colRefQuery(SLIDES).pipe(
+    const query = {...SLIDES};
+    query.path = `${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`;
+
+    this.crud.colRefQuery(query).pipe(
       map(this.crud.mapId)
     ).subscribe(
       {
@@ -66,13 +68,6 @@ export class LessonComponent implements OnInit {
         error: (error: any) => console.log(error)
       }
     );
-  }
-
-  private setSlidesPath() {
-    // reset any previous value to the default
-    COURSES.path = 'courses';
-    LESSONS.path = 'lessons';
-    SLIDES.path = `${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`;
   }
 
   setNames(): void {

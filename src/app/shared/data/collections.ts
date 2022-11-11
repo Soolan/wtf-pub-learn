@@ -60,7 +60,8 @@ export const COURSE: Course = {
     created_at: Date.now(),
     updated_at: Date.now(),
     deleted_at: 0
-  }
+  },
+  stats: [1]
 };
 
 //------------------------------------------------- Lesson

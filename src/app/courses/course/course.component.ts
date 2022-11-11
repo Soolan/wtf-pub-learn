@@ -13,6 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
   @Input() id!: string; // needed when it is called from user dashboard
+  userId!: string | undefined;
   courseId!: string;
   course!: any;
   lessons!: any[];
@@ -28,13 +29,20 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(
+      params => {
+        this.courseId = params['courseId'] || this.id;
+        if (this.courseId) {
+          this.initCourse();
+        } else {
+          // ToDo: implement dialog box
+        }
+      });
     this.loading = {course: true, lessons: true};
-    this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
-    if (this.courseId) {
-      this.initCourse();
-    } else {
-      // ToDo: implement dialog box
-    }
+    this.auth.authState.subscribe({
+      next: user => this.userId = user?.uid,
+      error: err => console.log(err)
+    })
   }
 
   initCourse() {

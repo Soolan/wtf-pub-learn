@@ -1,7 +1,7 @@
 <div [fxFlex.gt-lg]="isDashboard?100:65" [fxFlex.lg]="isDashboard?100:85" fxFlex.lt-lg="100" fxLayout="row wrap"
      fxLayoutAlign="space-between start"
      class="content" [style.margin]="isDashboard ? '0':'var(--space-xl) auto'">
-  <div class="course" fxFlex="55" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+  <div class="course" fxFlex="53" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
     <div class="progress" *ngIf="loading.course">
       <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     </div>
@@ -26,21 +26,21 @@
       <div fxFlex="95" class="mat-body-2 description">{{course.description}}</div>
     </div>
   </div>
-  <div fxFlex="42" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-between start"
+  <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-between start"
        class="lessons">
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
-         *ngFor="let lesson of lessons">
+         *ngFor="let lesson of lessons; let i = index">
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <div fxFlex class="avatar"
              [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
         <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
-      <div fxFlex="29" *ngIf="(auth.user | async) && lesson ; else guest">
-        <app-progress [lesson]="lesson" [course]="course"></app-progress>
+      <div fxFlex="30" *ngIf="(auth.user | async) && lesson ; else guest">
+        <app-progress [userId]="userId" [course]="course" [lesson]="lesson" [slides]="course.stats[i]"></app-progress>
       </div>
       <ng-template #guest>
         <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>

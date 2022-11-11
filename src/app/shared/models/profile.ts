@@ -25,10 +25,9 @@ export interface Course {
 
 export interface Lesson {
   name: string;
-  info: Info;
   current_slide: number;
-  total_slides: number;
   slide_id: string;
+  info: Info;
 }
 
 export interface Info {
