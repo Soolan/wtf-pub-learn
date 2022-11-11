@@ -1,14 +1,15 @@
 <div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
   <ng-container [ngSwitch]="lessonStatus">
     <div *ngSwitchCase="status.Start" class="mat-caption">
-      <button mat-flat-button (click)="open()">{{statuses[status.Start]}}</button>
+      <button mat-flat-button (click)="open(status.Start)">{{statuses[status.Start]}}</button>
     </div>
     <div *ngSwitchCase="status.Retake" class="mat-caption done">
-      <button mat-flat-button>{{statuses[status.Retake]}}</button>
-      <mat-icon>done</mat-icon>
+      <button mat-flat-button (click)="open(status.Retake)">{{statuses[status.Retake]}}</button>
     </div>
     <div *ngSwitchCase="status.Resume" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-      <button fxFlex="100" mat-flat-button color="accent" (click)="open(true)">{{statuses[status.Resume]}}</button>
+      <button fxFlex="100" mat-flat-button color="accent" (click)="open(status.Resume)">
+        {{statuses[status.Resume].toUpperCase()}}
+      </button>
       <div fxFlex="90" class="markers">
       <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
             [style.background-color]="i <= currentSlide ? 'var(--color-accent-light)' : ''">

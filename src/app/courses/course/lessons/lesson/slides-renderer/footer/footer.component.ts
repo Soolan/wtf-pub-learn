@@ -93,7 +93,7 @@ export class FooterComponent implements OnInit {
       this.lessonProgress.current_slide ++;
       this.lessonProgress.info.status =
         this.lessonProgress.current_slide == this.totalSlides -1 ?
-          Status.Retake: 
+          Status.Retake:
           Status.Resume;
       this.progressRef.update(this.lessonProgress);
     }

@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
 import {ACTIONS, STATUSES} from '../../../shared/data/generic';
 import {Course, Info, Lesson} from '../../../shared/models/profile';
@@ -7,7 +7,6 @@ import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
 import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-progress',
@@ -20,24 +19,23 @@ export class ProgressComponent implements OnInit, OnChanges {
   @Input() lesson!: any;
   @Input() slides!: number;
 
-  status = Status;
-  currentSlide!: number;
-  lessonStatus!: Status;
-  lessonScore!: number;
   courseStatus!: Status;
   courseScore!: number;
+  currentSlide!: number;
+  lessonSlides!: any[];
+  lessonStatus!: Status;
+  lessonScore!: number;
+
+  status = Status;
   path!: string;
   info!: Info;
-  mySlides!: any[];
 
   constructor(
     private crud: CrudService,
     private current: CurrentService,
     private navigate: NavigateService,
     private slideService: SlideService,
-    private route: ActivatedRoute
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.currentSlide = 0;
@@ -56,9 +54,9 @@ export class ProgressComponent implements OnInit, OnChanges {
     console.log(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`)
     this.crud.colRef(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`).get()
       .then(snap => {
-        this.mySlides = snap.docs.map(doc => doc.data());
-        this.mySlides.sort((a,b) => {return a.order - b.order});
-        console.log(this.mySlides)
+        this.lessonSlides = snap.docs.map(doc => doc.data());
+        this.lessonSlides.sort((a, b) => {return a.order - b.order});
+        console.log(this.lessonSlides)
       })
       .catch()
     ;
@@ -87,7 +85,7 @@ export class ProgressComponent implements OnInit, OnChanges {
         if (progress) {
           this.currentSlide = progress.current_slide;
           this.lessonStatus = progress.info.status;
-          this.lessonScore = progress.lessonScore;
+          this.lessonScore = progress.info.score;
         }
       })
       .catch(error => console.log(error))
@@ -111,18 +109,41 @@ export class ProgressComponent implements OnInit, OnChanges {
     return STATUSES;
   }
 
-  open(isResume?: boolean): void {
-    if (isResume) {
-      this.slideService.next({
-        marker: this.currentSlide,
-        action: ACTIONS[this.mySlides[this.currentSlide].type],
-        response: '',
-        correct: false,
-        completed: false
+  open(status: Status): void {
+    let info = {...this.info};
+    info.updated_at = Date.now();
+    info.status = Status.Resume;
+    info.score = this.courseScore;
+
+    this.crud.update(this.path, this.course.id, {info})
+      .then(_ => {
+        switch (status) {
+          case Status.Start:
+            break;
+          case Status.Resume:
+            this.slideService.next({
+              marker: this.currentSlide,
+              action: ACTIONS[this.lessonSlides[this.currentSlide].type],
+              response: '',
+              correct: false,
+              completed: false
+            });
+            break;
+          case Status.Retake:
+            this.slideService.next({
+              marker: 0,
+              action: ACTIONS[this.lessonSlides[0].type],
+              response: '',
+              correct: false,
+              completed: false
+            });
+            info.score = this.lessonScore;
+            const path = `${this.path}/${this.course.id}/${P_LESSONS.path}`;
+            this.crud.update(path, this.lesson.id, {current_slide: 1, info}).then().catch();
+            break;
+        }
+        this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)
       })
-    }
-    this.crud.update(this.path, this.course.id, {info: {status: Status.Resume, score: 0, updated_at: Date.now()}})
-      .then(_ => this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id))
       .catch(error => console.log(error))
     ;
   }
