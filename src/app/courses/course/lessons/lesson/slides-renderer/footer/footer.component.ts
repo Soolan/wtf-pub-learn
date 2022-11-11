@@ -87,11 +87,14 @@ export class FooterComponent implements OnInit {
       correct: false,
       completed: false
     })
-    if(this.userId && forward) {
+    console.log(this.lessonProgress.current_slide, index)
+    if(this.userId && forward && index > this.lessonProgress.current_slide) {
       this.lessonProgress.info.updated_at = Date.now();
       this.lessonProgress.current_slide ++;
       this.lessonProgress.info.status =
-        this.lessonProgress.current_slide == this.totalSlides ? Status.Retake : Status.Resume;
+        this.lessonProgress.current_slide == this.totalSlides -1 ?
+          Status.Retake: 
+          Status.Resume;
       this.progressRef.update(this.lessonProgress);
     }
   }

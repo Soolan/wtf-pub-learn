@@ -53,6 +53,7 @@ export class ProgressComponent implements OnInit, OnChanges {
   }
 
   initSlides() {
+    console.log(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`)
     this.crud.colRef(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`).get()
       .then(snap => {
         this.mySlides = snap.docs.map(doc => doc.data());

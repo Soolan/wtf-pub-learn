@@ -39,12 +39,6 @@ export class CourseComponent implements OnInit {
         }
       });
     this.loading = {course: true, lessons: true};
-    // this.courseId = this.route.snapshot.paramMap.get('courseId') || this.id;
-    // if (this.courseId) {
-    //   this.initCourse();
-    // } else {
-    //   // ToDo: implement dialog box
-    // }
     this.auth.authState.subscribe({
       next: user => this.userId = user?.uid,
       error: err => console.log(err)
