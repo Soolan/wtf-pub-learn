@@ -25,6 +25,7 @@ export class ProgressComponent implements OnInit, OnChanges {
   lessonSlides!: any[];
   lessonStatus!: Status;
   lessonScore!: number;
+  lessonUpdate!:number;
 
   status = Status;
   path!: string;
@@ -84,8 +85,9 @@ export class ProgressComponent implements OnInit, OnChanges {
         const progress = snap.data();
         if (progress) {
           this.currentSlide = progress.current_slide;
-          this.lessonStatus = progress.info.status;
+          this.lessonStatus = Status.Retake;//progress.info.status;
           this.lessonScore = progress.info.score;
+          this.lessonUpdate = progress.info.updated_at;
         }
       })
       .catch(error => console.log(error))
