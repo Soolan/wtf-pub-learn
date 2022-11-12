@@ -46,6 +46,6 @@
         <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start"></div>
+    <div class="summary" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" *ngIf=""></div>
   </div>
 </div>

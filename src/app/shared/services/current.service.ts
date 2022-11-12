@@ -13,8 +13,10 @@ export interface Current {
 })
 export class CurrentService {
   current: BehaviorSubject<Current>;
+  score: BehaviorSubject<number>;
 
   constructor() {
+    this.score = new BehaviorSubject<number>(0);
     this.current = new BehaviorSubject<Current>({
       courseId: '',
       course: '',
@@ -25,5 +27,9 @@ export class CurrentService {
 
   next(snapshot: Current): void {
     this.current.next(snapshot);
+  }
+
+  nextScore(snapshot: number): void {
+    this.score.next(snapshot);
   }
 }
