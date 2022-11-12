@@ -2,7 +2,10 @@ import {ElementRef, Injectable, Renderer2, RendererFactory2} from '@angular/core
 import {BehaviorSubject} from 'rxjs';
 import {Slide, SlideHeaderFooter, Style, TransX} from '../../../../../shared/models/slide';
 import {ACTIONS, OPTIONS_BREAKPOINT} from '../../../../../shared/data/generic';
-import {SlideType} from '../../../../../shared/data/enums';
+import {SlideType, Status} from '../../../../../shared/data/enums';
+import {CrudService} from '../../../../../shared/services/crud.service';
+import {CurrentService} from '../../../../../shared/services/current.service';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +17,15 @@ export class SlideService {
   actionMessage!: string;
   renderer: Renderer2;
   negate: number = -1;
+  userId!: string | undefined;
 
-  constructor(private rendererFactory: RendererFactory2) {
+  constructor(
+    private crud: CrudService,
+    private auth: AngularFireAuth,
+    private current: CurrentService,
+    private rendererFactory: RendererFactory2
+  ) {
+    this.auth.currentUser.then(user => this.userId = user?.uid).catch();
     // Get an instance of Renderer2 and initialize the renderer
     // Currently this is the only way to init Renderer2 in a service
     this.renderer = rendererFactory.createRenderer(null, null);
@@ -94,6 +104,18 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
+    console.log(this.userId, this.current.progress.value.current_slide, this.markerIndex);
+    if (this.userId && this.current.progress.value.current_slide > this.markerIndex) this.updateScore();
+  }
+
+  updateScore(): void {
+    const points = this.current.points.value;
+
+      // ToDo:
+      //  1. Update the current Info (score and date)
+      //  2. Update the Firestore document
+
+//      this.progressRef.update(this.lessonProgress);
   }
 
   markAsCorrect(button: EventTarget): void {
@@ -103,7 +125,7 @@ export class SlideService {
     this.renderer.appendChild(button, span);
   }
 
-  private setIcon(icon: string): void {
+  private setIcon(icon: string): any {
     const span = this.renderer.createElement('span');
     this.renderer.setStyle(span, 'vertical-align', 'middle');
     this.renderer.addClass(span, 'material-icons');

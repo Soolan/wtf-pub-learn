@@ -29,6 +29,7 @@ export class LessonComponent implements OnInit {
     private route: ActivatedRoute,
     private navigate: NavigateService,
     private slideService: SlideService,
+    private currentService: CurrentService,
     private headerFooter: ToggleHeaderFooterService
   ) {
     headerFooter.toggle(false, true);   // switch off header
@@ -63,6 +64,7 @@ export class LessonComponent implements OnInit {
         next: (slides: any) => {
           this.slides = slides as Slide[];
           this.slideService.slides = this.slides;
+          this.currentService.nextPoints(100/this.slides.length);
           this.loading = false;
         },
         error: (error: any) => console.log(error)

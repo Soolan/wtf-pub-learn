@@ -5,6 +5,7 @@ import {Position} from '../../../../../../shared/data/enums';
 import {OptionSet, Option} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 import {SLIDE_LEFT} from '../../../../../../shared/animations/slide-left';
+import {CurrentService} from '../../../../../../shared/services/current.service';
 
 @Component({
   selector: 'app-single-choice',
@@ -24,8 +25,7 @@ export class SingleChoiceComponent implements OnChanges {
   isCorrect = false;
   isCompleted = false;
 
-  constructor(private slideService: SlideService) {
-  }
+  constructor(private slideService: SlideService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     this.reset();

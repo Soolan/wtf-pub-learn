@@ -41,7 +41,7 @@ export class ProgressComponent implements OnInit {
   ngOnInit(): void {
     this.currentSlide = 0;
     this.lessonStatus = Status.Start;
-    this.info = {status: Status.Start, score: 0, updated_at: Date.now()};
+    this.info = {status: Status.Start, score: 100, updated_at: Date.now()};
     this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
     this.initProgress();
     this.initSlides()
