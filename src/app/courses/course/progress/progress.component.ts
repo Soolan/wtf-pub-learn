@@ -13,7 +13,7 @@ import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
   templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.scss']
 })
-export class ProgressComponent implements OnInit, OnChanges {
+export class ProgressComponent implements OnInit {
   @Input() userId!: any;
   @Input() course!: any;
   @Input() lesson!: any;
@@ -47,17 +47,11 @@ export class ProgressComponent implements OnInit, OnChanges {
     this.initSlides()
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
-
   initSlides() {
-    console.log(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`)
     this.crud.colRef(`${COURSES.path}/${this.course.id}/${LESSONS.path}/${this.lesson.id}/${SLIDES.path}`).get()
       .then(snap => {
         this.lessonSlides = snap.docs.map(doc => doc.data());
         this.lessonSlides.sort((a, b) => {return a.order - b.order});
-        console.log(this.lessonSlides)
       })
       .catch()
     ;
@@ -70,6 +64,7 @@ export class ProgressComponent implements OnInit, OnChanges {
         if (progress) {
           this.courseScore = progress.info.score;
           this.courseStatus = progress.info.status;
+          this.current.nextInfo(progress.info); // will be used in the course summary
           this.getLessonProgress();
         } else {
           this.setCourseProgress({name: this.course.name, info: this.info});

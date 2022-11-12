@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import {Info} from '../models/profile';
+import {Status} from '../data/enums';
 
 export interface Current {
   courseId: string;
@@ -13,10 +15,14 @@ export interface Current {
 })
 export class CurrentService {
   current: BehaviorSubject<Current>;
-  score: BehaviorSubject<number>;
+  info: BehaviorSubject<Info>;
 
   constructor() {
-    this.score = new BehaviorSubject<number>(0);
+    this.info = new BehaviorSubject<Info>({
+      status: Status.Resume,
+      score: 0,
+      updated_at: Date.now()
+    });
     this.current = new BehaviorSubject<Current>({
       courseId: '',
       course: '',
@@ -29,7 +35,7 @@ export class CurrentService {
     this.current.next(snapshot);
   }
 
-  nextScore(snapshot: number): void {
-    this.score.next(snapshot);
+  nextInfo(snapshot: Info): void {
+    this.info.next(snapshot);
   }
 }
