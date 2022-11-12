@@ -11,7 +11,7 @@
   }
 }
 .content {
-  .course, .summary {
+  .course {
     min-height: 10em;
     background-color: var(--color-greye);
     margin-bottom: 2em;
@@ -110,6 +110,22 @@
     }
     .lesson:hover {
       background-color: var(--color-greye);
+    }
+    .summary {
+      background-color: var(--color-greye);
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md);
+      .mat-icon {
+        position: relative;
+        top: 4.5px;
+      }
+      .mat-divider {
+        margin-bottom: var(--space-sm);
+      }
+      .result {
+        margin-top: var(--space-lg);
+        text-align: center;
+      }
     }
   }
 }

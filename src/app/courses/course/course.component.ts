@@ -4,6 +4,8 @@ import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
+import {CurrentService} from '../../shared/services/current.service';
+import {Info} from '../../shared/models/profile';
 
 @Component({
   selector: 'app-course',
@@ -14,6 +16,7 @@ export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
   @Input() id!: string; // needed when it is called from user dashboard
   userId!: string | undefined;
+  info!: Info;
   courseId!: string;
   course!: any;
   lessons!: any[];
@@ -24,9 +27,9 @@ export class CourseComponent implements OnInit {
   constructor(
     private crud: CrudService,
     public auth: AngularFireAuth,
-    private route: ActivatedRoute
-  ) {
-  }
+    private route: ActivatedRoute,
+    public current: CurrentService
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -41,6 +44,10 @@ export class CourseComponent implements OnInit {
     this.loading = {course: true, lessons: true};
     this.auth.authState.subscribe({
       next: user => this.userId = user?.uid,
+      error: err => console.log(err)
+    });
+    this.current.info.subscribe({
+      next: value => this.info = value,
       error: err => console.log(err)
     })
   }
