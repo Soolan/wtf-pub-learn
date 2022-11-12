@@ -25,5 +25,9 @@
      [style.background-color]="hintFillInSlide ? 'var(--color-accent-light)' : ui.correct ? 'var(--color-primary)' : 'var(--color-warn)'"
      [style.padding-bottom]="ui.completed ? 'var(--space-xl)' : hintFillInSlide ? 'var(--space-xl)' : 0"
      [@stretchUpOut] *ngIf="response">
-  <p class="mat-caption" [style.font-weight]="hintFillInSlide ? 'bold' : ''">{{response}}</p>
+  <!--  <p class="mat-caption" [style.font-weight]="hintFillInSlide ? 'bold' : ''">{{response}}</p>-->
+  <p>
+    <markdown ngPreserveWhitespaces class="mat-caption"
+              [style.font-weight]="hintFillInSlide ? 'bold' : ''">{{response}}</markdown>
+  </p>
 </div>

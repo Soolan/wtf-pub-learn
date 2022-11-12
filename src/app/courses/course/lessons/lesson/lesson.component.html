@@ -14,5 +14,7 @@
                            [slides]="slides"></app-slides-renderer>
     </ng-template>
   </div>
-  <app-renderer-footer fxFlex="10" class="fullwidth" *ngIf="slides"></app-renderer-footer>
+  <app-renderer-footer fxFlex="10" class="fullwidth" *ngIf="slides"
+                       [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
+  ></app-renderer-footer>
 </div>

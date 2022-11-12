@@ -18,6 +18,7 @@ input {
   border-bottom: 1px solid var(--color-primary-light);
   display: inline-block;
   cursor: text;
+  margin: 0 var(--space-xxs);
 }
 
 input:focus {
@@ -26,4 +27,5 @@ input:focus {
 
 .chunk {
   line-height: initial;
+  display: inline-block;
 }

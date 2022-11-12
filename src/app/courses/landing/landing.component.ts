@@ -21,6 +21,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     this.action = STATUSES[Status.Start];
+    console.log(COURSES)
     this.crud.colRefQuery(COURSES).pipe(
       map(this.crud.mapId),
     ).subscribe(

@@ -25,7 +25,7 @@
   </div>
   <div fxFlex.gt-lg="60" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="courses">
     <div fxFlex="65" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="course; else loading" class="latest">
-      <div fxFlex="49" fxFlex.lt-md="100" class="image" [ngStyle]="{'background-image': 'url(' + (course.image | storageUrl | async) + ')'}"></div>
+      <div fxFlex="49" fxFlex.lt-md="100" class="image" [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
       <div fxFlex="49" fxFlex.lt-md="100" class="text" fxLayout="row wrap" fxLayoutAlign="space-around center">
         <div fxFlex="100" class="mat-headline course-title" appBlackRenderer [content]="course.name" [keyword]="'Fun'"></div>
         <p fxFlex="100">{{course.description}} - {{course.description}} {{course.description}} </p>

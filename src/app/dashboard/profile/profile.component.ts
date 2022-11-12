@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
       this.id = id;
       this.crud.get(PROFILES.path, this.id).subscribe({
         next: data => {
-          console.log(data);
           this.profile = data;
           this.form.patchValue(this.profile);
         },

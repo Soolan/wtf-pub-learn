@@ -24,21 +24,16 @@
       </div>
     </div>
     <div fxFlex="30" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-      <div fxFlex="90" class="mat-headline thin">Road Map</div>
-      <div fxFlex="80" *ngFor="let r of roadmaps" fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <div class="mat-subheading-2 date thin" fxFlex="80">
-          {{r.date.toDate() | date }}
+      <div fxFlex="100" fxFlex.lt-lg="90" class="mat-headline thin">Road Map</div>
+      <div fxFlex="100" fxFlex.lt-lg="90" *ngFor="let q of quarters" fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div class="mat-subheading-2 date thin" fxFlex="100">
+          {{q.quarter}}
         </div>
-        <div class="mat-caption" fxFlex="20">
-          <span class="tag">{{r.version}}</span>
-        </div>
+
         <mat-divider fxFlex="100"></mat-divider>
 
         <div class="bullets" fxFlex="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
-          <app-release-notes fxFlex="100" title="Features" [bullets]="r.features"></app-release-notes>
-          <app-release-notes fxFlex="100" title="Improvements" [bullets]="r.improvements"></app-release-notes>
-          <app-release-notes fxFlex="100" title="Fixes" [bullets]="r.fixes"></app-release-notes>
-          <app-release-notes fxFlex="100" title="Operations" [bullets]="r.operations"></app-release-notes>
+          <app-release-notes fxFlex="100" title="Items" [bullets]="q.items"></app-release-notes>
         </div>
       </div>
     </div>

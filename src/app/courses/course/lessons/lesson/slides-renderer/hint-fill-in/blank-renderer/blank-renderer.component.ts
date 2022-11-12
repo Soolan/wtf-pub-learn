@@ -36,7 +36,11 @@ export class BlankRendererComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.input.nativeElement.focus()
+    this.input.nativeElement.focus();
+    this.slideService.ui.subscribe({
+      next: value => this.input.nativeElement.focus(),
+      error: err => console.log(err)
+    })
   }
 
   reset(): void {

@@ -29,12 +29,6 @@ button {
   @media screen and (max-width: 600px){
     width: 47vw;
   }
-  // 20 fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="47"
-  p {
-    padding: var(--space-md) var(--space-sm) var(--space-xs) var(--space-sm);
-    font-size: large;
-    line-height: inherit;
-  }
 }
 
 .hint {

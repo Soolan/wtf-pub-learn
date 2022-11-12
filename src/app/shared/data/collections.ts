@@ -12,11 +12,32 @@ export const RELEASES: Collection = {
   orderBy: {field: 'date', direction: 'desc'}
 };
 
+//------------------------------------------------- Polls
+export const POLLS: Collection = {
+  path: 'polls',
+  limit: 1,
+  where: {field: 'timestamp.deleted_at', operator: '!=', value: null},
+};
+
 //------------------------------------------------- PROFILES
 export const PROFILES: Collection = {
   path: 'profiles',
   limit: 1,
   where: {field: 'created_at', operator: '!=', value: null}
+};
+
+//------------------------------------------------- P_COURSES
+export const P_COURSES: Collection = {
+  path: 'courses',
+  limit: 25,
+  where: {field: 'name', operator: '!=', value: null}
+};
+
+//------------------------------------------------- P_LESSONS
+export const P_LESSONS: Collection = {
+  path: 'lessons',
+  limit: 25,
+  where: {field: 'name', operator: '!=', value: null}
 };
 
 //------------------------------------------------- Course
@@ -39,7 +60,8 @@ export const COURSE: Course = {
     created_at: Date.now(),
     updated_at: Date.now(),
     deleted_at: 0
-  }
+  },
+  stats: [1]
 };
 
 //------------------------------------------------- Lesson
@@ -48,7 +70,6 @@ export const LESSONS: Collection = {
   limit: 6,
   where: {field: 'published', operator: '==', value: true},
   orderBy: {field: 'order', direction: 'asc'}
-
 };
 
 export const LESSON: Lesson = {

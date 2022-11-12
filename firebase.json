@@ -18,13 +18,6 @@
         "firebase.json",
         "**/.*",
         "**/node_modules/**"
-      ]
-    },
-    {
-      "target": "wtf-pub-learn",
-      "public": "dist/wtf-pub-learn",
-      "ignore": [
-        "**/.*"
       ],
       "headers": [
         {

@@ -1,36 +1,53 @@
 <div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-  <ng-container [ngSwitch]="progress.status">
-    <ng-container *ngSwitchCase="status.Start">
-      <button fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" fxFlex.lt-md="100" mat-flat-button color="primary">
-        {{statuses[progress.status]}}
+  <ng-container [ngSwitch]="lessonStatus">
+    <div *ngSwitchCase="status.Start" fxFlex="100">
+      <button mat-flat-button color="primary" (click)="open(status.Start)" class="start" fxFlex>
+        {{statuses[status.Start].toUpperCase()}}
+        <mat-icon>arrow_forward</mat-icon>
       </button>
-    </ng-container>
-    <ng-container *ngSwitchCase="status.Resume">
-      <div fxFlex="70" fxFlex.lt-md="65">
-        <strong>Next Up</strong>
-        <mat-icon>chevron_right</mat-icon>
-        <p>{{progress.lesson}}</p>
-      </div>
-      <button fxFlex="25" fxFlex.lt-md="35" mat-flat-button color="warn">{{statuses[progress.status]}}</button>
-      <!-- Are they taking the course again? -->
-      <div fxFlex="70" fxFlex.lt-md="65" class="score" *ngIf="progress.score">
-        <p>
-          Previous score ({{progress.updated_at | date: 'longDate'}}):
-          <span [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">{{progress.score}}
-            /100</span>
-        </p>
-      </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="status.Retake">
-      <div fxFlex="70" fxFlex.lt-lg="64" class="score">
-        <strong>Passed</strong>
-        <mat-icon>done</mat-icon>
-        <p class="mat-caption">{{progress.updated_at | date: 'longDate'}}</p>
-        <span class="mat-caption" [ngStyle]="{color: (progress.score>50)?'var(--color-primary)':'var(--color-warn)'}">
-            final score: {{progress.score}}/100
+    </div>
+    <div *ngSwitchCase="status.Resume" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+      <button fxFlex="100" mat-flat-button color="accent" (click)="open(status.Resume)" class="resume">
+        {{statuses[status.Resume].toUpperCase()}}
+        <mat-icon>double_arrow</mat-icon>
+      </button>
+      <div fxFlex="90" class="markers">
+        <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
+              [style.background-color]="i <= currentSlide ? 'var(--color-accent-light)' : ''">
         </span>
       </div>
-      <button fxFlex="29" fxFlex.lt-lg="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>
-    </ng-container>
+    </div>
+    <div *ngSwitchCase="status.Retake" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+      <button mat-flat-button color="primary" (click)="open(status.Retake)" class="retake" fxFlex="100">
+        {{statuses[status.Retake].toUpperCase()}}
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <div fxFlex="90" class="score">
+        <span>score: {{lessonScore}}</span>
+        <p class="mat-caption">{{lessonUpdate | date: 'EEEE, MMM d, y'}}</p>
+      </div>
+    </div>
   </ng-container>
 </div>
+
+
+<!-- Are they taking the course again? -->
+<!--      <div fxFlex="70" fxFlex.lt-md="65" class="score" *ngIf="progress.grade>-->
+<!--        <p>-->
+<!--          Previous score ({{progress.updated_at | date: 'longDate'}}):-->
+<!--          <span [ngStyle]="{color: (progress.score>50)?'var(&#45;&#45;color-primary)':'var(&#45;&#45;color-warn)'}">{{progress.score}}-->
+<!--            /100</span>-->
+<!--        </p>-->
+<!--      </div>-->
+
+<!--    <ng-container *ngSwitchCase="status.Retake">-->
+<!--      <div fxFlex="70" fxFlex.lt-lg="64" class="score">-->
+<!--        <strong>Passed</strong>-->
+<!--        <mat-icon>done</mat-icon>-->
+<!--        <p class="mat-caption">{{progress.updated_at | date: 'longDate'}}</p>-->
+<!--        <span class="mat-caption" [ngStyle]="{color: (progress.score>50)?'var(&#45;&#45;color-primary)':'var(&#45;&#45;color-warn)'}">-->
+<!--            final score: {{progress.score}}/100-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <button fxFlex="29" fxFlex.lt-lg="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>-->
+<!--    </ng-container>-->
