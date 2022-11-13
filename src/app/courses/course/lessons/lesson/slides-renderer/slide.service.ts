@@ -106,18 +106,18 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
-    console.log(this.userId, this.currentService.current.value.slideIndex, this.markerIndex);
-    if (this.userId && this.currentService.current.value.slideIndex == this.markerIndex) this.updateScore();
+    console.log(this.userId, this.currentService.current.value.lesson.current_slide, this.markerIndex);
+    if (this.userId && this.currentService.current.value.lesson.current_slide == this.markerIndex) this.updateScore();
   }
 
   updateScore(): void {
     const current = {...this.currentService.current.value};
-    current.score -= current.points;
+    current.lesson.info.score -= current.points;
     this.currentService.next(current);
     const path: string = `${PROFILES.path}/${this.userId}/${COURSES.path}/${current.courseId}/${LESSONS.path}`;
     const progressRef = this.crud.docRef(path, current.lessonId);
 
-    progressRef.update({info: {score: current.score}}).then().catch();
+    progressRef.update(current.lesson).then().catch();
   }
 
   markAsCorrect(button: EventTarget): void {
