@@ -111,6 +111,7 @@ export class SlideService {
   }
 
   updateScore(): void {
+    console.log(this.currentService.current.value)
     const current = {...this.currentService.current.value};
     current.lesson.info.score -= current.points;
     this.currentService.next(current);

@@ -73,6 +73,7 @@ export class CourseComponent implements OnInit {
           });
         this.loading.lessons = false;
         this.courseInfo = this.currentService.current.value.course.info;
+        console.log(this.currentService.current.value)
       })
       .catch()
     ;

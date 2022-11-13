@@ -46,7 +46,7 @@
         <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" *ngIf="courseInfo.score > 0 && courseInfo.status != status.Start">
+    <div class="summary" fxFlex="100" *ngIf="courseInfo && courseInfo.score > 0 && courseInfo.status != status.Start">
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>

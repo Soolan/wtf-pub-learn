@@ -38,6 +38,10 @@ export class LessonComponent implements OnInit {
     this.lessonId = this.route.snapshot.paramMap.get('lessonId') || '';
     if (this.courseId && this.lessonId) {
       this.initSlides();
+      const current = {...this.currentService.current.value};
+      current.courseId = this.courseId;
+      current.lessonId = this.lessonId;
+      this.currentService.next(current);
     } else {
       // ToDo: show a dialog
       console.log('lesson not found!');
@@ -57,10 +61,11 @@ export class LessonComponent implements OnInit {
     ).subscribe(
       {
         next: (slides: any) => {
-          const current = this.currentService.current.value;
           this.slides = slides as Slide[];
-          current.points = 100/this.slides.length;
           this.slideService.slides = this.slides;
+
+          const current = {...this.currentService.current.value};
+          current.points = 100/this.slides.length;
           this.currentService.current.next(current);
           this.loading = false;
         },
