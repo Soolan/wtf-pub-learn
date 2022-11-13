@@ -46,17 +46,17 @@
         <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" *ngIf="score > 0 && info.status != status.Start">
+    <div class="summary" fxFlex="100" *ngIf="courseInfo.score > 0 && courseInfo.status != status.Start">
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>
-      <span>You took this course and completed all the lessons on: {{info.updated_at | date: 'medium'}}</span>
+      <span>You took this course and completed all the lessons on: {{courseInfo.updated_at | date: 'medium'}}</span>
       <div class="result">
-        <p [ngClass]="score > 60 ? 'mat-subheading-2' : 'mat-subheading-1'"
-           [ngStyle]="{'color': score > 60 ? 'var(--color-primary)' : 'var(--color-warn)'}">
-          {{score > 60 ? 'Congratulations You Passed!' : 'Unfortunately you failed.'}}
+        <p [ngClass]="courseInfo.score > 60 ? 'mat-subheading-2' : 'mat-subheading-1'"
+           [ngStyle]="{'color': courseInfo.score > 60 ? 'var(--color-primary)' : 'var(--color-warn)'}">
+          {{courseInfo.score > 60 ? 'Congratulations You Passed!' : 'Unfortunately you failed.'}}
         </p>
-        <p>Your highest score is: {{score}}</p>
+        <p>Your highest score is: {{courseInfo.score}}</p>
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@ export class CourseComponent implements OnInit {
   keyword!: string;
   levels = LEVELS;
   status = Status;
-  score!: number;
+  courseInfo!: Info;
 
   constructor(
     private crud: CrudService,
@@ -48,7 +48,6 @@ export class CourseComponent implements OnInit {
       next: user => this.userId = user?.uid,
       error: err => console.log(err)
     });
-    this.score = this.currentService.current.value.score;
   }
 
   initCourse() {
@@ -73,6 +72,7 @@ export class CourseComponent implements OnInit {
             return {id: doc.id, ...doc.data()}
           });
         this.loading.lessons = false;
+        this.courseInfo = this.currentService.current.value.course.info;
       })
       .catch()
     ;
