@@ -4,7 +4,7 @@ import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
-import {CurrentService} from '../../shared/services/current.service';
+import {Current, CurrentService} from '../../shared/services/current.service';
 import {Info} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
 
@@ -17,7 +17,6 @@ export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
   @Input() id!: string; // needed when it is called from user dashboard
   userId!: string | undefined;
-  info!: Info;
   courseId!: string;
   course!: any;
   lessons!: any[];
@@ -25,12 +24,13 @@ export class CourseComponent implements OnInit {
   keyword!: string;
   levels = LEVELS;
   status = Status;
+  score!: number;
 
   constructor(
     private crud: CrudService,
     public auth: AngularFireAuth,
     private route: ActivatedRoute,
-    public current: CurrentService
+    public currentService: CurrentService
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class CourseComponent implements OnInit {
       next: user => this.userId = user?.uid,
       error: err => console.log(err)
     });
-    this.info = this.current.info.value;
+    this.score = this.currentService.current.value.score;
   }
 
   initCourse() {

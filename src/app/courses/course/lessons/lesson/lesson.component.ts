@@ -46,12 +46,6 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNames();
-    this.currentService.current.next({
-      courseId: this.courseId,
-      course: this.course,
-      lessonId: this.lessonId,
-      lesson: this.lesson
-    });
   }
 
   initSlides(): void {
@@ -65,7 +59,15 @@ export class LessonComponent implements OnInit {
         next: (slides: any) => {
           this.slides = slides as Slide[];
           this.slideService.slides = this.slides;
-          this.currentService.nextPoints(100/this.slides.length);
+          this.currentService.current.next({
+            courseId: this.courseId,
+            course: this.course,
+            lessonId: this.lessonId,
+            lesson: this.lesson,
+            slideIndex: this.currentService.current.value.slideIndex,
+            points: 100/this.slides.length,
+            score: this.currentService.current.value.score
+          });
           this.loading = false;
         },
         error: (error: any) => console.log(error)

@@ -81,7 +81,7 @@ export class FooterComponent implements OnInit {
 
   move(forward: boolean): void {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
-    const progress = {...this.currentService.progress.value}
+    const current = {...this.currentService.current.value}
     console.log(forward, index);
     this.slideService.next({
       marker: index,

@@ -6,6 +6,7 @@ export interface Current {
   course: string;
   lessonId: string;
   lesson: string;
+  slideIndex: number;
   points: number;
   score: number;
 }
@@ -22,6 +23,7 @@ export class CurrentService {
       course: '',
       lessonId: '',
       lesson: '',
+      slideIndex: 1,
       points: 0,
       score: 100
     });
