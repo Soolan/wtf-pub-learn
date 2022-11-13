@@ -2,10 +2,12 @@ import {ElementRef, Injectable, Renderer2, RendererFactory2} from '@angular/core
 import {BehaviorSubject} from 'rxjs';
 import {Slide, SlideHeaderFooter, Style, TransX} from '../../../../../shared/models/slide';
 import {ACTIONS, OPTIONS_BREAKPOINT} from '../../../../../shared/data/generic';
-import {SlideType, Status} from '../../../../../shared/data/enums';
+import {SlideType} from '../../../../../shared/data/enums';
 import {CrudService} from '../../../../../shared/services/crud.service';
 import {CurrentService} from '../../../../../shared/services/current.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {Info} from '../../../../../shared/models/profile';
+import {COURSES, LESSONS, PROFILES} from '../../../../../shared/data/collections';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ export class SlideService {
   constructor(
     private crud: CrudService,
     private auth: AngularFireAuth,
-    private current: CurrentService,
+    private currentService: CurrentService,
     private rendererFactory: RendererFactory2
   ) {
     this.auth.currentUser.then(user => this.userId = user?.uid).catch();
@@ -104,18 +106,22 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
-    console.log(this.userId, this.current.progress.value.current_slide, this.markerIndex);
-    if (this.userId && this.current.progress.value.current_slide > this.markerIndex) this.updateScore();
+    console.log(this.userId, this.currentService.progress.value.current_slide, this.markerIndex);
+    if (this.userId && this.currentService.progress.value.current_slide == this.markerIndex) this.updateScore();
   }
 
   updateScore(): void {
-    const points = this.current.points.value;
-
-      // ToDo:
-      //  1. Update the current Info (score and date)
-      //  2. Update the Firestore document
-
-//      this.progressRef.update(this.lessonProgress);
+    const current = this.currentService.current.value;
+    const points = this.currentService.points.value;
+    const info: Info = {...this.currentService.info.value};
+    console.log(current, points, info);
+    info.updated_at = Date.now();
+    info.score -= points;
+    this.currentService.nextInfo(info);
+    const path: string = `${PROFILES.path}/${this.userId}/${COURSES.path}/${current.courseId}/${LESSONS.path}`;
+    console.log(path);
+    const progressRef = this.crud.docRef(path, current.lessonId);
+    progressRef.update({info}).then().catch();
   }
 
   markAsCorrect(button: EventTarget): void {
@@ -182,7 +188,7 @@ export class SlideService {
     this.renderer.setStyle(element, 'transition', 'transform 0.2s ease-out');
     this.renderer.setStyle(element, 'transform', `translateX(${translate}%) rotate(${rotate}deg)`);
     setTimeout(() => {
-      this.renderer.setStyle(element, 'transform', `translateX(${translate-translate}%) rotate(${rotate-rotate}deg)`);
+      this.renderer.setStyle(element, 'transform', `translateX(${translate - translate}%) rotate(${rotate - rotate}deg)`);
     }, 800)
   }
 
@@ -233,7 +239,10 @@ export class SlideService {
       {name: 'box-shadow', value: '0 0 0px 0px var(--color-greye)'},
       {name: 'color', value: 'var(--color-primary-light)'},
       {name: 'position', value: 'absolute'},
-      {name: 'transition', value: 'background 0.15s , color 0.15s, box-shadow 0.55s 0.2s, transform 0.3s 0.1s, top 0.4s 0.1s'},
+      {
+        name: 'transition',
+        value: 'background 0.15s , color 0.15s, box-shadow 0.55s 0.2s, transform 0.3s 0.1s, top 0.4s 0.1s'
+      },
     ];
 
     const questionStyles: Style[] = styles.concat([

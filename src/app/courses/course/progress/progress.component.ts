@@ -33,13 +33,13 @@ export class ProgressComponent implements OnInit {
 
   constructor(
     private crud: CrudService,
-    private current: CurrentService,
     private navigate: NavigateService,
     private slideService: SlideService,
+    private currentService: CurrentService
   ) { }
 
   ngOnInit(): void {
-    this.currentSlide = 0;
+    this.currentSlide = 1;
     this.lessonStatus = Status.Start;
     this.info = {status: Status.Start, score: 100, updated_at: Date.now()};
     this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
@@ -64,11 +64,12 @@ export class ProgressComponent implements OnInit {
         if (progress) {
           this.courseScore = progress.info.score;
           this.courseStatus = progress.info.status;
-          this.current.nextInfo(progress.info); // will be used in the course summary
+          this.currentService.nextInfo(progress.info); // will be used in the course summary
           this.getLessonProgress();
         } else {
           this.setCourseProgress({name: this.course.name, info: this.info});
         }
+        // this.current.
       })
       .catch(error => console.log(error))
     ;
@@ -110,8 +111,8 @@ export class ProgressComponent implements OnInit {
     let info = {...this.info};
     info.updated_at = Date.now();
     info.status = Status.Resume;
-    info.score = this.courseScore;
-
+    info.score = this.courseScore || 100;
+    console.log(this.path)
     this.crud.update(this.path, this.course.id, {info})
       .then(_ => {
         switch (status) {
@@ -136,7 +137,7 @@ export class ProgressComponent implements OnInit {
             });
             info.score = this.lessonScore;
             const path = `${this.path}/${this.course.id}/${P_LESSONS.path}`;
-            this.crud.update(path, this.lesson.id, {current_slide: 1, info}).then().catch();
+            this.crud.update(path, this.lesson.id, {current_slide: this.currentSlide, info}).then().catch();
             break;
         }
         this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)

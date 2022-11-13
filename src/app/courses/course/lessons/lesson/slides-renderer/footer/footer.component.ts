@@ -11,6 +11,7 @@ import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/coll
 import firebase from 'firebase/compat';
 import {Lesson} from '../../../../../../shared/models/profile';
 import DocumentReference = firebase.firestore.DocumentReference;
+import {CurrentService} from '../../../../../../shared/services/current.service';
 
 @Component({
   selector: 'app-renderer-footer',
@@ -36,6 +37,7 @@ export class FooterComponent implements OnInit {
     private crud: CrudService,
     private auth: AngularFireAuth,
     private slideService: SlideService,
+    private currentService: CurrentService
   ) {
     this.auth.currentUser
       .then(user => {
@@ -79,6 +81,7 @@ export class FooterComponent implements OnInit {
 
   move(forward: boolean): void {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
+    const progress = {...this.currentService.progress.value}
     console.log(forward, index);
     this.slideService.next({
       marker: index,
@@ -86,16 +89,17 @@ export class FooterComponent implements OnInit {
       response: '',
       correct: false,
       completed: false
-    })
-    console.log(this.lessonProgress.current_slide, index)
+    });
+
+    console.log(this.lessonProgress.current_slide, index);
     if(this.userId && forward && index > this.lessonProgress.current_slide) {
+      progress.current_slide = index;
+      this.currentService.progress.next(progress);
       this.lessonProgress.info.updated_at = Date.now();
       this.lessonProgress.current_slide ++;
       this.lessonProgress.info.status =
-        this.lessonProgress.current_slide == this.totalSlides -1 ?
-          Status.Retake:
-          Status.Resume;
-      this.progressRef.update(this.lessonProgress);
+        this.lessonProgress.current_slide == this.totalSlides -1 ? Status.Retake : Status.Resume;
+      this.progressRef.update(this.lessonProgress).then().then();
     }
   }
 

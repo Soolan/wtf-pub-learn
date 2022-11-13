@@ -37,7 +37,6 @@ export class LessonComponent implements OnInit {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
     this.lessonId = this.route.snapshot.paramMap.get('lessonId') || '';
     if (this.courseId && this.lessonId) {
-      this.progress();
       this.initSlides();
     } else {
       // ToDo: show a dialog
@@ -47,10 +46,12 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNames();
-  }
-
-  progress(): void {
-
+    this.currentService.current.next({
+      courseId: this.courseId,
+      course: this.course,
+      lessonId: this.lessonId,
+      lesson: this.lesson
+    });
   }
 
   initSlides(): void {

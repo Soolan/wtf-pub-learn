@@ -6,6 +6,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
 import {Info} from '../../shared/models/profile';
+import {Status} from '../../shared/data/enums';
 
 @Component({
   selector: 'app-course',
@@ -23,6 +24,7 @@ export class CourseComponent implements OnInit {
   loading!: any;
   keyword!: string;
   levels = LEVELS;
+  status = Status;
 
   constructor(
     private crud: CrudService,
@@ -46,10 +48,7 @@ export class CourseComponent implements OnInit {
       next: user => this.userId = user?.uid,
       error: err => console.log(err)
     });
-    this.current.info.subscribe({
-      next: value => this.info = value,
-      error: err => console.log(err)
-    })
+    this.info = this.current.info.value;
   }
 
   initCourse() {
