@@ -93,12 +93,13 @@ export class FooterComponent implements OnInit {
 
     console.log(this.lessonProgress.current_slide, index);
     if(this.userId && forward && index > this.lessonProgress.current_slide) {
-      progress.current_slide = index;
-      this.currentService.progress.next(progress);
       this.lessonProgress.info.updated_at = Date.now();
       this.lessonProgress.current_slide ++;
       this.lessonProgress.info.status =
         this.lessonProgress.current_slide == this.totalSlides -1 ? Status.Retake : Status.Resume;
+      const current = {...this.currentService.current.value};
+      current.lesson = this.lessonProgress;
+      this.currentService.current.next(current);
       this.progressRef.update(this.lessonProgress).then().then();
     }
   }

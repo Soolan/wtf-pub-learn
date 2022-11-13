@@ -57,17 +57,11 @@ export class LessonComponent implements OnInit {
     ).subscribe(
       {
         next: (slides: any) => {
+          const current = this.currentService.current.value;
           this.slides = slides as Slide[];
+          current.points = 100/this.slides.length;
           this.slideService.slides = this.slides;
-          this.currentService.current.next({
-            courseId: this.courseId,
-            course: this.course,
-            lessonId: this.lessonId,
-            lesson: this.lesson,
-            slideIndex: this.currentService.current.value.slideIndex,
-            points: 100/this.slides.length,
-            score: this.currentService.current.value.score
-          });
+          this.currentService.current.next(current);
           this.loading = false;
         },
         error: (error: any) => console.log(error)
