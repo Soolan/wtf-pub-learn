@@ -6,7 +6,6 @@ import {SlideType} from '../../../../../shared/data/enums';
 import {CrudService} from '../../../../../shared/services/crud.service';
 import {CurrentService} from '../../../../../shared/services/current.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {Info} from '../../../../../shared/models/profile';
 import {COURSES, LESSONS, PROFILES} from '../../../../../shared/data/collections';
 
 @Injectable({
@@ -107,7 +106,7 @@ export class SlideService {
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
     console.log(this.userId, this.currentService.current.value.lesson.current_slide, this.markerIndex);
-    if (this.userId && this.currentService.current.value.lesson.current_slide == this.markerIndex) this.updateScore();
+    if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
   }
 
   updateScore(): void {
