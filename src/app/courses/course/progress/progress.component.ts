@@ -99,8 +99,13 @@ export class ProgressComponent implements OnInit {
     this.crud.update(this.path, this.course.id, this.currentService.current.value.course)
       .then(_ => {
         const lesson = {...this.currentService.current.value.lesson};
+        const course = {...this.currentService.current.value.course};
         switch (status) {
           case Status.Start:
+            course.info.status = Status.Resume;
+            course.info.score = 100;
+            course.info.updated_at = Date.now();
+            this.crud.update(this.path, this.course.id, course).then().catch();
             break;
           case Status.Resume:
             this.slideService.next({

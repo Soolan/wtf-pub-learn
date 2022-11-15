@@ -16,8 +16,7 @@
       <ng-template #guest_view>
         <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
              ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
-          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name"
-                [keyword]="keyword"></span>
+          <span *ngIf="keyword; else no_keyword" appBlackRenderer [content]="course.name" [keyword]="keyword"></span>
           <ng-template #no_keyword>
             {{course.name}}
           </ng-template>
@@ -46,7 +45,7 @@
         <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" *ngIf="courseInfo && courseInfo.score > 0 && courseInfo.status != status.Start">
+    <div class="summary" fxFlex="100" *ngIf="summary">
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>

@@ -4,7 +4,7 @@ import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
-import {Current, CurrentService} from '../../shared/services/current.service';
+import {CurrentService} from '../../shared/services/current.service';
 import {Info} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
 
@@ -21,7 +21,6 @@ export class CourseComponent implements OnInit {
   course!: any;
   lessons!: any[];
   loading!: any;
-  keyword!: string;
   levels = LEVELS;
   status = Status;
   courseInfo!: Info;
@@ -56,7 +55,6 @@ export class CourseComponent implements OnInit {
         this.course = snap.data();
         this.course.id = snap.id;
         this.loading.course = false;
-        this.keyword = this.getKeyword();
         this.initLessons();
       })
       .catch(error => console.log(error))
@@ -72,15 +70,18 @@ export class CourseComponent implements OnInit {
             return {id: doc.id, ...doc.data()}
           });
         this.loading.lessons = false;
-        this.courseInfo = this.currentService.current.value.course.info;
-        console.log(this.currentService.current.value)
       })
       .catch()
     ;
   }
 
-  getKeyword(): string {
+  get keyword(): string {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
+  }
+
+  get summary(): boolean {
+    this.courseInfo = this.currentService.current.value.course.info;
+    return this.courseInfo && this.courseInfo.status == Status.Retake;
   }
 }
