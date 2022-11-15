@@ -82,6 +82,6 @@ export class CourseComponent implements OnInit {
 
   get summary(): boolean {
     this.courseInfo = this.currentService.current.value.course.info;
-    return this.courseInfo && this.courseInfo.status == Status.Retake;
+    return this.courseInfo.status == Status.Retake;
   }
 }

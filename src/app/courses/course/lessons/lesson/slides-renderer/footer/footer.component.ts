@@ -117,7 +117,7 @@ export class FooterComponent implements OnInit {
   allPassed(): void {
     let passed = false;
     let total = 0;
-    let index = 1;
+    let index = 0;
     this.crud.colRef(this.lessonPath).get()
       .then(snap => {
         snap.docs.forEach(doc => {
@@ -136,6 +136,7 @@ export class FooterComponent implements OnInit {
     const current = {...this.currentService.current.value};
     current.course.info = info;
     this.currentService.current.next(current);         // update service
+    this.courseRef = this.crud.docRef(this.coursePath, this.courseId);
     this.courseRef.update({info}).then().catch(); // update firestore
   }
 }
