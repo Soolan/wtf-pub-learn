@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
 import {ACTIONS, STATUSES} from '../../../shared/data/generic';
-import {Course, Info, Lesson} from '../../../shared/models/profile';
+import {Lesson} from '../../../shared/models/profile';
 import {Current, CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
@@ -58,7 +58,6 @@ export class ProgressComponent implements OnInit {
         } else {
           this.setCourseProgress();
         }
-        // this.current.
       })
       .catch(error => console.log(error))
     ;
@@ -99,7 +98,7 @@ export class ProgressComponent implements OnInit {
     console.log(this.path)
     this.crud.update(this.path, this.course.id, this.currentService.current.value.course)
       .then(_ => {
-        const lesson = this.currentService.current.value.lesson;
+        const lesson = {...this.currentService.current.value.lesson};
         switch (status) {
           case Status.Start:
             break;
@@ -121,6 +120,10 @@ export class ProgressComponent implements OnInit {
               completed: false
             });
             const path = `${this.path}/${this.course.id}/${P_LESSONS.path}`;
+            lesson.current_slide = 1;
+            lesson.info.status = Status.Start;
+            lesson.info.score = 100;
+            lesson.info.updated_at = Date.now();
             this.crud.update(path, this.lesson.id, lesson).then().catch();
             break;
         }
