@@ -105,15 +105,12 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
-    console.log(this.userId, this.currentService.current.value.lesson.current_slide, this.markerIndex);
     if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
   }
 
   updateScore(): void {
-    console.log(this.currentService.current.value)
     const current = {...this.currentService.current.value};
     current.lesson.info.score -= current.points;
-    console.log(current);
     this.currentService.next(current);
     const path: string = `${PROFILES.path}/${this.userId}/${COURSES.path}/${current.courseId}/${LESSONS.path}`;
     const progressRef = this.crud.docRef(path, current.lessonId);
@@ -184,6 +181,7 @@ export class SlideService {
     const rotate = direction === 'right' ? 4 : -4;
     this.renderer.setStyle(element, 'transition', 'transform 0.2s ease-out');
     this.renderer.setStyle(element, 'transform', `translateX(${translate}%) rotate(${rotate}deg)`);
+    if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
     setTimeout(() => {
       this.renderer.setStyle(element, 'transform', `translateX(${translate - translate}%) rotate(${rotate - rotate}deg)`);
     }, 800)
@@ -194,6 +192,7 @@ export class SlideService {
   }
 
   shake(element: EventTarget): void {
+    if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
     this.renderer.addClass(element, 'shake');
   }
 
