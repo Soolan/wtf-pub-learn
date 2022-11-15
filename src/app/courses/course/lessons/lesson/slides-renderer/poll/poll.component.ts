@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {POLLS} from '../../../../../../shared/data/collections';
 import {Poll} from '../../../../../../shared/models/poll';
+import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 
 export interface Percentage {
   option: string;
@@ -16,7 +17,8 @@ export interface MyVote {
 @Component({
   selector: 'app-poll',
   templateUrl: './poll.component.html',
-  styleUrls: ['./poll.component.scss', '../slide.scss']
+  styleUrls: ['./poll.component.scss', '../slide.scss'],
+  animations: [FADE_IN_OUT],
 })
 export class PollComponent implements OnInit {
   @Input() slide: any;

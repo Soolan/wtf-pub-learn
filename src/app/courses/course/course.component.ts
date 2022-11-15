@@ -6,6 +6,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
 import {Info} from '../../shared/models/profile';
+import {Status} from '../../shared/data/enums';
 
 @Component({
   selector: 'app-course',
@@ -16,19 +17,19 @@ export class CourseComponent implements OnInit {
   @Input() isDashboard!: boolean;
   @Input() id!: string; // needed when it is called from user dashboard
   userId!: string | undefined;
-  info!: Info;
   courseId!: string;
   course!: any;
   lessons!: any[];
   loading!: any;
-  keyword!: string;
   levels = LEVELS;
+  status = Status;
+  courseInfo!: Info;
 
   constructor(
     private crud: CrudService,
     public auth: AngularFireAuth,
     private route: ActivatedRoute,
-    public current: CurrentService
+    public currentService: CurrentService
   ) { }
 
   ngOnInit(): void {
@@ -46,10 +47,6 @@ export class CourseComponent implements OnInit {
       next: user => this.userId = user?.uid,
       error: err => console.log(err)
     });
-    this.current.info.subscribe({
-      next: value => this.info = value,
-      error: err => console.log(err)
-    })
   }
 
   initCourse() {
@@ -58,7 +55,6 @@ export class CourseComponent implements OnInit {
         this.course = snap.data();
         this.course.id = snap.id;
         this.loading.course = false;
-        this.keyword = this.getKeyword();
         this.initLessons();
       })
       .catch(error => console.log(error))
@@ -79,8 +75,13 @@ export class CourseComponent implements OnInit {
     ;
   }
 
-  getKeyword(): string {
+  get keyword(): string {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
+  }
+
+  get summary(): boolean {
+    this.courseInfo = this.currentService.current.value.course.info;
+    return this.courseInfo.status == Status.Retake;
   }
 }

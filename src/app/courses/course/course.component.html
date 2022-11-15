@@ -16,8 +16,7 @@
       <ng-template #guest_view>
         <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
              ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
-          <span *ngIf="keyword; else no_keyword" appBlackRenderer #content [content]="course.name"
-                [keyword]="keyword"></span>
+          <span *ngIf="keyword; else no_keyword" appBlackRenderer [content]="course.name" [keyword]="keyword"></span>
           <ng-template #no_keyword>
             {{course.name}}
           </ng-template>
@@ -46,17 +45,17 @@
         <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" *ngIf="info.score > 0">
+    <div class="summary" fxFlex="100" *ngIf="summary">
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>
-      <span>You took this course on {{info.updated_at | date: 'medium'}}</span>
+      <span>You took this course and completed all the lessons on: {{courseInfo.updated_at | date: 'medium'}}</span>
       <div class="result">
-        <p [ngClass]="info.score > 60 ? 'mat-subheading-2' : 'mat-subheading-1'"
-           [ngStyle]="{'color': info.score > 60 ? 'var(--color-primary)' : 'var(--color-warn)'}">
-          {{info.score > 60 ? 'Congratulations You Passed!' : 'Unfortunately you failed.'}}
+        <p [ngClass]="courseInfo.score > 60 ? 'mat-subheading-2' : 'mat-subheading-1'"
+           [ngStyle]="{'color': courseInfo.score > 60 ? 'var(--color-primary)' : 'var(--color-warn)'}">
+          {{courseInfo.score > 60 ? 'Congratulations You Passed!' : 'Unfortunately you failed.'}}
         </p>
-        <p>Your highest score is: {{info.score}}</p>
+        <p>Your highest score is: {{courseInfo.score}}</p>
       </div>
     </div>
   </div>

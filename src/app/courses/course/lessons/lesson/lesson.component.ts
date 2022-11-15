@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
@@ -29,6 +29,7 @@ export class LessonComponent implements OnInit {
     private route: ActivatedRoute,
     private navigate: NavigateService,
     private slideService: SlideService,
+    private currentService: CurrentService,
     private headerFooter: ToggleHeaderFooterService
   ) {
     headerFooter.toggle(false, true);   // switch off header
@@ -36,8 +37,11 @@ export class LessonComponent implements OnInit {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
     this.lessonId = this.route.snapshot.paramMap.get('lessonId') || '';
     if (this.courseId && this.lessonId) {
-      this.progress();
       this.initSlides();
+      const current = {...this.currentService.current.value};
+      current.courseId = this.courseId;
+      current.lessonId = this.lessonId;
+      this.currentService.next(current);
     } else {
       // ToDo: show a dialog
       console.log('lesson not found!');
@@ -46,10 +50,6 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNames();
-  }
-
-  progress(): void {
-
   }
 
   initSlides(): void {
@@ -63,6 +63,10 @@ export class LessonComponent implements OnInit {
         next: (slides: any) => {
           this.slides = slides as Slide[];
           this.slideService.slides = this.slides;
+
+          const current = {...this.currentService.current.value};
+          current.points = 100/this.slides.length;
+          this.currentService.current.next(current);
           this.loading = false;
         },
         error: (error: any) => console.log(error)

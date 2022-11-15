@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
 import {ACTIONS, STATUSES} from '../../../shared/data/generic';
-import {Course, Info, Lesson} from '../../../shared/models/profile';
-import {CurrentService} from '../../../shared/services/current.service';
+import {Lesson} from '../../../shared/models/profile';
+import {Current, CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
@@ -19,29 +19,20 @@ export class ProgressComponent implements OnInit {
   @Input() lesson!: any;
   @Input() slides!: number;
 
-  courseStatus!: Status;
-  courseScore!: number;
-  currentSlide!: number;
   lessonSlides!: any[];
-  lessonStatus!: Status;
-  lessonScore!: number;
-  lessonUpdate!:number;
-
   status = Status;
+  current!: Current;
   path!: string;
-  info!: Info;
 
   constructor(
     private crud: CrudService,
-    private current: CurrentService,
     private navigate: NavigateService,
     private slideService: SlideService,
+    private currentService: CurrentService
   ) { }
 
   ngOnInit(): void {
-    this.currentSlide = 0;
-    this.lessonStatus = Status.Start;
-    this.info = {status: Status.Start, score: 0, updated_at: Date.now()};
+    this.current = this.currentService.current.value;
     this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
     this.initProgress();
     this.initSlides()
@@ -62,12 +53,10 @@ export class ProgressComponent implements OnInit {
       .then(snap => {
         const progress = snap.data();
         if (progress) {
-          this.courseScore = progress.info.score;
-          this.courseStatus = progress.info.status;
-          this.current.nextInfo(progress.info); // will be used in the course summary
+          this.current.course = progress;
           this.getLessonProgress();
         } else {
-          this.setCourseProgress({name: this.course.name, info: this.info});
+          this.setCourseProgress();
         }
       })
       .catch(error => console.log(error))
@@ -79,19 +68,18 @@ export class ProgressComponent implements OnInit {
       .then(snap => {
         const progress = snap.data();
         if (progress) {
-          this.currentSlide = progress.current_slide;
-          this.lessonStatus = progress.info.status;
-          this.lessonScore = progress.info.score;
-          this.lessonUpdate = progress.info.updated_at;
+          this.current.lesson = progress;
+          console.log(this.current);
+          this.currentService.current.next(this.current);
         }
       })
       .catch(error => console.log(error))
     ;
   }
 
-  setCourseProgress(courseProgress: Course): void {
-    this.crud.set(this.path, this.course.id, courseProgress)
-      .then(_ => this.setLessonProgress({name: this.lesson.name, current_slide: 1, slide_id: '', info: this.info}))
+  setCourseProgress(): void {
+    this.crud.set(this.path, this.course.id, this.current.course)
+      .then(_ => this.setLessonProgress(this.current.lesson))
       .catch(error => console.log(error));
   }
 
@@ -107,20 +95,22 @@ export class ProgressComponent implements OnInit {
   }
 
   open(status: Status): void {
-    let info = {...this.info};
-    info.updated_at = Date.now();
-    info.status = Status.Resume;
-    info.score = this.courseScore;
-
-    this.crud.update(this.path, this.course.id, {info})
+    console.log(this.path)
+    this.crud.update(this.path, this.course.id, this.currentService.current.value.course)
       .then(_ => {
+        const lesson = {...this.currentService.current.value.lesson};
+        const course = {...this.currentService.current.value.course};
         switch (status) {
           case Status.Start:
+            course.info.status = Status.Resume;
+            course.info.score = 100;
+            course.info.updated_at = Date.now();
+            this.crud.update(this.path, this.course.id, course).then().catch();
             break;
           case Status.Resume:
             this.slideService.next({
-              marker: this.currentSlide,
-              action: ACTIONS[this.lessonSlides[this.currentSlide].type],
+              marker: lesson.current_slide,
+              action: ACTIONS[this.lessonSlides[lesson.current_slide].type],
               response: '',
               correct: false,
               completed: false
@@ -134,9 +124,12 @@ export class ProgressComponent implements OnInit {
               correct: false,
               completed: false
             });
-            info.score = this.lessonScore;
             const path = `${this.path}/${this.course.id}/${P_LESSONS.path}`;
-            this.crud.update(path, this.lesson.id, {current_slide: 1, info}).then().catch();
+            lesson.current_slide = 1;
+            lesson.info.status = Status.Start;
+            lesson.info.score = 100;
+            lesson.info.updated_at = Date.now();
+            this.crud.update(path, this.lesson.id, lesson).then().catch();
             break;
         }
         this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Info} from '../models/profile';
+import {Course, Info, Lesson} from '../models/profile';
 import {Status} from '../data/enums';
 
 export interface Current {
   courseId: string;
-  course: string;
+  course: Course;
   lessonId: string;
-  lesson: string;
+  lesson: Lesson;
+  points: number;
 }
 
 @Injectable({
@@ -15,27 +16,22 @@ export interface Current {
 })
 export class CurrentService {
   current: BehaviorSubject<Current>;
-  info: BehaviorSubject<Info>;
-
+  info: Info = {
+    status: Status.Start,
+    score: 100,
+    updated_at: Date.now()
+  }
   constructor() {
-    this.info = new BehaviorSubject<Info>({
-      status: Status.Resume,
-      score: 0,
-      updated_at: Date.now()
-    });
     this.current = new BehaviorSubject<Current>({
       courseId: '',
-      course: '',
+      course: {name: '', info: this.info},
       lessonId: '',
-      lesson: ''
+      lesson:   {name: '', current_slide: 1,  slide_id: '', info: this.info},
+      points: 0,
     });
   }
 
   next(snapshot: Current): void {
     this.current.next(snapshot);
-  }
-
-  nextInfo(snapshot: Info): void {
-    this.info.next(snapshot);
   }
 }

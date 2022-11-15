@@ -3,6 +3,8 @@ import {ToggleHeaderFooterService} from '../../../../../../shared/services/toggl
 import {SlideService} from '../slide.service';
 import {NavigateService} from '../../../../../../shared/services/navigate.service';
 import {ActivatedRoute} from '@angular/router';
+import {CurrentService} from '../../../../../../shared/services/current.service';
+import {CrudService} from '../../../../../../shared/services/crud.service';
 
 @Component({
   selector: 'app-summary',
@@ -17,11 +19,10 @@ export class SummaryComponent implements OnInit, AfterViewInit{
 
   constructor(
     private headerFooter: ToggleHeaderFooterService,
-    public slideService: SlideService,
+    private currentService: CurrentService,
     private navigate: NavigateService,
     private route: ActivatedRoute,
   ) {
-    console.log(this.slide);
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
   }
 
