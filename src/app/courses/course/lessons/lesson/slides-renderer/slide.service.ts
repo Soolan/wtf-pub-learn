@@ -114,6 +114,7 @@ export class SlideService {
     console.log(this.currentService.current.value)
     const current = {...this.currentService.current.value};
     current.lesson.info.score -= current.points;
+    console.log(current);
     this.currentService.next(current);
     const path: string = `${PROFILES.path}/${this.userId}/${COURSES.path}/${current.courseId}/${LESSONS.path}`;
     const progressRef = this.crud.docRef(path, current.lessonId);

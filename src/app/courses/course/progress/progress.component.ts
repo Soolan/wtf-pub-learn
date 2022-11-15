@@ -19,15 +19,6 @@ export class ProgressComponent implements OnInit {
   @Input() lesson!: any;
   @Input() slides!: number;
 
-  // courseStatus!: Status;
-  // courseScore!: number;
-  // courseUpdate!:number;
-  //
-  // currentSlide!: number;
-  // lessonStatus!: Status;
-  // lessonScore!: number;
-  // lessonUpdate!:number;
-
   lessonSlides!: any[];
   status = Status;
   current!: Current;
@@ -65,7 +56,7 @@ export class ProgressComponent implements OnInit {
           this.current.course = progress;
           this.getLessonProgress();
         } else {
-          this.setCourseProgress(progress);
+          this.setCourseProgress();
         }
         // this.current.
       })
@@ -87,8 +78,8 @@ export class ProgressComponent implements OnInit {
     ;
   }
 
-  setCourseProgress(courseProgress: Course): void {
-    this.crud.set(this.path, this.course.id, courseProgress)
+  setCourseProgress(): void {
+    this.crud.set(this.path, this.course.id, this.current.course)
       .then(_ => this.setLessonProgress(this.current.lesson))
       .catch(error => console.log(error));
   }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
