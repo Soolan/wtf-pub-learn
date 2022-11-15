@@ -10,8 +10,8 @@ import {CrudService} from '../../../../../../shared/services/crud.service';
 import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/collections';
 import firebase from 'firebase/compat';
 import {Lesson} from '../../../../../../shared/models/profile';
-import DocumentReference = firebase.firestore.DocumentReference;
 import {CurrentService} from '../../../../../../shared/services/current.service';
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Component({
   selector: 'app-renderer-footer',
@@ -32,6 +32,7 @@ export class FooterComponent implements OnInit {
   userId!: string | undefined;
   progressRef!: DocumentReference;
   lessonProgress!: Lesson;
+  path!: string;
 
   constructor(
     private crud: CrudService,
@@ -42,13 +43,10 @@ export class FooterComponent implements OnInit {
     this.auth.currentUser
       .then(user => {
         this.userId = user?.uid;
-        if(this.userId) {
-          const path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}/${this.courseId}/${P_LESSONS.path}`;
-          this.progressRef = this.crud.docRef(path, this.lessonId);
-          this.progressRef.get()
-            .then(snap => this.lessonProgress = snap.data() as Lesson)
-            .catch()
-          ;
+        if (this.userId) {
+          this.path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}/${this.courseId}/${P_LESSONS.path}`;
+          this.progressRef = this.crud.docRef(this.path, this.lessonId);
+          this.progressRef.get().then(snap => this.lessonProgress = snap.data() as Lesson).catch();
         }
       })
       .catch()
@@ -81,38 +79,48 @@ export class FooterComponent implements OnInit {
 
   move(forward: boolean): void {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
-    const current = {...this.currentService.current.value}
-    console.log(forward, index);
-    this.slideService.next({
-      marker: index,
-      action: ACTIONS[this.slideService.slides[index].type],
-      response: '',
-      correct: false,
-      completed: false
-    });
+    const action = ACTIONS[this.slideService.slides[index].type];
+    this.slideService.next({marker: index, action, response: '', correct: false, completed: false});
 
-    console.log(this.lessonProgress.current_slide, index);
-    if(this.userId && forward && index > this.lessonProgress.current_slide) {
-      this.lessonProgress.info.updated_at = Date.now();
-      this.lessonProgress.current_slide ++;
-      this.lessonProgress.info.status =
-        this.lessonProgress.current_slide == this.totalSlides -1 ? Status.Retake : Status.Resume;
-      const current = {...this.currentService.current.value};
-      current.lesson = this.lessonProgress;
-      this.currentService.current.next(current);
-      this.progressRef.update(this.lessonProgress).then().then();
+    if (this.userId && forward && index > this.lessonProgress.current_slide) {
+      this.updateLessonProgress();
+      if (this.lessonProgress.info.status == Status.Retake) {
+        this.allPassed();
+      }
     }
   }
 
   hint(): void {
     // @ts-ignore
     const hint = this.slideService.slides[this.slideService.markerIndex].content['hint'];
-    this.slideService.next({
-      marker: this.ui.marker,
-      action: this.ui.action,
-      response: hint,
-      correct: false,
-      completed: false
-    })
+    this.slideService.next(
+      {marker: this.ui.marker, action: this.ui.action, response: hint, correct: false, completed: false}
+    )
+  }
+
+  updateLessonProgress(): void {
+    this.lessonProgress.info.updated_at = Date.now();
+    this.lessonProgress.current_slide++;
+    this.lessonProgress.info.status =
+      this.lessonProgress.current_slide == this.totalSlides - 1 ? Status.Retake : Status.Resume;
+    const current = {...this.currentService.current.value};
+    current.lesson = this.lessonProgress;
+    this.currentService.current.next(current);
+    this.progressRef.update(this.lessonProgress).then().catch();
+  }
+
+  allPassed(): void {
+    let passed = false;
+    this.crud.colRef(this.path).get()
+      .then(snap => {
+        snap.docs.forEach(doc => passed = doc.data().info.status == Status.Retake);
+        if (passed) this.updateCourseProgress();
+      })
+      .catch()
+    ;
+  }
+
+  updateCourseProgress(): void {
+
   }
 }
