@@ -6,19 +6,22 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
   templateUrl: './static.component.html',
   styleUrls: ['./static.component.scss']
 })
-export class StaticComponent implements AfterViewInit{
+export class StaticComponent implements AfterViewInit {
   @Input() slide: any;
 
-  constructor(private auth: AngularFireAuth) {}
+  constructor(private auth: AngularFireAuth) {
+  }
 
-  ngAfterViewInit():void {
-    const guest = document.getElementsByClassName('guest') as HTMLCollectionOf<HTMLElement>;
-    const registered = document.getElementsByClassName('registered') as HTMLCollectionOf<HTMLElement>;
+  ngAfterViewInit(): void {
+    const guest = document.getElementsByClassName('guest')[0] as HTMLElement;
+    const registered = document.getElementsByClassName('registered')[0] as HTMLElement;
     this.auth.authState.subscribe({
-      next: user =>  {
-        user?.uid ?
-          guest[0].style.display = 'none' :
-          registered[0].style.display = 'none';
+      next: user => {
+        if (user?.uid && guest) {
+          guest.style.display = 'none'
+        } else if (registered) {
+          registered.style.display = 'none';
+        }
       },
       error: err => console.log(err)
     })
