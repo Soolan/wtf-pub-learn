@@ -49,7 +49,7 @@ export class CourseComponent implements OnInit {
       next: user => {
         if (user?.uid) {
           this.userId = user?.uid;
-          this.analytics.setUserId(this.userId);
+          this.analytics.setUserId(this.userId).then().catch();
         }
       },
       error: err => console.log(err)
