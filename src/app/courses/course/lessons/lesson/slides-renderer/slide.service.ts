@@ -202,7 +202,6 @@ export class SlideService {
     }
   }
 
-
   addChild(node: ElementRef, text: string) {
     const content = this.renderer.createText(text);
     const div = this.renderer.createElement('div');

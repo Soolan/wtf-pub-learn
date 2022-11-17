@@ -7,6 +7,7 @@ import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
 import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
+import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 
 @Component({
   selector: 'app-progress',
@@ -28,7 +29,8 @@ export class ProgressComponent implements OnInit {
     private crud: CrudService,
     private navigate: NavigateService,
     private slideService: SlideService,
-    private currentService: CurrentService
+    private currentService: CurrentService,
+    private analytics: AngularFireAnalytics
   ) { }
 
   ngOnInit(): void {
@@ -95,13 +97,14 @@ export class ProgressComponent implements OnInit {
   }
 
   open(status: Status): void {
-    console.log(this.path)
     this.crud.update(this.path, this.course.id, this.currentService.current.value.course)
       .then(_ => {
         const lesson = {...this.currentService.current.value.lesson};
         const course = {...this.currentService.current.value.course};
         switch (status) {
           case Status.Start:
+            this.analytics.logEvent('lesson_start', {course: this.course.id, lesson: this.lesson.id})
+              .then().catch();
             course.info.status = Status.Resume;
             course.info.score = 100;
             course.info.updated_at = Date.now();
@@ -117,6 +120,8 @@ export class ProgressComponent implements OnInit {
             });
             break;
           case Status.Retake:
+            this.analytics.logEvent('lesson_retake', {course: this.course.id, lesson: this.lesson.id})
+              .then().catch();
             this.slideService.next({
               marker: 0,
               action: ACTIONS[this.lessonSlides[0].type],
