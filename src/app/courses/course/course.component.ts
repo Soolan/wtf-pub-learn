@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
 import {Info} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
+import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 
 @Component({
   selector: 'app-course',
@@ -29,7 +30,8 @@ export class CourseComponent implements OnInit {
     private crud: CrudService,
     public auth: AngularFireAuth,
     private route: ActivatedRoute,
-    public currentService: CurrentService
+    public currentService: CurrentService,
+    private analytics: AngularFireAnalytics
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +46,12 @@ export class CourseComponent implements OnInit {
       });
     this.loading = {course: true, lessons: true};
     this.auth.authState.subscribe({
-      next: user => this.userId = user?.uid,
+      next: user => {
+        if (user?.uid) {
+          this.userId = user?.uid;
+          this.analytics.setUserId(this.userId);
+        }
+      },
       error: err => console.log(err)
     });
   }
