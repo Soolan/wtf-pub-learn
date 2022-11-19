@@ -83,7 +83,9 @@
       }
       .lesson-heading {
         font-weight: 700;
-        padding: var(--space-xxs) var(--space-xs);
+        font-size: larger;
+        line-height: 1em;
+        padding-left: var(--space-xs);
         margin: 0;
       }
 
