@@ -122,6 +122,7 @@ export class ProgressComponent implements OnInit {
           case Status.Retake:
             this.analytics.logEvent('lesson_retake', {course: this.course.id, lesson: this.lesson.id})
               .then().catch();
+            // this.analytics.setUserProperties({});
             this.slideService.next({
               marker: 0,
               action: ACTIONS[this.lessonSlides[0].type],
