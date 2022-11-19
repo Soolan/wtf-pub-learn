@@ -22,7 +22,9 @@
           </ng-template>
         </div>
       </ng-template>
-      <div fxFlex="95" class="mat-body-2 description">{{course.description}}</div>
+      <div fxFlex="95" class="mat-body-2 description">
+        <markdown ngPreserveWhitespaces>{{course.description}}</markdown>
+      </div>
     </div>
   </div>
   <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-between start"
@@ -35,7 +37,7 @@
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between start">
         <div fxFlex class="avatar"
              [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
-        <div fxFlex="90" class="name mat-subheading-2">{{lesson.name}}</div>
+        <div fxFlex="90" class="lesson-heading mat-subheading-1">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
       <div fxFlex="30" *ngIf="(auth.user | async) && lesson ; else guest">
