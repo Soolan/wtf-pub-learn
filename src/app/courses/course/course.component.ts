@@ -76,6 +76,8 @@ export class CourseComponent implements OnInit {
           .map(doc => {
             return {id: doc.id, ...doc.data()}
           });
+        this.lessons.sort((a, b) => {return b.order - a.order});
+
         this.loading.lessons = false;
       })
       .catch()
