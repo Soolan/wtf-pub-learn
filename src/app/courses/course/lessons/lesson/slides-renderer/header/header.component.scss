@@ -1,6 +1,8 @@
 .header {
+  padding: var(--space-xxxs) 0;
   background-color: var(--color-primary-dark);
   color: var(--color-primary-light);
+  margin-bottom: var(--space-sm);
   .exit {
     cursor: pointer;
     .mat-icon {
