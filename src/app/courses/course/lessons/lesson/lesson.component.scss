@@ -1,5 +1,5 @@
 .content {
-  height: 100vh;
+  min-height: 100vh;
   .loading {
     min-height: var(--space-xl);
     margin: var(--space-xxl) auto;
@@ -7,9 +7,10 @@
       margin: 0 auto;
     }
   }
+  .header {
+    z-index: 5;
+  }
   .fullwidth {
     width: 100vw;
   }
 }
-
-

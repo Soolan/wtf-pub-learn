@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
@@ -23,6 +23,7 @@ export class LessonComponent implements OnInit {
   slides!: Slide[];
   loading = true;
   levels = LEVELS;
+  isLandscape = window.matchMedia("(orientation: landscape)");
 
   constructor(
     private crud: CrudService,
@@ -46,11 +47,22 @@ export class LessonComponent implements OnInit {
       // ToDo: show a dialog
       console.log('lesson not found!');
     }
+    this.isLandscape.addEventListener("change", _ => {
+      console.log("landscape orientation", this.isLandscape.matches);
+    });
   }
 
   ngOnInit(): void {
     this.setNames();
+    // this.isLandscape = window.innerWidth > window.innerHeight;
+    // console.log(window.innerWidth, window.innerHeight, this.isLandscape)
   }
+
+  // @HostListener('window:orientationchange', ['$event'])
+  // onOrientationChange() {
+  //   this.isLandscape = window.innerWidth > window.innerHeight;
+  //   console.log(window.innerWidth, window.innerHeight, this.isLandscape)
+  // }
 
   initSlides(): void {
     const query = {...SLIDES};
