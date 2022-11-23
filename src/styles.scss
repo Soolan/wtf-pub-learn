@@ -266,6 +266,14 @@ strong, em, a, .tooltip, .answer {
     position: relative;
     display: inline-block;
   }
+
+  button {
+    min-height: var(--space-lg) !important;
+    float: right;
+    .mat-icon {
+      color: white !important;
+    }
+  }
 }
 
 
