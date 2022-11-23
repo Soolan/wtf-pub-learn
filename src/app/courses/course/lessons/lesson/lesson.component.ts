@@ -54,15 +54,7 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNames();
-    // this.isLandscape = window.innerWidth > window.innerHeight;
-    // console.log(window.innerWidth, window.innerHeight, this.isLandscape)
   }
-
-  // @HostListener('window:orientationchange', ['$event'])
-  // onOrientationChange() {
-  //   this.isLandscape = window.innerWidth > window.innerHeight;
-  //   console.log(window.innerWidth, window.innerHeight, this.isLandscape)
-  // }
 
   initSlides(): void {
     const query = {...SLIDES};

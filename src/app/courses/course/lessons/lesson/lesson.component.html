@@ -1,5 +1,5 @@
 <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between center" class="content">
-  <app-renderer-header [fxFlex]="isLandscape.matches ? 20 : 11" class="fullwidth header" *ngIf="slides"
+  <app-renderer-header fxFlex class="fullwidth" *ngIf="slides"
                        [count]="slides.length"
                        [course]="course"
                        [lesson]="lesson"
@@ -14,7 +14,7 @@
                            [slides]="slides"></app-slides-renderer>
     </ng-template>
   </div>
-  <app-renderer-footer [fxFlex]="isLandscape.matches ? 15 : 11" class="fullwidth" *ngIf="slides"
+  <app-renderer-footer fxFlex="12" class="fullwidth" *ngIf="slides"
                        [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
   ></app-renderer-footer>
 </div>
