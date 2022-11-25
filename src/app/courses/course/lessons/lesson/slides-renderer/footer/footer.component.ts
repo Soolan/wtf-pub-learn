@@ -9,7 +9,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/collections';
 import firebase from 'firebase/compat';
-import {Course, Info, Lesson} from '../../../../../../shared/models/profile';
+import {Lesson} from '../../../../../../shared/models/profile';
 import {CurrentService} from '../../../../../../shared/services/current.service';
 import DocumentReference = firebase.firestore.DocumentReference;
 
@@ -41,7 +41,7 @@ export class FooterComponent implements OnInit {
   constructor(
     private crud: CrudService,
     private auth: AngularFireAuth,
-    private slideService: SlideService,
+    public slideService: SlideService,
     private currentService: CurrentService
   ) {
     this.auth.currentUser
@@ -61,6 +61,7 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.slideService.ui.subscribe({
       next: data => {
+        this.response = '';
         this.ui = data;
         this.initSlideType(data.marker);
         this.setResponse(data.response);
@@ -76,9 +77,9 @@ export class FooterComponent implements OnInit {
   }
 
   setResponse(response: string): void {
-    this.response = '';
     setTimeout(_ => {
       this.response = response;
+      console.log(this.response)
     }, 200)
   }
 
