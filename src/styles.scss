@@ -241,6 +241,10 @@ strong, em, a, .tooltip, .answer {
   font-size: 19px;
 }
 
+h1 strong, h1 em, h2 strong, h2 em, h3 strong, h3 em, h4 strong, h4 em {
+  font-size: inherit;
+}
+
 .response{
   a {
     font-weight: bold;
