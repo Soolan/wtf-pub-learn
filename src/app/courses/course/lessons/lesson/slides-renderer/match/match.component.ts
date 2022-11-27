@@ -61,6 +61,7 @@ export class MatchComponent implements OnChanges {
 
   private initClicks(): void {
     for (let answer of this.answersRef.nativeElement.children) {
+      console.log(answer);
       this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText))
     }
   }
@@ -68,6 +69,7 @@ export class MatchComponent implements OnChanges {
   private check(answerDom: any, answer: string): void {
     const correct = this.matches.find(match => match.question === this.questions[this.index])?.answer;
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
+    console.log(answer, correct, answer === correct)
     if (answer === correct) {
       this.index++;
       this.bottom += this.index * this.index;
