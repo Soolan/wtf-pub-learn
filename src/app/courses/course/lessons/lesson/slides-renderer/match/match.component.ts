@@ -71,7 +71,7 @@ export class MatchComponent implements OnChanges {
     if (answer === correct) {
       this.index++;
       this.bottom += this.index * this.index;
-      console.log(this.index, this.bottom);
+      console.log(answer, correct, this.index);
       this.slideService.matchColumns(questionDom, answerDom, this.index);
       // this.slideRenderer.addChild();
       if (this.index >= this.answers.length) {

@@ -232,7 +232,6 @@ export class SlideService {
 
     const styles: Style[] = [
       {name: 'box-shadow', value: '0 0 0px 0px var(--color-greye)'},
-      {name: 'color', value: 'var(--color-primary-light)'},
       {name: 'position', value: 'absolute'},
       {
         name: 'transition',
@@ -242,6 +241,7 @@ export class SlideService {
 
     const questionStyles: Style[] = styles.concat([
       {name: 'background', value: 'var(--color-primary-dark)'},
+      {name: 'color', value: 'var(--color-primary-light)'},
       {name: 'z-index', value: '20'},
       {name: 'transform', value: `translate(${transX.right}, 0)`},
     ]);
@@ -249,6 +249,7 @@ export class SlideService {
 
     const answerStyles: Style[] = styles.concat([
       {name: 'background', value: 'var(--color-primary)'},
+      {name: 'color', value: 'var(--color-primary-lighter)'},
       {name: 'z-index', value: '15'},
       {name: 'cursor', value: 'default'},
       {name: 'transform', value: `translate(${transX.left}, 0)`},
