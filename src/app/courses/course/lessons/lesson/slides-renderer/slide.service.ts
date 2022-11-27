@@ -225,7 +225,6 @@ export class SlideService {
 
 
   matchColumns(question: any, answer: any, index: number) {
-    console.log(index)
     const width = window.innerWidth;
     let transX: TransX;
     transX = SlideService.getTransX(width);

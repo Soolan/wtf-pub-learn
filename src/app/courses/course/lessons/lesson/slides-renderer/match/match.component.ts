@@ -69,13 +69,11 @@ export class MatchComponent implements OnChanges {
   private check(answerDom: any, answer: string): void {
     const correct = this.matches.find(match => match.question === this.questions[this.index])?.answer;
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
-    console.log(answer, correct, answer === correct)
     if (answer === correct) {
       this.index++;
       this.bottom += this.index * this.index;
       console.log(answer, correct, this.index);
       this.slideService.matchColumns(questionDom, answerDom, this.index);
-      // this.slideRenderer.addChild();
       if (this.index >= this.answers.length) {
         this.markAsCompleted();
       }
