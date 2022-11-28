@@ -5,10 +5,10 @@
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.margin-bottom]="'var(--space-md)'"></div>
-      <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2">{{text}}</markdown>
+      <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text"></markdown>
   </div>
   <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2">{{text}}</markdown>
+    <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text"></markdown>
     <div fxFlex="100" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
@@ -16,7 +16,7 @@
          [style.margin-top]="'var(--space-md)'"></div>
   </div>
   <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <markdown ngPreserveWhitespaces  fxFlex="69" fxFlex.lt-md="64" class="mat-body-2">{{text}}</markdown>
+    <markdown ngPreserveWhitespaces  fxFlex="69" fxFlex.lt-md="64" class="mat-body-2" [data]="text"></markdown>
     <div fxFlex="30" fxFlex.lt-md="35" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
@@ -29,9 +29,10 @@
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.min-height]="'13em'"></div>
-    <markdown ngPreserveWhitespaces fxFlex="69" fxFlex.lt-md="64" class="mat-body-2">{{text}}</markdown>
+    <markdown ngPreserveWhitespaces fxFlex="69" fxFlex.lt-md="64" class="mat-body-2" [data]="text"></markdown>
   </div>
 </ng-container>
 <ng-template #text_only>
   <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2">{{text}}</markdown>
 </ng-template>
+
