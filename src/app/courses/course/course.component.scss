@@ -11,11 +11,12 @@
   }
 }
 .content {
-  .course, .summary {
+  .course {
     min-height: 10em;
     background-color: var(--color-greye);
     margin-bottom: 2em;
     .image {
+      border-bottom: 1px solid var(--color-grey9);
       min-height: 15em;
       @media screen and (max-width: 600px){
         min-height: 8em;
@@ -27,7 +28,7 @@
       position: relative;
       height: 4em;
       width: 4em;
-      top: -2em;
+      top: -2.15em;
       right: 2em;
       @media screen and (max-width: 600px){
         height: 2em;
@@ -37,8 +38,9 @@
       }
       background-color: var(--color-greye);
       background-repeat: no-repeat;
-      background-size: contain;
-      border: 1px dashed;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid;
       border-radius: 50%;
     }
     .heading {
@@ -79,9 +81,11 @@
           width: var(--space-md);
         }
       }
-      .name {
+      .lesson-heading {
         font-weight: 700;
-        padding: var(--space-xxs) var(--space-xs);
+        font-size: larger;
+        line-height: 1em;
+        padding-left: var(--space-xs);
         margin: 0;
       }
 
@@ -110,6 +114,22 @@
     }
     .lesson:hover {
       background-color: var(--color-greye);
+    }
+    .summary {
+      background-color: var(--color-greye);
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md);
+      .mat-icon {
+        position: relative;
+        top: 4.5px;
+      }
+      .mat-divider {
+        margin-bottom: var(--space-sm);
+      }
+      .result {
+        margin-top: var(--space-lg);
+        text-align: center;
+      }
     }
   }
 }

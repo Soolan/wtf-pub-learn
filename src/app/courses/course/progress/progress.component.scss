@@ -38,12 +38,9 @@
 
   .score {
     margin: var(--space-sm) 0;
-    p {
-      color: var(--color-grey7);
-    }
-    span {
+    color: var(--color-grey7);
+    strong {
       color: var(--color-primary);
-      font-weight: 700;
     }
   }
 }

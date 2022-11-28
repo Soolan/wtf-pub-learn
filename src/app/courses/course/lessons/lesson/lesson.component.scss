@@ -1,5 +1,5 @@
 .content {
-  height: 100vh;
+  min-height: 99vh;
   .loading {
     min-height: var(--space-xl);
     margin: var(--space-xxl) auto;
@@ -7,9 +7,8 @@
       margin: 0 auto;
     }
   }
+
   .fullwidth {
     width: 100vw;
   }
 }
-
-

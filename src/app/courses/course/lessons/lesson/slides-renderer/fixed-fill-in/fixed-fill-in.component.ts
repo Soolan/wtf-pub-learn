@@ -50,13 +50,13 @@ export class FixedFillInComponent implements OnChanges {
   }
 
   check(answer: string, $event: Event): void {
+    this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
+    this.updateUI();
     this.blank = document.getElementsByClassName('blank1')[0];
     this.isCorrect = this.answer === answer;
     if ($event.target) {
       this.isCorrect ? this.markAsComplete($event.target, answer) : this.slideService.markAsIncorrect($event.target);
     }
-    this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
-    this.updateUI();
   }
 
   markAsComplete(button: EventTarget, answer: string) {
