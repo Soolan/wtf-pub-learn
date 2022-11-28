@@ -3,6 +3,6 @@
     <input formControlName="blank_field" #input_field>
   </span>
   <ng-template #text>
-    <markdown ngPreserveWhitespaces class="mat-body-2 chunk">{{chunk}}</markdown>
+    <span><markdown ngPreserveWhitespaces class="mat-body-2 chunk" [inline]="true">{{chunk}}</markdown></span>
   </ng-template>
 </ng-container>
