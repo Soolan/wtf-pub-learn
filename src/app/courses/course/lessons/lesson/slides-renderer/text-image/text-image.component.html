@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="content.position" *ngIf="content.image; else text_only">
-  <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" #my_fucking_mark>
     <div fxFlex="100" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
@@ -8,7 +8,7 @@
       <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text"></markdown>
   </div>
   <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text"></markdown>
+    <markdown ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text" ></markdown>
     <div fxFlex="100" class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
