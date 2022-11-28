@@ -1,13 +1,10 @@
 import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 import {Position} from '../../../../../../shared/data/enums';
-import {Answer, Option, OptionSet} from '../../../../../../shared/models/slide';
+import {Answer, Option, OptionSet, SlideButton} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 
-export interface SlideButton {
-  dom: any;
-  active: boolean;
-}
+
 
 @Component({
   selector: 'app-multiple-choice',
@@ -70,7 +67,6 @@ export class MultipleChoiceComponent implements OnInit, AfterViewInit {
     );
     let isSingle = this.slideService.isSingleColumn(this.options);
     this.set = {isActive, options, isSingle};
-    console.log(this.set);
   }
 
   initOptions(): void {
@@ -106,7 +102,7 @@ export class MultipleChoiceComponent implements OnInit, AfterViewInit {
   markAsComplete(button: EventTarget): void {
     this.slideButtons.forEach(button => {
       if (button.active) this.slideService.markAsDisabled(button.dom);
-    })
+    });
     this.isCompleted = true;
     this.slideService.markAsCorrect(button);
   }

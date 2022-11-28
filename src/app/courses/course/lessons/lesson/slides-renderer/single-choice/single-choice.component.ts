@@ -1,11 +1,10 @@
-import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 import {SLIDE_UP} from '../../../../../../shared/animations/slide-up';
 import {Position} from '../../../../../../shared/data/enums';
-import {OptionSet, Option} from '../../../../../../shared/models/slide';
+import {OptionSet, Option, SlideButton} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 import {SLIDE_LEFT} from '../../../../../../shared/animations/slide-left';
-import {CurrentService} from '../../../../../../shared/services/current.service';
 
 @Component({
   selector: 'app-single-choice',
@@ -13,7 +12,7 @@ import {CurrentService} from '../../../../../../shared/services/current.service'
   styleUrls: ['./single-choice.component.scss', '../slide.scss'],
   animations: [SLIDE_LEFT, SLIDE_UP, FADE_IN_OUT],
 })
-export class SingleChoiceComponent implements OnChanges {
+export class SingleChoiceComponent implements OnInit, AfterViewInit {
   @Input() slide: any;
   @ViewChild('optionSet') optionSetRef!: ElementRef;
 
@@ -24,15 +23,20 @@ export class SingleChoiceComponent implements OnChanges {
   response = '';
   isCorrect = false;
   isCompleted = false;
+  slideButtons: SlideButton[] = [];
 
   constructor(private slideService: SlideService) { }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnInit(): void {
     this.reset();
     this.initOptionSet();
+  }
+
+  ngAfterViewInit(): void {
     if (this.optionSetRef) {
       for (let child of this.optionSetRef.nativeElement.children) {
         this.slideService.resetButtonStyles(child);
+        this.slideButtons.push({dom: child, active: true})
       }
     }
   }
@@ -57,6 +61,8 @@ export class SingleChoiceComponent implements OnChanges {
     this.isCorrect = this.answer === answer;
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     if ($event.target) {
+      // @ts-ignore
+      this.slideButtons.find((element: any) => element.dom === $event.target).active = false;
       this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsIncorrect($event.target);
     }
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
@@ -64,6 +70,9 @@ export class SingleChoiceComponent implements OnChanges {
   }
 
   markAsComplete(button: EventTarget) {
+    this.slideButtons.forEach(button => {
+      if (button.active) this.slideService.markAsDisabled(button.dom);
+    });
     this.isCompleted = true;
     this.slideService.markAsCorrect(button);
     this.updateUI();

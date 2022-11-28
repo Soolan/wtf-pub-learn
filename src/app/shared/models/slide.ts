@@ -11,6 +11,11 @@ export interface SlideImage {
   url: string;
 }
 
+export interface SlideButton {
+  dom: any;
+  active: boolean;
+}
+
 export interface OptionSet {
   isActive: boolean;
   isSingle: boolean;
