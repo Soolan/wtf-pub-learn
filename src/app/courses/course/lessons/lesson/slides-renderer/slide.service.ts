@@ -3,6 +3,10 @@ import {BehaviorSubject} from 'rxjs';
 import {Slide, SlideHeaderFooter, Style, TransX} from '../../../../../shared/models/slide';
 import {ACTIONS, OPTIONS_BREAKPOINT} from '../../../../../shared/data/generic';
 import {SlideType} from '../../../../../shared/data/enums';
+import {CrudService} from '../../../../../shared/services/crud.service';
+import {CurrentService} from '../../../../../shared/services/current.service';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {COURSES, LESSONS, PROFILES} from '../../../../../shared/data/collections';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +18,15 @@ export class SlideService {
   actionMessage!: string;
   renderer: Renderer2;
   negate: number = -1;
+  userId!: string | undefined;
 
-  constructor(private rendererFactory: RendererFactory2) {
+  constructor(
+    private crud: CrudService,
+    private auth: AngularFireAuth,
+    private currentService: CurrentService,
+    private rendererFactory: RendererFactory2
+  ) {
+    this.auth.currentUser.then(user => this.userId = user?.uid).catch();
     // Get an instance of Renderer2 and initialize the renderer
     // Currently this is the only way to init Renderer2 in a service
     this.renderer = rendererFactory.createRenderer(null, null);
@@ -94,6 +105,17 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
+    if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
+  }
+
+  updateScore(): void {
+    const current = {...this.currentService.current.value};
+    current.lesson.info.score -= current.points;
+    this.currentService.next(current);
+    const path: string = `${PROFILES.path}/${this.userId}/${COURSES.path}/${current.courseId}/${LESSONS.path}`;
+    const progressRef = this.crud.docRef(path, current.lessonId);
+
+    progressRef.update(current.lesson).then().catch();
   }
 
   markAsCorrect(button: EventTarget): void {
@@ -103,7 +125,7 @@ export class SlideService {
     this.renderer.appendChild(button, span);
   }
 
-  private setIcon(icon: string): void {
+  private setIcon(icon: string): any {
     const span = this.renderer.createElement('span');
     this.renderer.setStyle(span, 'vertical-align', 'middle');
     this.renderer.addClass(span, 'material-icons');
@@ -159,8 +181,9 @@ export class SlideService {
     const rotate = direction === 'right' ? 4 : -4;
     this.renderer.setStyle(element, 'transition', 'transform 0.2s ease-out');
     this.renderer.setStyle(element, 'transform', `translateX(${translate}%) rotate(${rotate}deg)`);
+    if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
     setTimeout(() => {
-      this.renderer.setStyle(element, 'transform', `translateX(${translate-translate}%) rotate(${rotate-rotate}deg)`);
+      this.renderer.setStyle(element, 'transform', `translateX(${translate - translate}%) rotate(${rotate - rotate}deg)`);
     }, 800)
   }
 
@@ -169,6 +192,7 @@ export class SlideService {
   }
 
   shake(element: EventTarget): void {
+    if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
     this.renderer.addClass(element, 'shake');
   }
 
@@ -177,7 +201,6 @@ export class SlideService {
       this.renderer.removeChild(node.nativeElement, child);
     }
   }
-
 
   addChild(node: ElementRef, text: string) {
     const content = this.renderer.createText(text);
@@ -202,20 +225,22 @@ export class SlideService {
 
 
   matchColumns(question: any, answer: any, index: number) {
-    console.log(index)
     const width = window.innerWidth;
     let transX: TransX;
     transX = SlideService.getTransX(width);
 
     const styles: Style[] = [
       {name: 'box-shadow', value: '0 0 0px 0px var(--color-greye)'},
-      {name: 'color', value: 'var(--color-primary-light)'},
       {name: 'position', value: 'absolute'},
-      {name: 'transition', value: 'background 0.15s , color 0.15s, box-shadow 0.55s 0.2s, transform 0.3s 0.1s, top 0.4s 0.1s'},
+      {
+        name: 'transition',
+        value: 'background 0.15s , color 0.15s, box-shadow 0.55s 0.2s, transform 0.3s 0.1s, top 0.4s 0.1s'
+      },
     ];
 
     const questionStyles: Style[] = styles.concat([
       {name: 'background', value: 'var(--color-primary-dark)'},
+      {name: 'color', value: 'var(--color-primary-light)'},
       {name: 'z-index', value: '20'},
       {name: 'transform', value: `translate(${transX.right}, 0)`},
     ]);
@@ -223,6 +248,7 @@ export class SlideService {
 
     const answerStyles: Style[] = styles.concat([
       {name: 'background', value: 'var(--color-primary)'},
+      {name: 'color', value: 'var(--color-primary-lighter)'},
       {name: 'z-index', value: '15'},
       {name: 'cursor', value: 'default'},
       {name: 'transform', value: `translate(${transX.left}, 0)`},

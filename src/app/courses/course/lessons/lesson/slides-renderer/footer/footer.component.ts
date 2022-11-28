@@ -10,6 +10,7 @@ import {CrudService} from '../../../../../../shared/services/crud.service';
 import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/collections';
 import firebase from 'firebase/compat';
 import {Lesson} from '../../../../../../shared/models/profile';
+import {CurrentService} from '../../../../../../shared/services/current.service';
 import DocumentReference = firebase.firestore.DocumentReference;
 
 @Component({
@@ -29,24 +30,28 @@ export class FooterComponent implements OnInit {
   hintFillInSlide = false;
   ui!: SlideHeaderFooter;
   userId!: string | undefined;
-  progressRef!: DocumentReference;
+
+  lessonRef!: DocumentReference;
   lessonProgress!: Lesson;
+  lessonPath!: string;
+
+  courseRef!: DocumentReference;
+  coursePath!: string;
 
   constructor(
     private crud: CrudService,
     private auth: AngularFireAuth,
-    private slideService: SlideService,
+    public slideService: SlideService,
+    private currentService: CurrentService
   ) {
     this.auth.currentUser
       .then(user => {
         this.userId = user?.uid;
-        if(this.userId) {
-          const path = `${PROFILES.path}/${this.userId}/${P_COURSES.path}/${this.courseId}/${P_LESSONS.path}`;
-          this.progressRef = this.crud.docRef(path, this.lessonId);
-          this.progressRef.get()
-            .then(snap => this.lessonProgress = snap.data() as Lesson)
-            .catch()
-          ;
+        if (this.userId) {
+          this.coursePath = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
+          this.lessonPath = `${this.coursePath}/${this.courseId}/${P_LESSONS.path}`;
+          this.lessonRef = this.crud.docRef(this.lessonPath, this.lessonId);
+          this.lessonRef.get().then(snap => this.lessonProgress = snap.data() as Lesson).catch();
         }
       })
       .catch()
@@ -56,6 +61,7 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.slideService.ui.subscribe({
       next: data => {
+        this.response = '';
         this.ui = data;
         this.initSlideType(data.marker);
         this.setResponse(data.response);
@@ -71,43 +77,67 @@ export class FooterComponent implements OnInit {
   }
 
   setResponse(response: string): void {
-    this.response = '';
     setTimeout(_ => {
       this.response = response;
+      console.log(this.response)
     }, 200)
   }
 
   move(forward: boolean): void {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
-    console.log(forward, index);
-    this.slideService.next({
-      marker: index,
-      action: ACTIONS[this.slideService.slides[index].type],
-      response: '',
-      correct: false,
-      completed: false
-    })
-    console.log(this.lessonProgress.current_slide, index)
-    if(this.userId && forward && index > this.lessonProgress.current_slide) {
-      this.lessonProgress.info.updated_at = Date.now();
-      this.lessonProgress.current_slide ++;
-      this.lessonProgress.info.status =
-        this.lessonProgress.current_slide == this.totalSlides -1 ?
-          Status.Retake:
-          Status.Resume;
-      this.progressRef.update(this.lessonProgress);
+    const action = ACTIONS[this.slideService.slides[index].type];
+    this.slideService.next({marker: index, action, response: '', correct: false, completed: false});
+
+    if (this.userId && forward && index > this.lessonProgress.current_slide) {
+      this.updateLessonProgress();
+      if (this.lessonProgress.info.status == Status.Retake) {
+        this.allPassed();
+      }
     }
   }
 
   hint(): void {
     // @ts-ignore
     const hint = this.slideService.slides[this.slideService.markerIndex].content['hint'];
-    this.slideService.next({
-      marker: this.ui.marker,
-      action: this.ui.action,
-      response: hint,
-      correct: false,
-      completed: false
-    })
+    this.slideService.next(
+      {marker: this.ui.marker, action: this.ui.action, response: hint, correct: false, completed: false}
+    )
+  }
+
+  updateLessonProgress(): void {
+    this.lessonProgress.info.updated_at = Date.now();
+    this.lessonProgress.current_slide++;
+    this.lessonProgress.info.status =
+      this.lessonProgress.current_slide == this.totalSlides - 1 ? Status.Retake : Status.Resume;
+    const current = {...this.currentService.current.value};
+    current.lesson = this.lessonProgress;
+    this.currentService.current.next(current);
+    this.lessonRef.update(this.lessonProgress).then().catch();
+  }
+
+  allPassed(): void {
+    let passed = false;
+    let total = 0;
+    let index = 0;
+    this.crud.colRef(this.lessonPath).get()
+      .then(snap => {
+        snap.docs.forEach(doc => {
+          passed = doc.data().info.status == Status.Retake;
+          if (passed) total += doc.data().info.score;
+          index ++;
+        });
+        if (passed) this.updateCourseProgress(total/index);
+      })
+      .catch()
+    ;
+  }
+
+  updateCourseProgress(score: number): void {
+    const info = {updated_at: Date.now(), status: Status.Retake, score: score};
+    const current = {...this.currentService.current.value};
+    current.course.info = info;
+    this.currentService.current.next(current);         // update service
+    this.courseRef = this.crud.docRef(this.coursePath, this.courseId);
+    this.courseRef.update({info}).then().catch(); // update firestore
   }
 }

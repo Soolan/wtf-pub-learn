@@ -1,5 +1,5 @@
 <div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-  <ng-container [ngSwitch]="lessonStatus">
+  <ng-container [ngSwitch]="current.lesson.info.status">
     <div *ngSwitchCase="status.Start" fxFlex="100">
       <button mat-flat-button color="primary" (click)="open(status.Start)" class="start" fxFlex>
         {{statuses[status.Start].toUpperCase()}}
@@ -13,7 +13,7 @@
       </button>
       <div fxFlex="90" class="markers">
         <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
-              [style.background-color]="i <= currentSlide ? 'var(--color-accent-light)' : ''">
+              [style.background-color]="i <= current.lesson.current_slide ? 'var(--color-accent-light)' : ''">
         </span>
       </div>
     </div>
@@ -23,31 +23,9 @@
         <mat-icon>refresh</mat-icon>
       </button>
       <div fxFlex="90" class="score">
-        <span>score: {{lessonScore}}</span>
-        <p class="mat-caption">{{lessonUpdate | date: 'EEEE, MMM d, y'}}</p>
+        <span>SCORE: <strong>{{current.lesson.info.score}}</strong>%</span>
+        <p class="mat-caption">{{current.lesson.info.updated_at | date: 'EEEE, MMM d, y'}}</p>
       </div>
     </div>
   </ng-container>
 </div>
-
-
-<!-- Are they taking the course again? -->
-<!--      <div fxFlex="70" fxFlex.lt-md="65" class="score" *ngIf="progress.grade>-->
-<!--        <p>-->
-<!--          Previous score ({{progress.updated_at | date: 'longDate'}}):-->
-<!--          <span [ngStyle]="{color: (progress.score>50)?'var(&#45;&#45;color-primary)':'var(&#45;&#45;color-warn)'}">{{progress.score}}-->
-<!--            /100</span>-->
-<!--        </p>-->
-<!--      </div>-->
-
-<!--    <ng-container *ngSwitchCase="status.Retake">-->
-<!--      <div fxFlex="70" fxFlex.lt-lg="64" class="score">-->
-<!--        <strong>Passed</strong>-->
-<!--        <mat-icon>done</mat-icon>-->
-<!--        <p class="mat-caption">{{progress.updated_at | date: 'longDate'}}</p>-->
-<!--        <span class="mat-caption" [ngStyle]="{color: (progress.score>50)?'var(&#45;&#45;color-primary)':'var(&#45;&#45;color-warn)'}">-->
-<!--            final score: {{progress.score}}/100-->
-<!--        </span>-->
-<!--      </div>-->
-<!--      <button fxFlex="29" fxFlex.lt-lg="35" mat-flat-button color="accent">{{statuses[progress.status]}}</button>-->
-<!--    </ng-container>-->

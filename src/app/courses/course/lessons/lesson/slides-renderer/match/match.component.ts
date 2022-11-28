@@ -61,6 +61,7 @@ export class MatchComponent implements OnChanges {
 
   private initClicks(): void {
     for (let answer of this.answersRef.nativeElement.children) {
+      console.log(answer);
       this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText))
     }
   }
@@ -71,9 +72,8 @@ export class MatchComponent implements OnChanges {
     if (answer === correct) {
       this.index++;
       this.bottom += this.index * this.index;
-      console.log(this.index, this.bottom);
+      console.log(answer, correct, this.index);
       this.slideService.matchColumns(questionDom, answerDom, this.index);
-      // this.slideRenderer.addChild();
       if (this.index >= this.answers.length) {
         this.markAsCompleted();
       }

@@ -1,6 +1,11 @@
 .header {
+  z-index: 5;
+  padding: var(--space-xxxs) 0;
   background-color: var(--color-primary-dark);
   color: var(--color-primary-light);
+  min-height: 85px;
+  max-height: 85px;
+  margin-bottom: var(--space-sm);
   .exit {
     cursor: pointer;
     .mat-icon {
