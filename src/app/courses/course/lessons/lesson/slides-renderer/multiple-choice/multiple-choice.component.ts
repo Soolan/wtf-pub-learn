@@ -5,7 +5,7 @@ import {Answer, Option, OptionSet} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 
 export interface SlideButton {
-  button: any;
+  dom: any;
   active: boolean;
 }
 
@@ -41,7 +41,7 @@ export class MultipleChoiceComponent implements OnInit, AfterViewInit {
     if (this.optionSetRef) {
       for (let child of this.optionSetRef.nativeElement.children) {
         this.slideService.resetButtonStyles(child);
-        this.slideButtons.push({button: child, active: true})
+        this.slideButtons.push({dom: child, active: true})
       }
     }
   }
@@ -87,7 +87,8 @@ export class MultipleChoiceComponent implements OnInit, AfterViewInit {
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
 
     if ($event.target){
-      console.log($event.target);
+      // @ts-ignore
+      this.slideButtons.find((element: any) => element.dom === $event.target).active = false;
       if (this.isCorrect) {
         this.correctAnswers ++;
         if (this.correctAnswers < this.answers.length) {
@@ -103,6 +104,9 @@ export class MultipleChoiceComponent implements OnInit, AfterViewInit {
   }
 
   markAsComplete(button: EventTarget): void {
+    this.slideButtons.forEach(button => {
+      if (button.active) this.slideService.markAsDisabled(button.dom);
+    })
     this.isCompleted = true;
     this.slideService.markAsCorrect(button);
   }
