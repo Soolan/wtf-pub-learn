@@ -1,8 +1,13 @@
-import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 import {Position} from '../../../../../../shared/data/enums';
 import {Answer, Option, OptionSet} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
+
+export interface SlideButton {
+  button: any;
+  active: boolean;
+}
 
 @Component({
   selector: 'app-multiple-choice',
@@ -10,7 +15,7 @@ import {SlideService} from '../slide.service';
   styleUrls: ['./multiple-choice.component.scss', '../slide.scss'],
   animations: [FADE_IN_OUT],
 })
-export class MultipleChoiceComponent implements OnChanges {
+export class MultipleChoiceComponent implements OnInit, AfterViewInit {
   @Input() slide: any;
   @ViewChild('optionSet') optionSetRef!: ElementRef;
 
@@ -22,16 +27,21 @@ export class MultipleChoiceComponent implements OnChanges {
   isCorrect = false;
   isCompleted = false;
   correctAnswers = 0;
+  slideButtons: SlideButton[] = [];
 
   constructor(private slideService: SlideService) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnInit(): void {
     this.reset();
     this.initAnswers();
     this.initOptionSet();
+  }
+
+  ngAfterViewInit(): void {
     if (this.optionSetRef) {
       for (let child of this.optionSetRef.nativeElement.children) {
         this.slideService.resetButtonStyles(child);
+        this.slideButtons.push({button: child, active: true})
       }
     }
   }
@@ -77,6 +87,7 @@ export class MultipleChoiceComponent implements OnChanges {
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
 
     if ($event.target){
+      console.log($event.target);
       if (this.isCorrect) {
         this.correctAnswers ++;
         if (this.correctAnswers < this.answers.length) {
