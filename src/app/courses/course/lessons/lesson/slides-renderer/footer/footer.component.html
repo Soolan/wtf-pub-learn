@@ -5,7 +5,7 @@
     <span>PREVIOUS</span>
   </button>
   <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="49"
-       fxLayout="row" fxLayoutAlign="space-between center" *ngIf="ui.completed || staticSlide">
+       fxLayout="row" fxLayoutAlign="space-between center" *ngIf="ui.completed || staticSlide || pollSlide">
     <button mat-flat-button color="primary" [@bounceInOut] fxFlex="100" (click)="move(true)">
       <span>NEXT</span>
       <mat-icon>arrow_forward</mat-icon>

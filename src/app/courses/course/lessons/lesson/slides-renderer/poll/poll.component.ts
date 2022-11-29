@@ -32,14 +32,19 @@ export class PollComponent implements OnInit {
 
   ngOnInit(): void {
     this.crud.docRef(POLLS.path, this.slide.id).get()
-      .then(snap => this.poll = snap.data())
+      .then(snap => {
+        this.poll = snap.data();
+        console.log(this.poll)
+      })
       .catch()
     ;
+
   }
 
   cast(index: number): void {
     this.poll.votes[index].count++;
     this.poll.timestamps.updated_at = Date.now();
+    console.log(this.poll)
     const vote: MyVote = {
       optionIndex: index,
       date: Date.now()
