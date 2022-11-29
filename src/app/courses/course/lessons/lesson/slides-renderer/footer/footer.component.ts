@@ -27,6 +27,7 @@ export class FooterComponent implements OnInit {
   width = 0;
   startSlide = false;
   staticSlide = false;
+  pollSlide = false;
   hintFillInSlide = false;
   ui!: SlideHeaderFooter;
   userId!: string | undefined;
@@ -73,13 +74,13 @@ export class FooterComponent implements OnInit {
   initSlideType(marker: number): void {
     this.startSlide = marker === SlideType.Start;
     this.staticSlide = this.slideService.slides[marker].type === SlideType.Static;
+    this.pollSlide = this.slideService.slides[marker].type === SlideType.Poll;
     this.hintFillInSlide = this.slideService.slides[marker].type === SlideType.HintFillIn;
   }
 
   setResponse(response: string): void {
     setTimeout(_ => {
       this.response = response;
-      console.log(this.response)
     }, 200)
   }
 

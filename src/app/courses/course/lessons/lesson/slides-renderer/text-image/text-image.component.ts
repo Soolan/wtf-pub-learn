@@ -33,10 +33,6 @@ export class TextImageComponent implements OnChanges, AfterViewInit{
       const width = tooltipInfo.getBoundingClientRect().width;
       const innerWidth = window.innerWidth;
       const marginLeft = right >= innerWidth ?  -(60 + width/3) + '% !important' : -70 + '%';
-      console.log(innerWidth, right, width, marginLeft);
-      // this.my_fucking_mark.nativeElement.style.marginLeft = marginLeft;
-      // console.log(this.my_fucking_mark.nativeElement.children[1].children[0].children[0].children[0], tooltipInfo.style.margin, tooltipInfo.className)
-      // this.my_fucking_mark.nativeElement.children[1].children[0].children[0].children[0].style.marginLeft = marginLeft;
       this.renderer.setStyle(tooltipInfo, 'margin-left', marginLeft);
     }
   }
