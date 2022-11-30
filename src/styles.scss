@@ -346,11 +346,11 @@ blockquote {
   margin: 0;
   padding: var(--space-sm);
   background-color: var(--color-accent-lightest);
-  border-radius: 5px;
+  border-radius: 4px;
   border-left: var(--space-xxs) solid var(--color-accent);
   color: var(--color-accent-dark);
 }
 
 blockquote p {
-  margin-bottom: 4px;
+  margin-bottom: 4px !important;
 }
