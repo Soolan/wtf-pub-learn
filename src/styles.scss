@@ -339,3 +339,18 @@ h1 strong, h1 em, h2 strong, h2 em, h3 strong, h3 em, h4 strong, h4 em {
 .tooltip:hover .tooltip-info {
   opacity: 1;
 }
+
+blockquote {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 21px;
+  margin: 0;
+  padding: var(--space-sm);
+  background-color: var(--color-accent-lightest);
+  border-radius: 5px;
+  border-left: var(--space-xxs) solid var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+blockquote p {
+  margin-bottom: 4px;
+}
