@@ -27,7 +27,6 @@ export class SwipeComponent implements OnChanges {
     setTimeout(() => {
       for (let child of this.cardsRef.nativeElement.children) {
         this.slideService.transformCard(child);
-        console.log(child)
       }
     }, 400);
 
@@ -45,6 +44,8 @@ export class SwipeComponent implements OnChanges {
   initCards(): void {
     this.cards = this.slide.content.cards;
     this.index = this.cards.length - 1;
+    // shuffle the cards
+    this.cards.sort(() => Math.random() - 0.5);
   }
 
   check(swipe: string): void {

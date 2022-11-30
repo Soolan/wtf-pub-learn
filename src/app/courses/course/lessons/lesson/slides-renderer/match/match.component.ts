@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
 import {Position} from '../../../../../../shared/data/enums';
 import {Card} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
@@ -61,7 +61,6 @@ export class MatchComponent implements OnChanges {
 
   private initClicks(): void {
     for (let answer of this.answersRef.nativeElement.children) {
-      console.log(answer);
       this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText))
     }
   }
@@ -72,7 +71,6 @@ export class MatchComponent implements OnChanges {
     if (answer === correct) {
       this.index++;
       this.bottom += this.index * this.index;
-      console.log(answer, correct, this.index);
       this.slideService.matchColumns(questionDom, answerDom, this.index);
       if (this.index >= this.answers.length) {
         this.markAsCompleted();
