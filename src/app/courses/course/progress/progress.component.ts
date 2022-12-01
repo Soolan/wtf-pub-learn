@@ -22,11 +22,12 @@ export class ProgressComponent implements OnInit {
 
   lessonSlides!: any[];
   status = Status;
-  current!: Current;
   coursePath!: string;
+  courseProgress!: Course;
   lessonPath!: string;
+  lessonProgress!: Lesson;
   currentSlide!: number;
-  lessonInfo!: Info;
+  loading = true;
 
   constructor(
     private crud: CrudService,
@@ -38,13 +39,11 @@ export class ProgressComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.current = this.currentService.current.value;
-    this.current.courseId = this.course.id;
-    this.current.lessonId = this.lesson.id;
     this.coursePath = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
     this.lessonPath = `${this.coursePath}/${this.course.id}/${P_LESSONS.path}`;
     this.initProgress();
-    this.initSlides()
+    this.initSlides();
+    console.log(this.userId);
   }
 
   initProgress() {
@@ -52,7 +51,7 @@ export class ProgressComponent implements OnInit {
       .then(snap => {
         const progress = snap.data();
         if (progress) {
-          this.current.course = progress;
+          this.courseProgress = progress;
           this.getLessonProgress();
         } else {
           this.setCourseProgress();
@@ -67,9 +66,8 @@ export class ProgressComponent implements OnInit {
       .then(snap => {
         if (snap) {
           const data = snap.data();
-          this.current.lesson = data;
-          this.currentSlide = data.currentSlide;
-          this.lessonInfo = data.info;
+          this.lessonProgress = data;
+          this.currentSlide = data.current_slide;
         } else {
           this.setLessonProgress();
         }
@@ -79,21 +77,20 @@ export class ProgressComponent implements OnInit {
   }
 
   setCourseProgress(): void {
-    this.current.course = {
+    this.courseProgress = {
       name: this.course.name, info: {
         status: Status.Start,
         score: 100,
         updated_at: Date.now()
       }
     };
-    this.currentService.next(this.current); // needed for the course summary section
-    this.crud.set(this.coursePath, this.course.id, this.current.course)
+    this.crud.set(this.coursePath, this.course.id, this.courseProgress)
       .then(_ => this.setLessonProgress())
       .catch(error => console.log(error));
   }
 
   setLessonProgress(): void {
-    this.current.lesson = {
+    this.lessonProgress = {
       name: this.lesson.name,
       current_slide: 0,
       info: {
@@ -102,8 +99,7 @@ export class ProgressComponent implements OnInit {
         updated_at: Date.now()
       }
     };
-    this.lessonInfo = this.current.lesson.info;
-    this.crud.set(`${this.coursePath}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id, this.current.lesson)
+    this.crud.set(`${this.coursePath}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id, this.lessonProgress)
       .then(_ => console.log("progress set for the first time."))
       .catch(error => console.log(error))
     ;
@@ -126,14 +122,15 @@ export class ProgressComponent implements OnInit {
   }
 
   open(status: Status): void {
+    // this.current = this.currentService.current.value;
     switch (status) {
       case Status.Start:
         this.analytics.logEvent('lesson_start', {course: this.course.id, lesson: this.lesson.id})
           .then().catch();
-        this.current.course.info.status = Status.Resume;
-        this.current.course.info.score = 100;
-        this.current.course.info.updated_at = Date.now();
-        this.crud.update(this.coursePath, this.course.id, this.current.course).then().catch();
+        this.courseProgress.info.status = Status.Resume;
+        this.courseProgress.info.score = 100;
+        this.courseProgress.info.updated_at = Date.now();
+        this.crud.update(this.coursePath, this.course.id, this.courseProgress).then().catch();
         break;
       case Status.Resume:
         this.slideService.next({
@@ -155,13 +152,22 @@ export class ProgressComponent implements OnInit {
           correct: false,
           completed: false
         });
-        this.current.lesson.current_slide = 1;
-        this.current.lesson.info.score = 100;
-        this.current.lesson.info.updated_at = Date.now();
-        this.crud.update(this.lessonPath, this.lesson.id, this.current.lesson).then().catch();
+        this.lessonProgress.current_slide = 1;
+        this.lessonProgress.info.score = 100;
+        this.lessonProgress.info.updated_at = Date.now();
+        this.crud.update(this.lessonPath, this.lesson.id, this.lessonProgress).then().catch();
         break;
     }
-    this.currentService.next(this.current);
-    this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)
+    this.currentService.next({
+      courseId: this.course.id,
+      course: this.courseProgress,
+      lessonId: this.lesson.id,
+      lesson: this.lessonProgress,
+      points: 0
+    });
+
+    console.log(this.lessonProgress, this.courseProgress, this.currentService.current.value);
+
+    // this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)
   }
 }

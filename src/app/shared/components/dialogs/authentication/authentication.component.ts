@@ -71,6 +71,13 @@ export class AuthenticationComponent implements AfterViewInit {
     // Return type determines whether we continue the redirect automatically
     // or whether we leave that to developer to handle.
     console.log(authResult);
+    setTimeout(authResult => {
+      this.handleProfile(authResult);
+    }, 100)
+    return false; // return true if you are redirecting somewhere after successful login
+  }
+
+  handleProfile(authResult: any): void {
     const profile = this.crud.docRef(PROFILES.path, authResult.user.uid);
 
     profile.get().then((docSnapshot) => {
@@ -92,7 +99,6 @@ export class AuthenticationComponent implements AfterViewInit {
       }
     });
     this.dialogRef.close();
-    return false; // return true if you are redirecting somewhere after successful login
   }
 
   linkAccount(provider: string): void {
