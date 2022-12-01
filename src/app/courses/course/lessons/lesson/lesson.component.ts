@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
@@ -23,6 +23,7 @@ export class LessonComponent implements OnInit {
   slides!: Slide[];
   loading = true;
   levels = LEVELS;
+  order!: number;
   isLandscape = window.matchMedia("(orientation: landscape)");
 
   constructor(
@@ -39,10 +40,6 @@ export class LessonComponent implements OnInit {
     this.lessonId = this.route.snapshot.paramMap.get('lessonId') || '';
     if (this.courseId && this.lessonId) {
       this.initSlides();
-      const current = {...this.currentService.current.value};
-      current.courseId = this.courseId;
-      current.lessonId = this.lessonId;
-      this.currentService.next(current);
     } else {
       // ToDo: show a dialog
       console.log('lesson not found!');
@@ -92,7 +89,10 @@ export class LessonComponent implements OnInit {
 
   setLessonName(): void {
     this.crud.docRef(`courses/${this.courseId}/lessons`, this.lessonId).get()
-      .then(lesson => this.lesson = lesson.data().name)
+      .then(lesson => {
+        this.lesson = lesson.data().name;
+        this.order = lesson.data().order;
+      })
       .catch(error => console.log(error))
     ;
   }

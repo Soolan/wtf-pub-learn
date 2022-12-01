@@ -23,6 +23,7 @@ export class FooterComponent implements OnInit {
   @Input() courseId!: any;
   @Input() lessonId!: any;
   @Input() totalSlides!: number;
+  @Input() order!: number;
   response!: string;
   width = 0;
   startSlide = false;
@@ -106,8 +107,8 @@ export class FooterComponent implements OnInit {
   }
 
   updateLessonProgress(): void {
-    this.lessonProgress.info.updated_at = Date.now();
     this.lessonProgress.current_slide++;
+    this.lessonProgress.info.updated_at = Date.now();
     this.lessonProgress.info.status =
       this.lessonProgress.current_slide == this.totalSlides - 1 ? Status.Retake : Status.Resume;
     const current = {...this.currentService.current.value};
