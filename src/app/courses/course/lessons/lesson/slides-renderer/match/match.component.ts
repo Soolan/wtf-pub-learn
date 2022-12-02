@@ -3,6 +3,10 @@ import {Position} from '../../../../../../shared/data/enums';
 import {Card} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 
+export interface MatchStatus {
+  question: any;
+  answered: boolean;
+}
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
@@ -19,6 +23,7 @@ export class MatchComponent implements OnChanges {
   index = 0;
   questions!: string[];
   answers!: string[];
+  pending!: string[];
   isCompleted = false;
   bottom = 0;
 
@@ -57,26 +62,43 @@ export class MatchComponent implements OnChanges {
     // shuffle the questions & answers
     this.answers.sort(() => Math.random() - 0.5);
     this.questions.sort(() => Math.random() - 0.5);
+    this.pending = {...this.questions}; // save a questions copy to pending, not a reference
   }
 
   private initClicks(): void {
-    for (let answer of this.answersRef.nativeElement.children) {
-      this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText))
-    }
+    this.questionsRef.nativeElement.children.forEach((question:any, index: number) => {
+      this.renderer.listen(question, 'click', () => {
+        this.index = index;
+      });
+    });
+
+    this.answersRef.nativeElement.children.forEach((answer: any) => {
+      this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText));
+    });
   }
 
   private check(answerDom: any, answer: string): void {
     const correct = this.matches.find(match => match.question === this.questions[this.index])?.answer;
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
     if (answer === correct) {
-      this.index++;
       this.bottom += this.index * this.index;
       this.slideService.matchColumns(questionDom, answerDom, this.index);
-      if (this.index >= this.answers.length) {
-        this.markAsCompleted();
-      }
+      this.setIndex();
     } else {
       this.slideService.shake(answerDom);
+    }
+  }
+
+  private setIndex(): void {  // [0,1,2,3]
+    if (this.pending.length == 0) {
+      this.markAsCompleted();
+      return;
+    }
+    this.pending.splice(this.index, 1);
+    if(this.pending[this.index]) {
+      this.index ++;
+    } else {
+
     }
   }
 
