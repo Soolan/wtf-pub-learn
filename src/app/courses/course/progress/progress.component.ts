@@ -166,8 +166,6 @@ export class ProgressComponent implements OnInit {
       points: 0
     });
 
-    console.log(this.lessonProgress, this.courseProgress, this.currentService.current.value);
-
-    // this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)
+    this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)
   }
 }
