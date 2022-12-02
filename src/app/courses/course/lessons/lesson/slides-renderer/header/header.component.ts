@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigateService} from '../../../../../../shared/services/navigate.service';
 import {ToggleHeaderFooterService} from '../../../../../../shared/services/toggle-header-footer.service';
 import {ACTIONS} from '../../../../../../shared/data/generic';
+import {Current, CurrentService} from '../../../../../../shared/services/current.service';
 
 @Component({
   selector: 'app-renderer-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   hover = false;
   constructor(
     private headerFooter: ToggleHeaderFooterService,
+    private currentService: CurrentService,
     public slideService: SlideService,
     private navigate: NavigateService,
     private route: ActivatedRoute
@@ -60,8 +62,18 @@ export class HeaderComponent implements OnInit {
   }
 
   exit(): void {
+    this.resetCurrent();
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);
+  }
+
+  resetCurrent(): void {
+    const current: Current = this.currentService.current.value;
+    current.lessonId = '';
+    current.lesson.name = '';
+    current.lesson.current_slide = 0;
+    current.points = 0;
+    this.currentService.next(current);
   }
 }
