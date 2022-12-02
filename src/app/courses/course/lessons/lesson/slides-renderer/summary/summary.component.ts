@@ -41,6 +41,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   }
 
   bye(): void {
+    this.currentService.reset();
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);

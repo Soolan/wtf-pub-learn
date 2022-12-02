@@ -35,4 +35,13 @@ export class CurrentService {
   next(snapshot: Current): void {
     this.current.next(snapshot);
   }
+
+  reset(): void {
+    const current: Current = this.current.value;
+    current.lessonId = '';
+    current.lesson.name = '';
+    current.lesson.current_slide = 0;
+    current.points = 0;
+    this.current.next(current);
+  }
 }
