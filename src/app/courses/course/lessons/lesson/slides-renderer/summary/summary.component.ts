@@ -31,11 +31,13 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit():void {
-    const guest = document.getElementsByClassName('guest') as HTMLCollectionOf<HTMLElement>;
-    const registered = document.getElementsByClassName('registered') as HTMLCollectionOf<HTMLElement>;
-    this.isGuest ?
-      registered[0].style.display = 'none':
-      guest[0].style.display = 'none';
+    const guest = document.getElementsByClassName('guest')[0] as HTMLElement;
+    const registered = document.getElementsByClassName('registered')[0] as HTMLElement;
+    if (guest && registered) {
+      this.isGuest ?
+        registered.style.display = 'none':
+        guest.style.display = 'none';
+    }
   }
 
   bye(): void {
