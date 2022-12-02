@@ -15,7 +15,7 @@ export class AuthenticationComponent implements AfterViewInit {
   ui!: firebaseui.auth.AuthUI;
   uiConfig = {
     callbacks: {
-      signInSuccessWithAuthResult: (authResult: any, redirectUrl: any) => this.initProfile(authResult, redirectUrl),
+      signInSuccessWithAuthResult: (authResult: any, redirectUrl: any) => this.proceed(authResult, redirectUrl),
       uiShown: function () {
         // The widget is rendered.
         // Hide the loader.
@@ -59,25 +59,27 @@ export class AuthenticationComponent implements AfterViewInit {
         user.getIdTokenResult()
           .then(idTokenResult => {
             this.provider = idTokenResult.signInProvider;
-            console.log(this.provider);
+            this.handleProfile(user.uid);
             // The result will look like  'google.com', 'facebook.com', ...
           });
       }
     }).then().catch();
   }
 
-  initProfile(authResult: any, redirectUrl: any): boolean {
+  proceed(authResult: any, redirectUrl: any): boolean {
     // User successfully signed in.
     // Return type determines whether we continue the redirect automatically
     // or whether we leave that to developer to handle.
-    console.log(authResult);
-    const profile = this.crud.docRef(PROFILES.path, authResult.user.uid);
+    return false; // return true if you are redirecting somewhere after successful login
+  }
 
+  handleProfile(uid: string): void {
+    const profile = this.crud.docRef(PROFILES.path, uid);
     profile.get().then((docSnapshot) => {
       if (!docSnapshot.exists) {
         profile.set({
-          display_name: authResult.user.displayName,
-          avatar: authResult.user.photoURL,
+          display_name: '',
+          avatar: '',
           firstname: '',
           lastname: '',
           wallet_address: '',
@@ -92,7 +94,6 @@ export class AuthenticationComponent implements AfterViewInit {
       }
     });
     this.dialogRef.close();
-    return false; // return true if you are redirecting somewhere after successful login
   }
 
   linkAccount(provider: string): void {
