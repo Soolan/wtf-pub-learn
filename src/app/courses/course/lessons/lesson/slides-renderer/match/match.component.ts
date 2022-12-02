@@ -24,7 +24,7 @@ export class MatchComponent implements OnChanges {
   index = 0;
   questions!: string[];
   answers!: string[];
-  pending!: MatchStatus[];
+  pending: MatchStatus[] = [];
   isCompleted = false;
   bottom = 0;
 
@@ -67,13 +67,13 @@ export class MatchComponent implements OnChanges {
   }
 
   private initClicks(): void {
-    this.questionsRef.nativeElement.children.forEach((question:any, index: number) => {
+    Array.from(this.questionsRef.nativeElement.children).forEach((question:any, index: number) => {
       this.renderer.listen(question, 'click', () => {
         this.index = index;
       });
     });
 
-    this.answersRef.nativeElement.children.forEach((answer: any) => {
+    Array.from(this.answersRef.nativeElement.children).forEach((answer: any) => {
       this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText));
     });
   }
