@@ -91,7 +91,7 @@ export class ProgressComponent implements OnInit {
   setLessonProgress(): void {
     this.lessonProgress = {
       name: this.lesson.name,
-      current_slide: 0,
+      current_slide: 1,  // It is always 1, because Start slides is 0 and the Next Button shows up in the next slide
       info: {
         status: Status.Start,
         score: 100,

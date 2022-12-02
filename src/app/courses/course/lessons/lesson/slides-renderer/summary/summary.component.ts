@@ -20,6 +20,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   constructor(
     private headerFooter: ToggleHeaderFooterService,
     private currentService: CurrentService,
+    private slideService: SlideService,
     private navigate: NavigateService,
     private route: ActivatedRoute,
   ) {
@@ -42,6 +43,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
 
   bye(): void {
     this.currentService.reset();
+    this.slideService.reset();
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);

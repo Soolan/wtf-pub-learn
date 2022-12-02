@@ -63,6 +63,7 @@ export class HeaderComponent implements OnInit {
 
   exit(): void {
     this.currentService.reset();
+    this.slideService.reset();
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);
