@@ -107,7 +107,7 @@ export class FooterComponent implements OnInit {
     this.lessonProgress.current_slide++;
     this.lessonProgress.info.updated_at = Date.now();
     this.lessonProgress.info.status =
-      this.lessonProgress.current_slide == this.totalSlides - 1 ? Status.Retake : Status.Resume;
+      this.lessonProgress.current_slide > this.totalSlides - 2 ? Status.Retake : Status.Resume;
     const current = {...this.currentService.current.value};
     current.lesson = this.lessonProgress;
     console.log(current);
