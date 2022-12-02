@@ -23,7 +23,7 @@
         <mat-icon>refresh</mat-icon>
       </button>
       <div fxFlex="90" class="score">
-        <span>SCORE: <strong>{{lessonProgress.info.score}}</strong>%</span>
+        <span>SCORE: <strong>{{lessonProgress.info.score| number: '1.1-1'}}</strong>%</span>
         <p class="mat-caption">{{lessonProgress.info.updated_at | date: 'EEEE, MMM d, y'}}</p>
       </div>
     </div>

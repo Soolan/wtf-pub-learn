@@ -47,6 +47,17 @@ export class SlideService {
     this.actionMessage = snapshot.action;
   }
 
+  reset(): void {
+    this.ui.next({
+      marker: 0,
+      action: ACTIONS[SlideType.Start],
+      response: '',
+      correct: false,
+      completed: false
+    });
+    this.markerIndex = 0;
+  }
+
   // We need only one option to have a length over 25 characters in order to
   // change the options layout from double column to single column
   isSingleColumn(options: string[]): boolean {

@@ -27,12 +27,21 @@ export class CurrentService {
       courseId: '',
       course: {name: '', info: this.info},
       lessonId: '',
-      lesson: {name: '', current_slide: 0, info: this.info},
+      lesson: {name: '', current_slide: 1, info: this.info},
       points: 0,
     })
   };
 
   next(snapshot: Current): void {
     this.current.next(snapshot);
+  }
+
+  reset(): void {
+    const current: Current = this.current.value;
+    current.lessonId = '';
+    current.lesson.name = '';
+    current.lesson.current_slide = 1;
+    current.points = 0;
+    this.current.next(current);
   }
 }

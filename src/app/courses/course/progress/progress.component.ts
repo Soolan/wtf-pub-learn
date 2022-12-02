@@ -43,7 +43,6 @@ export class ProgressComponent implements OnInit {
     this.lessonPath = `${this.coursePath}/${this.course.id}/${P_LESSONS.path}`;
     this.initProgress();
     this.initSlides();
-    console.log(this.userId);
   }
 
   initProgress() {
@@ -92,7 +91,7 @@ export class ProgressComponent implements OnInit {
   setLessonProgress(): void {
     this.lessonProgress = {
       name: this.lesson.name,
-      current_slide: 0,
+      current_slide: 1,  // It is always 1, because Start slides is 0 and the Next Button shows up in the next slide
       info: {
         status: Status.Start,
         score: 100,
@@ -135,7 +134,7 @@ export class ProgressComponent implements OnInit {
       case Status.Resume:
         this.slideService.next({
           marker: this.currentSlide,
-          action: ACTIONS[this.lessonSlides[this.currentSlide].type],
+          action: ACTIONS[this.lessonSlides[this.currentSlide]?.type],
           response: '',
           correct: false,
           completed: false
