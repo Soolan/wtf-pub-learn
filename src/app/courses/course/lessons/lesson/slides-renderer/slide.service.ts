@@ -274,7 +274,7 @@ export class SlideService {
     this.setStyles(answer, answerStyles);
 
     setTimeout(() => {
-      const transY = (index * 105) + 350 + '%';
+      const transY = (index * 105) + 475 + '%';
       this.renderer.setStyle(question, 'transform', `translate(${transX.right}, ${transY})`)
       this.renderer.setStyle(answer, 'transform', `translate(${transX.left}, ${transY})`)
     }, index == 4 ? 0 : 400)

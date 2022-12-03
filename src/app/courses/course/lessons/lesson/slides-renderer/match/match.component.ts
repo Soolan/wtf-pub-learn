@@ -88,13 +88,21 @@ export class MatchComponent implements OnChanges {
     const correct = this.matches.find(match => match.question === this.questions[this.index])?.answer;
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
     if (answer === correct) {
-      this.bottom += 4 * this.index;
+      this.setBottom();
       this.slideService.matchColumns(questionDom, answerDom, this.index);
       this.pending[this.index].answered = true;
       this.setIndex();
     } else {
       this.slideService.shake(answerDom);
     }
+  }
+
+  setBottom(): void {
+    this.bottom = (this.bottom < 14 ) ?
+      this.bottom + (3 * this.index) :
+      14
+    ;
+    console.log(this.bottom)
   }
 
   private setIndex(): void {
