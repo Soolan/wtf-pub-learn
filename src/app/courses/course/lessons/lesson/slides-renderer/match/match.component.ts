@@ -87,6 +87,7 @@ export class MatchComponent implements OnChanges {
     if (answer === correct) {
       this.bottom += this.index * this.index;
       this.slideService.matchColumns(questionDom, answerDom, this.index);
+      this.pending[this.index].answered = true;
       this.setIndex();
     } else {
       this.slideService.shake(answerDom);
@@ -94,14 +95,13 @@ export class MatchComponent implements OnChanges {
   }
 
   private setIndex(): void {
-    this.pending.forEach((item: MatchStatus, index: number) => {
-      if (!item.answered) {   // find the first un answered question and use its index
-        this.index = index;
-        this.renderer.addClass(this.pending[this.index].question, 'selected')
-        return;
-      }
-    });
-    this.markAsCompleted(); // they are all answered
+    const next = this.pending.find(item => !item.answered);
+    if (next) {
+      this.index = this.pending.indexOf(next);
+      this.renderer.addClass(this.pending[this.index].question, 'selected');
+    } else {
+      this.markAsCompleted();
+    }
   }
 
   private markAsCompleted(): void {
