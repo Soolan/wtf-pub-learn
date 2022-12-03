@@ -4,7 +4,7 @@ import {Card} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 
 export interface MatchStatus {
-  question: string;
+  question: any;
   answered: boolean;
 }
 
@@ -59,7 +59,6 @@ export class MatchComponent implements OnChanges {
     this.matches.forEach(match => {
       this.questions.push(match.question);
       this.answers.push(match.answer);
-      this.pending.push({question: match.question, answered: false});
     })
     // shuffle the questions & answers
     this.answers.sort(() => Math.random() - 0.5);
@@ -68,6 +67,8 @@ export class MatchComponent implements OnChanges {
 
   private initClicks(): void {
     Array.from(this.questionsRef.nativeElement.children).forEach((question:any, index: number) => {
+      this.pending.push({question: question, answered: false});
+
       this.renderer.listen(question, 'click', () => {
         this.index = index;
         this.renderer.addClass(question, 'selected');
