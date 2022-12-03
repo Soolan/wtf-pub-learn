@@ -85,6 +85,7 @@ export class MatchComponent implements OnChanges {
     if (answer === correct) {
       this.bottom += this.index * this.index;
       this.slideService.matchColumns(questionDom, answerDom, this.index);
+      this.renderer.removeClass(questionDom, 'selected');
       this.setIndex();
     } else {
       this.slideService.shake(answerDom);
