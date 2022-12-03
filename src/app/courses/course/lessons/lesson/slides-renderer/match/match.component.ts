@@ -95,6 +95,7 @@ export class MatchComponent implements OnChanges {
   }
 
   private setIndex(): void {
+    this.renderer.removeClass(this.pending[this.index].question, 'selected');
     const next = this.pending.find(item => !item.answered);
     if (next) {
       this.index = this.pending.indexOf(next);
