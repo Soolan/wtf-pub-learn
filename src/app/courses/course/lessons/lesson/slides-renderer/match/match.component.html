@@ -1,5 +1,5 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="100" class="scenario mat-body-2 centered" *ngIf="!isStarted">
+  <div fxFlex="100" class="scenario mat-body-2 centered" *ngIf="matchIndex == 0">
     {{slide.content['scenario']}}
   </div>
   <div fxFlex="100" class="all-done mat-body-2" *ngIf="isCompleted">Good Job!</div>
