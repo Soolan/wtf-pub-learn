@@ -70,6 +70,7 @@ export class MatchComponent implements OnChanges {
     Array.from(this.questionsRef.nativeElement.children).forEach((question:any, index: number) => {
       this.renderer.listen(question, 'click', () => {
         this.index = index;
+        this.renderer.addClass(question, 'selected');
       });
     });
 
