@@ -26,7 +26,8 @@ export class MatchComponent implements OnChanges {
   answers!: string[];
   pending: MatchStatus[] = [];
   isCompleted = false;
-  bottom = 0;
+  isStarted = false;
+  bottom = 1;
 
   constructor(private slideService: SlideService, private renderer: Renderer2) { }
 
@@ -45,6 +46,7 @@ export class MatchComponent implements OnChanges {
     this.answers = [];
     this.index = 0;
     this.isCompleted = false;
+    this.isStarted = false;
     if (this.questionsRef) this.removeChildren(this.questionsRef);
     if (this.answersRef) this.removeChildren(this.answersRef);
   }
@@ -82,10 +84,11 @@ export class MatchComponent implements OnChanges {
   }
 
   private check(answerDom: any, answer: string): void {
+    this.isStarted = true;
     const correct = this.matches.find(match => match.question === this.questions[this.index])?.answer;
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
     if (answer === correct) {
-      this.bottom += this.index * this.index;
+      this.bottom += 4 * this.index;
       this.slideService.matchColumns(questionDom, answerDom, this.index);
       this.pending[this.index].answered = true;
       this.setIndex();
