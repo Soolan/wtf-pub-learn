@@ -36,7 +36,8 @@ export class MatchComponent implements OnChanges {
 
     setTimeout(() => {
       this.initClicks();
-    }, 500)
+      this.renderer.addClass(this.pending[0].question, 'selected'); // default question is selected
+    }, 200)
   }
 
   private reset(): void {
@@ -68,8 +69,8 @@ export class MatchComponent implements OnChanges {
   private initClicks(): void {
     Array.from(this.questionsRef.nativeElement.children).forEach((question:any, index: number) => {
       this.pending.push({question: question, answered: false});
-
       this.renderer.listen(question, 'click', () => {
+        this.renderer.removeClass(this.pending[this.index].question, 'selected');
         this.index = index;
         this.renderer.addClass(question, 'selected');
       });
@@ -86,7 +87,6 @@ export class MatchComponent implements OnChanges {
     if (answer === correct) {
       this.bottom += this.index * this.index;
       this.slideService.matchColumns(questionDom, answerDom, this.index);
-      this.renderer.removeClass(questionDom, 'selected');
       this.setIndex();
     } else {
       this.slideService.shake(answerDom);
@@ -97,10 +97,11 @@ export class MatchComponent implements OnChanges {
     this.pending.forEach((item: MatchStatus, index: number) => {
       if (!item.answered) {   // find the first un answered question and use its index
         this.index = index;
+        this.renderer.addClass(this.pending[this.index].question, 'selected')
         return;
       }
-      this.markAsCompleted(); // they are all answered
-    })
+    });
+    this.markAsCompleted(); // they are all answered
   }
 
   private markAsCompleted(): void {
