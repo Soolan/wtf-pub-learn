@@ -3,6 +3,11 @@ import {Position} from '../../../../../../shared/data/enums';
 import {Card} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 
+export interface MatchStatus {
+  question: any;
+  answered: boolean;
+}
+
 @Component({
   selector: 'app-match',
   templateUrl: './match.component.html',
@@ -19,8 +24,10 @@ export class MatchComponent implements OnChanges {
   index = 0;
   questions!: string[];
   answers!: string[];
+  pending: MatchStatus[] = [];
   isCompleted = false;
-  bottom = 0;
+  bottom = 1;
+  matchIndex = 0;
 
   constructor(private slideService: SlideService, private renderer: Renderer2) { }
 
@@ -30,7 +37,8 @@ export class MatchComponent implements OnChanges {
 
     setTimeout(() => {
       this.initClicks();
-    }, 500)
+      this.renderer.addClass(this.pending[0].question, 'selected'); // default question is selected
+    }, 200)
   }
 
   private reset(): void {
@@ -38,6 +46,7 @@ export class MatchComponent implements OnChanges {
     this.answers = [];
     this.index = 0;
     this.isCompleted = false;
+    this.matchIndex = 0;
     if (this.questionsRef) this.removeChildren(this.questionsRef);
     if (this.answersRef) this.removeChildren(this.answersRef);
   }
@@ -60,23 +69,41 @@ export class MatchComponent implements OnChanges {
   }
 
   private initClicks(): void {
-    for (let answer of this.answersRef.nativeElement.children) {
-      this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText))
-    }
+    Array.from(this.questionsRef.nativeElement.children).forEach((question:any, index: number) => {
+      this.pending.push({question: question, answered: false});
+      this.renderer.listen(question, 'click', () => {
+        this.renderer.removeClass(this.pending[this.index].question, 'selected');
+        this.index = index;
+        this.renderer.addClass(question, 'selected');
+      });
+    });
+
+    Array.from(this.answersRef.nativeElement.children).forEach((answer: any) => {
+      this.renderer.listen(answer, 'click', () => this.check(answer, answer.innerText));
+    });
   }
 
   private check(answerDom: any, answer: string): void {
     const correct = this.matches.find(match => match.question === this.questions[this.index])?.answer;
     const questionDom = this.questionsRef.nativeElement.children['question' + this.index];
     if (answer === correct) {
-      this.index++;
-      this.bottom += this.index * this.index;
-      this.slideService.matchColumns(questionDom, answerDom, this.index);
-      if (this.index >= this.answers.length) {
-        this.markAsCompleted();
-      }
+      this.bottom += this.index + this.matchIndex;
+      this.slideService.matchColumns(questionDom, answerDom, this.matchIndex++);
+      this.pending[this.index].answered = true;
+      this.setIndex();
     } else {
       this.slideService.shake(answerDom);
+    }
+  }
+
+  private setIndex(): void {
+    this.renderer.removeClass(this.pending[this.index].question, 'selected');
+    const next = this.pending.find(item => !item.answered);
+    if (next) {
+      this.index = this.pending.indexOf(next);
+      this.renderer.addClass(this.pending[this.index].question, 'selected');
+    } else {
+      this.markAsCompleted();
     }
   }
 
