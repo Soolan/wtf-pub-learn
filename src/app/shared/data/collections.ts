@@ -59,7 +59,7 @@ export const LESSONS: Collection = {
 //------------------------------------------------- Slide
 export const SLIDES: Collection = {
   path: 'slides',
-  limit: 25,
+  limit: 35,
   where: {field: 'order', operator: '!=', value: ''},
   orderBy: {field: 'order', direction: 'asc'}
 };
