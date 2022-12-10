@@ -78,15 +78,17 @@ export class AuthenticationComponent implements AfterViewInit {
     wallet.get()
       .then(snap => {
         const tag = snap.data().tag + 1;
+        const wallet_address = snap.data().address;
+        console.log(tag, wallet_address);
         const profile = this.crud.docRef(PROFILES.path, uid);
         profile.get().then((docSnapshot) => {
           if (!docSnapshot.exists) {
-            profile.set({ // create the document
+            profile.set({ // ToDo: Read display name, etc from the form into the document
               display_name: '',
               avatar: '',
               firstname: '',
               lastname: '',
-              wallet_address: '',
+              wallet_address,
               tag,
               loyalty: 0,
               achievements: [],
@@ -96,7 +98,7 @@ export class AuthenticationComponent implements AfterViewInit {
                 deleted_at: 0
               }
             })
-              .then(_ => wallet.update(tag))
+              .then(_ => wallet.update({tag}))
               .catch()
           }
         });
