@@ -8,13 +8,15 @@
   <div fxFlex.lt-sm="70" fxFlex.sm="43" fxFlex="20" class="markers">
     <div class="marker" *ngFor="let block of firstRow; let i = index;"
          (click)="jumpTo(i)"
-         [style.background-color]="i <= slideService.markerIndex ? 'var(--color-primary)' : ''"
+         [style.background-color]="getColor(i)"
+         [style.border-color]="i == slideService.markerIndex ? 'var(--color-primary-lighter)' : getColor(i)"
          [style.cursor]="i <= progress ? 'pointer' : 'default'"
     ></div>
     <div class="second-row">
       <div class="marker" *ngFor="let block of secondRow; let i = index;"
            (click)="jumpTo(i+firstRow.length)"
-           [style.background-color]="(i + firstRow.length) <= slideService.markerIndex ? 'var(--color-primary)' : ''"
+           [style.background-color]="getColor(i + firstRow.length)"
+           [style.border-color]="i + firstRow.length == slideService.markerIndex ? 'var(--color-primary-lighter)' : getColor(i + firstRow.length)"
            [style.cursor]="(i + firstRow.length) <= progress ? 'pointer' : 'default'"
       ></div>
     </div>

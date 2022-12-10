@@ -72,11 +72,17 @@ export class HeaderComponent implements OnInit {
     this.headerFooter.toggle(true, false);
   }
 
-  get background(): string {
-    return '';
+  getColor(index: number): string {
+    return index <= this.slideService.markerIndex ?
+      'var(--color-primary-light)' :
+      index <= this.progress ?
+        'var(--color-primary)': '';
   }
 
-  get border(): string {
-    return '';
+  getBorder(index: number): string {
+    return index <= this.slideService.markerIndex ?
+      'var(--color-primary-light)' :
+      index <= this.progress ?
+        'var(--color-primary)': '';
   }
 }
