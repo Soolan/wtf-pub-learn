@@ -10,7 +10,7 @@ export interface Profile {
   wallet_address: string;
   tag: string;
   loyalty: Loyalty;
-  achievements: Achievement[];
+  achievements: string;
   timestamps: Timestamps;
 }
 
