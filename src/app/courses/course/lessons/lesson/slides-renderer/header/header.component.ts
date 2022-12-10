@@ -73,16 +73,9 @@ export class HeaderComponent implements OnInit {
   }
 
   getColor(index: number): string {
-    return index <= this.slideService.markerIndex ?
-      'var(--color-primary-light)' :
-      index <= this.progress ?
-        'var(--color-primary)': '';
-  }
-
-  getBorder(index: number): string {
-    return index <= this.slideService.markerIndex ?
-      'var(--color-primary-light)' :
-      index <= this.progress ?
-        'var(--color-primary)': '';
+    return index == this.slideService.markerIndex ?
+      'var(--color-primary-lighter)' : index < this.slideService.markerIndex ?
+        'var(--color-primary-light)' : index <= this.progress ?
+          'var(--color-primary)': '';
   }
 }
