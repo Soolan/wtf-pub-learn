@@ -51,7 +51,8 @@ export class HeaderComponent implements OnInit {
   jumpTo(index: number): void {
     console.log(this.currentService.current.value.lesson)
     // You can only jump to previously visited slides. Jump ahead is not allowed.
-    if (index <= this.slideService.markerIndex) {
+    // if (index <= this.slideService.markerIndex) {
+    if (index <= this.currentService.current.value.lesson.current_slide) {
       this.slideService.next({
         marker: index,
         action: ACTIONS[this.slideService.slides[index].type],

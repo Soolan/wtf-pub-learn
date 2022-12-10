@@ -22,7 +22,7 @@ export class LessonComponent implements OnInit {
   lesson!: string;
   courseId!: string;
   lessonId!: string;
-  slides!: Slide[];
+  slides!: any[];
   loading = true;
   levels = LEVELS;
   order!: number;
@@ -69,21 +69,14 @@ export class LessonComponent implements OnInit {
   }
 
   initSlides(): void {
-    const query = {...SLIDES};
-    query.path = `${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`;
-
-    this.crud.colRefQuery(query).pipe(
-      map(this.crud.mapId)
-    ).subscribe(
-      {
-        next: (slides: any) => {
-          this.slides = slides as Slide[];
-          this.slideService.slides = this.slides;
-          this.loading = false;
-        },
-        error: (error: any) => console.log(error)
-      }
-    );
+    this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
+      .then(snap => {
+        this.slides = snap.docs.map(doc => doc.data());
+        this.slideService.slides = this.slides;
+        this.loading = false;
+      })
+      .catch()
+    ;
   }
 
   setNames(): void {
