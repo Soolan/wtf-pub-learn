@@ -9,13 +9,13 @@
     <div class="marker" *ngFor="let block of firstRow; let i = index;"
          (click)="jumpTo(i)"
          [style.background-color]="i <= slideService.markerIndex ? 'var(--color-primary)' : ''"
-         [style.cursor]="i <= slideService.markerIndex ? 'pointer' : 'default'"
+         [style.cursor]="i <= progress ? 'pointer' : 'default'"
     ></div>
     <div class="second-row">
       <div class="marker" *ngFor="let block of secondRow; let i = index;"
            (click)="jumpTo(i+firstRow.length)"
            [style.background-color]="(i + firstRow.length) <= slideService.markerIndex ? 'var(--color-primary)' : ''"
-           [style.cursor]="(i + firstRow.length) <= slideService.markerIndex ? 'pointer' : 'default'"
+           [style.cursor]="(i + firstRow.length) <= progress ? 'pointer' : 'default'"
       ></div>
     </div>
     <span>{{(slideService.ui | async)?.action}}</span>
