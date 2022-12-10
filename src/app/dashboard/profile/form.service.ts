@@ -14,6 +14,7 @@ export class FormService {
       firstname: [null, Validators.required],
       lastname: [null, Validators.required],
       wallet_address: [null, Validators.required],
+      tag: [null, Validators.required],
       loyalty: [null, Validators.required],
       achievements: [[], Validators.required],
       timestamps: this.formBuilder.group({

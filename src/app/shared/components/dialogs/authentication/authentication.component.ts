@@ -74,25 +74,37 @@ export class AuthenticationComponent implements AfterViewInit {
   }
 
   handleProfile(uid: string): void {
-    const profile = this.crud.docRef(PROFILES.path, uid);
-    profile.get().then((docSnapshot) => {
-      if (!docSnapshot.exists) {
-        profile.set({
-          display_name: '',
-          avatar: '',
-          firstname: '',
-          lastname: '',
-          wallet_address: '',
-          loyalty: 0,
-          achievements: [],
-          timestamps: {
-            created_at: Date.now(),
-            updated_at: Date.now(),
-            deleted_at: 0
+    const wallet = this.crud.docRef('stats', 'wallet');
+    wallet.get()
+      .then(snap => {
+        const tag = snap.data().tag + 1;
+        const wallet_address = snap.data().address;
+        console.log(tag, wallet_address);
+        const profile = this.crud.docRef(PROFILES.path, uid);
+        profile.get().then((docSnapshot) => {
+          if (!docSnapshot.exists) {
+            profile.set({ // ToDo: Read display name, etc from the form into the document
+              display_name: '',
+              avatar: '',
+              firstname: '',
+              lastname: '',
+              wallet_address,
+              tag,
+              loyalty: 0,
+              achievements: [],
+              timestamps: {
+                created_at: Date.now(),
+                updated_at: Date.now(),
+                deleted_at: 0
+              }
+            })
+              .then(_ => wallet.update({tag}))
+              .catch()
           }
-        }) // create the document
-      }
-    });
+        });
+      })
+      .catch()
+    ;
     this.dialogRef.close();
   }
 

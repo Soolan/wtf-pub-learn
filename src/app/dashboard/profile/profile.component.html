@@ -52,12 +52,15 @@
       </div>
       <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
       <div fxFlex="60" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
-        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="mat-caption wallet">
-          <button fxFlex="22" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="mat-caption wallet">
+          <button fxFlex="19" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
             <mat-icon>account_balance_wallet</mat-icon>
             <strong> Wallet</strong>
           </button>
-          <span class="address" fxFlex="75" fxFlex.lt-md="100">{{profile.wallet_address}}
+          <span fxFlex="60" fxFlex.lt-md="100">address: {{profile.wallet_address}}
+            <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
+          </span>
+          <span fxFlex="20" fxFlex.lt-md="100">tag:{{profile.tag}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
           <div class="balance mat-caption" fxFlex="50" fxFlex.lt-md="100">

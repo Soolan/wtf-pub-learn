@@ -8,8 +8,9 @@ export interface Profile {
   firstname: string;
   lastname: string;
   wallet_address: string;
+  tag: string;
   loyalty: Loyalty;
-  achievements: Achievement[];
+  achievements: string;
   timestamps: Timestamps;
 }
 
