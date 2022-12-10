@@ -2,13 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
-import {COURSES, LESSONS, SLIDES} from '../../../../shared/data/collections';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../../shared/data/collections';
 import {SlideService} from './slides-renderer/slide.service';
 import {CurrentService} from '../../../../shared/services/current.service';
 import {NavigateService} from '../../../../shared/services/navigate.service';
 import {ActivatedRoute} from '@angular/router';
 import {Slide} from '../../../../shared/models/slide';
 import {map} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {Lesson} from '../../../../shared/models/profile';
 
 @Component({
   selector: 'app-lesson',
@@ -20,7 +22,7 @@ export class LessonComponent implements OnInit {
   lesson!: string;
   courseId!: string;
   lessonId!: string;
-  slides!: Slide[];
+  slides!: any[];
   loading = true;
   levels = LEVELS;
   order!: number;
@@ -28,6 +30,7 @@ export class LessonComponent implements OnInit {
 
   constructor(
     private crud: CrudService,
+    public auth: AngularFireAuth,
     private route: ActivatedRoute,
     private navigate: NavigateService,
     private slideService: SlideService,
@@ -51,28 +54,29 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.setNames();
+    this.auth.authState.subscribe({
+      next: user => {
+        const uid = user?.uid;
+        if (uid) {
+          const path = `${PROFILES.path}/${uid}/${P_COURSES.path}/${this.courseId}/${P_LESSONS.path}`;
+          this.crud.docRef(path, this.lessonId).get()
+            .then(snap => this.setMarkers(snap.data()))
+            .catch();
+        }
+      },
+      error: err => console.log(err)
+    });
   }
 
   initSlides(): void {
-    const query = {...SLIDES};
-    query.path = `${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`;
-
-    this.crud.colRefQuery(query).pipe(
-      map(this.crud.mapId)
-    ).subscribe(
-      {
-        next: (slides: any) => {
-          this.slides = slides as Slide[];
-          this.slideService.slides = this.slides;
-
-          const current = {...this.currentService.current.value};
-          current.points = 100/this.slides.length;
-          this.currentService.current.next(current);
-          this.loading = false;
-        },
-        error: (error: any) => console.log(error)
-      }
-    );
+    this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
+      .then(snap => {
+        this.slides = snap.docs.map(doc => doc.data());
+        this.slideService.slides = this.slides;
+        this.loading = false;
+      })
+      .catch()
+    ;
   }
 
   setNames(): void {
@@ -95,5 +99,12 @@ export class LessonComponent implements OnInit {
       })
       .catch(error => console.log(error))
     ;
+  }
+
+  setMarkers(lesson: Lesson): void {
+    const current = {...this.currentService.current.value};
+    current.lesson = lesson;
+    current.points = 100/this.slides.length;
+    this.currentService.current.next(current);
   }
 }
