@@ -27,7 +27,7 @@
      [@stretchUpOut] *ngIf="response">
   <button mat-icon-button (click)="response=''" class="close"><mat-icon>close</mat-icon></button>
   <p>
-    <markdown ngPreserveWhitespaces class="mat-caption"
+    <markdown emoji ngPreserveWhitespaces class="mat-caption"
               [style.font-weight]="hintFillInSlide ? 'bold' : ''">{{slideService.ui.value.response}}</markdown>
   </p>
 </div>
