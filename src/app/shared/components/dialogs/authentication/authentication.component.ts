@@ -74,12 +74,9 @@ export class AuthenticationComponent implements AfterViewInit {
   }
 
   handleProfile(uid: string): void {
-    const wallet = this.crud.docRef('stats', 'wallet');
-    wallet.get()
-      .then(snap => {
-        const tag = snap.data().tag + 1;
-        const wallet_address = snap.data().address;
-        console.log(tag, wallet_address);
+    this.crud.get('stats', 'wallet').subscribe({
+      next: value => {
+        const wallet_address = value.address;
         const profile = this.crud.docRef(PROFILES.path, uid);
         profile.get().then((docSnapshot) => {
           if (!docSnapshot.exists) {
@@ -89,7 +86,7 @@ export class AuthenticationComponent implements AfterViewInit {
               firstname: '',
               lastname: '',
               wallet_address,
-              tag,
+              tag: value.tag + 1,
               loyalty: 0,
               achievements: [],
               timestamps: {
@@ -97,14 +94,11 @@ export class AuthenticationComponent implements AfterViewInit {
                 updated_at: Date.now(),
                 deleted_at: 0
               }
-            })
-              .then(_ => wallet.update({tag}))
-              .catch()
+            }).then(_ => this.crud.docRef('stats', 'wallet').update({tag: value.tag + 1})).catch()
           }
-        });
-      })
-      .catch()
-    ;
+        })
+      }
+    })
     this.dialogRef.close();
   }
 
