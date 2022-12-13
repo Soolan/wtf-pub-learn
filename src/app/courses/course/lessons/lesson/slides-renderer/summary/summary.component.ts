@@ -20,6 +20,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   constructor(
     private headerFooter: ToggleHeaderFooterService,
     private currentService: CurrentService,
+    private slideService: SlideService,
     private navigate: NavigateService,
     private route: ActivatedRoute,
   ) {
@@ -31,14 +32,18 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit():void {
-    const guest = document.getElementsByClassName('guest') as HTMLCollectionOf<HTMLElement>;
-    const registered = document.getElementsByClassName('registered') as HTMLCollectionOf<HTMLElement>;
-    this.isGuest ?
-      registered[0].style.display = 'none':
-      guest[0].style.display = 'none';
+    const guest = document.getElementsByClassName('guest')[0] as HTMLElement;
+    const registered = document.getElementsByClassName('registered')[0] as HTMLElement;
+    if (guest && registered) {
+      this.isGuest ?
+        registered.style.display = 'none':
+        guest.style.display = 'none';
+    }
   }
 
   bye(): void {
+    this.currentService.reset();
+    this.slideService.reset();
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);

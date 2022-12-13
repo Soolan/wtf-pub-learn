@@ -1,17 +1,11 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   Input,
   OnInit,
-  Renderer2,
-  ViewChild
 } from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
-import {SlideService} from '../slide.service';
 import {Position} from '../../../../../../shared/data/enums';
 import {SLIDE_UP} from '../../../../../../shared/animations/slide-up';
-import {POSITIONS} from '../../../../../../shared/data/generic';
 
 @Component({
   selector: 'app-hint-fill-in',

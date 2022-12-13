@@ -35,6 +35,7 @@ export class PollComponent implements OnInit {
       .then(snap => this.poll = snap.data())
       .catch()
     ;
+
   }
 
   cast(index: number): void {

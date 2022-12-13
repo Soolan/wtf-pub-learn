@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigateService} from '../../../../../../shared/services/navigate.service';
 import {ToggleHeaderFooterService} from '../../../../../../shared/services/toggle-header-footer.service';
 import {ACTIONS} from '../../../../../../shared/data/generic';
+import {Current, CurrentService} from '../../../../../../shared/services/current.service';
 
 @Component({
   selector: 'app-renderer-header',
@@ -18,8 +19,10 @@ export class HeaderComponent implements OnInit {
   secondRow = Array(0);
   courseId!: string;
   hover = false;
+  progress!: number;
   constructor(
     private headerFooter: ToggleHeaderFooterService,
+    private currentService: CurrentService,
     public slideService: SlideService,
     private navigate: NavigateService,
     private route: ActivatedRoute
@@ -29,6 +32,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMarkers();
+    this.currentService.current.subscribe({
+      next: value => this.progress = value.lesson.current_slide
+    });
   }
 
   initMarkers(): void {
@@ -47,8 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   jumpTo(index: number): void {
-    // You can only jump to previously visited slides. Jump ahead is not allowed.
-    if (index <= this.slideService.markerIndex) {
+    if (index <= this.progress) {
       this.slideService.next({
         marker: index,
         action: ACTIONS[this.slideService.slides[index].type],
@@ -60,8 +65,17 @@ export class HeaderComponent implements OnInit {
   }
 
   exit(): void {
+    this.currentService.reset();
+    this.slideService.reset();
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);
+  }
+
+  getColor(index: number): string {
+    return index == this.slideService.markerIndex ?
+      'var(--color-primary-lighter)' : index < this.slideService.markerIndex ?
+        'var(--color-primary-light)' : index <= this.progress ?
+          'var(--color-primary)': '';
   }
 }

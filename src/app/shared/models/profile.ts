@@ -8,8 +8,9 @@ export interface Profile {
   firstname: string;
   lastname: string;
   wallet_address: string;
+  tag: string;
   loyalty: Loyalty;
-  achievements: Achievement[];
+  achievements: string;
   timestamps: Timestamps;
 }
 
@@ -26,7 +27,6 @@ export interface Course {
 export interface Lesson {
   name: string;
   current_slide: number;
-  slide_id: string;
   info: Info;
 }
 

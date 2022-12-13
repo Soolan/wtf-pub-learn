@@ -15,7 +15,7 @@ export class AuthenticationComponent implements AfterViewInit {
   ui!: firebaseui.auth.AuthUI;
   uiConfig = {
     callbacks: {
-      signInSuccessWithAuthResult: (authResult: any, redirectUrl: any) => this.initProfile(authResult, redirectUrl),
+      signInSuccessWithAuthResult: (authResult: any, redirectUrl: any) => this.proceed(authResult, redirectUrl),
       uiShown: function () {
         // The widget is rendered.
         // Hide the loader.
@@ -59,40 +59,47 @@ export class AuthenticationComponent implements AfterViewInit {
         user.getIdTokenResult()
           .then(idTokenResult => {
             this.provider = idTokenResult.signInProvider;
-            console.log(this.provider);
+            this.handleProfile(user.uid);
             // The result will look like  'google.com', 'facebook.com', ...
           });
       }
     }).then().catch();
   }
 
-  initProfile(authResult: any, redirectUrl: any): boolean {
+  proceed(authResult: any, redirectUrl: any): boolean {
     // User successfully signed in.
     // Return type determines whether we continue the redirect automatically
     // or whether we leave that to developer to handle.
-    console.log(authResult);
-    const profile = this.crud.docRef(PROFILES.path, authResult.user.uid);
-
-    profile.get().then((docSnapshot) => {
-      if (!docSnapshot.exists) {
-        profile.set({
-          display_name: authResult.user.displayName,
-          avatar: authResult.user.photoURL,
-          firstname: '',
-          lastname: '',
-          wallet_address: '',
-          loyalty: 0,
-          achievements: [],
-          timestamps: {
-            created_at: Date.now(),
-            updated_at: Date.now(),
-            deleted_at: 0
-          }
-        }) // create the document
-      }
-    });
-    this.dialogRef.close();
     return false; // return true if you are redirecting somewhere after successful login
+  }
+
+  handleProfile(uid: string): void {
+    this.crud.get('stats', 'wallet').subscribe({
+      next: value => {
+        const wallet_address = value.address;
+        const profile = this.crud.docRef(PROFILES.path, uid);
+        profile.get().then((docSnapshot) => {
+          if (!docSnapshot.exists) {
+            profile.set({ // ToDo: Read display name, etc from the form into the document
+              display_name: '',
+              avatar: '',
+              firstname: '',
+              lastname: '',
+              wallet_address,
+              tag: value.tag + 1,
+              loyalty: 0,
+              achievements: [],
+              timestamps: {
+                created_at: Date.now(),
+                updated_at: Date.now(),
+                deleted_at: 0
+              }
+            }).then(_ => this.crud.docRef('stats', 'wallet').update({tag: value.tag + 1})).catch()
+          }
+        })
+      }
+    })
+    this.dialogRef.close();
   }
 
   linkAccount(provider: string): void {

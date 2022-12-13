@@ -25,6 +25,7 @@ export class CourseComponent implements OnInit {
   levels = LEVELS;
   status = Status;
   courseInfo!: Info;
+  coursePath!: string;
 
   constructor(
     private crud: CrudService,
@@ -32,7 +33,8 @@ export class CourseComponent implements OnInit {
     private route: ActivatedRoute,
     public currentService: CurrentService,
     private analytics: AngularFireAnalytics
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -49,6 +51,13 @@ export class CourseComponent implements OnInit {
       next: user => {
         if (user?.uid) {
           this.userId = user?.uid;
+          this.coursePath = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
+          this.crud.docRef(this.coursePath, this.courseId).get()
+            .then(snap => {
+              if (snap.data()) {
+                this.courseInfo = snap.data().info;
+              }
+            }).catch();
           this.analytics.setUserId(this.userId).then().catch();
         }
       },
@@ -76,7 +85,9 @@ export class CourseComponent implements OnInit {
           .map(doc => {
             return {id: doc.id, ...doc.data()}
           });
-        this.lessons.sort((a, b) => {return a.order - b.order});
+        this.lessons.sort((a, b) => {
+          return a.order - b.order
+        });
         this.loading.lessons = false;
       })
       .catch()
@@ -86,10 +97,5 @@ export class CourseComponent implements OnInit {
   get keyword(): string {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
-  }
-
-  get summary(): boolean {
-    this.courseInfo = this.currentService.current.value.course.info;
-    return this.courseInfo.status == Status.Retake;
   }
 }

@@ -47,6 +47,17 @@ export class SlideService {
     this.actionMessage = snapshot.action;
   }
 
+  reset(): void {
+    this.ui.next({
+      marker: 0,
+      action: ACTIONS[SlideType.Start],
+      response: '',
+      correct: false,
+      completed: false
+    });
+    this.markerIndex = 0;
+  }
+
   // We need only one option to have a length over 25 characters in order to
   // change the options layout from double column to single column
   isSingleColumn(options: string[]): boolean {
@@ -99,6 +110,13 @@ export class SlideService {
     this.renderer.removeClass(element, 'mark');
   }
 
+  markAsCorrect(button: EventTarget): void {
+    this.renderer.addClass(button, 'correct');
+    this.renderer.addClass(button, 'disable');
+    const span = this.setIcon('check');
+    this.renderer.appendChild(button, span);
+  }
+
   markAsIncorrect(button: EventTarget): void {
     this.renderer.addClass(button, 'shake');
     this.renderer.addClass(button, 'incorrect');
@@ -106,6 +124,11 @@ export class SlideService {
     const span = this.setIcon('close');
     this.renderer.appendChild(button, span);
     if (this.userId && this.currentService.current.value.lesson.current_slide <= this.markerIndex) this.updateScore();
+  }
+
+  markAsDisabled(button: EventTarget): void {
+    this.renderer.addClass(button, 'incorrect');
+    this.renderer.addClass(button, 'disable');
   }
 
   updateScore(): void {
@@ -116,13 +139,6 @@ export class SlideService {
     const progressRef = this.crud.docRef(path, current.lessonId);
 
     progressRef.update(current.lesson).then().catch();
-  }
-
-  markAsCorrect(button: EventTarget): void {
-    this.renderer.addClass(button, 'correct');
-    this.renderer.addClass(button, 'disable');
-    const span = this.setIcon('check');
-    this.renderer.appendChild(button, span);
   }
 
   private setIcon(icon: string): any {
@@ -258,7 +274,7 @@ export class SlideService {
     this.setStyles(answer, answerStyles);
 
     setTimeout(() => {
-      const transY = (index * 105) + 350 + '%';
+      const transY = (index * 105) + 475 + '%';
       this.renderer.setStyle(question, 'transform', `translate(${transX.right}, ${transY})`)
       this.renderer.setStyle(answer, 'transform', `translate(${transX.left}, ${transY})`)
     }, index == 4 ? 0 : 400)

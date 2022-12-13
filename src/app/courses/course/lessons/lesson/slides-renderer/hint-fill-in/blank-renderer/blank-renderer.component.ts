@@ -47,6 +47,7 @@ export class BlankRendererComponent implements OnInit, AfterViewInit {
     this.form.reset();
     this.isCorrect = false;
     this.showHint = false;
+    this.answer = this.answer.toLowerCase();
   }
 
   chop(): void {
@@ -63,10 +64,10 @@ export class BlankRendererComponent implements OnInit, AfterViewInit {
   checkOnKeyStroke() {
     this.form.controls['blank_field'].valueChanges.subscribe(value => {
       console.log(value);
-      if (value === this.answer && !this.isCorrect) {
+      if (value.toLowerCase() === this.answer && !this.isCorrect) {
         this.markAsComplete();
       }
-      this.input.nativeElement.style.color = this.answer.startsWith(value) ?
+      this.input.nativeElement.style.color = this.answer.startsWith(value.toLowerCase()) ?
         'var(--color-primary-light)' :
         'var(--color-warn)';
       });
@@ -76,7 +77,7 @@ export class BlankRendererComponent implements OnInit, AfterViewInit {
     this.isCorrect = true;
     this.isCompleted = true;
     this.input.nativeElement.style.display = 'none';
-    this.slideService.fillBlank(this.span.nativeElement, this.answer);
+    this.slideService.fillBlank(this.span.nativeElement, this.answer.toUpperCase());
     this.slideService.next({
       marker: this.slideService.markerIndex,
       action: this.slideService.actionMessage,

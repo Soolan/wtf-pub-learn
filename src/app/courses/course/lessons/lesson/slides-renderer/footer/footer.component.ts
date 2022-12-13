@@ -12,6 +12,7 @@ import firebase from 'firebase/compat';
 import {Lesson} from '../../../../../../shared/models/profile';
 import {CurrentService} from '../../../../../../shared/services/current.service';
 import DocumentReference = firebase.firestore.DocumentReference;
+import {LogicalFileSystem} from '@angular/compiler-cli';
 
 @Component({
   selector: 'app-renderer-footer',
@@ -23,10 +24,12 @@ export class FooterComponent implements OnInit {
   @Input() courseId!: any;
   @Input() lessonId!: any;
   @Input() totalSlides!: number;
+  @Input() order!: number;
   response!: string;
   width = 0;
   startSlide = false;
   staticSlide = false;
+  pollSlide = false;
   hintFillInSlide = false;
   ui!: SlideHeaderFooter;
   userId!: string | undefined;
@@ -73,13 +76,13 @@ export class FooterComponent implements OnInit {
   initSlideType(marker: number): void {
     this.startSlide = marker === SlideType.Start;
     this.staticSlide = this.slideService.slides[marker].type === SlideType.Static;
+    this.pollSlide = this.slideService.slides[marker].type === SlideType.Poll;
     this.hintFillInSlide = this.slideService.slides[marker].type === SlideType.HintFillIn;
   }
 
   setResponse(response: string): void {
     setTimeout(_ => {
       this.response = response;
-      console.log(this.response)
     }, 200)
   }
 
@@ -87,12 +90,9 @@ export class FooterComponent implements OnInit {
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
     const action = ACTIONS[this.slideService.slides[index].type];
     this.slideService.next({marker: index, action, response: '', correct: false, completed: false});
-
-    if (this.userId && forward && index > this.lessonProgress.current_slide) {
+    console.log(index, index + 1 >= this.lessonProgress.current_slide)
+    if (this.userId && forward && index + 1 >= this.lessonProgress.current_slide) {
       this.updateLessonProgress();
-      if (this.lessonProgress.info.status == Status.Retake) {
-        this.allPassed();
-      }
     }
   }
 
@@ -105,28 +105,35 @@ export class FooterComponent implements OnInit {
   }
 
   updateLessonProgress(): void {
-    this.lessonProgress.info.updated_at = Date.now();
     this.lessonProgress.current_slide++;
+    this.lessonProgress.info.updated_at = Date.now();
     this.lessonProgress.info.status =
-      this.lessonProgress.current_slide == this.totalSlides - 1 ? Status.Retake : Status.Resume;
+      this.lessonProgress.current_slide >= this.totalSlides - 1 ? Status.Retake : Status.Resume;
     const current = {...this.currentService.current.value};
     current.lesson = this.lessonProgress;
+    const log =`totalSlides-1: ${this.totalSlides-1}\n lessonProgress.current_slide: ${this.lessonProgress.current_slide} \n`;
+    console.log(log);
     this.currentService.current.next(current);
-    this.lessonRef.update(this.lessonProgress).then().catch();
+    this.lessonRef.update(this.lessonProgress)
+      .then( _ => (this.lessonProgress.info.status == Status.Retake) ? this.allPassed() : '')
+      .catch()
+    ;
   }
 
   allPassed(): void {
-    let passed = false;
-    let total = 0;
-    let index = 0;
     this.crud.colRef(this.lessonPath).get()
       .then(snap => {
-        snap.docs.forEach(doc => {
-          passed = doc.data().info.status == Status.Retake;
-          if (passed) total += doc.data().info.score;
-          index ++;
+        const passedScores = snap.docs.map(doc => {
+          return {completed: doc.data().info.status == Status.Retake, score: doc.data().info.score}
         });
-        if (passed) this.updateCourseProgress(total/index);
+        if (!passedScores.find(lesson => !lesson.completed)) {
+          const totalScore = passedScores
+            .map(lesson => lesson.score)
+            .reduce((a, b) => a + b, 0);
+
+          this.updateCourseProgress(totalScore / passedScores.length)
+        }
+        console.log(passedScores);
       })
       .catch()
     ;
