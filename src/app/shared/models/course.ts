@@ -1,4 +1,5 @@
 import {Timestamps} from './timestamps';
+import {PayOption} from './pay-option';
 
 export interface Course {
   name: string;
@@ -6,6 +7,10 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
+  has_exam: boolean;
+  has_certificate: boolean;
+  paid: boolean;
+  pay_options: PayOption[],
   level: number;
   tags: string;
   timestamps: Timestamps;
