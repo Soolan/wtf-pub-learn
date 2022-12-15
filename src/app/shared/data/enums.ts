@@ -50,7 +50,7 @@ export enum WtfProduct {
   DEX
 }
 
-export enum Fee {
+export enum BillableItem {
   Course,
   Exam,
   Certificate
