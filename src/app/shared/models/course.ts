@@ -8,10 +8,6 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
-  has_exam: boolean;
-  has_certificate: boolean;
-  paid: boolean;
-  pay_options: PayOption[],
   fees: Billable[],
   level: number;
   tags: string;
