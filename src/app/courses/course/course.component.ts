@@ -100,6 +100,7 @@ export class CourseComponent implements OnInit {
   }
 
   pay(): void {
-
+    //ToDO: if it is free navigate to the test page
+    // if it is paid show them payment instructions
   }
 }
