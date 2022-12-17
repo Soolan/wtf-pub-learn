@@ -1,20 +1,12 @@
-.exit {
-  cursor: pointer;
-  .mat-icon {
-    vertical-align: middle;
-  }
-  span {
-    color: var(--color-primary-dark);
-    vertical-align: middle;
-    font-size: large;
-    letter-spacing: var(--space-xxs);
-  }
-}
 .content {
   .course {
     min-height: 10em;
     background-color: var(--color-greye);
     margin-bottom: 2em;
+    .progress {
+      min-height: var(--space-xl);
+      margin: var(--space-xxl) auto;
+    }
     .image {
       border-bottom: 1px solid var(--color-grey9);
       min-height: 15em;
@@ -131,10 +123,16 @@
         text-align: center;
       }
     }
+    .certified {
+      margin: auto;
+      .mat-flat-button {
+        line-height: var(--space-lg) !important;
+        font-weight: bold;
+      }
+      .mat-icon {
+        top: 0;
+        margin-right: var(--space-xs);
+      }
+    }
   }
 }
-.progress {
-  min-height: var(--space-xl);
-  margin: var(--space-xxl) auto;
-}
-

@@ -98,4 +98,9 @@ export class CourseComponent implements OnInit {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
   }
+
+  pay(): void {
+    //ToDO: if it is free navigate to the test page
+    // if it is paid show them payment instructions
+  }
 }

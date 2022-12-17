@@ -49,3 +49,9 @@ export enum WtfProduct {
   NFT,
   DEX
 }
+
+export enum BillableItem {
+  Course,
+  Exam,
+  Certificate
+}

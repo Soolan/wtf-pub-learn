@@ -59,5 +59,11 @@
         <p>Your highest score is: {{courseInfo.score | number: '1.1-1'}}</p>
       </div>
     </div>
+    <div class="certified" *ngIf="courseInfo && courseInfo.status === status.Retake">
+      <button mat-flat-button (click)="pay()" color="warn">
+        <mat-icon>verified_user</mat-icon>
+        <span>GET CERTIFIED</span>
+      </button>
+    </div>
   </div>
 </div>
