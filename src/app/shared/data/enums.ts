@@ -55,3 +55,14 @@ export enum BillableItem {
   Exam,
   Certificate
 }
+
+export enum Cost {
+  Free,
+  Paid
+}
+
+export enum Difficulty {
+  Easy,
+  Moderate,
+  Hard
+}

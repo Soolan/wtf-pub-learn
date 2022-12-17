@@ -1,6 +1,4 @@
 import {Timestamps} from './timestamps';
-import {PayOption} from './pay-option';
-import {Billable} from './billable';
 
 export interface Course {
   name: string;
@@ -8,7 +6,6 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
-  fees: Billable[],
   level: number;
   tags: string;
   timestamps: Timestamps;
