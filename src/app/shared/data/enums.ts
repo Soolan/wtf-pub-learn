@@ -35,7 +35,7 @@ export enum Operation {
 
 export enum Level {
   Easy,
-  Intermediate,
+  Moderate,
   Advanced
 }
 
