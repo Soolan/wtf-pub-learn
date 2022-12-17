@@ -1,4 +1,6 @@
 import {Timestamps} from './timestamps';
+import {PayOption} from './pay-option';
+import {Difficulty} from '../data/enums';
 
 export interface Course {
   name: string;
@@ -6,7 +8,15 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
-  level: number;
+  paidCourse: boolean;
+  coursePayOptions: PayOption[];
+  hasExam: boolean;
+  paidExam: boolean;
+  examPayOptions: PayOption[];
+  hasCertificate: boolean;
+  paidCertificate: boolean;
+  certificatePayOptions: PayOption[];
+  level: Difficulty;
   tags: string;
   timestamps: Timestamps;
   stats: number[]; // each element index represent a lesson.
