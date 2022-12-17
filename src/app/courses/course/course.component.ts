@@ -98,4 +98,8 @@ export class CourseComponent implements OnInit {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
   }
+
+  pay(): void {
+
+  }
 }
