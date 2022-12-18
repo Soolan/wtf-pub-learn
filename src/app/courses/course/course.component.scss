@@ -1,20 +1,12 @@
-.exit {
-  cursor: pointer;
-  .mat-icon {
-    vertical-align: middle;
-  }
-  span {
-    color: var(--color-primary-dark);
-    vertical-align: middle;
-    font-size: large;
-    letter-spacing: var(--space-xxs);
-  }
-}
 .content {
   .course {
     min-height: 10em;
     background-color: var(--color-greye);
     margin-bottom: 2em;
+    .progress {
+      min-height: var(--space-xl);
+      margin: var(--space-xxl) auto;
+    }
     .image {
       border-bottom: 1px solid var(--color-grey9);
       min-height: 15em;
@@ -24,18 +16,29 @@
       background-repeat: no-repeat;
       background-size: cover;
     }
+    .level {
+      left: 0.75em;
+      position: relative;
+      width: fit-content;
+      height: 1.2em;
+      top: -0.6em;
+      background-color: var(--color-greyb);
+      border-radius: var(--space-xxs);
+      text-align: center;
+      span {
+        padding: 0 7px;
+        color: var(--color-greye);
+        letter-spacing: var(--space-xxxs);
+        font-size: smaller;
+        font-weight: bold;
+      }
+    }
     .avatar {
       position: relative;
       height: 4em;
       width: 4em;
-      top: -2.15em;
-      right: 2em;
-      @media screen and (max-width: 600px){
-        height: 2em;
-        width: 2em;
-        top: -1em;
-        right: 1em;
-      }
+      top: -3.15em;
+      right: 1.25em;
       background-color: var(--color-greye);
       background-repeat: no-repeat;
       background-size: cover;
@@ -47,23 +50,12 @@
       font-weight: 100;
       margin-bottom: 0.5rem;
       padding-right: 1em;
-      @media screen and (max-width: 600px) {
-        margin-top: -1em;
-      }
-      @media screen and (min-width: 601px) and (max-width: 1240px) {
-        margin-top: -1.5em;
-      }
+      margin-top: -2em;
     }
     .description {
       padding-bottom: 1em;
     }
-    .level {
-      font-weight: bold;
-      letter-spacing: var(--space-xxs);
-      color: var(--color-greye);
-      transform: rotate(270deg);
-      background-color: var(--color-primary);
-    }
+
   }
   .lessons {
     min-height: 7em;
@@ -131,10 +123,16 @@
         text-align: center;
       }
     }
+    .certified {
+      margin: auto;
+      .mat-flat-button {
+        line-height: var(--space-lg) !important;
+        font-weight: bold;
+      }
+      .mat-icon {
+        top: 0;
+        margin-right: var(--space-xs);
+      }
+    }
   }
 }
-.progress {
-  min-height: var(--space-xl);
-  margin: var(--space-xxl) auto;
-}
-

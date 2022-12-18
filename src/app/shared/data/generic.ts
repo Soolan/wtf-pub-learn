@@ -1,6 +1,6 @@
 export const STATUSES = ['Start', 'Resume', 'Retake'];
 
-export const LEVELS = ['Beginner', 'Moderate', 'Advanced'];
+export const LEVELS = ['Easy', 'Moderate', 'Advanced'];
 
 export const ACTIONS = [
   'welcome!',

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
+import {COURSES, LESSONS, P_COURSES, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
@@ -97,5 +97,13 @@ export class CourseComponent implements OnInit {
   get keyword(): string {
     const firstTag = this.course.tags[0];
     return this.course.name.includes(firstTag) ? firstTag : '';
+  }
+
+  get courseLevel(): string {
+    return LEVELS[this.course.level];
+  }
+  pay(): void {
+    //ToDO: if it is free navigate to the test page
+    // if it is paid show them payment instructions
   }
 }

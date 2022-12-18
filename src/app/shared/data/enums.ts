@@ -35,7 +35,7 @@ export enum Operation {
 
 export enum Level {
   Easy,
-  Intermediate,
+  Moderate,
   Advanced
 }
 
@@ -48,4 +48,21 @@ export enum WtfProduct {
   Faucet,
   NFT,
   DEX
+}
+
+export enum BillableItem {
+  Course,
+  Exam,
+  Certificate
+}
+
+export enum Cost {
+  Free,
+  Paid
+}
+
+export enum Difficulty {
+  Easy,
+  Moderate,
+  Hard
 }

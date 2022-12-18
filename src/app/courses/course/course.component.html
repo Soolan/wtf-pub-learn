@@ -7,12 +7,18 @@
     </div>
     <div *ngIf="course" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
       <div fxFlex="100" class="image" *ngIf="course.banner"
-           [ngStyle]="{'background-image': 'url('+(course.banner|storageUrl|async)+')'}"></div>
-      <div fxFlexOffset="90" fxFlex="10">
+           [ngStyle]="{'background-image': 'url('+(course.banner|storageUrl|async)+')'}">
+      </div>
+      <div fxFlex>
+        <div class="level"><span class="mat-caption">{{courseLevel|uppercase}}</span></div>
+      </div>
+      <div fxFlexOffset="90" fxFlex="20">
         <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
       </div>
+
       <div *ngIf="isDashboard;else guest_view" fxFlex="95" class="heading mat-title"
-           ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">{{course.name}}</div>
+           ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">
+        {{course.name}}</div>
       <ng-template #guest_view>
         <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
              ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
@@ -58,6 +64,12 @@
         </p>
         <p>Your highest score is: {{courseInfo.score | number: '1.1-1'}}</p>
       </div>
+    </div>
+    <div class="certified" *ngIf="courseInfo && courseInfo.status === status.Retake">
+      <button mat-flat-button (click)="pay()" color="warn">
+        <mat-icon>verified_user</mat-icon>
+        <span>GET CERTIFIED</span>
+      </button>
     </div>
   </div>
 </div>
