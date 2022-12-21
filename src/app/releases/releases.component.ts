@@ -63,8 +63,7 @@ export class ReleasesComponent implements OnInit {
 
   setQuarters(): void {
     let quarter: string;
-    this.sortRoadmaps();
-    console.log(this.roadmaps);
+    // this.sortRoadmaps();
     this.roadmaps.forEach(r => {
       quarter = this.getQuarter(r.date);
       if (this.quarters.length === 0) {
