@@ -13,13 +13,9 @@ import { CourseModule } from './courses/course.module';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 import {provideAuth, getAuth, connectAuthEmulator} from '@angular/fire/auth';
-import {provideDatabase, getDatabase, connectDatabaseEmulator} from '@angular/fire/database';
-import {provideFirestore, getFirestore, connectFirestoreEmulator} from '@angular/fire/firestore';
-import {provideFunctions, getFunctions, connectFunctionsEmulator} from '@angular/fire/functions';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
-import {provideStorage, getStorage, connectStorageEmulator} from '@angular/fire/storage';
 import { LandingComponent } from './landing/landing.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -80,9 +76,7 @@ export function markedOptionsFactory(): MarkedOptions {
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireAnalyticsModule,
-    CourseModule,
-    SharedModule,
-    FlexLayoutModule,
+
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => {
@@ -100,6 +94,10 @@ export function markedOptionsFactory(): MarkedOptions {
     MatChipsModule,
     MatExpansionModule,
     DashboardModule,
+    CourseModule,
+    SharedModule,
+    FlexLayoutModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
@@ -118,8 +116,6 @@ export function markedOptionsFactory(): MarkedOptions {
     { provide: USE_STORAGE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9199] : undefined },
     { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
     { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined },
-
-
   ],
   bootstrap: [AppComponent]
 })
