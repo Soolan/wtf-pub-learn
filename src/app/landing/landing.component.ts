@@ -46,4 +46,5 @@ export class LandingComponent implements OnInit {
       window.location.href = destination;
     }
   }
+
 }
