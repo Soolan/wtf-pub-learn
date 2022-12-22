@@ -5,7 +5,7 @@ import {map} from 'rxjs';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {Router} from '@angular/router';
 import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
-import {LANDING} from '../shared/data/generic';
+import {LANDING, LEVELS} from '../shared/data/generic';
 
 @Component({
   selector: 'app-landing',
@@ -16,6 +16,8 @@ export class LandingComponent implements OnInit {
   landing = LANDING;
   id = "";
   course!: any;
+  tags: string[] = [];
+  levels = LEVELS;
 
   constructor(
     private router: Router,
@@ -44,4 +46,5 @@ export class LandingComponent implements OnInit {
       window.location.href = destination;
     }
   }
+
 }
