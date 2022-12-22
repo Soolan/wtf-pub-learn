@@ -66,3 +66,11 @@ export enum Difficulty {
   Moderate,
   Hard
 }
+
+export enum DenialReason {
+  SessionExpired,
+  AccountSuspended,
+  AccountRestricted,
+  AccountNotVerified,
+  JustBecause
+}
