@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CrudService} from '../../../services/crud.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
@@ -9,7 +9,7 @@ import * as firebaseui from 'firebaseui';
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.scss']
+  styleUrls: ['./authentication.component.scss'],
 })
 export class AuthenticationComponent implements AfterViewInit {
   ui!: firebaseui.auth.AuthUI;
@@ -33,9 +33,9 @@ export class AuthenticationComponent implements AfterViewInit {
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
     // Terms of service url.
-    tosUrl: '<your-tos-url>',
+    tosUrl: 'terms-of-service',
     // Privacy policy url.
-    privacyPolicyUrl: '<your-privacy-policy-url>'
+    privacyPolicyUrl: 'privacy-policy'
   };
   provider!: any;
   message!: string;

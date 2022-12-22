@@ -69,10 +69,11 @@ export class HeaderComponent implements OnInit {
     switch (name) {
       case "login":
         this.dialog.open(AuthenticationComponent, {
-          width: '350px',
+          width: '360px',
           enterAnimationDuration: DIALOG_DELAY,
           exitAnimationDuration: DIALOG_DELAY,
-          data: {link: false}
+          data: {link: false},
+          panelClass: 'dialog'
         });
         break;
       case "notifications":
