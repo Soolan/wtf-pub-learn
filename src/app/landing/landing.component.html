@@ -27,9 +27,16 @@
     <div fxFlex="65" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="course; else loading" class="latest">
       <div fxFlex="49" fxFlex.lt-md="100" class="image" [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
       <div fxFlex="49" fxFlex.lt-md="100" class="text" fxLayout="row wrap" fxLayoutAlign="space-around center">
-        <div fxFlex="100" class="mat-headline course-title" appBlackRenderer [content]="course.name" [keyword]="'Fun'"></div>
-        <p fxFlex="100">{{course.description}} - {{course.description}} {{course.description}} </p>
-        <button fxFlex="60" fxFlex.sm="30" fxFlex.lt-sm="60" color="primary" mat-raised-button [routerLink]="['courses', course.id]" class="action">
+        <div fxFlex="100" class="mat-title course-title" appBlackRenderer [content]="course.name" [keyword]="'Fun'"></div>
+        <markdown emoji ngPreserveWhitespaces  fxFlex="100" [data]="course.description"></markdown>
+      </div>
+
+      <div fxFlex="70" class="extra">
+        level: {{levels[course.level]}}
+        tags: <span class="tag" *ngFor="let tag of course.tags">{{tag}} </span>
+      </div>
+      <div fxFlex="30" class="action">
+        <button fxFlex="60" fxFlex.sm="30" fxFlex.lt-sm="60" color="primary" mat-raised-button [routerLink]="['courses', course.id]">
           Start Here
         </button>
       </div>

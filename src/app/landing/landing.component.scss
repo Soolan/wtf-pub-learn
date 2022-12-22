@@ -98,7 +98,7 @@
       .image {
         @include background();
         background-size: contain;
-        height: 40vh;
+        height: 36vh;
         @media screen and (min-width: 600px) and (max-width: 960px) {
           height: 55vh;
         }
@@ -109,16 +109,19 @@
 
       .text {
         .course-title {font-weight: 100;}
-        p { margin: var(--space-lg) 0; }
 
         @media screen and (max-width: 959px) {
           text-align: center;
           padding: var(--space-lg);
         }
-
-        .action {
+      }
+      .action {
+        button {
           min-height: var(--space-lg);
           width: 7em;
+          display: block;
+          margin-left: auto;
+          margin-right: var(--space-md);
         }
       }
     }
