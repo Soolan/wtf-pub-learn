@@ -68,6 +68,7 @@ export enum Difficulty {
 }
 
 export enum DenialReason {
+  NoReasonToDeny,
   SessionExpired,
   AccountSuspended,
   AccountNotVerified,
