@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthenticationComponent} from '../dialogs/authentication/authentication.component';
-import {DIALOG_DELAY, PRODUCTS, PROFILE} from '../../data/navigation';
-import {AngularFireAuth} from '@angular/fire/compat/auth';
+import {DIALOG_DELAY} from '../../data/navigation';
 import {MatDialog} from '@angular/material/dialog';
-import {Router} from '@angular/router';
+import {DenialReason} from '../../data/enums';
+import {Denial} from '../../models/denial';
+import {DENIAL_REASONS} from '../../data/generic';
 
 @Component({
   selector: 'app-access-denied',
@@ -11,10 +12,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./access-denied.component.scss']
 })
 export class AccessDeniedComponent implements OnInit {
+  @Input() reason?: DenialReason;
 
+  denial!: Denial;
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.reason) {
+      this.reason = DenialReason.SessionExpired;
+    }
+    this.denial = DENIAL_REASONS[this.reason]
+  }
 
   openDialog(): void {
         this.dialog.open(AuthenticationComponent, {

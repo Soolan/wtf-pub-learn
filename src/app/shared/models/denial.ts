@@ -1,6 +1,5 @@
-export interface DenialReason {
+export interface Denial {
   reason: string;
   remedy: string;
   action: string;
-  route: string;
 }
