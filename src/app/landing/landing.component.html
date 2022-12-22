@@ -24,7 +24,7 @@
     </div>
   </div>
   <div fxFlex.gt-lg="60" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="courses">
-    <div fxFlex="65" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="course; else loading" class="latest">
+    <div fxFlex="72" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="course; else loading" class="latest">
       <div fxFlex="49" fxFlex.lt-md="100" class="image" [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
       <div fxFlex="49" fxFlex.lt-md="100" class="text" fxLayout="row wrap" fxLayoutAlign="space-around center">
         <div fxFlex="100" class="mat-title course-title" appBlackRenderer [content]="course.name" [keyword]="course.tags[0]"></div>
@@ -44,7 +44,7 @@
     <ng-template #loading>
       <mat-spinner></mat-spinner>
     </ng-template>
-    <div fxFlex="30" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">
+    <div fxFlex="25" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">
       wud up?
     </div>
   </div>
