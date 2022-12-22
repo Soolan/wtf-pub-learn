@@ -53,3 +53,11 @@ export const LANDING = {
     {title: 'Marketplace', description: 'Authentic NFTs', icon: 'logo-grey-white-glow.png', navigate: 'https://nft'},
   ]
 };
+
+export const DENIAL_REASONS = [
+  'Your session has expired.',
+  'Your account has been suspended.',
+  'You don\'t have permission to access this page.',
+  'Please verify your account to access this page.',
+  'JustBecause'
+];

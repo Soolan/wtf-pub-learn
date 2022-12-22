@@ -70,7 +70,7 @@ export enum Difficulty {
 export enum DenialReason {
   SessionExpired,
   AccountSuspended,
-  AccountRestricted,
   AccountNotVerified,
+  RestrictedArea,
   JustBecause
 }
