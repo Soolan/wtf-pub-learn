@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationComponent} from '../dialogs/authentication/authentication.component';
 import {DIALOG_DELAY} from '../../data/navigation';
 import {MatDialog} from '@angular/material/dialog';
 import {DenialReason} from '../../data/enums';
 import {Denial} from '../../models/denial';
 import {DENIAL_REASONS} from '../../data/generic';
+import {DenialReasonService} from '../../services/denial-reason.service';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 
 @Component({
   selector: 'app-access-denied',
@@ -12,25 +14,45 @@ import {DENIAL_REASONS} from '../../data/generic';
   styleUrls: ['./access-denied.component.scss']
 })
 export class AccessDeniedComponent implements OnInit {
-  @Input() reason?: DenialReason;
-
   denial!: Denial;
-  constructor(public dialog: MatDialog) {}
+  reason = DenialReason.SessionExpired;
+
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    // private denialService: DenialReasonService
+  ) {}
 
   ngOnInit(): void {
-    if (!this.reason) {
-      this.reason = DenialReason.SessionExpired;
+    // this.reason = Number(this.route.snapshot.paramMap.get('reason'));
+    if (this.reason == DenialReason.NoReasonToDeny || this.reason > 4) {
+      this.router.navigate(['/']).then().catch()
     }
     this.denial = DENIAL_REASONS[this.reason]
   }
 
-  openDialog(): void {
-        this.dialog.open(AuthenticationComponent, {
-          width: '350px',
-          enterAnimationDuration: DIALOG_DELAY,
-          exitAnimationDuration: DIALOG_DELAY,
-          data: {link: false}
-        });
+  action(): void {
+    switch (this.reason) {
+      case DenialReason.SessionExpired: this.openDialog(); break;
+      case DenialReason.AccountNotVerified: this.sendActivationEmail(); break;
+      case DenialReason.AccountSuspended: this.contactCustomerService(); break;
+      case DenialReason.RestrictedArea: this.upgradeAccount(); break;
     }
+  }
 
+  openDialog(): void {
+    this.dialog.open(AuthenticationComponent, {
+      width: '350px',
+      enterAnimationDuration: DIALOG_DELAY,
+      exitAnimationDuration: DIALOG_DELAY,
+      data: {link: false}
+    });
+  }
+
+  sendActivationEmail(): void {}
+
+  contactCustomerService(): void {}
+
+  upgradeAccount(): void {}
 }

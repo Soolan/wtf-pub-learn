@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {DenialReason} from '../data/enums';
-
 @Injectable({
   providedIn: 'root'
 })

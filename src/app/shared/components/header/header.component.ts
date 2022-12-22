@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit {
         this.dialog.open(WalletComponent, {width: '250px'});
         break;
       case this.profile[1].label:
-        this.router.navigate(['dashboard', 'profile', uid]).then().catch();
+        this.router.navigate(['dashboard', uid, 'profile', ]).then().catch();
         break;
       case this.profile[2].label:
         this.router.navigate(['dashboard']).then().catch();
