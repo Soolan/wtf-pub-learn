@@ -1,4 +1,5 @@
 import {Denial} from '../models/denial';
+import {CryptoSymbol} from './enums';
 
 export const STATUSES = ['Start', 'Resume', 'Retake'];
 
@@ -64,3 +65,10 @@ export const DENIAL_REASONS: Denial[] = [
   {reason: 'Your profile needs verification.', remedy: 'Please click on the activation link in the email.', action: 'Resend Email'},
   {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
 ];
+
+export const CRYPTO_SYMBOLS = ["XRP", "WTF"];
+
+export const WELCOME_FUND = {
+  currency: CryptoSymbol.WTF,
+  amount: 5
+}

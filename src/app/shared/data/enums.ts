@@ -75,3 +75,12 @@ export enum DenialReason {
   RestrictedArea,
   JustBecause
 }
+
+export enum TxType {
+  Payment
+}
+
+export enum CryptoSymbol {
+  XRP,
+  WTF
+}
