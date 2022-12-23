@@ -5,9 +5,9 @@ import {ReleasesComponent} from './releases/releases.component';
 import {AngularFireAuthGuard, canActivate, redirectUnauthorizedTo} from '@angular/fire/compat/auth-guard';
 import {PageNotFoundComponent} from './shared/components/page-not-found/page-not-found.component';
 import {AccessDeniedComponent} from './shared/components/access-denied/access-denied.component';
-
-
-
+import {map, Observable} from 'rxjs';
+import firebase from 'firebase/compat';
+import * as path from 'path';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo('/access-denied');
 
