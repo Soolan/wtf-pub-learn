@@ -1,6 +1,7 @@
 import {Timestamps} from './timestamps';
 import {Achievement, Activity, Loyalty} from '../data/profile';
 import {Status} from '../data/enums';
+import {Balance} from './balance';
 
 export interface Profile {
   display_name: string;
@@ -9,6 +10,7 @@ export interface Profile {
   lastname: string;
   wallet_address: string;
   tag: string;
+  balances: Balance[];
   loyalty: Loyalty;
   achievements: string;
   suspended: boolean;

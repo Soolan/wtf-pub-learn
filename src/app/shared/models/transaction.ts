@@ -1,11 +1,10 @@
 import {CryptoSymbol, TxType} from '../data/enums';
+import {Balance} from './balance';
 
 export interface Transaction {
-  balance: number;
   type: TxType;
   from: number;
   to: number;
-  currency: CryptoSymbol;
-  amount: number;
+  currency: Balance;
   timestamp: number;
 }

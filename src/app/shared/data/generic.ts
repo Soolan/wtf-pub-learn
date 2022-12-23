@@ -1,5 +1,6 @@
 import {Denial} from '../models/denial';
 import {CryptoSymbol} from './enums';
+import {Balance} from '../models/balance';
 
 export const STATUSES = ['Start', 'Resume', 'Retake'];
 
@@ -68,7 +69,7 @@ export const DENIAL_REASONS: Denial[] = [
 
 export const CRYPTO_SYMBOLS = ["XRP", "WTF"];
 
-export const WELCOME_FUND = {
+export const WELCOME_FUND: Balance = {
   currency: CryptoSymbol.WTF,
   amount: 5
 }
