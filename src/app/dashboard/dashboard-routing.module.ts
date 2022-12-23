@@ -1,15 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
 import {ProfileComponent} from './profile/profile.component';
 import {map} from 'rxjs';
-import {AngularFireAuthGuard, canActivate} from '@angular/fire/compat/auth-guard';
+import {canActivate} from '@angular/fire/compat/auth-guard';
 
 const onlyAllowSelf = (next: any) => map((user: any) =>
   !!user && next.params.profileId === user.uid && user.emailVerified ? true : ['access-denied']
 );
-
-
 
 const routes: Routes = [
   {path: ':profileId', component: LandingComponent, ...canActivate(onlyAllowSelf)},
@@ -20,4 +18,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {
+}

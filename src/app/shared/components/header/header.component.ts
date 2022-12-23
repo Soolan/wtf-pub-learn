@@ -94,7 +94,9 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['dashboard', uid]).then().catch();
         break;
       default:
-        this.logout();
+        this.auth.signOut()
+          .then(_ => this.router.navigate(['/']).then().catch()
+        );
         break;
     }
   }

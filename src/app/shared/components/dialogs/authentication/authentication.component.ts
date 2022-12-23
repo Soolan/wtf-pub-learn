@@ -39,7 +39,8 @@ export class AuthenticationComponent implements AfterViewInit {
   };
   provider!: any;
   message!: string;
-  success = true;
+  success = false;
+
   constructor(
     public dialogRef: MatDialogRef<AuthenticationComponent> ,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -55,6 +56,7 @@ export class AuthenticationComponent implements AfterViewInit {
 
     this.auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log('ng')
         // User is signed in.
         user.getIdTokenResult()
           .then(idTokenResult => {
@@ -95,11 +97,22 @@ export class AuthenticationComponent implements AfterViewInit {
                 updated_at: Date.now(),
                 deleted_at: 0
               }
-            }).then(_ => this.crud.docRef('stats', 'wallet').update({tag: value.tag + 1})).catch()
+            })
+              .then(_ => {
+                this.crud.docRef('stats', 'wallet').update({tag: value.tag + 1});
+                this.followUp();
+              })
+              .catch()
+          } else {
+            window.location.assign(`/dashboard/${uid}`);
           }
         })
       }
     })
+  }
+
+  followUp(): void {
+
     this.dialogRef.close();
   }
 
