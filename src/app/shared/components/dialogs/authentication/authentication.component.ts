@@ -40,13 +40,15 @@ export class AuthenticationComponent implements AfterViewInit {
   provider!: any;
   message!: string;
   success = false;
+  summary: string[] = [];
 
   constructor(
-    public dialogRef: MatDialogRef<AuthenticationComponent> ,
+    public dialogRef: MatDialogRef<AuthenticationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public auth: AngularFireAuth,
     private crud: CrudService
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit(): void {
     if (!this.data.link) {
@@ -56,7 +58,8 @@ export class AuthenticationComponent implements AfterViewInit {
 
     this.auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('ng')
+        user.sendEmailVerification().then(_ => this.summary.push('Activation link sent')).catch();
+
         // User is signed in.
         user.getIdTokenResult()
           .then(idTokenResult => {
@@ -76,9 +79,10 @@ export class AuthenticationComponent implements AfterViewInit {
   }
 
   handleProfile(uid: string): void {
-    this.crud.get('stats', 'wallet').subscribe({
-      next: value => {
-        const wallet_address = value.address;
+    this.crud.docRef('stats', 'wallet').get()
+      .then((docSnapshot) => {
+        const wallet_address = docSnapshot.data().address;
+        const tag = docSnapshot.data().tag + 1;
         const profile = this.crud.docRef(PROFILES.path, uid);
         profile.get().then((docSnapshot) => {
           if (!docSnapshot.exists) {
@@ -88,7 +92,7 @@ export class AuthenticationComponent implements AfterViewInit {
               firstname: '',
               lastname: '',
               wallet_address,
-              tag: value.tag + 1,
+              tag,
               loyalty: 0,
               achievements: [],
               suspended: false,
@@ -97,27 +101,27 @@ export class AuthenticationComponent implements AfterViewInit {
                 updated_at: Date.now(),
                 deleted_at: 0
               }
+            }).then(_ => {
+              this.success = true;
+              this.crud.docRef('stats', 'wallet').update({tag}).then().catch();
+              this.followUp();
             })
-              .then(_ => {
-                this.crud.docRef('stats', 'wallet').update({tag: value.tag + 1});
-                this.followUp();
-              })
               .catch()
           } else {
+            this.dialogRef.close();
             window.location.assign(`/dashboard/${uid}`);
           }
         })
-      }
-    })
+      })
   }
 
   followUp(): void {
-
-    this.dialogRef.close();
+    // ToDo: Deposit welcome funds
+    this.summary.push('Welcome funds deposited');
   }
 
   linkAccount(provider: string): void {
-    switch (provider){
+    switch (provider) {
       case "google":
         const googleProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().currentUser?.linkWithPopup(googleProvider)

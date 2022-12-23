@@ -1,4 +1,15 @@
-<div *ngIf="success; else auth"></div>
+<div *ngIf="success; else auth" class="success">
+  <div class="mat-title heading">Congratulations!</div>
+  <div class="mat-body-2">Account registered successfully.</div>
+  <ul>
+    <li *ngFor="let item of summary">{{item}}</li>
+  </ul>
+  <div class="mat-body-1">Please check your email and activate your profile/wallet.</div>
+  <mat-divider></mat-divider>
+  <div class="action">
+    <button mat-raised-button color="primary" mat-dialog-close cdkFocusInitial>Ok</button>
+  </div>
+</div>
 <ng-template #auth>
   <div *ngIf="!data.link; else link">
     <div id="firebaseui-auth-container"></div>
@@ -8,7 +19,7 @@
     <div *ngIf="message; else link_buttons">
       <div>{{message}}</div>
       <div mat-dialog-actions>
-        <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+        <button mat-button mat-dialog-close cdkFocusInitial style="float: end">Ok</button>
       </div>
     </div>
     <ng-template #link_buttons>
