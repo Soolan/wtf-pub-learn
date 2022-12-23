@@ -31,12 +31,13 @@
         <markdown emoji ngPreserveWhitespaces  fxFlex="100" [data]="course.description"></markdown>
       </div>
 
-      <div fxFlex="70" class="extra mat-caption">
+      <div fxFlex="75" fxFlex.lt-md="100" class="extra mat-caption">
         <span class="label">level:</span><span class="level">{{levels[course.level]}}</span>
-        <span class="label">tags:</span><span class="tag" *ngFor="let tag of course.tags">{{tag}}</span>
+        <span class="label">keywords:</span><span class="tag" *ngFor="let tag of course.tags">{{tag}}</span>
+        <span class="tag">holy shit!</span><span class="tag">and fuck!</span>
       </div>
-      <div fxFlex="30" class="action">
-        <button fxFlex="60" fxFlex.sm="30" fxFlex.lt-sm="60" color="primary" mat-raised-button [routerLink]="['courses', course.id]">
+      <div fxFlex="25" fxFlex.lt-md="100" class="action">
+        <button color="primary" mat-raised-button [routerLink]="['courses', course.id]">
           Start Here
         </button>
       </div>

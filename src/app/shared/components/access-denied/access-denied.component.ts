@@ -7,6 +7,7 @@ import {Denial} from '../../models/denial';
 import {DENIAL_REASONS} from '../../data/generic';
 import {DenialReasonService} from '../../services/denial-reason.service';
 import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
+import {AngularFireAuth} from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-access-denied',
@@ -20,12 +21,10 @@ export class AccessDeniedComponent implements OnInit {
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private route: ActivatedRoute,
-    // private denialService: DenialReasonService
+    private auth: AngularFireAuth,
   ) {}
 
   ngOnInit(): void {
-    // this.reason = Number(this.route.snapshot.paramMap.get('reason'));
     if (this.reason == DenialReason.NoReasonToDeny || this.reason > 4) {
       this.router.navigate(['/']).then().catch()
     }

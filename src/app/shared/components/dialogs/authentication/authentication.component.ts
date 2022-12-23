@@ -89,6 +89,7 @@ export class AuthenticationComponent implements AfterViewInit {
               tag: value.tag + 1,
               loyalty: 0,
               achievements: [],
+              suspended: false,
               timestamps: {
                 created_at: Date.now(),
                 updated_at: Date.now(),
