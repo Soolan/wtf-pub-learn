@@ -1,10 +1,13 @@
-import {AfterViewInit, Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CrudService} from '../../../services/crud.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {PROFILES} from '../../../data/collections';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
+import {CryptoSymbol, TxType} from '../../../data/enums';
+import {Balance} from '../../../models/balance';
+import {HOT_TAG, HOT_UID, WELCOME_FUND} from '../../../data/generic';
 
 @Component({
   selector: 'app-authentication',
@@ -81,8 +84,10 @@ export class AuthenticationComponent implements AfterViewInit {
   handleProfile(uid: string): void {
     this.crud.docRef('stats', 'wallet').get()
       .then((docSnapshot) => {
-        const wallet_address = docSnapshot.data().address;
-        const tag = docSnapshot.data().tag + 1;
+        const data = docSnapshot.data();
+        const wallet_address = data.address;
+        const tag = data.tag + 1;
+        const balances= data.balances;
         const profile = this.crud.docRef(PROFILES.path, uid);
         profile.get().then((docSnapshot) => {
           if (!docSnapshot.exists) {
@@ -93,6 +98,7 @@ export class AuthenticationComponent implements AfterViewInit {
               lastname: '',
               wallet_address,
               tag,
+              balances: [WELCOME_FUND],
               loyalty: 0,
               achievements: [],
               suspended: false,
@@ -104,7 +110,8 @@ export class AuthenticationComponent implements AfterViewInit {
             }).then(_ => {
               this.success = true;
               this.crud.docRef('stats', 'wallet').update({tag}).then().catch();
-              this.followUp();
+              this.transact(`${PROFILES.path}/${uid}/transactions`, tag);  //deposit to new account
+              this.balanceHotUID(tag, balances);
             })
               .catch()
           } else {
@@ -115,8 +122,22 @@ export class AuthenticationComponent implements AfterViewInit {
       })
   }
 
-  followUp(): void {
-    // ToDo: Deposit welcome funds
+  balanceHotUID(tag: number, balances: Balance[]): void {
+    // @ts-ignore
+    balances.find(balance => balance.currency === CryptoSymbol.WTF).amount -= WELCOME_FUND.amount;
+    console.log(balances)
+    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})
+    this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag);  //withdraw from hot tag
+  }
+
+  transact(path: string, tag: number): void {
+    this.crud.colRef(path).add({
+      type: TxType.Payment,
+      from: HOT_TAG,
+      to: tag,
+      currency: WELCOME_FUND,
+      timestamp: Date.now()
+    })
     this.summary.push('Welcome funds deposited');
   }
 

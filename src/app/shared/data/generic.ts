@@ -73,3 +73,6 @@ export const WELCOME_FUND: Balance = {
   currency: CryptoSymbol.WTF,
   amount: 5
 }
+
+export const HOT_TAG = 1000;
+export const HOT_UID = '';
