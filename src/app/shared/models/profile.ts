@@ -11,6 +11,7 @@ export interface Profile {
   tag: string;
   loyalty: Loyalty;
   achievements: string;
+  suspended: boolean;
   timestamps: Timestamps;
 }
 

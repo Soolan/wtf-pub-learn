@@ -17,6 +17,7 @@ export class FormService {
       tag: [null, Validators.required],
       loyalty: [null, Validators.required],
       achievements: [[], Validators.required],
+      suspended: [null, Validators.required],
       timestamps: this.formBuilder.group({
         created_at: ['', [Validators.required]],
         updated_at: ['', [Validators.required]],
