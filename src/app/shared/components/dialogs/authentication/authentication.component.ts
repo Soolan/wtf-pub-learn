@@ -126,8 +126,11 @@ export class AuthenticationComponent implements AfterViewInit {
   }
 
   balanceHotUID(tag: number, balances: Balance[]): void {
-    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})                           // update the HOT_UID balance
-      .then(_ => this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag))         // record the tx for HOT_UID
+    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})            // update the HOT_UID balance
+      .then(_ => {
+        this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag);   // record the tx for HOT_UID
+        this.summary.push('Welcome funds deposited');
+      })
       .catch()
     ;
   }
@@ -141,7 +144,7 @@ export class AuthenticationComponent implements AfterViewInit {
       currency: WELCOME_FUND,
       timestamp: Date.now()
     })
-      .then(_ => this.summary.push('Welcome funds deposited'))
+      .then()
       .catch()
     ;
   }
