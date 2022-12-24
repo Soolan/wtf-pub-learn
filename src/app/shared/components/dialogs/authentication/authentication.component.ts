@@ -7,7 +7,7 @@ import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
 import {CryptoSymbol, TxType} from '../../../data/enums';
 import {Balance} from '../../../models/balance';
-import {HOT_TAG, HOT_UID, WELCOME_FUND} from '../../../data/generic';
+import {HOT_TAG, WELCOME_FUND} from '../../../data/generic';
 
 @Component({
   selector: 'app-authentication',
@@ -114,7 +114,7 @@ export class AuthenticationComponent implements AfterViewInit {
               // update stats with the new tags and balances
               this.crud.docRef('stats', 'wallet').update({balances, tag}).then().catch();
               this.transact(`${PROFILES.path}/${uid}/transactions`, tag);  //deposit to new account
-              this.balanceHotUID(tag, balances);
+              this.balanceHotUID();
             })
               .catch()
           } else {
@@ -125,14 +125,10 @@ export class AuthenticationComponent implements AfterViewInit {
       })
   }
 
-  balanceHotUID(tag: number, balances: Balance[]): void {
-    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})            // update the HOT_UID balance
-      .then(_ => {
-        this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag);   // record the tx for HOT_UID
-        this.summary.push('Welcome funds deposited');
-      })
-      .catch()
-    ;
+  balanceHotUID(): void {
+    // ToDo:
+    //  Trigger a cloud function (via firestore) to update
+    //  the balance and transactions for master account
   }
 
   transact(path: string, tag: number): void {

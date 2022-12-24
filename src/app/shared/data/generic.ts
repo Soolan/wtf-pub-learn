@@ -75,4 +75,3 @@ export const WELCOME_FUND: Balance = {
 }
 
 export const HOT_TAG = 1000;
-export const HOT_UID = 'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq'; // set it once on prod: this will be the master account
