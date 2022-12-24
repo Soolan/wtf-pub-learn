@@ -109,7 +109,10 @@ export class AuthenticationComponent implements AfterViewInit {
               }
             }).then(_ => {
               this.success = true;
-              this.crud.docRef('stats', 'wallet').update({tag}).then().catch();
+              balances.find((balance: Balance) => balance.currency === CryptoSymbol.WTF).amount -= WELCOME_FUND.amount;
+              console.log(balances);
+              // update stats with the new tags and balances
+              this.crud.docRef('stats', 'wallet').update({balances, tag}).then().catch();
               this.transact(`${PROFILES.path}/${uid}/transactions`, tag);  //deposit to new account
               this.balanceHotUID(tag, balances);
             })
@@ -123,14 +126,14 @@ export class AuthenticationComponent implements AfterViewInit {
   }
 
   balanceHotUID(tag: number, balances: Balance[]): void {
-    // @ts-ignore
-    balances.find(balance => balance.currency === CryptoSymbol.WTF).amount -= WELCOME_FUND.amount;
-    console.log(balances)
-    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})
-    this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag);  //withdraw from hot tag
+    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})                           // update the HOT_UID balance
+      .then(_ => this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag))         // record the tx for HOT_UID
+      .catch()
+    ;
   }
 
   transact(path: string, tag: number): void {
+    console.log(path);
     this.crud.colRef(path).add({
       type: TxType.Payment,
       from: HOT_TAG,
@@ -138,7 +141,9 @@ export class AuthenticationComponent implements AfterViewInit {
       currency: WELCOME_FUND,
       timestamp: Date.now()
     })
-    this.summary.push('Welcome funds deposited');
+      .then(_ => this.summary.push('Welcome funds deposited'))
+      .catch()
+    ;
   }
 
   linkAccount(provider: string): void {
