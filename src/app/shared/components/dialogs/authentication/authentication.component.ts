@@ -1,10 +1,13 @@
-import {AfterViewInit, Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CrudService} from '../../../services/crud.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {PROFILES} from '../../../data/collections';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
+import {CryptoSymbol, TxType} from '../../../data/enums';
+import {Balance} from '../../../models/balance';
+import {HOT_TAG, HOT_UID, WELCOME_FUND} from '../../../data/generic';
 
 @Component({
   selector: 'app-authentication',
@@ -39,13 +42,16 @@ export class AuthenticationComponent implements AfterViewInit {
   };
   provider!: any;
   message!: string;
-  success = true;
+  success = false;
+  summary: string[] = [];
+
   constructor(
-    public dialogRef: MatDialogRef<AuthenticationComponent> ,
+    public dialogRef: MatDialogRef<AuthenticationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public auth: AngularFireAuth,
     private crud: CrudService
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit(): void {
     if (!this.data.link) {
@@ -55,6 +61,8 @@ export class AuthenticationComponent implements AfterViewInit {
 
     this.auth.onAuthStateChanged((user) => {
       if (user) {
+        user.sendEmailVerification().then(_ => this.summary.push('Activation link sent')).catch();
+
         // User is signed in.
         user.getIdTokenResult()
           .then(idTokenResult => {
@@ -74,9 +82,12 @@ export class AuthenticationComponent implements AfterViewInit {
   }
 
   handleProfile(uid: string): void {
-    this.crud.get('stats', 'wallet').subscribe({
-      next: value => {
-        const wallet_address = value.address;
+    this.crud.docRef('stats', 'wallet').get()
+      .then((docSnapshot) => {
+        const data = docSnapshot.data();
+        const wallet_address = data.address;
+        const tag = data.tag + 1;
+        const balances= data.balances;
         const profile = this.crud.docRef(PROFILES.path, uid);
         profile.get().then((docSnapshot) => {
           if (!docSnapshot.exists) {
@@ -86,24 +97,60 @@ export class AuthenticationComponent implements AfterViewInit {
               firstname: '',
               lastname: '',
               wallet_address,
-              tag: value.tag + 1,
+              tag,
+              balances: [WELCOME_FUND],
               loyalty: 0,
               achievements: [],
+              suspended: false,
               timestamps: {
                 created_at: Date.now(),
                 updated_at: Date.now(),
                 deleted_at: 0
               }
-            }).then(_ => this.crud.docRef('stats', 'wallet').update({tag: value.tag + 1})).catch()
+            }).then(_ => {
+              this.success = true;
+              balances.find((balance: Balance) => balance.currency === CryptoSymbol.WTF).amount -= WELCOME_FUND.amount;
+              console.log(balances);
+              // update stats with the new tags and balances
+              this.crud.docRef('stats', 'wallet').update({balances, tag}).then().catch();
+              this.transact(`${PROFILES.path}/${uid}/transactions`, tag);  //deposit to new account
+              this.balanceHotUID(tag, balances);
+            })
+              .catch()
+          } else {
+            this.dialogRef.close();
+            window.location.assign(`/dashboard/${uid}`);
           }
         })
-      }
+      })
+  }
+
+  balanceHotUID(tag: number, balances: Balance[]): void {
+    this.crud.docRef(PROFILES.path,HOT_UID).update({balances})            // update the HOT_UID balance
+      .then(_ => {
+        this.transact(`${PROFILES.path}/${HOT_UID}/transactions`, tag);   // record the tx for HOT_UID
+        this.summary.push('Welcome funds deposited');
+      })
+      .catch()
+    ;
+  }
+
+  transact(path: string, tag: number): void {
+    console.log(path);
+    this.crud.colRef(path).add({
+      type: TxType.Payment,
+      from: HOT_TAG,
+      to: tag,
+      currency: WELCOME_FUND,
+      timestamp: Date.now()
     })
-    this.dialogRef.close();
+      .then()
+      .catch()
+    ;
   }
 
   linkAccount(provider: string): void {
-    switch (provider){
+    switch (provider) {
       case "google":
         const googleProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().currentUser?.linkWithPopup(googleProvider)

@@ -102,15 +102,26 @@
         background-size: contain;
         height: 33vh;
         @media screen and (min-width: 600px) and (max-width: 960px) {
-          height: 55vh;
+          height: 45vh;
         }
         @media screen and (max-width: 599px) {
-          height: 50vh;
+          height: 25vh;
         }
       }
+      .text {
+        .course-title {font-weight: 100;}
+
+        @media screen and (max-width: 959px) {
+          padding: var(--space-md);
+        }
+      }
+
       .extra {
         letter-spacing: var(--space-xxxs);
-        color: var(--color-grey4);
+        color: var(--color-accent-dark);
+        @media screen and (max-width: 959px) {
+          padding: 0 var(--space-md);
+        }
         .label {
           font-weight: bold;
           margin-right: var(--space-xxs);
@@ -124,17 +135,9 @@
           text-align: center;
           border-radius: var(--space-xs);
           padding: var(--space-xxs) var(--space-xs);
-          background-color: var(--color-grey9);
-          color: var(--color-greye);
-
-        }
-      }
-      .text {
-        .course-title {font-weight: 100;}
-
-        @media screen and (max-width: 959px) {
-          text-align: center;
-          padding: var(--space-lg);
+          background-color: var(--color-accent-lightest);
+          color: var(--color-accent);
+          display: inline-block;
         }
       }
       .action {
@@ -144,6 +147,12 @@
           display: block;
           margin-left: auto;
           margin-right: var(--space-md);
+          @media screen and (max-width: 959px) {
+            display: flex;
+            margin: var(--space-md) auto;
+            text-align: center;
+            width: auto;
+          }
         }
       }
     }

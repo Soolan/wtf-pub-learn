@@ -1,11 +1,18 @@
-#firebaseui-auth-container {
-  .firebaseui-card-footer .firebaseui-provider-sign-in-footer .firebaseui-link {
-    font-size: 15px !important;
-    color: #006644 !important;
+.success {
+  .heading {
+    font-weight: 100;
   }
-}
+  ul li {
+    font-weight: 700;
+    color: var(--color-primary)
+  }
 
-.firebaseui-title {
-  font-size: 20px;
+  .action {
+    text-align: center;
+  }
+
+  .mat-divider {
+    margin: var(--space-md) 0;
+  }
 }
 

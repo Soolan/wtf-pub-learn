@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {PROFILES} from '../../shared/data/collections';
-import {FormGroup, UntypedFormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
 import {FormService} from './form.service';

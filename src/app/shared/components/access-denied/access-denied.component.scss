@@ -3,15 +3,17 @@
   min-height: 50vh;
   .headline {
     font-weight: 100;
+    margin-top: var(--space-xl);
     margin-bottom: var(--space-md);
   }
-  button {
-    margin: 0 var(--space-xxs);
-  }
-  .description {
+  .reason {
     color: var(--color-grey8);
     font-size: large;
     letter-spacing: var(--space-xxxs);
     margin-bottom: var(--space-xs);
+  }
+  button {
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xxl);
   }
 }

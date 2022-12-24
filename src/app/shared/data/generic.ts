@@ -1,3 +1,7 @@
+import {Denial} from '../models/denial';
+import {CryptoSymbol} from './enums';
+import {Balance} from '../models/balance';
+
 export const STATUSES = ['Start', 'Resume', 'Retake'];
 
 export const LEVELS = ['Easy', 'Moderate', 'Advanced'];
@@ -53,3 +57,22 @@ export const LANDING = {
     {title: 'Marketplace', description: 'Authentic NFTs', icon: 'logo-grey-white-glow.png', navigate: 'https://nft'},
   ]
 };
+
+export const DENIAL_REASONS: Denial[] = [
+  {reason: '', remedy: '', action: ''},
+  {reason: 'Your session has expired.', remedy: 'Please login again.', action: 'Login'},
+  {reason: 'Your account has been suspended.', remedy: 'Please reach out customer service to appeal.', action: 'Customer Service'},
+  {reason: 'You don\'t have permission to access this page.', remedy: 'Please upgrade to access this page.', action: 'Upgrade'},
+  {reason: 'Your profile needs verification.', remedy: 'Please click on the activation link in the email.', action: 'Resend Email'},
+  {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
+];
+
+export const CRYPTO_SYMBOLS = ["XRP", "WTF"];
+
+export const WELCOME_FUND: Balance = {
+  currency: CryptoSymbol.WTF,
+  amount: 5
+}
+
+export const HOT_TAG = 1000;
+export const HOT_UID = 'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq'; // set it once on prod: this will be the master account

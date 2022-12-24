@@ -66,3 +66,21 @@ export enum Difficulty {
   Moderate,
   Hard
 }
+
+export enum DenialReason {
+  NoReasonToDeny,
+  SessionExpired,
+  AccountSuspended,
+  AccountNotVerified,
+  RestrictedArea,
+  JustBecause
+}
+
+export enum TxType {
+  Payment
+}
+
+export enum CryptoSymbol {
+  XRP,
+  WTF
+}
