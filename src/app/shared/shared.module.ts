@@ -30,6 +30,7 @@ import {UploadTaskComponent} from './components/image-uploader/upload-task/uploa
 import {ParserDirective} from './directives/parser.directive';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import {MarkdownModule} from 'ngx-markdown';
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {MarkdownModule} from 'ngx-markdown';
     UploadTaskComponent,
     ParserDirective,
     PrivacyPolicyComponent,
+    TermsAndConditionsComponent,
   ],
   exports: [
     HeaderComponent,
