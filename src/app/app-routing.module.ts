@@ -9,6 +9,7 @@ import {map, Observable} from 'rxjs';
 import firebase from 'firebase/compat';
 import * as path from 'path';
 import {PrivacyPolicyComponent} from './shared/components/privacy-policy/privacy-policy.component';
+import {TermsAndConditionsComponent} from './shared/components/terms-and-conditions/terms-and-conditions.component';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo('/access-denied');
 
@@ -28,6 +29,7 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorized),
   },
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
+  {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
   {path: 'access-denied', component: AccessDeniedComponent},
   {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
 ];
