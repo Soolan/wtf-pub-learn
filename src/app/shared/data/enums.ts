@@ -67,6 +67,24 @@ export enum Difficulty {
   Hard
 }
 
+export enum EventType {
+  Greetings,
+  HealthCheck,
+  Payment,
+  Registration,
+  Login,
+  CourseStarted,
+  CourseCompleted,
+  LessonStarted,
+  LessonCompleted,
+  ExamPassed,
+  NFTIssued,
+  Certified,
+  GameStarted,
+  Winner,
+  BugReport,
+}
+
 export enum DenialReason {
   NoReasonToDeny,
   SessionExpired,
