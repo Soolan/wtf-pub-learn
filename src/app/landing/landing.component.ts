@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../shared/services/crud.service';
-import {COURSES} from '../shared/data/collections';
+import {COURSES, EVENTS} from '../shared/data/collections';
 import {map} from 'rxjs';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {Router} from '@angular/router';
 import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
 import {LANDING, LEVELS} from '../shared/data/generic';
+import {Event} from '../shared/models/event';
 
 @Component({
   selector: 'app-landing',
@@ -18,6 +19,7 @@ export class LandingComponent implements OnInit {
   course!: any;
   tags: string[] = [];
   levels = LEVELS;
+  stream!: any[];
 
   constructor(
     private router: Router,
@@ -26,6 +28,11 @@ export class LandingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getLatestCourse();
+    this.initStream();
+  }
+
+  private getLatestCourse() {
     const query = {...COURSES};  // make a copy to prevent altering thr original values
     query.limit = 1;
     this.crud.colRefQuery(query).pipe(
@@ -38,6 +45,13 @@ export class LandingComponent implements OnInit {
     });
   }
 
+  private initStream() {
+    this.crud.colRefQuery(EVENTS).subscribe({
+      next: events => this.stream = events,
+      error: error => console.error(error)
+    });
+  }
+
   navigate(destination: string): void {
     this.analytics.logEvent(ACTION_LANDING_CLICK, {component: 'body', button: destination}).then().catch();
     if (destination === 'courses') {
@@ -46,5 +60,4 @@ export class LandingComponent implements OnInit {
       window.location.href = destination;
     }
   }
-
 }
