@@ -75,3 +75,21 @@ export const WELCOME_FUND: Balance = {
 }
 
 export const HOT_TAG = 1000;
+
+export const EVENTS = [
+  {label: "[Welcome]", icon: ''},
+  {label: "[Ping]", icon: ''},
+  {label: "made a payment", icon: ''},
+  {label: "registered", icon: ''},
+  {label: "logged in", icon: ''},
+  {label: "started a course", icon: ''},
+  {label: "completed a course", icon: ''},
+  {label: "started a lesson", icon: ''},
+  {label: "completed a lesson", icon: ''},
+  {label: "passed exam", icon: ''},
+  {label: "issued NFT", icon: ''},
+  {label: "is certified!", icon: ''},
+  {label: "started a game", icon: ''},
+  {label: "won!", icon: ''},
+  {label: "reported a bug", icon: ''},
+  ];

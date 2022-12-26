@@ -6,7 +6,6 @@ import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {Router} from '@angular/router';
 import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
 import {LANDING, LEVELS} from '../shared/data/generic';
-import {Event} from '../shared/models/event';
 
 @Component({
   selector: 'app-landing',

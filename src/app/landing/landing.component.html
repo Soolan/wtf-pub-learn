@@ -52,7 +52,7 @@
       <mat-spinner></mat-spinner>
     </ng-template>
     <div fxFlex="25" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream mat-caption">
-      <div fxFlex="90">
+      <div fxFlex="90" *ngFor="let event of stream">
         <span class="type"></span>
         <span class="who"></span>
         <mat-icon></mat-icon>
