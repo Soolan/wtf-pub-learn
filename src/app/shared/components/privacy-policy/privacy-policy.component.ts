@@ -12,7 +12,10 @@ export class PrivacyPolicyComponent implements OnInit {
 
   ngOnInit(): void {
     this.crud.docRef('legals', 'privacy-policy').get()
-      .then(snap => this.content = snap.data().content)
+      .then(snap => {
+        console.log(snap.data())
+        this.content = snap.data().content
+      })
       .catch()
     ;
   }
