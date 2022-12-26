@@ -29,6 +29,7 @@ import {DropzoneDirective} from './directives/dropzone.directive';
 import {UploadTaskComponent} from './components/image-uploader/upload-task/upload-task.component';
 import {ParserDirective} from './directives/parser.directive';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import {MarkdownModule} from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
     MatDialogModule,
     RouterModule,
     MatTooltipModule,
+    MarkdownModule,
   ]
 })
 export class SharedModule {

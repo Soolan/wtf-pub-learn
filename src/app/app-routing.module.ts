@@ -8,6 +8,7 @@ import {AccessDeniedComponent} from './shared/components/access-denied/access-de
 import {map, Observable} from 'rxjs';
 import firebase from 'firebase/compat';
 import * as path from 'path';
+import {PrivacyPolicyComponent} from './shared/components/privacy-policy/privacy-policy.component';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo('/access-denied');
 
@@ -26,7 +27,7 @@ const routes: Routes = [
       .then(m => m.DashboardModule),
     ...canActivate(redirectUnauthorized),
   },
-
+  {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'access-denied', component: AccessDeniedComponent},
   {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
 ];

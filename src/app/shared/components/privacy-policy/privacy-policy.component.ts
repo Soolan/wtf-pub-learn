@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CrudService} from '../../services/crud.service';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements OnInit {
-
-  constructor() { }
+  content!: string;
+  constructor(private crud: CrudService) { }
 
   ngOnInit(): void {
+    this.crud.docRef('legals', 'privacy-policy').get()
+      .then(snap => this.content = snap.data().content)
+      .catch()
+    ;
   }
 
 }
