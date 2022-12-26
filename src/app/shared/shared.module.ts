@@ -22,12 +22,13 @@ import {AuthenticationComponent} from './components/dialogs/authentication/authe
 import {WalletComponent} from './components/dialogs/wallet/wallet.component';
 import {NotificationsComponent} from './components/dialogs/notifications/notifications.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
-import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
-import { DropzoneDirective } from './directives/dropzone.directive';
-import { UploadTaskComponent } from './components/image-uploader/upload-task/upload-task.component';
-import { ParserDirective } from './directives/parser.directive';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
+import {ImageUploaderComponent} from './components/image-uploader/image-uploader.component';
+import {DropzoneDirective} from './directives/dropzone.directive';
+import {UploadTaskComponent} from './components/image-uploader/upload-task/upload-task.component';
+import {ParserDirective} from './directives/parser.directive';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -48,19 +49,20 @@ import { ParserDirective } from './directives/parser.directive';
     DropzoneDirective,
     UploadTaskComponent,
     ParserDirective,
+    PrivacyPolicyComponent,
   ],
-    exports: [
-        HeaderComponent,
-        FooterComponent,
-        StorageUrlPipe,
-        BlackRendererDirective,
-        BlankRendererDirective,
-        TypeInRendererDirective,
-        CardRendererDirective,
-        MatchRendererDirective,
-        ImageUploaderComponent,
-        ParserDirective,
-    ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    StorageUrlPipe,
+    BlackRendererDirective,
+    BlankRendererDirective,
+    TypeInRendererDirective,
+    CardRendererDirective,
+    MatchRendererDirective,
+    ImageUploaderComponent,
+    ParserDirective,
+  ],
   imports: [
     CommonModule,
     FlexLayoutModule,
