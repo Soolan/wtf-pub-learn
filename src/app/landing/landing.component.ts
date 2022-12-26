@@ -5,7 +5,9 @@ import {map} from 'rxjs';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {Router} from '@angular/router';
 import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
-import {LANDING, LEVELS} from '../shared/data/generic';
+import {EVENTS_RENDER, LANDING, LEVELS} from '../shared/data/generic';
+import {Event} from '../shared/models/event';
+import {EventType} from '../shared/data/enums';
 
 @Component({
   selector: 'app-landing',
@@ -18,7 +20,8 @@ export class LandingComponent implements OnInit {
   course!: any;
   tags: string[] = [];
   levels = LEVELS;
-  stream!: any[];
+  stream!: any;
+  events = EVENTS_RENDER;
 
   constructor(
     private router: Router,
@@ -45,8 +48,11 @@ export class LandingComponent implements OnInit {
   }
 
   private initStream() {
-    this.crud.colRefQuery(EVENTS).subscribe({
-      next: events => this.stream = events,
+    this.crud.colRefQuery(EVENTS).pipe(map(this.crud.mapId)).subscribe({
+      next: events => {
+        this.stream = events;
+        console.log(this.stream)
+      },
       error: error => console.error(error)
     });
   }
@@ -58,5 +64,13 @@ export class LandingComponent implements OnInit {
     } else {
       window.location.href = destination;
     }
+  }
+
+  gen(): void {
+    this.crud.add('events', {
+      type: Math.floor(Math.random() * 15), // 0 - 14
+      who: Math.random().toString(36).slice(2, 4) + '****@gmail.com',
+      created_at: Date.now()
+    }).then().catch();
   }
 }

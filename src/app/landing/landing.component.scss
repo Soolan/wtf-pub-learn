@@ -157,7 +157,10 @@
       }
     }
     .stream {
-      background-color: var(--color-grey8);
+      text-align: right;
+      //background-color: var(--color-grey8);
+      .who {color: var(--color-primary-dark)}
+      .act {color: var(--color-primary)}
     }
   }
 }

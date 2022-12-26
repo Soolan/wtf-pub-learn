@@ -36,7 +36,7 @@ export const LANDING = {
     keyword: "Crypto"
   },
   subheading: "the fun way.",
-  description:[
+  description: [
     {
       content: "Understand the crypto buzzwords, ",
       keyword: "crypto"
@@ -61,9 +61,21 @@ export const LANDING = {
 export const DENIAL_REASONS: Denial[] = [
   {reason: '', remedy: '', action: ''},
   {reason: 'Your session has expired.', remedy: 'Please login again.', action: 'Login'},
-  {reason: 'Your account has been suspended.', remedy: 'Please reach out customer service to appeal.', action: 'Customer Service'},
-  {reason: 'You don\'t have permission to access this page.', remedy: 'Please upgrade to access this page.', action: 'Upgrade'},
-  {reason: 'Your profile needs verification.', remedy: 'Please click on the activation link in the email.', action: 'Resend Email'},
+  {
+    reason: 'Your account has been suspended.',
+    remedy: 'Please reach out customer service to appeal.',
+    action: 'Customer Service'
+  },
+  {
+    reason: 'You don\'t have permission to access this page.',
+    remedy: 'Please upgrade to access this page.',
+    action: 'Upgrade'
+  },
+  {
+    reason: 'Your profile needs verification.',
+    remedy: 'Please click on the activation link in the email.',
+    action: 'Resend Email'
+  },
   {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
 ];
 
@@ -76,10 +88,15 @@ export const WELCOME_FUND: Balance = {
 
 export const HOT_TAG = 1000;
 
-export const EVENTS = [
+export interface EventRender {
+  label: string;
+  icon: string;
+}
+
+export const EVENTS_RENDER: EventRender[] = [
   {label: "[Welcome]", icon: 'emoji_people'},
   {label: "[Ping]", icon: 'monitor_heart'},
-  {label: "made a payment", icon: ''paid},
+  {label: "made a payment", icon: 'paid'},
   {label: "registered", icon: 'how_to_reg'},
   {label: "logged in", icon: 'login'},
   {label: "started a course", icon: 'outlined_flag'},
@@ -92,4 +109,4 @@ export const EVENTS = [
   {label: "started a game", icon: 'casino'},
   {label: "won!", icon: 'emoji_events'},
   {label: "reported a bug", icon: 'bug_report'},
-  ];
+];

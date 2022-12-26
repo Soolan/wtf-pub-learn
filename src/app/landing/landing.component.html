@@ -40,9 +40,11 @@
       <div fxFlex="75" fxFlex.lt-md="100" class="extra mat-caption">
         <span class="label">level:</span><span class="level">{{levels[course.level]}}</span>
         <span class="label">keywords:</span><span class="tag" *ngFor="let tag of course.tags">{{tag}}</span>
-        <span class="tag">holy shit!</span><span class="tag">and fuck!</span>
       </div>
       <div fxFlex="25" fxFlex.lt-md="100" class="action">
+        <button color="primary" mat-stroked-button (click)="gen()">
+          gen
+        </button>
         <button color="primary" mat-raised-button [routerLink]="['courses', course.id]">
           Start Here
         </button>
@@ -51,14 +53,13 @@
     <ng-template #loading>
       <mat-spinner></mat-spinner>
     </ng-template>
-    <div fxFlex="25" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream mat-caption">
-      <div fxFlex="90" *ngFor="let event of stream">
-        <span class="type"></span>
-        <span class="who"></span>
-        <mat-icon></mat-icon>
-        <span class="when"></span>
+    <div fxFlex="25" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div fxFlex="100" *ngFor="let event of stream" class="stream mat-caption">
+        <span class="who">{{event.who}}</span>
+        <span class="act">{{events[event.type].label}}</span>
+        <mat-icon>{{events[event.type].icon}}</mat-icon>
+        <span class="when">{{event.when | date: 's'}} ago</span>
       </div>
-      <div fxFlex="100" class="">wud up?</div>
     </div>
   </div>
 </div>
