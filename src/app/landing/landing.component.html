@@ -54,11 +54,13 @@
       <mat-spinner></mat-spinner>
     </ng-template>
     <div fxFlex="25" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-      <div fxFlex="100" *ngFor="let event of stream" class="stream mat-caption">
-        <span class="who">{{event.who}}</span>
-        <span class="act">{{events[event.type].label}}</span>
-        <mat-icon>{{events[event.type].icon}}</mat-icon>
-        <span class="when">{{event.when | date: 's'}} ago</span>
+      <div fxFlex="100" *ngFor="let event of stream | async; let i = index">
+        <div class="stream mat-caption" [@slideDown]="event">
+          <span class="who">{{event.who}}</span>
+          <span class="act">{{events[event.type].label}}</span>
+          <mat-icon>{{events[event.type].icon}}</mat-icon>
+          <span class="when">{{event.when | date: 's'}} ago</span>
+        </div>
       </div>
     </div>
   </div>

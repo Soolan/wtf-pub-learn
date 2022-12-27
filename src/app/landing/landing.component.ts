@@ -1,18 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../shared/services/crud.service';
 import {COURSES, EVENTS} from '../shared/data/collections';
-import {map} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {Router} from '@angular/router';
 import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
 import {EVENTS_RENDER, LANDING, LEVELS} from '../shared/data/generic';
 import {Event} from '../shared/models/event';
 import {EventType} from '../shared/data/enums';
+import {FADE_IN_OUT} from '../shared/animations/fade-in-out';
+import {SLIDE_DOWN} from '../shared/animations/slide-down';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  styleUrls: ['./landing.component.scss'],
+  animations: [FADE_IN_OUT, SLIDE_DOWN]
 })
 export class LandingComponent implements OnInit {
   landing = LANDING;
@@ -20,7 +23,7 @@ export class LandingComponent implements OnInit {
   course!: any;
   tags: string[] = [];
   levels = LEVELS;
-  stream!: any;
+  stream!: Observable<any[]>;
   events = EVENTS_RENDER;
 
   constructor(
@@ -31,7 +34,7 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLatestCourse();
-    this.initStream();
+    this.stream = this.crud.colRefQueryValues(EVENTS);
   }
 
   private getLatestCourse() {
@@ -42,16 +45,6 @@ export class LandingComponent implements OnInit {
     ).subscribe({
       next: courses => {
         this.course = courses[0];
-      },
-      error: error => console.error(error)
-    });
-  }
-
-  private initStream() {
-    this.crud.colRefQuery(EVENTS).pipe(map(this.crud.mapId)).subscribe({
-      next: events => {
-        this.stream = events;
-        console.log(this.stream)
       },
       error: error => console.error(error)
     });
