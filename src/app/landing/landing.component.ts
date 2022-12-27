@@ -8,14 +8,14 @@ import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
 import {EVENTS_RENDER, LANDING, LEVELS} from '../shared/data/generic';
 import {Event} from '../shared/models/event';
 import {EventType} from '../shared/data/enums';
-import {FADE_IN_OUT} from '../shared/animations/fade-in-out';
+import {FADE_OUT} from '../shared/animations/fade-out';
 import {SLIDE_DOWN} from '../shared/animations/slide-down';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss'],
-  animations: [FADE_IN_OUT, SLIDE_DOWN]
+  animations: [FADE_OUT, SLIDE_DOWN]
 })
 export class LandingComponent implements OnInit {
   landing = LANDING;
