@@ -59,6 +59,15 @@ export class LandingComponent implements OnInit {
     }
   }
 
+  howLongAgo(seconds: number): string {
+    const delta = Math.floor((new Date().getTime() - seconds) / 1000);
+    let when = '';
+    when = delta < 10 ?  'just now' :
+      (delta >= 10 && delta < 60) ? delta+'s ago':
+        (delta >= 60 && delta < 3600) ? Math.floor((delta/60)) +'m ago': Math.floor((delta/3600)) +'h ago';
+    return when;
+  }
+
   gen(): void {
     this.crud.add('events', {
       type: Math.floor(Math.random() * 15), // 0 - 14
