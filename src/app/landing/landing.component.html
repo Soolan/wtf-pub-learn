@@ -1,15 +1,17 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="landing">
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="hero">
+  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center"
+       class="hero">
 
     <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
       <div fxFlex="95" class="heading" ngClass.xl="mat-display-4" ngClass.lg="mat-display-3" ngClass.md="mat-display-2"
            ngClass.sm="mat-display-1" ngClass.xs="mat-headline"
            appBlackRenderer [content]="landing.heading.content" [keyword]="landing.heading.keyword">
       </div>
-      <div fxFlex="95" class="subheading" ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
+      <div fxFlex="95" class="subheading" ngClass.gt-md="mat-display-1" ngClass.md="mat-headline"
+           ngClass.lt-md="mat-title">
         {{landing.subheading}}
       </div>
-      <div fxFlex="95" class="mat-caption caption"> PLAY ⏺ LEARN ⏺ EARN </div>
+      <div fxFlex="95" class="mat-caption caption"> PLAY ⏺ LEARN ⏺ EARN</div>
     </div>
     <div fxFlex="60" fxFlex.lt-md="100" class="banner"></div>
   </div>
@@ -23,20 +25,24 @@
       <div class="mat-caption text">{{bullet.description}}</div>
     </div>
   </div>
-  <div fxFlex.gt-lg="60" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="courses">
-    <div fxFlex="72" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="course; else loading" class="latest">
-      <div fxFlex="49" fxFlex.lt-md="100" class="image" [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
+  <div fxFlex.gt-lg="60" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start"
+       fxLayoutAlign.lt-md="space-around start" class="courses">
+    <div fxFlex="66" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between center"
+         *ngIf="course; else loading" class="latest">
+      <div fxFlex="49" fxFlex.lt-md="100" class="image"
+           [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
       <div fxFlex="49" fxFlex.lt-md="100" class="text" fxLayout="row wrap" fxLayoutAlign="space-around center">
-        <div fxFlex="100" class="mat-title course-title" appBlackRenderer [content]="course.name" [keyword]="course.tags[0]"></div>
-        <markdown emoji ngPreserveWhitespaces  fxFlex="100" [data]="course.description"></markdown>
+        <div fxFlex="100" class="mat-title course-title" appBlackRenderer [content]="course.name"
+             [keyword]="course.tags[0]"></div>
+        <markdown emoji ngPreserveWhitespaces fxFlex="100" [data]="course.description"></markdown>
       </div>
 
       <div fxFlex="75" fxFlex.lt-md="100" class="extra mat-caption">
         <span class="label">level:</span><span class="level">{{levels[course.level]}}</span>
         <span class="label">keywords:</span><span class="tag" *ngFor="let tag of course.tags">{{tag}}</span>
-        <span class="tag">holy shit!</span><span class="tag">and fuck!</span>
       </div>
       <div fxFlex="25" fxFlex.lt-md="100" class="action">
+<!--        <button color="primary" mat-stroked-button (click)="gen()">gen</button>-->
         <button color="primary" mat-raised-button [routerLink]="['courses', course.id]">
           Start Here
         </button>
@@ -45,8 +51,24 @@
     <ng-template #loading>
       <mat-spinner></mat-spinner>
     </ng-template>
-    <div fxFlex="25" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="stream">
-      wud up?
+    <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
+    <div fxFlex="34" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-between start">
+      <div fxFlex="100" *ngFor="let event of stream | async; let i = index">
+        <div *ngIf="i==0; else others" class="stream mat-caption" [@fadeInOut]="'fadeIn'">
+          <span class="who">{{event.who}}</span>
+          <span class="act">{{events[event.type].label}}</span>
+          <mat-icon>{{events[event.type].icon}}</mat-icon>
+          <div class="when">{{howLongAgo(event.created_at)}}</div>
+        </div>
+        <ng-template #others>
+          <div class="stream mat-caption" [@slideDown] [@fadeInOut]="i === 14 ? 'fadeOut': ''">
+            <span class="who">{{event.who}}</span>
+            <span class="act">{{events[event.type].label}}</span>
+            <mat-icon>{{events[event.type].icon}}</mat-icon>
+            <div class="when">{{howLongAgo(event.created_at)}}</div>
+          </div>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

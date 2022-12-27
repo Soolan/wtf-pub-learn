@@ -63,3 +63,12 @@ export const SLIDES: Collection = {
   where: {field: 'order', operator: '!=', value: ''},
   orderBy: {field: 'order', direction: 'asc'}
 };
+
+
+//------------------------------------------------- Course
+export const EVENTS: Collection = {
+  path: 'events',
+  limit: 15,
+  where: {field: 'created_at', operator: '!=', value: ''},
+  orderBy: {field: 'created_at', direction: 'desc'}
+};
