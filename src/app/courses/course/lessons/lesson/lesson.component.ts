@@ -71,7 +71,9 @@ export class LessonComponent implements OnInit {
   initSlides(): void {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
       .then(snap => {
-        this.slides = snap.docs.map(doc => doc.data());
+        this.slides = snap.docs.map(doc => {
+          return {id: doc.id, ...doc.data()}
+        });
         this.slides.sort((a, b) => {
           return a.order - b.order
         });
