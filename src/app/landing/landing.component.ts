@@ -5,7 +5,7 @@ import {map, Observable} from 'rxjs';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {Router} from '@angular/router';
 import {ACTION_LANDING_CLICK} from '../shared/data/analytics-events';
-import {EVENTS_RENDER, LANDING, LEVELS} from '../shared/data/generic';
+import {EVENTS_Content, LANDING, LEVELS} from '../shared/data/generic';
 import {Event} from '../shared/models/event';
 import {EventType} from '../shared/data/enums';
 import {FADE_OUT} from '../shared/animations/fade-out';
@@ -24,7 +24,7 @@ export class LandingComponent implements OnInit {
   tags: string[] = [];
   levels = LEVELS;
   stream!: Observable<any[]>;
-  events = EVENTS_RENDER;
+  events = EVENTS_Content;
 
   constructor(
     private router: Router,

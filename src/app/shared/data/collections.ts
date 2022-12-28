@@ -65,7 +65,7 @@ export const SLIDES: Collection = {
 };
 
 
-//------------------------------------------------- Course
+//------------------------------------------------- Event
 export const EVENTS: Collection = {
   path: 'events',
   limit: 15,

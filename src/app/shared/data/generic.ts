@@ -76,12 +76,12 @@ export const WELCOME_FUND: Balance = {
 
 export const HOT_TAG = 1000;
 
-export interface EventRender {
+export interface EventContent {
   label: string;
   icon: string;
 }
 
-export const EVENTS_RENDER: EventRender[] = [
+export const EVENTS_Content: EventContent[] = [
   {label: "[Welcome]", icon: 'emoji_people'},
   {label: "[Ping]", icon: 'monitor_heart'},
   {label: "made a payment", icon: 'paid'},
