@@ -27,6 +27,5 @@ export class SlidesRendererComponent implements OnChanges {
 
   setCurrentSlide(index: number): void {
     this.current = this.slides[index];
-    console.log(this.current);
   }
 }

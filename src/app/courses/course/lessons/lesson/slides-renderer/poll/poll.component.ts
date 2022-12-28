@@ -31,11 +31,9 @@ export class PollComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(POLLS.path, this.slide.id);
     this.crud.docRef(POLLS.path, this.slide.id).get()
       .then(snap => {
         this.poll = snap.data();
-        console.log(this.poll);
       })
       .catch()
     ;
