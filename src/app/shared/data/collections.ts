@@ -16,7 +16,7 @@ export const RELEASES: Collection = {
 export const POLLS: Collection = {
   path: 'polls',
   limit: 1,
-  where: {field: 'timestamp.deleted_at', operator: '!=', value: null},
+  where: {field: 'timestamp.deleted_at', operator: '==', value: 0},
 };
 
 //------------------------------------------------- PROFILES
