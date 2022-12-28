@@ -31,6 +31,7 @@ import {ParserDirective} from './directives/parser.directive';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import {MarkdownModule} from 'ngx-markdown';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -66,24 +67,25 @@ import { TermsAndConditionsComponent } from './components/terms-and-conditions/t
     ImageUploaderComponent,
     ParserDirective,
   ],
-  imports: [
-    CommonModule,
-    FlexLayoutModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatSidenavModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    MatIconModule,
-    MatDialogModule,
-    RouterModule,
-    MatTooltipModule,
-    MarkdownModule,
-  ]
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatSidenavModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatCardModule,
+        MatListModule,
+        MatIconModule,
+        MatDialogModule,
+        RouterModule,
+        MatTooltipModule,
+        MarkdownModule,
+        MatProgressSpinnerModule,
+    ]
 })
 export class SharedModule {
 }
