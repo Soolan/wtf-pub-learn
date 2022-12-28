@@ -28,6 +28,7 @@ const routes: Routes = [
       .then(m => m.DashboardModule),
     ...canActivate(redirectUnauthorized),
   },
+
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
   {path: 'access-denied', component: AccessDeniedComponent},

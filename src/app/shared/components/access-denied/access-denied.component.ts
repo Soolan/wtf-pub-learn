@@ -39,7 +39,6 @@ export class AccessDeniedComponent implements OnInit {
           this.user = user;
           this.reason = DenialReason.AccountNotVerified;
           this.denial = DENIAL_REASONS[this.reason];
-          console.log(this.sent, this.denial)
         } else {
           this.checkProfile(user.uid);
         }
@@ -100,7 +99,7 @@ export class AccessDeniedComponent implements OnInit {
   contactCustomerService(): void {}
 
   upgradeAccount(): void {}
-  
+
   goHome(): void {
     this.router.navigate(['/']).then().catch()
   }

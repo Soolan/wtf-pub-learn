@@ -61,21 +61,9 @@ export const LANDING = {
 export const DENIAL_REASONS: Denial[] = [
   {reason: '', remedy: '', action: ''},
   {reason: 'Your session has expired.', remedy: 'Please login again.', action: 'Login'},
-  {
-    reason: 'Your account has been suspended.',
-    remedy: 'Please reach out customer service to appeal.',
-    action: 'Customer Service'
-  },
-  {
-    reason: 'You don\'t have permission to access this page.',
-    remedy: 'Please upgrade to access this page.',
-    action: 'Upgrade'
-  },
-  {
-    reason: 'Your profile needs verification.',
-    remedy: 'Please click on the activation link in the email.',
-    action: 'Resend Email'
-  },
+  {reason: 'Your account has been suspended.', remedy: 'Please reach out customer service to appeal.', action: 'Customer Service'},
+  {reason: 'Your profile needs verification.', remedy: 'Please click on the activation link in the email.', action: 'Resend Email'},
+  {reason: 'You don\'t have permission to access this page.', remedy: 'Please upgrade to access this page.', action: 'Upgrade'},
   {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
 ];
 
