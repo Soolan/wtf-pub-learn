@@ -7,6 +7,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Profile} from '../../shared/models/profile';
 import {CurrentService} from '../../shared/services/current.service';
 import {Status} from '../../shared/data/enums';
+import {Collection} from '../../shared/models/collection';
 
 @Component({
   selector: 'app-landing',
@@ -14,8 +15,9 @@ import {Status} from '../../shared/data/enums';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-  currentCourses!: any[];
-  completedCourses!: any[];
+  courses: any[] = [];
+  currentCourses: any[] = [];
+  completedCourses: any[] = [];
   profile!: Profile;
   profileId!: string;
   completedProfile = 25;
@@ -49,18 +51,30 @@ export class LandingComponent implements OnInit {
   }
 
   initCourses(): void {
-    let query = {...P_COURSES};
-    query.limit = 50;
-    query.orderBy =  {field: 'course.inf.updated_at', direction: 'desc'};
+    let query: Collection = {
+      path: `profiles/${this.profileId}/courses`,
+      limit: 50,
+      where: {field: 'info.updated_at', operator: '!=', value: 0},
+      orderBy:  {field: 'info.updated_at', direction: 'desc'}
+    };
     this.crud.colRefQuery(query).pipe(
       map(this.crud.mapId),
     ).subscribe({
-      next: courses => courses.forEach((course: any) => {
-        course.info.status === Status.Retake ?
-          this.completedCourses.push(course) :
-          this.currentCourses.push(course);
-      }),
+      next: courses => {
+        this.courses = courses;
+        this.getStats();
+      },
       error: error => console.error(error)
     });
+  }
+
+  getStats(): void {
+    console.log(this.courses)
+    this.courses.forEach((course: any) => {
+      console.log(course, course.info.status, Status.Retake);
+      course.info.status === Status.Retake ?
+        this.completedCourses.push(course) :
+        this.currentCourses.push(course);
+    })
   }
 }

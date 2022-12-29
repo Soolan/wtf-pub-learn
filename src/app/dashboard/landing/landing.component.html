@@ -2,7 +2,7 @@
   <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
        class="dashboard" *ngIf="auth.user | async as user;else loading">
     <div fxFlex="22" fxFlex.md="17" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start"
-         class="profile">
+         class="profile" *ngIf="profile">
       <div class="avatar" [ngStyle]="{'background-image': 'url(' + (profile.avatar | storageUrl | async) + ')'}"></div>
       <div fxFlex="100" class="greetings mat-caption">Welcome back: {{user.displayName}}</div>
       <div fxFlex="100" class="ip mat-caption">
@@ -22,11 +22,33 @@
     <div fxFlex="75" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
       <div appBlackRenderer content="Current Course" keyword="Current" class="active mat-headline"></div>
       <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
-<!--      <app-course [id]="progress.active" [isDashboard]=true></app-course>-->
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+      <div fxFlex="100" *ngIf="currentCourses.length; else no_current_course">
+        <app-course [id]="currentCourses[0].id" [isDashboard]=true></app-course>
+      </div>
+      <ng-template #no_current_course>
+        <div fxFlex="100" class="no-course">
+          <span>You haven't started anything yet. Go to </span>
+          <button routerLink="/courses" mat-flat-button color="primary">Courses</button>
+          <span> and pick something.</span>
+        </div>
+      </ng-template>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" *ngIf="completedCourses.length"
            class="previous subheading mat-subheading-2">
         <div appBlackRenderer content="Completed Courses" keyword="Completed"></div>
         <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="course" *ngFor="let course of completedCourses">
+          <div fxFlex="60" fxFlex.lt-md="100" class="name">{{course.name}}</div>
+          <div fxFlex="25" fxFlex.sm="30" fxFlex.lt-sm="50" class="date mat-caption">
+            <span>{{course.info.updated_at|date:'MMM d, y'}}</span>
+          </div>
+          <div fxFlex="15" fxFlex.sm="30" fxFlex.lt-sm="50" class="score"><strong>SCORE: </strong>{{course.info.score}}</div>
+        </div>
+
+        <ng-template #no_completed_course>
+          <div fxFlex="100" class="no-course">
+            <span>Completed courses/scores will be presented here </span>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
