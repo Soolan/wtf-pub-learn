@@ -3,15 +3,15 @@
        class="dashboard" *ngIf="auth.user | async as user;else loading">
     <div fxFlex="22" fxFlex.md="17" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start"
          class="profile">
-      <div class="avatar" [ngStyle]="{'background-image': 'url(' + profile.avatar + ')'}"></div>
+      <div class="avatar" [ngStyle]="{'background-image': 'url(' + (profile.avatar | storageUrl | async) + ')'}"></div>
       <div fxFlex="100" class="greetings mat-caption">Welcome back: {{user.displayName}}</div>
       <div fxFlex="100" class="ip mat-caption">
         <span>231.456.331.211</span>
         <mat-icon>info_outline</mat-icon>
       </div>
-      <mat-progress-bar fxFlex="70" fxFlex.lt-md="90" mode="determinate" [value]="completed"
+      <mat-progress-bar fxFlex="70" fxFlex.lt-md="90" mode="determinate" [value]="completedProfile"
                         color="primary"></mat-progress-bar>
-      <div fxFlex="100" class="completion mat-caption">profile completed ({{completed}}%)</div>
+      <div fxFlex="100" class="completion mat-caption">profile completed ({{completedProfile}}%)</div>
       <button fxFlex="70" fxFlex.lt-md="90" mat-button color="primary" [routerLink]="['profile']"> Edit
         Profile
       </button>
