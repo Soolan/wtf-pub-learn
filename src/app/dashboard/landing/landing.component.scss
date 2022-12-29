@@ -56,6 +56,11 @@
       text-align: end;
       padding-left: var(--space-xxxs);
     }
+
+    .current_course {
+      margin-bottom: var(--space-xl);
+    }
+
     .image {
       background-repeat: no-repeat;
       background-position: center;
@@ -72,18 +77,28 @@
 
     .subheading {
       font-weight: 100;
-      color: var(--color-grey5);
+      color: var(--color-grey4);
       letter-spacing: var(--space-xxxs);
     }
+    .in_progress {
+      .name {
+
+      }
+
+      .date {
+        margin-left: var(--space-sm);
+        color: var(--color-grey9);
+      }
+    }
+
     .previous {
+      margin-top: var(--space-xxl);
       .course {
+        margin-top: var(--space-xs);
         font-weight: normal;
         letter-spacing: normal;
         padding: var(--space-sm);
-        margin:  var(--space-sm) 0;
-        .title {
 
-        }
         .date {
           text-align: center;
           font-size: 18px;
@@ -110,10 +125,6 @@
         background-color: var(--color-accent-lightest);
         cursor: pointer;
       }
-    }
-
-    .bookmarks {
-
     }
 
     .no-course {

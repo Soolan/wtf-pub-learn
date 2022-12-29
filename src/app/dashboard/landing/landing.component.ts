@@ -16,6 +16,7 @@ import {Collection} from '../../shared/models/collection';
 })
 export class LandingComponent implements OnInit {
   courses: any[] = [];
+  course!: any;
   currentCourses: any[] = [];
   completedCourses: any[] = [];
   profile!: Profile;
@@ -70,13 +71,12 @@ export class LandingComponent implements OnInit {
   }
 
   getStats(): void {
-    console.log(this.courses)
     this.courses.forEach((course: any) => {
-      console.log(course, course.info.status, Status.Retake);
       course.info.status === Status.Retake ?
         this.completedCourses.push(course) :
         this.currentCourses.push(course);
-    })
+    });
+    this.course = this.currentCourses.shift();
   }
 
   navigate(id: string): void {
