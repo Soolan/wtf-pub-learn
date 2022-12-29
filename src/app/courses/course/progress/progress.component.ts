@@ -132,6 +132,8 @@ export class ProgressComponent implements OnInit {
         this.crud.update(this.coursePath, this.course.id, this.courseProgress).then().catch();
         break;
       case Status.Resume:
+        this.courseProgress.info.updated_at = Date.now();
+        this.crud.update(this.coursePath, this.course.id, this.courseProgress).then().catch();
         this.slideService.next({
           marker: this.currentSlide,
           action: ACTIONS[this.lessonSlides[this.currentSlide]?.type],
