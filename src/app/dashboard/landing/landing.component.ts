@@ -3,7 +3,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {CrudService} from '../../shared/services/crud.service';
 import {COURSES, P_COURSES, PROFILES} from '../../shared/data/collections';
 import {map} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Profile} from '../../shared/models/profile';
 import {CurrentService} from '../../shared/services/current.service';
 import {Status} from '../../shared/data/enums';
@@ -23,6 +23,7 @@ export class LandingComponent implements OnInit {
   completedProfile = 25;
 
   constructor(
+    private router: Router,
     private crud: CrudService,
     public auth: AngularFireAuth,
     private route: ActivatedRoute,
@@ -76,5 +77,9 @@ export class LandingComponent implements OnInit {
         this.completedCourses.push(course) :
         this.currentCourses.push(course);
     })
+  }
+
+  navigate(id: string): void {
+    this.router.navigate(['courses', id]).then().catch();
   }
 }
