@@ -26,6 +26,14 @@ export const PROFILES: Collection = {
   where: {field: 'created_at', operator: '!=', value: null}
 };
 
+//------------------------------------------------- Transactions
+export const TRANSACTIONS: Collection = {
+  path: 'transactions',
+  limit: 50,
+  where: {field: 'timestamp', operator: '!=', value: null},
+  orderBy: {field: 'timestamp', direction: 'desc'}
+};
+
 //------------------------------------------------- P_COURSES
 export const P_COURSES: Collection = {
   path: 'courses',

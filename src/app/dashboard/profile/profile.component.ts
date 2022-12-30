@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PROFILES} from '../../shared/data/collections';
+import {PROFILES, TRANSACTIONS} from '../../shared/data/collections';
 import {FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
@@ -7,6 +7,8 @@ import {FormService} from './form.service';
 import {Profile} from '../../shared/models/profile';
 import {MatDialog} from '@angular/material/dialog';
 import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
+import {map, Observable} from 'rxjs';
+import {CRYPTO_SYMBOLS, TX_TYPES} from '../../shared/data/generic';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +17,10 @@ import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.com
 })
 export class ProfileComponent implements OnInit {
   profile!: Profile;
+  transactions!: Observable<any[]>;
+  currencies = CRYPTO_SYMBOLS;
+  txTypes = TX_TYPES;
+
   id = '';
   clicked = {
     displayName: false,
@@ -45,6 +51,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const query = {...TRANSACTIONS};
+    query.path = `profiles/${this.id}/transactions`;
+    this.transactions = this.crud.colRefQuery(query).pipe(map(this.crud.mapId));
   }
 
   get form(): FormGroup {

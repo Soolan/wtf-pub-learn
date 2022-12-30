@@ -16,6 +16,9 @@
 
 
 .profile {
+  .mat-divider {
+    margin: var(--space-xs) 0;
+  }
   margin: var(--space-xl) 0;
 
   .avatar {
@@ -37,9 +40,6 @@
   }
 
   .wallet {
-    @media screen and (max-width: 960px) {
-      margin-top: var(--space-sm)
-    }
     font-size: 0.85em;
 
     span {
@@ -50,7 +50,62 @@
     }
 
     .balance {
-      @include iconText();
+      color: var(--color-grey7);
+      text-align: left;
+      line-height: normal;
+      margin-top: var(--space-xs);
+      .amount {
+        font-size: 17px;
+        padding: var(--space-xxxs);
+        background-color: var(--color-primary-lighter);
+      }
+    }
+  }
+
+  .transactions {
+    text-align: center;
+    margin: var(--space-sm) 0;
+
+    .head {
+      color: var(--color-greye);
+      background-color: var(--color-grey4);
+      margin-top: var(--space-xxs);
+      padding: var(--space-xs) 0;
+    }
+    .row {
+      font-size: smaller;
+      padding: var(--space-xs) 0;
+      .tag {
+        line-height: normal;
+        color: var(--color-greye);
+        background-color: var(--color-grey6);
+        font-size: smaller;
+        font-weight: 700;
+        padding: var(--space-xxxs);
+        border-radius: var(--space-xs);
+      }
+    }
+    .row:nth-child(even) {
+      background-color: var(--color-greye);
+      color: var(--color-grey4);
+    }
+    .row:nth-child(odd) {
+      background-color: var(--color-greyd);
+      color: var(--color-grey1)
+    }
+
+    .accordion {
+      margin-top: var(--space-md);
+      .details {
+        text-align: left;
+        margin-left: var(--space-sm);
+        strong {
+          display: inline-block;
+          min-width: 4em;
+          text-align: right;
+          margin-right: var(--space-xs);
+        }
+      }
     }
   }
 
