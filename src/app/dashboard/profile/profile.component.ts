@@ -7,7 +7,7 @@ import {FormService} from './form.service';
 import {Profile} from '../../shared/models/profile';
 import {MatDialog} from '@angular/material/dialog';
 import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {CRYPTO_SYMBOLS} from '../../shared/data/generic';
 
 @Component({
@@ -50,7 +50,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transactions = this.crud.colRefQueryValues(TRANSACTIONS);
+    const query = {...TRANSACTIONS};
+    query.path = `profiles/${this.id}/transactions`;
+    this.transactions = this.crud.colRefQuery(query).pipe(map(this.crud.mapId));
   }
 
   get form(): FormGroup {
