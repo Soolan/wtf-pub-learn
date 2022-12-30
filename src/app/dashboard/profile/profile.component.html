@@ -72,15 +72,27 @@
           </div>
         </div>
         <mat-divider fxFlex="100"></mat-divider>
-        <div fxFlex="49" fxFlex.lt-md="100" class="achievements mat-subheading-2 thin">Transactions</div>
-        <div *ngFor="let tx of transactions | async" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-          <span fxFlex="20" fxFlex.lt-sm="30">{{tx.timestamp | date: 'shortDate'}}</span>
-          <span fxFlex="12" fxFlex.lt-sm="30">{{tx.type}}</span>
-          <span fxFlex="7" fxFlex.lt-sm="30">{{tx.from}}</span>
-          <span fxFlex="7" fxFlex.lt-sm="30">{{tx.to}}</span>
-          <span fxFlex="7" fxFlex.lt-sm="30">{{tx.currency.currency}}</span>
-          <span fxFlex="17" fxFlex.lt-sm="30">{{tx.currency.amount}}</span>
-          <span fxFlex="17" fxFlex.lt-sm="30">{{tx.id | slice: 0: 8}}</span>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="transactions">
+          <div fxFlex="100" class="mat-subheading-2 thin">Transactions</div>
+          <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="head">
+            <span fxFlex="22" fxFlex.lt-sm="30">date</span>
+            <span fxFlex="12" fxFlex.lt-sm="30">type</span>
+            <span fxFlex="8" fxFlex.lt-sm="30">from</span>
+            <span fxFlex="8" fxFlex.lt-sm="30">to</span>
+            <span fxFlex="8" fxFlex.lt-sm="30">symbol</span>
+            <span fxFlex="18" fxFlex.lt-sm="30">amount</span>
+            <span fxFlex="18" fxFlex.lt-sm="30">id</span>
+          </div>
+          <div *ngFor="let tx of transactions | async" class="row"
+               fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+            <span fxFlex="21" fxFlex.lt-sm="30">{{tx.timestamp | date: 'short'}}</span>
+            <span fxFlex="11" fxFlex.lt-sm="30" class="tag">{{txTypes[tx.type]}}</span>
+            <span fxFlex="7" fxFlex.lt-sm="30">{{tx.from}}</span>
+            <span fxFlex="7" fxFlex.lt-sm="30">{{tx.to}}</span>
+            <span fxFlex="7" fxFlex.lt-sm="30" class="tag">{{currencies[tx.currency.currency]}}</span>
+            <span fxFlex="17" fxFlex.lt-sm="30">{{tx.currency.amount}}</span>
+            <span fxFlex="17" fxFlex.lt-sm="30">{{tx.id | slice: 0: 8}}</span>
+          </div>
         </div>
 
       </div>
