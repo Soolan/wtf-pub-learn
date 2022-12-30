@@ -51,6 +51,11 @@
 
     .mat-card-actions {
       text-align: right;
+      span {
+        font-size: large;
+        color: var(--color-grey4);
+        letter-spacing: var(--space-xxxs);
+      }
     }
     .mat-flat-button.mat-primary {
       color: white;

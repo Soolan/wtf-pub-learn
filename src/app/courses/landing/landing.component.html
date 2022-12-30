@@ -20,7 +20,7 @@
               (click)="navigate('courses', course.id)" *ngIf="course.published">
         {{action}}
       </button>
-      <span  *ngIf="!course.published">Coming soon...</span>
+      <span  *ngIf="!course.published" class="mat-caption">COMING SOON</span>
     </mat-card-actions>
   </mat-card>
 </div>

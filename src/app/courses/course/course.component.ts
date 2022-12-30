@@ -81,7 +81,7 @@ export class CourseComponent implements OnInit {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}`).get()
       .then(snap => {
         this.lessons = snap.docs
-          .filter(doc => doc.data().published == true)
+          // .filter(doc => doc.data().published == true)
           .map(doc => {
             return {id: doc.id, ...doc.data()}
           });
