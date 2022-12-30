@@ -32,10 +32,11 @@ export class PollComponent implements OnInit {
 
   ngOnInit(): void {
     this.crud.docRef(POLLS.path, this.slide.id).get()
-      .then(snap => this.poll = snap.data())
+      .then(snap => {
+        this.poll = snap.data();
+      })
       .catch()
     ;
-
   }
 
   cast(index: number): void {

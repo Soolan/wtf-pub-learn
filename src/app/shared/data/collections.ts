@@ -16,7 +16,7 @@ export const RELEASES: Collection = {
 export const POLLS: Collection = {
   path: 'polls',
   limit: 1,
-  where: {field: 'timestamp.deleted_at', operator: '!=', value: null},
+  where: {field: 'timestamp.deleted_at', operator: '==', value: 0},
 };
 
 //------------------------------------------------- PROFILES
@@ -24,6 +24,14 @@ export const PROFILES: Collection = {
   path: 'profiles',
   limit: 1,
   where: {field: 'created_at', operator: '!=', value: null}
+};
+
+//------------------------------------------------- Transactions
+export const TRANSACTIONS: Collection = {
+  path: 'transactions',
+  limit: 50,
+  where: {field: 'timestamp', operator: '!=', value: null},
+  orderBy: {field: 'timestamp', direction: 'desc'}
 };
 
 //------------------------------------------------- P_COURSES
@@ -44,7 +52,7 @@ export const P_LESSONS: Collection = {
 export const COURSES: Collection = {
   path: 'courses',
   limit: 6,
-  where: {field: 'published', operator: '==', value: true},
+  where: {field: 'timestamps.created_at', operator: '!=', value: null},
   orderBy: {field: 'timestamps.created_at', direction: 'desc'}
 };
 
@@ -62,4 +70,13 @@ export const SLIDES: Collection = {
   limit: 35,
   where: {field: 'order', operator: '!=', value: ''},
   orderBy: {field: 'order', direction: 'asc'}
+};
+
+
+//------------------------------------------------- Event
+export const EVENTS: Collection = {
+  path: 'events',
+  limit: 15,
+  where: {field: 'created_at', operator: '!=', value: ''},
+  orderBy: {field: 'created_at', direction: 'desc'}
 };

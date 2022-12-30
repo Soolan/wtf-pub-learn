@@ -66,3 +66,39 @@ export enum Difficulty {
   Moderate,
   Hard
 }
+
+export enum EventType {
+  Greetings,
+  HealthCheck,
+  Payment,
+  Registration,
+  Login,
+  CourseStarted,
+  CourseCompleted,
+  LessonStarted,
+  LessonCompleted,
+  ExamPassed,
+  NFTIssued,
+  Certified,
+  GameStarted,
+  Winner,
+  BugReport,
+}
+
+export enum DenialReason {
+  NoReasonToDeny,
+  SessionExpired,
+  AccountSuspended,
+  AccountNotVerified,
+  RestrictedArea,
+  JustBecause
+}
+
+export enum TxType {
+  Payment
+}
+
+export enum CryptoSymbol {
+  XRP,
+  WTF
+}

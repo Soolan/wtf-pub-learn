@@ -1,3 +1,7 @@
+import {Denial} from '../models/denial';
+import {CryptoSymbol, TxType} from './enums';
+import {Balance} from '../models/balance';
+
 export const STATUSES = ['Start', 'Resume', 'Retake'];
 
 export const LEVELS = ['Easy', 'Moderate', 'Advanced'];
@@ -32,7 +36,7 @@ export const LANDING = {
     keyword: "Crypto"
   },
   subheading: "the fun way.",
-  description:[
+  description: [
     {
       content: "Understand the crypto buzzwords, ",
       keyword: "crypto"
@@ -53,3 +57,45 @@ export const LANDING = {
     {title: 'Marketplace', description: 'Authentic NFTs', icon: 'logo-grey-white-glow.png', navigate: 'https://nft'},
   ]
 };
+
+export const DENIAL_REASONS: Denial[] = [
+  {reason: '', remedy: '', action: ''},
+  {reason: 'Your session has expired.', remedy: 'Please login again.', action: 'Login'},
+  {reason: 'Your account has been suspended.', remedy: 'Please reach out customer service to appeal.', action: 'Customer Service'},
+  {reason: 'Your profile needs verification.', remedy: 'Please click on the activation link in the email.', action: 'Resend Email'},
+  {reason: 'You don\'t have permission to access this page.', remedy: 'Please upgrade to access this page.', action: 'Upgrade'},
+  {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
+];
+
+export const CRYPTO_SYMBOLS = ["XRP", "WTF"];
+export const TX_TYPES = ["PAYMENT"];
+
+export const WELCOME_FUND: Balance = {
+  currency: CryptoSymbol.WTF,
+  amount: 5
+}
+
+export const HOT_TAG = 1000;
+
+export interface EventContent {
+  label: string;
+  icon: string;
+}
+
+export const EVENTS_Content: EventContent[] = [
+  {label: "[Welcome]", icon: 'emoji_people'},
+  {label: "[Ping]", icon: 'monitor_heart'},
+  {label: "made a payment", icon: 'paid'},
+  {label: "registered", icon: 'how_to_reg'},
+  {label: "logged in", icon: 'login'},
+  {label: "started a course", icon: 'outlined_flag'},
+  {label: "completed a course", icon: 'flag'},
+  {label: "started a lesson", icon: 'outlined_flag'},
+  {label: "completed a lesson", icon: 'flag'},
+  {label: "passed exam", icon: 'emoji_events'},
+  {label: "issued NFT", icon: 'wallpaper'},
+  {label: "is certified!", icon: 'workspace_premium'},
+  {label: "started a game", icon: 'casino'},
+  {label: "won!", icon: 'emoji_events'},
+  {label: "reported a bug", icon: 'bug_report'},
+];

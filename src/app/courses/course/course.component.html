@@ -45,11 +45,15 @@
         <div fxFlex="90" class="lesson-heading">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
-      <div fxFlex="30" *ngIf="(auth.user | async) && lesson ; else guest">
-        <app-progress [userId]="userId" [course]="course" [lesson]="lesson" [slides]="course.stats[i]"></app-progress>
+      <div fxFlex="30" *ngIf="(auth.user | async) && lesson; else guest">
+        <app-progress [userId]="userId" [course]="course" [lesson]="lesson" [slides]="course.stats[i]" *ngIf="lesson.published">
+        </app-progress>
+        <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING SOON</span></p>
+
       </div>
       <ng-template #guest>
-        <button mat-flat-button [routerLink]="['lessons', lesson.id]">Start</button>
+        <button mat-flat-button [routerLink]="['lessons', lesson.id]" *ngIf="lesson.published">Start</button>
+        <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING<br>SOON</span></p>
       </ng-template>
     </div>
     <div class="summary" fxFlex="100" *ngIf="courseInfo && courseInfo.status === status.Retake">

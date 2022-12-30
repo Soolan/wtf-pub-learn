@@ -56,6 +56,11 @@
       text-align: end;
       padding-left: var(--space-xxxs);
     }
+
+    .current_course {
+      margin-bottom: var(--space-xl);
+    }
+
     .image {
       background-repeat: no-repeat;
       background-position: center;
@@ -72,15 +77,59 @@
 
     .subheading {
       font-weight: 100;
-      color: var(--color-grey5);
+      color: var(--color-grey4);
       letter-spacing: var(--space-xxxs);
     }
-    .previous {
+    .in_progress {
+      .name {
 
+      }
+
+      .date {
+        margin-left: var(--space-sm);
+        color: var(--color-grey9);
+      }
     }
 
-    .bookmarks {
+    .previous {
+      margin-top: var(--space-xxl);
+      .course {
+        margin-top: var(--space-xs);
+        font-weight: normal;
+        letter-spacing: normal;
+        padding: var(--space-sm);
 
+        .date {
+          text-align: center;
+          font-size: 18px;
+          span {
+            max-width: 7em;
+            border-radius: var(--space-xs);
+            background-color: var(--color-primary-dark);
+            color: var(--color-primary-light);
+            padding: var(--space-xxs) var(--space-xs);
+          }
+          @media screen and (max-width: 960px){
+            margin-top: var(--space-sm);
+          }
+        }
+        .score {
+          text-align: center;
+          font-size: 20px;
+          @media screen and (max-width: 960px){
+            margin-top: var(--space-sm);
+          }
+        }
+      }
+      .course:hover {
+        background-color: var(--color-accent-lightest);
+        cursor: pointer;
+      }
+    }
+
+    .no-course {
+      text-align: center;
+      margin: var(--space-xl) var(--space-md);
     }
   }
 }

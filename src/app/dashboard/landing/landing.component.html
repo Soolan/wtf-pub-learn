@@ -1,35 +1,67 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
+  <div fxFlex.gt-lg="65" fxFlex="90" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
        class="dashboard" *ngIf="auth.user | async as user;else loading">
-    <div fxFlex="22" fxFlex.md="17"  fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="profile">
-      <div class="avatar" [ngStyle]="{'background-image': 'url(' + user.photoURL + ')'}"></div>
+    <div fxFlex="22" fxFlex.lt-lg="95" fxLayout="row wrap" fxLayoutAlign="space-around start"
+         class="profile" *ngIf="profile">
+      <div class="avatar" [ngStyle]="{'background-image': 'url(' + (profile.avatar | storageUrl | async) + ')'}"></div>
       <div fxFlex="100" class="greetings mat-caption">Welcome back: {{user.displayName}}</div>
       <div fxFlex="100" class="ip mat-caption">
         <span>231.456.331.211</span>
         <mat-icon>info_outline</mat-icon>
       </div>
-      <mat-progress-bar fxFlex="70" fxFlex.lt-md="90" mode="determinate" [value]="completed" color="primary"></mat-progress-bar>
-      <div fxFlex="100" class="completion mat-caption">profile completed ({{completed}}%)</div>
-      <button fxFlex="70" fxFlex.lt-md="90" mat-button color="primary" [routerLink]="['profile', user.uid]" > Edit Profile</button>
+      <mat-progress-bar fxFlex="70" fxFlex.lt-md="90" mode="determinate" [value]="completedProfile"
+                        color="primary"></mat-progress-bar>
+      <div fxFlex="100" class="completion mat-caption">profile completed ({{completedProfile}}%)</div>
+      <button fxFlex="70" fxFlex.lt-md="90" mat-button color="primary" [routerLink]="['profile']"> Edit
+        Profile
+      </button>
       <mat-divider fxFlex="70" fxFlex.lt-md="90"></mat-divider>
       <div fxFlex="100" class="mat-subheading-1 badges">Achievements</div>
       <div fxFlex="100" class="mat-subheading-1 badges">Earnings</div>
     </div>
-    <div fxFlex="75" fxFlex.lt-md="90" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
+    <div fxFlex="75" fxFlex.lt-lg="95" fxLayout="row wrap" fxLayoutAlign="space-around start" class="courses">
       <div appBlackRenderer content="Current Course" keyword="Current" class="active mat-headline"></div>
       <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
-      <app-course [id]="progress.active" [isDashboard]=true></app-course>
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
-           class="previous subheading mat-subheading-2">
-        <div appBlackRenderer content="Previous Courses" keyword="Previous"></div>
-        <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
-
+      <div fxFlex="100" *ngIf="course; else no_current_course" class="current_course">
+        <app-course [id]="course.id" [isDashboard]=true></app-course>
       </div>
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
-           class="bookmarks subheading mat-subheading-2">
-        <div appBlackRenderer content="Bookmarked Courses" keyword="Bookmarked"></div>
+      <ng-template #no_current_course>
+        <div fxFlex="100" class="no-course">
+          <span>You haven't started anything yet. Go to </span>
+          <button routerLink="/courses" mat-flat-button color="primary">Courses</button>
+          <span> and pick something.</span>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="currentCourses.length">
+        <div class="subheading mat-subheading-2">In Progress </div>
         <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+        <div fxFlex="90" class="in_progress" *ngFor="let course of currentCourses">
+          <div>
+            <span class="name"><strong>{{course.name}}</strong></span>
+            <span class="date"><strong>visited:</strong> {{course.info.updated_at | date: 'fullDate'}}</span>
+            <button mat-icon-button (click)="navigate(course.id)"><mat-icon>arrow_circle_right</mat-icon></button>
+          </div>
+        </div>
+      </ng-template>
 
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" *ngIf="completedCourses.length"
+           class="previous subheading mat-subheading-2">
+        <div appBlackRenderer content="Completed Courses" keyword="Completed"></div>
+        <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="course"
+             *ngFor="let course of completedCourses" (click)="navigate(course.id)">
+          <div fxFlex="60" fxFlex.lt-md="100" class="name">{{course.name}}</div>
+          <div fxFlex="25" fxFlex.sm="30" fxFlex.lt-sm="50" class="date mat-caption">
+            <span>{{course.info.updated_at|date:'MMM d, y'}}</span>
+          </div>
+          <div fxFlex="15" fxFlex.sm="30" fxFlex.lt-sm="50" class="score"><strong>SCORE: </strong>{{course.info.score}}</div>
+        </div>
+
+        <ng-template #no_completed_course>
+          <div fxFlex="100" class="no-course">
+            <span>Completed courses/scores will be presented here </span>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

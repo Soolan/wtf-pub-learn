@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 import {OptionSet, Option} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
+import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 
 @Component({
   selector: 'app-fixed-fill-in',

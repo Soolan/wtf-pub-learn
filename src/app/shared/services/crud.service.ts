@@ -31,7 +31,16 @@ export class CrudService {
         .where(collection.where.field, collection.where.operator, collection.where.value)
         .orderBy(collection.orderBy.field, collection.orderBy.direction)
         .limit(collection.limit)
-    ).snapshotChanges()
+    ).snapshotChanges();
+  }
+
+  colRefQueryValues(collection: Collection): Observable<unknown[]> {
+    return this.db.collection(
+      collection.path, ref => ref
+        .where(collection.where.field, collection.where.operator, collection.where.value)
+        .orderBy(collection.orderBy.field, collection.orderBy.direction)
+        .limit(collection.limit)
+    ).valueChanges();
   }
 
   get(collection: string, id: string): Observable<any> {

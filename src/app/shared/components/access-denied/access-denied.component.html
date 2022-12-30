@@ -1,11 +1,13 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="access-denied">
-  <div class="mat-headline headline" fxFlex="100" appBlackRenderer content="Access Denied" keyword="Access"></div>
-  <div class="mat-caption description" fxFlex="100">Your session has expired</div>
-
-  <div class="mat-subheading-1" fxFlex="100">
-    <span>Please</span>
-    <button mat-flat-button color="primary" (click)="openDialog()">login</button>
-    <span>to continue.</span>
-  </div>
-
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="access-denied" *ngIf="denial; else loading">
+  <div *ngIf="!sent" class="mat-headline headline" fxFlex="100"
+       appBlackRenderer content="Access Denied" keyword="Access"></div>
+  <div *ngIf="sent" class="mat-headline headline" fxFlex="100"
+       appBlackRenderer content="Activation Email Sent" keyword="Activation"></div>
+  <div class="mat-caption reason" fxFlex="100">{{denial.reason}}</div>
+  <div class="mat-subheading-1" fxFlex="100">{{denial.remedy}}</div>
+  <button mat-flat-button color="primary" (click)="action()">{{denial.action}}</button>
 </div>
+
+<ng-template #loading>
+  <mat-spinner color="primary"></mat-spinner>
+</ng-template>
