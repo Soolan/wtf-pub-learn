@@ -52,7 +52,7 @@ export const P_LESSONS: Collection = {
 export const COURSES: Collection = {
   path: 'courses',
   limit: 6,
-  where: {field: 'published', operator: '==', value: true},
+  where: {field: 'timestamps.created_at', operator: '!=', value: null},
   orderBy: {field: 'timestamps.created_at', direction: 'desc'}
 };
 
