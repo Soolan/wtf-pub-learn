@@ -1,6 +1,21 @@
 {
-  "name": "wtf-pub-learn",
-  "version": "1.1.1",
+  "name": "wtf-learn",
+  "version": "1.8.9",
+  "description": "The gateway to play, learn and earn crypto",
+  "keywords": [
+    "crypto",
+    "xrpl",
+    "elearning",
+    "NFT",
+    "blockchain"
+  ],
+  "author": {
+    "name": "Sohail Salehi Mava",
+    "email": "drink@wtf.pub",
+    "url": "https://wtf.pub"
+  },
+  "funding": "https://wtf.pub/donate",
+  "bugs": "https://wtf.pub/report",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
