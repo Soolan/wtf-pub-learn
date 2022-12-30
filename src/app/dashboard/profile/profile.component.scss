@@ -48,7 +48,13 @@
     }
 
     .balance {
-      @include iconText();
+      color: var(--color-grey7);
+      text-align: left;
+      line-height: normal;
+      margin-top: var(--space-xs);
+      .amount {
+        font-size: 18px;
+      }
     }
   }
 

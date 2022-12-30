@@ -8,6 +8,7 @@ import {Profile} from '../../shared/models/profile';
 import {MatDialog} from '@angular/material/dialog';
 import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
 import {Observable} from 'rxjs';
+import {CRYPTO_SYMBOLS} from '../../shared/data/generic';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ import {Observable} from 'rxjs';
 export class ProfileComponent implements OnInit {
   profile!: Profile;
   transactions!: Observable<any[]>;
-
+  currencies = CRYPTO_SYMBOLS;
 
   id = '';
   clicked = {

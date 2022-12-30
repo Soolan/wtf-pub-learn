@@ -66,9 +66,9 @@
           <span fxFlex="20" fxFlex.lt-md="100">tag:{{profile.tag}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
-          <div class="balance mat-caption" fxFlex="25" fxFlex.lt-md="100" *ngFor="let balance of profile.balances">
-            <span>{{balance.currency}}: </span>
-            <span>{{balance.amount}} </span>
+          <div class="balance mat-caption" fxFlex="55" fxFlex.lt-md="100" *ngFor="let balance of profile.balances">
+            <strong>{{currencies[balance.currency]}}: </strong>
+            <span class="amount">{{balance.amount |number: '1.0-6'}} </span>
           </div>
         </div>
         <mat-divider fxFlex="100"></mat-divider>
