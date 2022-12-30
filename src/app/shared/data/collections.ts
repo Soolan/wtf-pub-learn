@@ -30,8 +30,8 @@ export const PROFILES: Collection = {
 export const TRANSACTIONS: Collection = {
   path: 'transactions',
   limit: 50,
-  where: {field: 'product', operator: '==', value: WtfProduct.Learn},
-  orderBy: {field: 'date', direction: 'desc'}
+  where: {field: 'timestamp', operator: '!=', value: null},
+  orderBy: {field: 'timestamp', direction: 'desc'}
 };
 
 //------------------------------------------------- P_COURSES

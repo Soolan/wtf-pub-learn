@@ -66,9 +66,9 @@
           <span fxFlex="20" fxFlex.lt-md="100">tag:{{profile.tag}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
-          <div class="balance mat-caption" fxFlex="50" fxFlex.lt-md="100">
-            balance: 6,765 WTF - transactions
-            <button mat-icon-button><mat-icon>open_in_new</mat-icon></button>
+          <div class="balance mat-caption" fxFlex="25" fxFlex.lt-md="100" *ngFor="let balance of profile.balances">
+            <span>{{balance.currency}}: </span>
+            <span>{{balance.amount}} </span>
           </div>
         </div>
         <mat-divider fxFlex="100"></mat-divider>

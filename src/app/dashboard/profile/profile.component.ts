@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PROFILES} from '../../shared/data/collections';
+import {PROFILES, TRANSACTIONS} from '../../shared/data/collections';
 import {FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
@@ -7,6 +7,7 @@ import {FormService} from './form.service';
 import {Profile} from '../../shared/models/profile';
 import {MatDialog} from '@angular/material/dialog';
 import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,9 @@ import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.com
 })
 export class ProfileComponent implements OnInit {
   profile!: Profile;
+  transactions!: Observable<any[]>;
+
+
   id = '';
   clicked = {
     displayName: false,
@@ -45,6 +49,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.transactions = this.crud.colRefQueryValues(TRANSACTIONS);
   }
 
   get form(): FormGroup {
