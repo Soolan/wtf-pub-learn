@@ -100,6 +100,6 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(WalletComponent, {width: '250px'});
+    this.dialog.open(WalletComponent, {width: '174px'});
   }
 }

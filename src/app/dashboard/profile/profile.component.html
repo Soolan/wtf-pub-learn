@@ -56,14 +56,13 @@
         </div>
         <mat-divider fxFlex="100"></mat-divider>
         <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="mat-caption wallet">
-          <button fxFlex="19" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
-            <mat-icon>account_balance_wallet</mat-icon>
-            <strong> Wallet</strong>
+          <button fxFlex="7" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
+            <mat-icon>qr_code</mat-icon>
           </button>
-          <span fxFlex="60" fxFlex.lt-md="100">address: {{profile.wallet_address}}
+          <span fxFlex="68" fxFlex.lt-md="100">address: {{profile.wallet_address}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
-          <span fxFlex="20" fxFlex.lt-md="100">tag:{{profile.tag}}
+          <span fxFlex="21" fxFlex.lt-md="100">tag:{{profile.tag}}
             <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
           </span>
           <div class="balance mat-caption" fxFlex="55" fxFlex.lt-md="100" *ngFor="let balance of profile.balances">
