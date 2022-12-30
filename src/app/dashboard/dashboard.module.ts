@@ -16,6 +16,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -23,21 +24,22 @@ import {MatInputModule} from '@angular/material/input';
     LandingComponent,
     ProfileComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FlexLayoutModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    SharedModule,
-    CourseModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatFormFieldModule,
-    MatInputModule
-  ]
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        SharedModule,
+        CourseModule,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatExpansionModule
+    ]
 })
 export class DashboardModule { }

@@ -93,6 +93,20 @@
       background-color: var(--color-greyd);
       color: var(--color-grey1)
     }
+
+    .accordion {
+      margin-top: var(--space-md);
+      .details {
+        text-align: left;
+        margin-left: var(--space-sm);
+        strong {
+          display: inline-block;
+          min-width: 4em;
+          text-align: right;
+          margin-right: var(--space-xs);
+        }
+      }
+    }
   }
 
   .loyalty {
