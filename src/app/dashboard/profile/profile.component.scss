@@ -37,9 +37,7 @@
   }
 
   .wallet {
-    @media screen and (max-width: 960px) {
-      margin-top: var(--space-sm)
-    }
+    margin-top: var(--space-sm);
     font-size: 0.85em;
 
     span {
