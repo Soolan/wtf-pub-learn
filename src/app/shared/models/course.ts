@@ -8,8 +8,8 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
-  paidCourse: boolean;
-  coursePayOptions: PayOption[];
+  isPaid: boolean;
+  payOptions: PayOption[];
   hasExam: boolean;
   paidExam: boolean;
   examPayOptions: PayOption[];

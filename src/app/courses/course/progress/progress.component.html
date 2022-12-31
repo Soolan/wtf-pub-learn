@@ -1,6 +1,6 @@
 <div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" *ngIf="lessonProgress">
-  <div *ngIf="lesson.paidLesson && !lessonProgress.paid; else progress">
-    <div *ngFor="let pay of lesson.lessonPayOptions">{{pay.amount}} {{pay.currency}}</div>
+  <div *ngIf="lesson.isPaid && !lessonProgress.paid; else progress">
+    <div *ngFor="let pay of lesson.payOptions">{{pay.amount}} {{pay.currency}}</div>
     <button mat-flat-button color="primary">BUY</button>
   </div>
   <ng-template #progress>

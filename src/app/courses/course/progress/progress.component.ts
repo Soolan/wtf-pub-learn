@@ -63,8 +63,8 @@ export class ProgressComponent implements OnInit {
   getLessonProgress(): void {
     this.crud.docRef(`${this.coursePath}/${this.course.id}/${P_LESSONS.path}`, this.lesson.id).get()
       .then(snap => {
-        if (snap) {
-          const data = snap.data();
+        const data = snap.data();
+        if (data) {
           this.lessonProgress = data;
           this.currentSlide = data.current_slide;
         } else {
