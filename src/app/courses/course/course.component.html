@@ -47,16 +47,14 @@
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
       <div fxFlex="30" *ngIf="(auth.user | async) && lesson; else guest">
-        <p *ngIf="!lesson.published; else can_access" class="coming-soon mat-subheading-2"><span>COMING SOON</span></p>
-        <ng-template #can_access>
-          <div *ngIf="lesson.paidLesson; else show_progress">
-            <div *ngFor="let pay of lesson.lessonPayOptions">{{pay.amount}} {{pay.currency}}</div>
-            <button mat-flat-button color="primary">BUY</button>
-          </div>
-          <ng-template #show_progress>
-            <app-progress [userId]="userId" [course]="course" [lesson]="lesson" [slides]="course.stats[i]"></app-progress>
-          </ng-template>
-        </ng-template>
+        <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING SOON</span></p>
+        <app-progress
+          [userId]="userId"
+          [course]="course"
+          [lesson]="lesson"
+          [slides]="course.stats[i]"
+          *ngIf="lesson.published">
+        </app-progress>
       </div>
       <ng-template #guest>
         <button mat-flat-button [routerLink]="['lessons', lesson.id]" *ngIf="lesson.published">Start</button>
