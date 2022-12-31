@@ -23,11 +23,13 @@ export interface UserActivity {
 }
 
 export interface Course {
+  paid?: string;
   name: string;
   info: Info;
 }
 
 export interface Lesson {
+  paid?: string;
   name: string;
   current_slide: number;
   info: Info;

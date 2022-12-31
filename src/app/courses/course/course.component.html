@@ -57,7 +57,6 @@
             <app-progress [userId]="userId" [course]="course" [lesson]="lesson" [slides]="course.stats[i]"></app-progress>
           </ng-template>
         </ng-template>
-
       </div>
       <ng-template #guest>
         <button mat-flat-button [routerLink]="['lessons', lesson.id]" *ngIf="lesson.published">Start</button>
