@@ -6,7 +6,7 @@
       <mat-label>PICK ONE</mat-label>
       <mat-select [formControl]="selected" [errorStateMatcher]="matcher">
         <mat-option *ngFor="let pay of lesson.payOptions; let i= index" [value]="i">
-          {{pay.amount}} {{pay.currency}}
+          {{pay.amount}} {{cryptoSymbols[pay.currency]}}
         </mat-option>
       </mat-select>
       <mat-hint>currency is required</mat-hint>

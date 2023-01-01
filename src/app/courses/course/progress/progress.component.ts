@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Status} from '../../../shared/data/enums';
-import {ACTIONS, STATUSES} from '../../../shared/data/generic';
+import {ACTIONS, CRYPTO_SYMBOLS, STATUSES} from '../../../shared/data/generic';
 import {Course, Info, Lesson} from '../../../shared/models/profile';
 import {Current, CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
@@ -30,6 +30,7 @@ export class ProgressComponent implements OnInit {
   lessonProgress!: Lesson;
   currentSlide!: number;
   loading = true;
+  cryptoSymbols = CRYPTO_SYMBOLS;
 
   constructor(
     private crud: CrudService,
@@ -173,6 +174,13 @@ export class ProgressComponent implements OnInit {
   }
 
 
+  buy(): void {
+    // ToDo:
+    //  0. check user balance and if not enough xrp offer top up dialog; else
+    //  1. record a payment tx from user tag to 1000 for the user
+    //  2. set lessonProgress.paid to tx ref
+    //  3. record a payment tx from user tag to 1000 for the hot wallet
+  }
   // mat-select error handler ----------------------------------------------------------------------------------------
   disabled = true;
   selected = new FormControl('', [Validators.required]);
