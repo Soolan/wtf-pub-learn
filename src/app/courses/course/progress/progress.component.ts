@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Status, TxType} from '../../../shared/data/enums';
 import {ACTIONS, CRYPTO_SYMBOLS, STATUSES} from '../../../shared/data/generic';
-import {Course, Info, Lesson, Profile} from '../../../shared/models/profile';
-import {Current, CurrentService} from '../../../shared/services/current.service';
+import {Course, Lesson, Profile} from '../../../shared/models/profile';
+import {CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES, TRANSACTIONS} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
@@ -11,10 +11,10 @@ import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {Balance} from '../../../shared/models/balance';
-import {WalletComponent} from '../../../shared/components/dialogs/wallet/wallet.component';
 import {TopUpPleaseComponent} from '../../../shared/components/dialogs/top-up-please/top-up-please.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Transaction} from '../../../shared/models/transaction';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-progress',
@@ -37,6 +37,8 @@ export class ProgressComponent implements OnInit {
   loading = true;
   cryptoSymbols = CRYPTO_SYMBOLS;
   profile!: Profile;
+  hotWalletBalances!: Balance[];
+  masterId: string = 'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq';
 
 
   constructor(
@@ -55,14 +57,12 @@ export class ProgressComponent implements OnInit {
     this.initProfile();
     this.initProgress();
     this.initSlides();
+    this.initHotWalletBalances();
   }
 
   initProfile(): void {
     this.crud.get(PROFILES.path, this.userId).subscribe({
-      next: profile => {
-        this.profile = profile;
-        console.log(profile)
-      },
+      next: profile => this.profile = profile,
       error: error => console.log(error)
     })
   }
@@ -138,6 +138,13 @@ export class ProgressComponent implements OnInit {
     ;
   }
 
+  initHotWalletBalances(): void {
+    this.crud.docRef(PROFILES.path, this.masterId).get()
+      .then(snap => this.hotWalletBalances = snap.data().balances)
+      .catch()
+    ;
+  }
+
   get statuses(): string[] {
     return STATUSES;
   }
@@ -203,24 +210,24 @@ export class ProgressComponent implements OnInit {
         data: {balance, tag}
       });
     } else {
-      this.addUserTx(payOption, tag);
-      this.addHotWalletTx(payOption);
+      const data: Transaction = {
+        type: TxType.Payment,
+        from: tag,
+        to: 1000,
+        currency: payOption,
+        timestamp: Date.now()
+      }
+      this.addUserTx(data);
+      this.addHotWalletTx(data);
     }
   }
 
-  addUserTx (balance: Balance, tag: number): void {
-    const data: Transaction = {
-      type: TxType.Payment,
-      from: tag,
-      to: 1000,
-      currency: balance,
-      timestamp: Date.now()
-    }
+  addUserTx(data: Transaction): void {
     const userTxPath = `${PROFILES.path}/${this.userId}/${TRANSACTIONS.path}`;
     this.crud.add(userTxPath, data)
       .then(ref => {
         //ToDo: show snackbar
-        this.updateBalance(this.userId, this.profile.balances, balance, false);
+        this.updateBalance(this.userId, this.profile.balances, data.currency, false);
         this.lessonProgress.paid = ref.path;
         this.crud.update(this.lessonPath, this.lesson.id, this.lessonProgress).then().catch();
       })
@@ -228,12 +235,15 @@ export class ProgressComponent implements OnInit {
     ;
   }
 
-  addHotWalletTx (balance: Balance): void {
-    const hotWalletTxPath = `${PROFILES.path}/oLqFhLu5TBWFO0Zk7N7KcM5B47Cq/${TRANSACTIONS.path}`;
+  addHotWalletTx(data: Transaction): void {
+    const hotWalletTxPath = `${PROFILES.path}/${this.masterId}/${TRANSACTIONS.path}`;
     this.crud.add(hotWalletTxPath, data)
       .then(_ => this.updateBalance(
-        'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq', this.getBalances('oLqFhLu5TBWFO0Zk7N7KcM5B47Cq'), balance, true)
-      )
+        this.masterId,
+        this.hotWalletBalances,
+        data.currency,
+        true
+      ))
       .catch()
     ;
   }
@@ -246,12 +256,7 @@ export class ProgressComponent implements OnInit {
       isDeposit ? balances.push(payment) : ''; // ToDo: Snackbar a message saying nothing to deduct
     }
     console.log(balances);
-    this.crud.update(PROFILES.path, userId, balances).then().catch();
-  }
-
-  getBalances(userId: string): Balance[] {
-
-    return [];
+    this.crud.update(PROFILES.path, userId, {balances}).then().catch();
   }
 
   // mat-select error handler ----------------------------------------------------------------------------------------
