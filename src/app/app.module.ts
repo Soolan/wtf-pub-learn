@@ -34,6 +34,7 @@ import {USE_EMULATOR as USE_STORAGE_EMULATOR} from '@angular/fire/compat/storage
 import {USE_EMULATOR as USE_DATABASE_EMULATOR} from '@angular/fire/compat/database';
 import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/compat/functions';
 import {MarkdownModule, MarkedOptions, MarkedRenderer} from 'ngx-markdown';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 // make links open in a new tab
 // function that returns `MarkedOptions` with renderer override
@@ -97,7 +98,7 @@ export function markedOptionsFactory(): MarkedOptions {
     CourseModule,
     SharedModule,
     FlexLayoutModule,
-
+    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

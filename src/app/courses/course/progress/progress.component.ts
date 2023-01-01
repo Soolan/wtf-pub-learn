@@ -14,7 +14,7 @@ import {Balance} from '../../../shared/models/balance';
 import {TopUpPleaseComponent} from '../../../shared/components/dialogs/top-up-please/top-up-please.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Transaction} from '../../../shared/models/transaction';
-import {map} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-progress',
@@ -40,10 +40,10 @@ export class ProgressComponent implements OnInit {
   hotWalletBalances!: Balance[];
   masterId: string = 'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq';
 
-
   constructor(
     public dialog: MatDialog,
     private crud: CrudService,
+    private snackBar: MatSnackBar,
     private navigate: NavigateService,
     private slideService: SlideService,
     private currentService: CurrentService,
@@ -204,6 +204,7 @@ export class ProgressComponent implements OnInit {
     const payOption = this.lesson.payOptions[Number(index)];
     const balance = this.profile.balances.find(balance => balance.currency == payOption.currency);
     const tag = this.profile.tag;
+    // console.log(payOption)
     if (!balance || balance.amount < payOption.amount) {
       this.dialog.open(TopUpPleaseComponent, {
         width: '400px',
@@ -255,8 +256,10 @@ export class ProgressComponent implements OnInit {
     } else {
       isDeposit ? balances.push(payment) : ''; // ToDo: Snackbar a message saying nothing to deduct
     }
-    console.log(balances);
-    this.crud.update(PROFILES.path, userId, {balances}).then().catch();
+    this.crud.update(PROFILES.path, userId, {balances})
+      .then(_ => this.snackBar.open('Payment Successful!', 'X', {duration: 4000}))
+      .catch()
+    ;
   }
 
   // mat-select error handler ----------------------------------------------------------------------------------------
