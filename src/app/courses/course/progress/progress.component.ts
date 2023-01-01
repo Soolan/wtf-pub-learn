@@ -8,6 +8,8 @@ import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../..
 import {CrudService} from '../../../shared/services/crud.service';
 import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
   selector: 'app-progress',
@@ -168,5 +170,20 @@ export class ProgressComponent implements OnInit {
     });
 
     this.navigate.goto(LESSONS.path, this.course.id, this.lesson.id)
+  }
+
+
+  // mat-select error handler ----------------------------------------------------------------------------------------
+  disabled = true;
+  selected = new FormControl('', [Validators.required]);
+  selectFormControl = new FormControl('', [Validators.required]);
+  matcher = new MyErrorStateMatcher();
+}
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
