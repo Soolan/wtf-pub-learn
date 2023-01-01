@@ -10,6 +10,7 @@ import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {Balance} from '../../../shared/models/balance';
 
 @Component({
   selector: 'app-progress',
@@ -31,6 +32,7 @@ export class ProgressComponent implements OnInit {
   currentSlide!: number;
   loading = true;
   cryptoSymbols = CRYPTO_SYMBOLS;
+  balances!: Balance[];
 
   constructor(
     private crud: CrudService,
@@ -44,11 +46,19 @@ export class ProgressComponent implements OnInit {
   ngOnInit(): void {
     this.coursePath = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
     this.lessonPath = `${this.coursePath}/${this.course.id}/${P_LESSONS.path}`;
+    this.initProfile();
     this.initProgress();
     this.initSlides();
   }
 
-  initProgress() {
+  initProfile(): void {
+    this.crud.get(PROFILES.path, this.userId).subscribe({
+      next: profile => this.balances = profile.balances,
+      error: error => console.log(error)
+    })
+  }
+
+  initProgress(): void {
     this.crud.docRef(this.coursePath, this.course.id).get()
       .then(snap => {
         const progress = snap.data();
@@ -174,9 +184,16 @@ export class ProgressComponent implements OnInit {
   }
 
 
-  buy(): void {
+  buy(index: string): void {
+    const payOption = this.lesson.payOptions[Number(index)];
     // ToDo:
     //  0. check user balance and if not enough xrp offer top up dialog; else
+    const balance = this.balances.find(balance => balance.currency = payOption.currency);
+    if (balance.amount < payOption.amount) {
+
+    } else {
+
+    }
     //  1. record a payment tx from user tag to 1000 for the user
     //  2. set lessonProgress.paid to tx ref
     //  3. record a payment tx from user tag to 1000 for the hot wallet

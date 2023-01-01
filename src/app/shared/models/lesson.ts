@@ -1,5 +1,5 @@
 import {Timestamps} from './timestamps';
-import {PayOption} from './pay-option';
+import {Balance} from './balance';
 
 export interface Lesson {
   name: string;
@@ -7,7 +7,7 @@ export interface Lesson {
   description: string;
   published: boolean;
   isPaid: boolean;
-  payOptions: PayOption[];
+  payOptions: Balance[];
   timestamps: Timestamps;
   order: number;
 }
