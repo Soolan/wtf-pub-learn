@@ -32,6 +32,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import {MarkdownModule} from 'ngx-markdown';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-please.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ParserDirective,
     PrivacyPolicyComponent,
     TermsAndConditionsComponent,
+    TopUpPleaseComponent,
   ],
   exports: [
     HeaderComponent,
