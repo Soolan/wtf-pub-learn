@@ -1,16 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Status} from '../../../shared/data/enums';
+import {Status, TxType} from '../../../shared/data/enums';
 import {ACTIONS, CRYPTO_SYMBOLS, STATUSES} from '../../../shared/data/generic';
-import {Course, Info, Lesson} from '../../../shared/models/profile';
+import {Course, Info, Lesson, Profile} from '../../../shared/models/profile';
 import {Current, CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
-import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../shared/data/collections';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES, TRANSACTIONS} from '../../../shared/data/collections';
 import {CrudService} from '../../../shared/services/crud.service';
 import {SlideService} from '../lessons/lesson/slides-renderer/slide.service';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {Balance} from '../../../shared/models/balance';
+import {WalletComponent} from '../../../shared/components/dialogs/wallet/wallet.component';
+import {TopUpPleaseComponent} from '../../../shared/components/dialogs/top-up-please/top-up-please.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Transaction} from '../../../shared/models/transaction';
 
 @Component({
   selector: 'app-progress',
@@ -32,9 +36,11 @@ export class ProgressComponent implements OnInit {
   currentSlide!: number;
   loading = true;
   cryptoSymbols = CRYPTO_SYMBOLS;
-  balances!: Balance[];
+  profile!: Profile;
+
 
   constructor(
+    public dialog: MatDialog,
     private crud: CrudService,
     private navigate: NavigateService,
     private slideService: SlideService,
@@ -53,7 +59,10 @@ export class ProgressComponent implements OnInit {
 
   initProfile(): void {
     this.crud.get(PROFILES.path, this.userId).subscribe({
-      next: profile => this.balances = profile.balances,
+      next: profile => {
+        this.profile = profile;
+        console.log(profile)
+      },
       error: error => console.log(error)
     })
   }
@@ -186,18 +195,46 @@ export class ProgressComponent implements OnInit {
 
   buy(index: string): void {
     const payOption = this.lesson.payOptions[Number(index)];
-    // ToDo:
-    //  0. check user balance and if not enough xrp offer top up dialog; else
-    const balance = this.balances.find(balance => balance.currency = payOption.currency);
-    if (balance.amount < payOption.amount) {
-
+    const balance = this.profile.balances.find(balance => balance.currency == payOption.currency);
+    const tag = this.profile.tag;
+    if (!balance || balance.amount < payOption.amount) {
+      this.dialog.open(TopUpPleaseComponent, {
+        width: '400px',
+        data: {balance, tag}
+      });
     } else {
-
+      this.saveTransactions(payOption, tag);
     }
-    //  1. record a payment tx from user tag to 1000 for the user
-    //  2. set lessonProgress.paid to tx ref
-    //  3. record a payment tx from user tag to 1000 for the hot wallet
   }
+
+  saveTransactions (balance: Balance, tag: number): void {
+    const data: Transaction = {
+      type: TxType.Payment,
+      from: tag,
+      to: 1000,
+      currency: balance,
+      timestamp: Date.now()
+    }
+    const userTxPath = `${PROFILES.path}/${this.userId}/${TRANSACTIONS.path}`;
+    this.crud.add(userTxPath, data)
+      .then(ref => {
+        //ToDo: show snackbar
+        // this.updateBalance()
+        this.lessonProgress.paid = ref.path;
+        this.crud.update(this.lessonPath, this.lesson.id, this.lessonProgress).then().catch();
+      })
+      .catch()
+    ;
+
+    const hotWalletTxPath = `${PROFILES.path}/oLqFhLu5TBWFO0Zk7N7KcM5B47Cq/${TRANSACTIONS.path}`;
+    this.crud.add(hotWalletTxPath, data).then().catch();
+  }
+
+  updateBalance(userId: string, balances: Balance[]): void {
+
+  }
+
+
   // mat-select error handler ----------------------------------------------------------------------------------------
   disabled = true;
   selected = new FormControl('', [Validators.required]);

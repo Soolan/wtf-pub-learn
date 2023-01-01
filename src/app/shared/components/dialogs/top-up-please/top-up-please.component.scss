@@ -1,0 +1,32 @@
+.content {
+  text-align: center;
+  img {
+    margin: var(--space-lg) 0;
+  }
+  .address {
+    font-weight: 700;
+    color: var(--color-grey4);
+    font-size: 15px;
+    letter-spacing: var(--space-xxxs);
+  }
+  .mat-icon {
+    font-size: large;
+  }
+
+  .howto {
+    margin-top: var(--space-md);
+    text-align: left;
+    span {
+      font-size: large;
+      letter-spacing: var(--space-xxxs);
+    }
+    p {
+      font-size: 17px;
+      color: var(--color-grey4)
+    }
+  }
+  .mat-expansion-panel-header-title {
+    font-size: large;
+    flex-grow: 0;
+  }
+}

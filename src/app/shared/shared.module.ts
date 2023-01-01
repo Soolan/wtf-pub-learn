@@ -33,6 +33,7 @@ import {MarkdownModule} from 'ngx-markdown';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-please.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-
         MatTooltipModule,
         MarkdownModule,
         MatProgressSpinnerModule,
+        MatExpansionModule,
     ]
 })
 export class SharedModule {
