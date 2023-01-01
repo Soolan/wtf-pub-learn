@@ -41,15 +41,20 @@
     <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
          *ngFor="let lesson of lessons; let i = index">
       <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <div fxFlex class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
+        <div fxFlex class="avatar"
+             [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
         <div fxFlex="90" class="lesson-heading">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
       <div fxFlex="30" *ngIf="(auth.user | async) && lesson; else guest">
-        <app-progress [userId]="userId" [course]="course" [lesson]="lesson" [slides]="course.stats[i]" *ngIf="lesson.published">
-        </app-progress>
         <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING SOON</span></p>
-
+        <app-progress
+          [userId]="userId"
+          [course]="course"
+          [lesson]="lesson"
+          [slides]="course.stats[i]"
+          *ngIf="lesson.published">
+        </app-progress>
       </div>
       <ng-template #guest>
         <button mat-flat-button [routerLink]="['lessons', lesson.id]" *ngIf="lesson.published">Start</button>

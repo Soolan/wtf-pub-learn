@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {COURSES, LESSONS, P_COURSES, PROFILES} from '../../shared/data/collections';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
 import {LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
@@ -8,6 +8,8 @@ import {CurrentService} from '../../shared/services/current.service';
 import {Info} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
+import {map} from 'rxjs';
+import {Release} from '../../shared/models/release';
 
 @Component({
   selector: 'app-course',
@@ -25,6 +27,8 @@ export class CourseComponent implements OnInit {
   levels = LEVELS;
   status = Status;
   courseInfo!: Info;
+  coursePayment!: string;
+  lessonPayment!: string;
   coursePath!: string;
 
   constructor(
@@ -56,6 +60,7 @@ export class CourseComponent implements OnInit {
             .then(snap => {
               if (snap.data()) {
                 this.courseInfo = snap.data().info;
+                this.coursePayment = snap.data().paid;
               }
             }).catch();
           this.analytics.setUserId(this.userId).then().catch();

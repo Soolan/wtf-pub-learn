@@ -1,6 +1,7 @@
 import {Timestamps} from './timestamps';
 import {PayOption} from './pay-option';
 import {Difficulty} from '../data/enums';
+import {Balance} from './balance';
 
 export interface Course {
   name: string;
@@ -8,14 +9,14 @@ export interface Course {
   avatar: string;
   description: string;
   published: boolean;
-  paidCourse: boolean;
-  coursePayOptions: PayOption[];
+  isPaid: boolean;
+  payOptions: Balance[];
   hasExam: boolean;
   paidExam: boolean;
-  examPayOptions: PayOption[];
+  examPayOptions: Balance[];
   hasCertificate: boolean;
   paidCertificate: boolean;
-  certificatePayOptions: PayOption[];
+  certificatePayOptions: Balance[];
   level: Difficulty;
   tags: string;
   timestamps: Timestamps;

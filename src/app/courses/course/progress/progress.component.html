@@ -1,31 +1,50 @@
 <div class="progress" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" *ngIf="lessonProgress">
-  <ng-container [ngSwitch]="lessonProgress.info.status">
-    <div *ngSwitchCase="status.Start" fxFlex="100">
-      <button mat-flat-button color="primary" (click)="open(status.Start)" class="start" fxFlex>
-        {{statuses[status.Start].toUpperCase()}}
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </div>
-    <div *ngSwitchCase="status.Resume" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-      <button fxFlex="100" mat-flat-button color="accent" (click)="open(status.Resume)" class="resume">
-        {{statuses[status.Resume].toUpperCase()}}
-        <mat-icon>double_arrow</mat-icon>
-      </button>
-      <div fxFlex="90" class="markers">
+  <div *ngIf="lesson.isPaid && !lessonProgress.paid; else progress"
+       fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <button fxFlex="100" mat-flat-button color="primary"
+            [disabled]="selected.value === ''" (click)="buy(selected.value || '')">
+      BUY
+    </button>
+    <mat-form-field fxFlex="100" appearance="fill">
+      <mat-label>PICK ONE</mat-label>
+      <mat-select [formControl]="selected" [errorStateMatcher]="matcher">
+        <mat-option *ngFor="let pay of lesson.payOptions; let i= index" [value]="i">
+          {{pay.amount}} {{cryptoSymbols[pay.currency]}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>currency is required</mat-hint>
+      <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
+    </mat-form-field>
+  </div>
+  <ng-template #progress>
+    <ng-container [ngSwitch]="lessonProgress.info.status">
+      <div *ngSwitchCase="status.Start" fxFlex="100">
+        <button mat-flat-button color="primary" (click)="open(status.Start)" class="start" fxFlex>
+          {{statuses[status.Start].toUpperCase()}}
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+      <div *ngSwitchCase="status.Resume" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+        <button fxFlex="100" mat-flat-button color="accent" (click)="open(status.Resume)" class="resume">
+          {{statuses[status.Resume].toUpperCase()}}
+          <mat-icon>double_arrow</mat-icon>
+        </button>
+        <div fxFlex="90" class="markers">
         <span *ngFor="let square of [].constructor(slides); let i = index" class="marker"
               [style.background-color]="i <= currentSlide ? 'var(--color-accent-light)' : ''">
         </span>
+        </div>
       </div>
-    </div>
-    <div *ngSwitchCase="status.Retake" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-      <button mat-flat-button color="primary" (click)="open(status.Retake)" class="retake" fxFlex="100">
-        {{statuses[status.Retake].toUpperCase()}}
-        <mat-icon>refresh</mat-icon>
-      </button>
-      <div fxFlex="90" class="score">
-        <span>SCORE: <strong>{{lessonProgress.info.score| number: '1.1-1'}}</strong>%</span>
-        <p class="mat-caption">{{lessonProgress.info.updated_at | date: 'EEEE, MMM d, y'}}</p>
+      <div *ngSwitchCase="status.Retake" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
+        <button mat-flat-button color="primary" (click)="open(status.Retake)" class="retake" fxFlex="100">
+          {{statuses[status.Retake].toUpperCase()}}
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <div fxFlex="90" class="score">
+          <span>SCORE: <strong>{{lessonProgress.info.score| number: '1.1-1'}}</strong>%</span>
+          <p class="mat-caption">{{lessonProgress.info.updated_at | date: 'EEEE, MMM d, y'}}</p>
+        </div>
       </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </ng-template>
 </div>

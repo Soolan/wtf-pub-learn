@@ -9,7 +9,7 @@ export interface Profile {
   firstname: string;
   lastname: string;
   wallet_address: string;
-  tag: string;
+  tag: number;
   balances: Balance[];
   loyalty: Loyalty;
   achievements: string;
@@ -23,11 +23,13 @@ export interface UserActivity {
 }
 
 export interface Course {
+  paid?: string;
   name: string;
   info: Info;
 }
 
 export interface Lesson {
+  paid?: string;
   name: string;
   current_slide: number;
   info: Info;
