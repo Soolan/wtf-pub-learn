@@ -203,11 +203,12 @@ export class ProgressComponent implements OnInit {
         data: {balance, tag}
       });
     } else {
-      this.saveTransactions(payOption, tag);
+      this.addUserTx(payOption, tag);
+      this.addHotWalletTx(payOption);
     }
   }
 
-  saveTransactions (balance: Balance, tag: number): void {
+  addUserTx (balance: Balance, tag: number): void {
     const data: Transaction = {
       type: TxType.Payment,
       from: tag,
@@ -219,21 +220,39 @@ export class ProgressComponent implements OnInit {
     this.crud.add(userTxPath, data)
       .then(ref => {
         //ToDo: show snackbar
-        // this.updateBalance()
+        this.updateBalance(this.userId, this.profile.balances, balance, false);
         this.lessonProgress.paid = ref.path;
         this.crud.update(this.lessonPath, this.lesson.id, this.lessonProgress).then().catch();
       })
       .catch()
     ;
+  }
 
+  addHotWalletTx (balance: Balance): void {
     const hotWalletTxPath = `${PROFILES.path}/oLqFhLu5TBWFO0Zk7N7KcM5B47Cq/${TRANSACTIONS.path}`;
-    this.crud.add(hotWalletTxPath, data).then().catch();
+    this.crud.add(hotWalletTxPath, data)
+      .then(_ => this.updateBalance(
+        'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq', this.getBalances('oLqFhLu5TBWFO0Zk7N7KcM5B47Cq'), balance, true)
+      )
+      .catch()
+    ;
   }
 
-  updateBalance(userId: string, balances: Balance[]): void {
-
+  updateBalance(userId: string, balances: Balance[], payment: Balance, isDeposit: boolean): void {
+    const balance = balances.find(b => b.currency == payment.currency);
+    if (balance) {
+      balance.amount = isDeposit ? balance.amount + payment.amount : balance.amount - payment.amount;
+    } else {
+      isDeposit ? balances.push(payment) : ''; // ToDo: Snackbar a message saying nothing to deduct
+    }
+    console.log(balances);
+    this.crud.update(PROFILES.path, userId, balances).then().catch();
   }
 
+  getBalances(userId: string): Balance[] {
+
+    return [];
+  }
 
   // mat-select error handler ----------------------------------------------------------------------------------------
   disabled = true;
