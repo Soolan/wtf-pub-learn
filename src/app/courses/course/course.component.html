@@ -33,20 +33,35 @@
       </div>
     </div>
   </div>
-  <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-between start"
+  <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-around start"
        class="lessons">
+
+    <div fxFlex="70" fxFlex.md="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="center center" >
+      <mat-form-field fxFlex="45" fxFlex.lt-md="80" appearance="fill">
+        <mat-label>PICK ONE</mat-label>
+        <mat-select>
+          <mat-option>option1</mat-option>
+          <mat-option>option2</mat-option>
+        </mat-select>
+        <mat-hint>currency is required</mat-hint>
+        <mat-error>You must make a selection</mat-error>
+      </mat-form-field>
+      <button fxFlex="45" fxFlex.lt-md="40" mat-flat-button color="primary">BUY</button>
+    </div>
+
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
-    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="lesson"
+    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="lesson"
          *ngFor="let lesson of lessons; let i = index">
-      <div fxFlex="70" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div fxFlex="70" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
         <div fxFlex class="avatar"
              [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
         <div fxFlex="90" class="lesson-heading">{{lesson.name}}</div>
         <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
       </div>
-      <div fxFlex="30" *ngIf="(auth.user | async) && lesson; else guest">
+
+      <div fxFlex="30" fxFlex.lt-md="45" *ngIf="(auth.user | async) && lesson; else guest">
         <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING SOON</span></p>
         <app-progress
           [userId]="userId"
