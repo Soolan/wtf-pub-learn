@@ -6,7 +6,7 @@ export interface Lesson {
   avatar: string;
   description: string;
   published: boolean;
-  isPaid: boolean;
+  paid: boolean;
   payOptions: Balance[];
   timestamps: Timestamps;
   order: number;

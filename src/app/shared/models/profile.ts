@@ -23,7 +23,6 @@ export interface UserActivity {
 }
 
 export interface Course {
-  paid?: string;
   name: string;
   info: Info;
 }
