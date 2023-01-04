@@ -253,7 +253,7 @@ export class ProgressComponent implements OnInit {
   updateBalance(userId: string, balances: Balance[], payment: Balance, isDeposit: boolean): void {
     const balance = balances.find(b => b.currency == payment.currency);
     if (balance) {
-      balance.amount = isDeposit ? balance.amount + payment.amount : balance.amount - payment.amount;
+      balance.amount = isDeposit ? Number(balance.amount) + payment.amount : balance.amount - payment.amount;
     } else {
       isDeposit ? balances.push(payment) : ''; // ToDo: Snackbar a message saying nothing to deduct
     }
