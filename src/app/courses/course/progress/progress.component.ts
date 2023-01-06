@@ -216,7 +216,7 @@ export class ProgressComponent implements OnInit {
         type: TxType.Payment,
         from: tag,
         to: 1000,
-        currency: payOption,
+        balance: payOption,
         timestamp: Date.now()
       }
       this.addUserTx(data);
@@ -229,7 +229,7 @@ export class ProgressComponent implements OnInit {
     this.crud.add(userTxPath, data)
       .then(ref => {
         //ToDo: show snackbar
-        this.updateBalance(this.userId, this.profile.balances, data.currency, false);
+        this.updateBalance(this.userId, this.profile.balances, data.balance, false);
         this.lessonProgress.paid = ref.path;
         this.crud.update(this.lessonPath, this.lesson.id, this.lessonProgress).then().catch();
       })
@@ -243,7 +243,7 @@ export class ProgressComponent implements OnInit {
       .then(_ => this.updateBalance(
         this.masterId,
         this.hotWalletBalances,
-        data.currency,
+        data.balance,
         true
       ))
       .catch()

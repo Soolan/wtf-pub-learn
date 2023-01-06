@@ -71,6 +71,7 @@ export enum EventType {
   Greetings,
   HealthCheck,
   Payment,
+  Faucet,
   Registration,
   Login,
   CourseStarted,
