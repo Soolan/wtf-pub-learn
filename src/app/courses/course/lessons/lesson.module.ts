@@ -31,6 +31,7 @@ import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/bl
 import {MarkdownModule} from 'ngx-markdown';
 import {MatDividerModule} from '@angular/material/divider';
 import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
+import { FinalExamComponent } from './final-exam/final-exam.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
     MultipleChoiceComponent,
     BlankRendererComponent,
     PollComponent,
+    FinalExamComponent,
   ],
     imports: [
         CommonModule,
