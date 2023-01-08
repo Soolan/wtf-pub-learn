@@ -80,7 +80,7 @@
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>
-      <span>You took this course and completed all the lessons on: {{courseInfo.updated_at | date: 'medium'}}</span>
+      <span>You took this course and completed the available lessons on: {{courseInfo.updated_at | date: 'medium'}}</span>
       <div class="result">
         <p [ngClass]="courseInfo.score > 60 ? 'mat-subheading-2' : 'mat-subheading-1'"
            [ngStyle]="{'color': courseInfo.score > 60 ? 'var(--color-primary)' : 'var(--color-warn)'}">
@@ -90,7 +90,8 @@
       </div>
     </div>
     <div class="certified" *ngIf="courseInfo && courseInfo.status === status.Retake">
-      <button mat-flat-button (click)="pay()" color="warn">
+      <p>It seams you are ready fot the final exam.</p>
+      <button mat-flat-button (click)="takeExam()" color="warn">
         <mat-icon>verified_user</mat-icon>
         <span>GET CERTIFIED</span>
       </button>

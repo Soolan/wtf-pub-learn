@@ -107,7 +107,8 @@ export class CourseComponent implements OnInit {
   get courseLevel(): string {
     return LEVELS[this.course.level];
   }
-  pay(): void {
+
+  takeExam(): void {
     //ToDO: if it is free navigate to the test page
     // if it is paid show them payment instructions
   }
