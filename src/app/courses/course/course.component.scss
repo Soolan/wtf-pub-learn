@@ -55,14 +55,12 @@
     .description {
       padding-bottom: 1em;
     }
-
   }
   .lessons {
     min-height: 7em;
     margin-bottom: 2em;
     .lesson {
-      padding: var(--space-xs);
-      margin-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
       .avatar {
         border-right: 1px solid;
         background-repeat: no-repeat;
@@ -139,5 +137,11 @@
         margin-right: var(--space-xs);
       }
     }
+  }
+  .mat-radio-button {
+    margin-right: var(--space-md);
+  }
+  .mat-divider {
+    margin: var(--space-sm) 0;
   }
 }

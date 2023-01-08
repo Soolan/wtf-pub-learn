@@ -13,24 +13,26 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
-import { LessonModule } from './course/lessons/lesson.module';
+import {LessonModule} from './course/lessons/lesson.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { ProgressComponent } from './course/progress/progress.component';
+import {ProgressComponent} from './course/progress/progress.component';
 import {MarkdownModule} from 'ngx-markdown';
 import {MatSelectModule} from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatRippleModule} from '@angular/material/core';
 
 
 @NgModule({
-    declarations: [
-        CourseComponent,
-        LandingComponent,
-        ProgressComponent
-    ],
-    exports: [
-        CourseComponent
-    ],
+  declarations: [
+    CourseComponent,
+    LandingComponent,
+    ProgressComponent
+  ],
+  exports: [
+    CourseComponent
+  ],
   imports: [
     CommonModule,
     CourseRoutingModule,
@@ -51,6 +53,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MarkdownModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatRadioModule,
+    MatRippleModule,
   ]
 })
 export class CourseModule {

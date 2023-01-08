@@ -35,20 +35,6 @@
   </div>
   <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-around start"
        class="lessons">
-
-    <div fxFlex="70" fxFlex.md="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="center center" >
-      <mat-form-field fxFlex="45" fxFlex.lt-md="80" appearance="fill">
-        <mat-label>PICK ONE</mat-label>
-        <mat-select>
-          <mat-option>option1</mat-option>
-          <mat-option>option2</mat-option>
-        </mat-select>
-        <mat-hint>currency is required</mat-hint>
-        <mat-error>You must make a selection</mat-error>
-      </mat-form-field>
-      <button fxFlex="45" fxFlex.lt-md="40" mat-flat-button color="primary">BUY</button>
-    </div>
-
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
@@ -91,7 +77,7 @@
     </div>
     <div class="certified" *ngIf="courseInfo && courseInfo.status === status.Retake">
       <p>It seams you are ready fot the final exam.</p>
-      <button mat-flat-button (click)="takeExam()" color="warn">
+      <button mat-flat-button routerLink="['lessons','final-exam']" color="warn">
         <mat-icon>verified_user</mat-icon>
         <span>GET CERTIFIED</span>
       </button>

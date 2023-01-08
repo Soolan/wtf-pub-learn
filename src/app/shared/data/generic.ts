@@ -99,3 +99,5 @@ export const EVENTS_Content: EventContent[] = [
   {label: "won!", icon: 'emoji_events'},
   {label: "reported a bug", icon: 'bug_report'},
 ];
+
+export const FINAL_EXAM_ID = "final-exam";
