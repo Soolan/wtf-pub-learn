@@ -64,7 +64,7 @@ export class ExamFooterComponent implements OnInit {
 
   initSlideType(marker: number): void {
     this.firstSlide = marker === SlideType.Start;
-    this.lastSlide = marker === SlideType.Summary;
+    this.lastSlide = this.slideService.slides[marker].type === SlideType.Summary;
     this.staticSlide = this.slideService.slides[marker].type === SlideType.Static;
   }
 

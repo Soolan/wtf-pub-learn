@@ -1,6 +1,5 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
   <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
-{{slide.content | json}}
   <button mat-flat-button color="primary" (click)="proceed()">
     <span>{{slide.content.button_label}}</span>
     <mat-icon>arrow_forward</mat-icon>
