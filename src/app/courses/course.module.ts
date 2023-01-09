@@ -21,8 +21,6 @@ import {MarkdownModule} from 'ngx-markdown';
 import {MatSelectModule} from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatRippleModule} from '@angular/material/core';
-import { FooterComponent } from './course/final-exam/footer/footer.component';
 
 
 @NgModule({
@@ -30,11 +28,10 @@ import { FooterComponent } from './course/final-exam/footer/footer.component';
     CourseComponent,
     LandingComponent,
     ProgressComponent,
-    FooterComponent
   ],
-  exports: [
-    CourseComponent
-  ],
+    exports: [
+        CourseComponent,
+    ],
   imports: [
     CommonModule,
     CourseRoutingModule,
@@ -49,14 +46,12 @@ import { FooterComponent } from './course/final-exam/footer/footer.component';
     MatCardModule,
     MatListModule,
     MatIconModule,
-    LessonModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MarkdownModule,
     MatSelectModule,
     ReactiveFormsModule,
     MatRadioModule,
-    MatRippleModule,
   ]
 })
 export class CourseModule {

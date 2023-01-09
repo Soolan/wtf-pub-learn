@@ -33,6 +33,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
 import { FinalExamComponent } from '../final-exam/final-exam.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {CourseModule} from '../../course.module';
+import {ExamFooterComponent} from './lesson/slides-renderer/exam-footer/exam-footer.component';
 
 
 @NgModule({
@@ -52,6 +54,7 @@ import {MatRadioModule} from '@angular/material/radio';
     SlidesRendererComponent,
     HeaderComponent,
     FooterComponent,
+    ExamFooterComponent,
     NotFoundComponent,
     TextImageComponent,
     MultipleChoiceComponent,
@@ -59,20 +62,21 @@ import {MatRadioModule} from '@angular/material/radio';
     PollComponent,
     FinalExamComponent,
   ],
-  imports: [
-    CommonModule,
-    LessonRoutingModule,
-    FlexLayoutModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    MatButtonModule,
-    SharedModule,
-    ReactiveFormsModule,
-    MatChipsModule,
-    MarkdownModule,
-    MatDividerModule,
-    MatRadioModule
-  ]
+    imports: [
+        CommonModule,
+        LessonRoutingModule,
+        FlexLayoutModule,
+        MatProgressSpinnerModule,
+        MatIconModule,
+        MatButtonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        MatChipsModule,
+        MarkdownModule,
+        MatDividerModule,
+        MatRadioModule,
+        CourseModule
+    ]
 })
 export class LessonModule {
 }
