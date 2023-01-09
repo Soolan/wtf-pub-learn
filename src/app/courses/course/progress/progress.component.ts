@@ -201,7 +201,7 @@ export class ProgressComponent implements OnInit {
   }
 
 
-  buy(index: string): void {
+  pay(index: string): void {
     const payOption = this.lesson.payOptions[Number(index)];
     const balance = this.profile.balances.find(balance => balance.currency == payOption.currency);
     const tag = this.profile.tag;

@@ -9,5 +9,6 @@ export interface Lesson {
   paid: boolean;
   payOptions: Balance[];
   timestamps: Timestamps;
+  passingGrade: number;
   order: number;
 }

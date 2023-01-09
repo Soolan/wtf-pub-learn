@@ -7,8 +7,6 @@ import {SlideService} from './slides-renderer/slide.service';
 import {CurrentService} from '../../../../shared/services/current.service';
 import {NavigateService} from '../../../../shared/services/navigate.service';
 import {ActivatedRoute} from '@angular/router';
-import {Slide} from '../../../../shared/models/slide';
-import {map} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Lesson} from '../../../../shared/models/profile';
 

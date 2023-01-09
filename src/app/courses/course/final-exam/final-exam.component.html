@@ -1,4 +1,4 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="container">
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="container" *ngIf="exam">
   <div fxFlex="90" class="mat-display-1 thin" appBlackRenderer content="Welcome To Your Final Exam"
        keyword="Final"></div>
   <div class="mat-subheading-2" fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60">
@@ -7,7 +7,7 @@
   <ul fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60">
     <li>The questions are about the topics/lessons introduced in this course.</li>
     <li>They are picked and ordered randomly from a pool of questions, so each exam is unique.</li>
-    <li>There are no time limits or negative points and the passing grade will be</li>
+    <li>There are no time limits or negative points and the passing grade will be {{exam.passingGrade}}/100</li>
     <li>The certification will be issued and accessible in your dashboard.</li>
     <li>You may choose to issue your certificate as an NFT (with a fee) so it is accessible from the XRPL blockchain.
     </li>
@@ -29,7 +29,7 @@
       <button mat-flat-button color="primary">Pay & Proceed</button>
     </div>
     <ng-template #free>
-
+      <button mat-flat-button color="primary">Proceed</button>
     </ng-template>
   </div>
 </div>

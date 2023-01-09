@@ -2,7 +2,7 @@
   <div *ngIf="(lesson.isPaid && !lessonProgress.paid); else progress"
        fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
     <button fxFlex="100" mat-flat-button color="primary"
-            [disabled]="selected.value === ''" (click)="buy(selected.value || '')">
+            [disabled]="selected.value === ''" (click)="pay(selected.value || '')">
       BUY
     </button>
     <mat-form-field fxFlex="100" appearance="fill">

@@ -28,7 +28,10 @@ export class FinalExamComponent implements OnInit {
   ngOnInit(): void {
     if (this.path) {
       this.crud.docRef(this.path, 'final-exam').get()
-        .then(snapshot => this.exam = snapshot.data())
+        .then(snapshot => {
+          this.exam = snapshot.data();
+          console.log(this.exam)
+        })
         .catch()
       ;
     }
