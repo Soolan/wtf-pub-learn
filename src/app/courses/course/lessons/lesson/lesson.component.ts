@@ -9,6 +9,7 @@ import {NavigateService} from '../../../../shared/services/navigate.service';
 import {ActivatedRoute} from '@angular/router';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Lesson} from '../../../../shared/models/profile';
+import {ExamResult, ExamService} from './slides-renderer/exam.service';
 
 @Component({
   selector: 'app-lesson',
@@ -31,6 +32,7 @@ export class LessonComponent implements OnInit {
     private crud: CrudService,
     public auth: AngularFireAuth,
     private route: ActivatedRoute,
+    private examService: ExamService,
     private navigate: NavigateService,
     private slideService: SlideService,
     private currentService: CurrentService,
@@ -70,6 +72,8 @@ export class LessonComponent implements OnInit {
   initSlides(): void {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
       .then(snap => {
+        console.log(this.examService.results.value);
+        if(this.exam) this.initExamResults(snap.docs);
         this.slides = snap.docs.map(doc => {
           return {id: doc.id, ...doc.data()}
         });
@@ -81,6 +85,20 @@ export class LessonComponent implements OnInit {
       })
       .catch()
     ;
+  }
+
+  initExamResults(slides: any[]): void {
+    const results: ExamResult[] = [];
+    slides.slice(1, -1).forEach(slide => {
+      const data = slide.data().content;
+      results.push({
+        question: data.question,
+        options: data.options,
+        answers: data.answers ? data.answers.map((item: any) => item.answer): [data.answer],
+        answered: ''
+      })
+    })
+    this.examService.next(results);
   }
 
   setNames(): void {
