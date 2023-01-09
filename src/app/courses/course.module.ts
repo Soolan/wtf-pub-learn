@@ -22,13 +22,15 @@ import {MatSelectModule} from '@angular/material/select';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatRippleModule} from '@angular/material/core';
+import { FooterComponent } from './course/final-exam/footer/footer.component';
 
 
 @NgModule({
   declarations: [
     CourseComponent,
     LandingComponent,
-    ProgressComponent
+    ProgressComponent,
+    FooterComponent
   ],
   exports: [
     CourseComponent
