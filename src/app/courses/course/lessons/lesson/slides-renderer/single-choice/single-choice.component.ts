@@ -26,7 +26,8 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
   isCompleted = false;
   slideButtons: SlideButton[] = [];
 
-  constructor(private examService: ExamService, private slideService: SlideService) { }
+  constructor(private examService: ExamService, private slideService: SlideService) {
+  }
 
   ngOnInit(): void {
     this.reset();
@@ -63,11 +64,10 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     if ($event.target) {
       if (this.examService.results.value) {
-        console.log('yaw');
         const button = this.slideButtons.find((element: any) => element.dom === $event.target);
         if (button) this.toggle(button, answer);
-      }
-      else {
+        console.log(this.examService.results.value[0]);
+      } else {
         // @ts-ignore
         this.slideButtons.find((element: any) => element.dom === $event.target).active = false;
         this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsIncorrect($event.target);
@@ -99,8 +99,25 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
 
   //exam methods =================================================
   toggle(button: SlideButton, answer: string): void {
-    const resuls = this.examService.results.value;
-    button.active =  !button.active;
-    resuls[this.slideService.markerIndex].answered = button.active ? '' : answer;
+    const results = this.examService.results.value;
+    if (button.active) {
+      this.unselectOthers();
+      this.slideService.markAsExamSelected(button.dom);
+      results[this.slideService.markerIndex - 1].answered = answer;
+    } else {
+      this.slideService.markAsExamUnselected(button.dom);
+      results[this.slideService.markerIndex - 1].answered = '';
+    }
+    this.examService.next(results);
+    // @ts-ignore
+    this.slideButtons.find((element: any) => element.dom === button.dom).active = !button.active;
+  }
+
+  unselectOthers(): void {
+    this.slideButtons = [];
+    for (let child of this.optionSetRef.nativeElement.children) {
+      this.slideService.markAsExamUnselected(child);
+      this.slideButtons.push({dom: child, active: true})
+    }
   }
 }

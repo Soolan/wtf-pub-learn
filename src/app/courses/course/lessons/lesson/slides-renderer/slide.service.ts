@@ -131,6 +131,16 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
   }
 
+  markAsExamSelected(button: EventTarget): void {
+    this.renderer.addClass(button, 'examSelected');
+    console.log('selected')
+  }
+
+  markAsExamUnselected(button: EventTarget): void {
+    this.renderer.removeClass(button, 'examSelected');
+    console.log('unselected')
+  }
+
   updateScore(): void {
     const current = {...this.currentService.current.value};
     current.lesson.info.score -= current.points;
