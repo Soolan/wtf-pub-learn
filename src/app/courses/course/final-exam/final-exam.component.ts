@@ -4,6 +4,7 @@ import {CrudService} from '../../../shared/services/crud.service';
 import {ActivatedRoute} from '@angular/router';
 import {COURSES, LESSONS} from '../../../shared/data/collections';
 import {CURRENCIES} from '../../../shared/data/generic';
+import {PaymentGatewayService} from '../../../shared/services/payment-gateway.service';
 
 @Component({
   selector: 'app-final-exam',
@@ -12,12 +13,14 @@ import {CURRENCIES} from '../../../shared/data/generic';
 })
 export class FinalExamComponent implements OnInit {
   exam!: Lesson;
+  proceed = false;
   courseId!: string;
   path!: string;
   currencies = CURRENCIES;
   constructor(
     private crud: CrudService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private payment: PaymentGatewayService
   ) {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
     if(this.courseId) {
@@ -37,4 +40,7 @@ export class FinalExamComponent implements OnInit {
     }
   }
 
+  pay(): void {
+    this.proceed = true;
+  }
 }

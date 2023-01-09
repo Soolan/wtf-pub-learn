@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
-import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES, SLIDES} from '../../../../shared/data/collections';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../../../shared/data/collections';
 import {SlideService} from './slides-renderer/slide.service';
 import {CurrentService} from '../../../../shared/services/current.service';
 import {NavigateService} from '../../../../shared/services/navigate.service';
@@ -16,6 +16,7 @@ import {Lesson} from '../../../../shared/models/profile';
   styleUrls: ['./lesson.component.scss']
 })
 export class LessonComponent implements OnInit {
+  @Input() exam?: string;
   course!: string;
   lesson!: string;
   courseId!: string;
@@ -38,7 +39,7 @@ export class LessonComponent implements OnInit {
     headerFooter.toggle(false, true);   // switch off header
     headerFooter.toggle(false, false);  // switch off footer
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
-    this.lessonId = this.route.snapshot.paramMap.get('lessonId') || '';
+    this.lessonId = this.exam || this.route.snapshot.paramMap.get('lessonId') || '';
     if (this.courseId && this.lessonId) {
       this.initSlides();
     } else {
