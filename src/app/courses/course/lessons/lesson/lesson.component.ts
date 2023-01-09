@@ -38,20 +38,20 @@ export class LessonComponent implements OnInit {
   ) {
     headerFooter.toggle(false, true);   // switch off header
     headerFooter.toggle(false, false);  // switch off footer
-    this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
-    this.lessonId = this.exam || this.route.snapshot.paramMap.get('lessonId') || '';
-    if (this.courseId && this.lessonId) {
-      this.initSlides();
-    } else {
-      // ToDo: show a dialog
-      console.log('lesson not found!');
-    }
     this.isLandscape.addEventListener("change", _ => {
       console.log("landscape orientation", this.isLandscape.matches);
     });
   }
 
   ngOnInit(): void {
+    this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
+    this.lessonId = this.exam ?? (this.route.snapshot.paramMap.get('lessonId') || '');
+    if (this.courseId && this.lessonId) {
+      this.initSlides();
+    } else {
+      // ToDo: show a dialog
+      console.log('lesson not found!');
+    }
     this.setNames();
     this.auth.authState.subscribe({
       next: user => {
