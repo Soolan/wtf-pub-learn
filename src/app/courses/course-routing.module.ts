@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LandingComponent} from './landing/landing.component';
 import {CourseComponent} from './course/course.component';
-import {FinalExamComponent} from './course/lessons/final-exam/final-exam.component';
+import {FinalExamComponent} from './course/final-exam/final-exam.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
