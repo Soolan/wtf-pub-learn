@@ -5,7 +5,7 @@ import {CrudService} from '../../../../../../shared/services/crud.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {SlideService} from '../slide.service';
 import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/collections';
-import {SlideType, Status} from '../../../../../../shared/data/enums';
+import {SlideType} from '../../../../../../shared/data/enums';
 import {ACTIONS} from '../../../../../../shared/data/generic';
 import {DocumentReference} from '@angular/fire/compat/firestore';
 
