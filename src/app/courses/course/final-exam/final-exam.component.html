@@ -1,1 +1,35 @@
-<p>final-exam works!</p>
+<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="container">
+  <div fxFlex="90" class="mat-display-1 thin" appBlackRenderer content="Welcome To Your Final Exam"
+       keyword="Final"></div>
+  <div class="mat-subheading-2" fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60">
+    Please read the following instructions before taking the test:
+  </div>
+  <ul fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60">
+    <li>The questions are about the topics/lessons introduced in this course.</li>
+    <li>They are picked and ordered randomly from a pool of questions, so each exam is unique.</li>
+    <li>There are no time limits or negative points and the passing grade will be</li>
+    <li>The certification will be issued and accessible in your dashboard.</li>
+    <li>You may choose to issue your certificate as an NFT (with a fee) so it is accessible from the XRPL blockchain.
+    </li>
+  </ul>
+  <div class="mat-subheading-2" fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60">
+    All the best!
+  </div>
+  <mat-divider fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60"></mat-divider>
+  <div fxFlex="90" fxFlex.md="70" fxFlex.gt-md="60" class="proceed">
+    <div *ngIf="exam.paid; else free">
+      <div>Please choose your payment method:</div>
+      <div>
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="{{i}}" *ngFor="let payment of exam.payOptions; let i=index">
+          {{payment.amount}} {{currencies[payment.currency]}}
+        </mat-radio-button>
+      </mat-radio-group>
+      </div>
+      <button mat-flat-button color="primary">Pay & Proceed</button>
+    </div>
+    <ng-template #free>
+
+    </ng-template>
+  </div>
+</div>

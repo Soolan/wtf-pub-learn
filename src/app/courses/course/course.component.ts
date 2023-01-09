@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
-import {CRYPTO_SYMBOLS, FINAL_EXAM_ID, LEVELS} from '../../shared/data/generic';
+import {CURRENCIES, FINAL_EXAM_ID, LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
@@ -25,7 +25,7 @@ export class CourseComponent implements OnInit {
   lessons!: any[];
   loading!: any;
   levels = LEVELS;
-  cryptoSymbols = CRYPTO_SYMBOLS;
+  cryptoSymbols = CURRENCIES;
   status = Status;
   courseInfo!: Info;
   coursePayment!: string;

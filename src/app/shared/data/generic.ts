@@ -1,5 +1,5 @@
 import {Denial} from '../models/denial';
-import {CryptoSymbol, TxType} from './enums';
+import {Currency, TxType} from './enums';
 import {Balance} from '../models/balance';
 
 export const STATUSES = ['Start', 'Resume', 'Retake'];
@@ -67,11 +67,18 @@ export const DENIAL_REASONS: Denial[] = [
   {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
 ];
 
-export const CRYPTO_SYMBOLS = ["XRP", "WTF"];
+export const CURRENCIES = ["XRP", "WTF", "IDR", "USD"];
+
+export const CURRENCY_SELECT = [
+  {name: CURRENCIES[Currency.XRP], value: Currency.XRP},
+  {name: CURRENCIES[Currency.WTF], value: Currency.WTF},
+  {name: CURRENCIES[Currency.IDR], value: Currency.IDR},
+  {name: CURRENCIES[Currency.USD], value: Currency.USD},
+];
 export const TX_TYPES = ["PAYMENT"];
 
 export const WELCOME_FUND: Balance = {
-  currency: CryptoSymbol.WTF,
+  currency: Currency.WTF,
   amount: 5
 }
 

@@ -32,6 +32,7 @@ import {MarkdownModule} from 'ngx-markdown';
 import {MatDividerModule} from '@angular/material/divider';
 import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
 import { FinalExamComponent } from '../final-exam/final-exam.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -58,19 +59,20 @@ import { FinalExamComponent } from '../final-exam/final-exam.component';
     PollComponent,
     FinalExamComponent,
   ],
-    imports: [
-        CommonModule,
-        LessonRoutingModule,
-        FlexLayoutModule,
-        MatProgressSpinnerModule,
-        MatIconModule,
-        MatButtonModule,
-        SharedModule,
-        ReactiveFormsModule,
-        MatChipsModule,
-        MarkdownModule,
-        MatDividerModule
-    ]
+  imports: [
+    CommonModule,
+    LessonRoutingModule,
+    FlexLayoutModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MarkdownModule,
+    MatDividerModule,
+    MatRadioModule
+  ]
 })
 export class LessonModule {
 }

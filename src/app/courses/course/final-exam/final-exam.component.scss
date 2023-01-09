@@ -1,0 +1,18 @@
+.container {
+  text-align: center;
+  margin-top: var(--space-xxl);
+  min-height: 20em;
+  ul {
+    text-align: left;
+    li {
+      margin-bottom: var(--space-xs);
+    }
+  }
+  .proceed {
+    text-align: center;
+    margin: var(--space-xl) auto;
+    .mat-radio-button {
+      margin: var(--space-md);
+    }
+  }
+}

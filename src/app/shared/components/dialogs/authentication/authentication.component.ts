@@ -5,7 +5,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {PROFILES} from '../../../data/collections';
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
-import {CryptoSymbol, TxType} from '../../../data/enums';
+import {Currency, TxType} from '../../../data/enums';
 import {Balance} from '../../../models/balance';
 import {HOT_TAG, WELCOME_FUND} from '../../../data/generic';
 
@@ -109,7 +109,7 @@ export class AuthenticationComponent implements AfterViewInit {
               }
             }).then(_ => {
               this.success = true;
-              balances.find((balance: Balance) => balance.currency === CryptoSymbol.WTF).amount -= WELCOME_FUND.amount;
+              balances.find((balance: Balance) => balance.currency === Currency.WTF).amount -= WELCOME_FUND.amount;
               console.log(balances);
               // update stats with the new tags and balances
               this.crud.docRef('stats', 'wallet').update({balances, tag}).then().catch();

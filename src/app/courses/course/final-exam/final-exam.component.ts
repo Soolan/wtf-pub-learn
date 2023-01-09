@@ -3,6 +3,7 @@ import {Lesson} from '../../../shared/models/lesson';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ActivatedRoute} from '@angular/router';
 import {COURSES, LESSONS} from '../../../shared/data/collections';
+import {CURRENCIES} from '../../../shared/data/generic';
 
 @Component({
   selector: 'app-final-exam',
@@ -13,6 +14,7 @@ export class FinalExamComponent implements OnInit {
   exam!: Lesson;
   courseId!: string;
   path!: string;
+  currencies = CURRENCIES;
   constructor(
     private crud: CrudService,
     private route: ActivatedRoute
