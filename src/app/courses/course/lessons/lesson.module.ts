@@ -35,6 +35,7 @@ import { FinalExamComponent } from '../final-exam/final-exam.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {CourseModule} from '../../course.module';
 import {ExamFooterComponent} from './lesson/slides-renderer/exam-footer/exam-footer.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {ExamFooterComponent} from './lesson/slides-renderer/exam-footer/exam-foo
         MarkdownModule,
         MatDividerModule,
         MatRadioModule,
-        CourseModule
+        CourseModule,
+        MatExpansionModule
     ]
 })
 export class LessonModule {

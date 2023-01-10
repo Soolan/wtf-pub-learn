@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Info} from '../../../../../shared/models/profile';
-import {Status} from '../../../../../shared/data/enums';
-import {Current} from '../../../../../shared/services/current.service';
 
 export interface ExamResult {
   question: string;

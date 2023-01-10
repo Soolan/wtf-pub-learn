@@ -4,7 +4,7 @@ import {SlideService} from '../slide.service';
 import {NavigateService} from '../../../../../../shared/services/navigate.service';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../../../../../shared/services/current.service';
-import {CrudService} from '../../../../../../shared/services/crud.service';
+import {ExamService} from '../exam.service';
 
 @Component({
   selector: 'app-summary',
@@ -13,15 +13,18 @@ import {CrudService} from '../../../../../../shared/services/crud.service';
 })
 export class SummaryComponent implements OnInit, AfterViewInit{
   @Input() slide: any;
+  @Input() passingGrade?: number;
   terms!: string[];
   courseId!: string;
   isGuest = true;
+  courseName = '';
 
   constructor(
     private headerFooter: ToggleHeaderFooterService,
     private currentService: CurrentService,
     private slideService: SlideService,
     private navigate: NavigateService,
+    private examService: ExamService,
     private route: ActivatedRoute,
   ) {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
@@ -29,6 +32,11 @@ export class SummaryComponent implements OnInit, AfterViewInit{
 
   ngOnInit() {
     this.terms = this.slide.content.terms.split(',');
+    this.courseName = this.currentService.current.value.course.name;
+    if (this.passingGrade) {
+      this.grade();
+      this.details();
+    }
   }
 
   ngAfterViewInit():void {
@@ -47,5 +55,26 @@ export class SummaryComponent implements OnInit, AfterViewInit{
     this.navigate.goto('courses', this.courseId);
     this.headerFooter.toggle(true, true);
     this.headerFooter.toggle(true, false);
+  }
+
+  grade(): number {
+    let score = 0;
+    let totalScore = 0;
+    const points = 5;
+    this.examService.results.value.forEach(q => {
+      totalScore += q.answers.length * points;
+
+      // give points for the correct answers
+      q.answered.forEach(a => score += q.answers.includes(a) ? points : 0);
+
+      // if it was a multi choice question and they chose more option than they should, deduct points
+      score -= (q.answered.length > q.answers.length) ? (q.answered.length - q.answers.length) * points : 0;
+    })
+    score = (score < 0) ? 0 : score; // no negative results;
+    return score/totalScore * 100;
+  }
+
+  details(): void {
+
   }
 }

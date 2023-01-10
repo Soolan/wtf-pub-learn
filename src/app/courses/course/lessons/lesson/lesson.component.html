@@ -14,7 +14,7 @@
                            [slides]="slides"></app-slides-renderer>
     </ng-template>
   </div>
-  <div *ngIf="exam; else lessonFooter">
+  <div *ngIf="passingGrade; else lessonFooter">
     <app-exam-footer fxFlex class="fullwidth" *ngIf="slides"
                          [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
     ></app-exam-footer>

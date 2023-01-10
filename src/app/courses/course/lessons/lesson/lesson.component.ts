@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LEVELS} from '../../../../shared/data/generic';
+import {FINAL_EXAM_ID, LEVELS} from '../../../../shared/data/generic';
 import {CrudService} from '../../../../shared/services/crud.service';
 import {ToggleHeaderFooterService} from '../../../../shared/services/toggle-header-footer.service';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../../../shared/data/collections';
@@ -17,7 +17,7 @@ import {ExamResult, ExamService} from './slides-renderer/exam.service';
   styleUrls: ['./lesson.component.scss']
 })
 export class LessonComponent implements OnInit {
-  @Input() exam?: string;
+  @Input() passingGrade?: number;
   course!: string;
   lesson!: string;
   courseId!: string;
@@ -47,7 +47,7 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
-    this.lessonId = this.exam ?? (this.route.snapshot.paramMap.get('lessonId') || '');
+    this.lessonId = this.passingGrade ? FINAL_EXAM_ID : (this.route.snapshot.paramMap.get('lessonId') || '');
     if (this.courseId && this.lessonId) {
       this.initSlides();
     } else {
@@ -72,7 +72,7 @@ export class LessonComponent implements OnInit {
   initSlides(): void {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
       .then(snap => {
-        if(this.exam) this.initExamResults(snap.docs);
+        if(this.passingGrade) this.initExamResults(snap.docs);
         this.slides = snap.docs.map(doc => {
           return {id: doc.id, ...doc.data()}
         });

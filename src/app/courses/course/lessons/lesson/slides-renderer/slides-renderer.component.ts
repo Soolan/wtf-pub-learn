@@ -10,6 +10,8 @@ import {SlideService} from './slide.service';
 })
 export class SlidesRendererComponent implements OnChanges {
   @Input() slides!: any[];
+  @Input() passingGrade?: number;
+
   index!: number;
   current!: Slide;
   type = 0;
