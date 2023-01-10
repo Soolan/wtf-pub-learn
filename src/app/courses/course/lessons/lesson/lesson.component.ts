@@ -72,7 +72,6 @@ export class LessonComponent implements OnInit {
   initSlides(): void {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
       .then(snap => {
-        console.log(this.examService.results.value);
         if(this.exam) this.initExamResults(snap.docs);
         this.slides = snap.docs.map(doc => {
           return {id: doc.id, ...doc.data()}

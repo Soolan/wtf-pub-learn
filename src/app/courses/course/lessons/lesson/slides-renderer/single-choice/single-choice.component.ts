@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 import {SLIDE_UP} from '../../../../../../shared/animations/slide-up';
 import {Position} from '../../../../../../shared/data/enums';
@@ -102,10 +102,10 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
     const results = this.examService.results.value;
     if (button.active) {
       this.unselectOthers();
-      this.slideService.markAsExamSelected(button.dom);
+      this.slideService.markAsSelected(button.dom);
       results[this.slideService.markerIndex - 1].answered = answer;
     } else {
-      this.slideService.markAsExamUnselected(button.dom);
+      this.slideService.markAsUnselected(button.dom);
       results[this.slideService.markerIndex - 1].answered = '';
     }
     this.examService.next(results);
@@ -116,7 +116,7 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
   unselectOthers(): void {
     this.slideButtons = [];
     for (let child of this.optionSetRef.nativeElement.children) {
-      this.slideService.markAsExamUnselected(child);
+      this.slideService.markAsUnselected(child);
       this.slideButtons.push({dom: child, active: true})
     }
   }

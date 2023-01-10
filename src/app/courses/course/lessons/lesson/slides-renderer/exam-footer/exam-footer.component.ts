@@ -22,7 +22,6 @@ export class ExamFooterComponent implements OnInit {
   width = 0;
   firstSlide = false;
   lastSlide = false;
-  staticSlide = false;
   ui!: SlideHeaderFooter;
   userId!: string | undefined;
 
@@ -30,7 +29,6 @@ export class ExamFooterComponent implements OnInit {
   lessonProgress!: Lesson;
   lessonPath!: string;
 
-  courseRef!: DocumentReference;
   coursePath!: string;
 
   constructor(
@@ -65,7 +63,6 @@ export class ExamFooterComponent implements OnInit {
   initSlideType(marker: number): void {
     this.firstSlide = marker === SlideType.Start;
     this.lastSlide = this.slideService.slides[marker].type === SlideType.Summary;
-    this.staticSlide = this.slideService.slides[marker].type === SlideType.Static;
   }
 
   move(forward: boolean): void {

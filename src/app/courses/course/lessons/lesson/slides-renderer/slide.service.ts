@@ -131,14 +131,12 @@ export class SlideService {
     this.renderer.addClass(button, 'disable');
   }
 
-  markAsExamSelected(button: EventTarget): void {
+  markAsSelected(button: EventTarget): void {
     this.renderer.addClass(button, 'examSelected');
-    console.log('selected')
   }
 
-  markAsExamUnselected(button: EventTarget): void {
+  markAsUnselected(button: EventTarget): void {
     this.renderer.removeClass(button, 'examSelected');
-    console.log('unselected')
   }
 
   updateScore(): void {

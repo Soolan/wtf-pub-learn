@@ -27,5 +27,4 @@ export class ExamService {
   next(snapshot: ExamResult[]): void {
     this.results.next(snapshot);
   }
-    // {question: '',  options: {value: '', response: ''}, answers: [], answered: ''})
 }
