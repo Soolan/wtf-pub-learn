@@ -66,7 +66,7 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
       if (this.examService.results.value) {
         const button = this.slideButtons.find((element: any) => element.dom === $event.target);
         if (button) this.toggle(button, answer);
-        console.log(this.examService.results.value[0]);
+        console.log(this.examService.results.value[0].answered);
       } else {
         // @ts-ignore
         this.slideButtons.find((element: any) => element.dom === $event.target).active = false;
@@ -101,19 +101,20 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
   toggle(button: SlideButton, answer: string): void {
     const results = this.examService.results.value;
     if (button.active) {
-      this.unselectOthers();
+      this.unselectAll();
       this.slideService.markAsSelected(button.dom);
-      results[this.slideService.markerIndex - 1].answered = answer;
+      results[this.slideService.markerIndex - 1].answered = [];
+      results[this.slideService.markerIndex - 1].answered.push(answer);
     } else {
       this.slideService.markAsUnselected(button.dom);
-      results[this.slideService.markerIndex - 1].answered = '';
+      results[this.slideService.markerIndex - 1].answered = [];
     }
     this.examService.next(results);
     // @ts-ignore
     this.slideButtons.find((element: any) => element.dom === button.dom).active = !button.active;
   }
 
-  unselectOthers(): void {
+  unselectAll(): void {
     this.slideButtons = [];
     for (let child of this.optionSetRef.nativeElement.children) {
       this.slideService.markAsUnselected(child);

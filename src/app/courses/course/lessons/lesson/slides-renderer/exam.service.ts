@@ -11,7 +11,7 @@ export interface ExamResult {
     response: string;
   };
   answers: string[];
-  answered: string
+  answered: string[];
 }
 
 @Injectable({

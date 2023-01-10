@@ -94,7 +94,7 @@ export class LessonComponent implements OnInit {
         question: data.question,
         options: data.options,
         answers: data.answers ? data.answers.map((item: any) => item.answer): [data.answer],
-        answered: ''
+        answered: []
       })
     })
     this.examService.next(results);

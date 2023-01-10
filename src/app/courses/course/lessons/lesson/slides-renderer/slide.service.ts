@@ -106,6 +106,7 @@ export class SlideService {
   }
 
   resetButtonStyles(element: any): void {
+    this.renderer.removeClass(element, 'examSelected');
     this.renderer.removeClass(element, 'disable');
     this.renderer.removeClass(element, 'mark');
   }
