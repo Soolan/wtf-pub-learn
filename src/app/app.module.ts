@@ -35,6 +35,7 @@ import {USE_EMULATOR as USE_DATABASE_EMULATOR} from '@angular/fire/compat/databa
 import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/compat/functions';
 import {MarkdownModule, MarkedOptions, MarkedRenderer} from 'ngx-markdown';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatRippleModule} from '@angular/material/core';
 
 // make links open in a new tab
 // function that returns `MarkedOptions` with renderer override

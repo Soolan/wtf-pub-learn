@@ -47,12 +47,12 @@
     .course {
       font-weight: 700;
       font-size: larger;
-      color: var(--color-accent);
+      color: var(--color-accent-lighter);
     }
     .lesson {
       font-size: smaller;
       opacity: 0.9;
-      color: var(--color-accent-light);
+      color: var(--color-accent-lighter);
     }
   }
 }

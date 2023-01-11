@@ -1,6 +1,6 @@
-import {CryptoSymbol} from '../data/enums';
+import {Currency} from '../data/enums';
 
 export interface PayOption {
-  currency: CryptoSymbol;
+  currency: Currency;
   amount: number;
 }

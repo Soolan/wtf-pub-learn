@@ -1,6 +1,6 @@
-import {CryptoSymbol} from '../data/enums';
+import {Currency} from '../data/enums';
 
 export interface Balance {
-  currency: CryptoSymbol;
+  currency: Currency;
   amount: number;
 }

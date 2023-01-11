@@ -9,6 +9,7 @@ export interface Current {
   lessonId: string;
   lesson: Lesson;
   points: number;
+  reload?: boolean;
 }
 
 @Injectable({
@@ -37,11 +38,13 @@ export class CurrentService {
   }
 
   reset(): void {
-    const current: Current = this.current.value;
-    current.lessonId = '';
-    current.lesson.name = '';
-    current.lesson.current_slide = 1;
-    current.points = 0;
+    const current: Current = {
+      courseId: '',
+      course: {name: '', info: this.info},
+      lessonId: '',
+      lesson: {name: '', current_slide: 1, info: this.info},
+      points: 0,
+    }
     this.current.next(current);
   }
 }

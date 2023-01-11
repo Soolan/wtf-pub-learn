@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
-import {LEVELS} from '../../shared/data/generic';
+import {CURRENCIES, FINAL_EXAM_ID, LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
@@ -25,6 +25,7 @@ export class CourseComponent implements OnInit {
   lessons!: any[];
   loading!: any;
   levels = LEVELS;
+  cryptoSymbols = CURRENCIES;
   status = Status;
   courseInfo!: Info;
   coursePayment!: string;
@@ -86,7 +87,7 @@ export class CourseComponent implements OnInit {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}`).get()
       .then(snap => {
         this.lessons = snap.docs
-          // .filter(doc => doc.data().published == true)
+          .filter(doc => doc.id !== FINAL_EXAM_ID)
           .map(doc => {
             return {id: doc.id, ...doc.data()}
           });
@@ -106,10 +107,5 @@ export class CourseComponent implements OnInit {
 
   get courseLevel(): string {
     return LEVELS[this.course.level];
-  }
-
-  takeExam(): void {
-    //ToDO: if it is free navigate to the test page
-    // if it is paid show them payment instructions
   }
 }

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CRYPTO_SYMBOLS} from '../../../data/generic';
-import {CryptoSymbol} from '../../../data/enums';
+import {CURRENCIES} from '../../../data/generic';
+import {Currency} from '../../../data/enums';
 import {MatAccordion} from '@angular/material/expansion';
 
 @Component({
@@ -12,7 +12,7 @@ import {MatAccordion} from '@angular/material/expansion';
 export class TopUpPleaseComponent implements OnInit {
   @ViewChild(MatAccordion) accordion!: MatAccordion;
 
-  cryptoSymbols = CRYPTO_SYMBOLS;
+  cryptoSymbols = CURRENCIES;
   constructor(
     public dialogRef: MatDialogRef<TopUpPleaseComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -21,7 +21,7 @@ export class TopUpPleaseComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data)
     if (!this.data.balance) {
-      this.data.balance = {currency: CryptoSymbol.XRP, amount: 0}
+      this.data.balance = {currency: Currency.XRP, amount: 0}
     }
   }
 

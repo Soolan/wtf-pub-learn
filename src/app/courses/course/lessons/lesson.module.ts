@@ -31,6 +31,11 @@ import { BlankRendererComponent } from './lesson/slides-renderer/hint-fill-in/bl
 import {MarkdownModule} from 'ngx-markdown';
 import {MatDividerModule} from '@angular/material/divider';
 import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
+import { FinalExamComponent } from '../final-exam/final-exam.component';
+import {MatRadioModule} from '@angular/material/radio';
+import {CourseModule} from '../../course.module';
+import {ExamFooterComponent} from './lesson/slides-renderer/exam-footer/exam-footer.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -50,11 +55,13 @@ import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
     SlidesRendererComponent,
     HeaderComponent,
     FooterComponent,
+    ExamFooterComponent,
     NotFoundComponent,
     TextImageComponent,
     MultipleChoiceComponent,
     BlankRendererComponent,
     PollComponent,
+    FinalExamComponent,
   ],
     imports: [
         CommonModule,
@@ -67,7 +74,10 @@ import { PollComponent } from './lesson/slides-renderer/poll/poll.component';
         ReactiveFormsModule,
         MatChipsModule,
         MarkdownModule,
-        MatDividerModule
+        MatDividerModule,
+        MatRadioModule,
+        CourseModule,
+        MatExpansionModule
     ]
 })
 export class LessonModule {

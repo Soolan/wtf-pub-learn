@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.initMarkers();
     this.currentService.current.subscribe({
-      next: value => this.progress = value.lesson.current_slide
+      next: value => this.progress = value.lesson ? value.lesson.current_slide : 0
     });
   }
 

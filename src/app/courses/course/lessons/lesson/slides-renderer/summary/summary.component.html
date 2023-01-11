@@ -1,17 +1,62 @@
 <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
   <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
   <mat-divider fxFlex="100"></mat-divider>
-  <div fxFlex="100" class="mat-subheading-2 keywords">Keywords</div>
-  <mat-chip-list aria-label="terms">
-    <mat-chip color="primary" *ngFor="let term of terms">
-      <mat-chip-avatar>
-        <img src="assets/images/logo.png" alt="wtf bar"/>
-      </mat-chip-avatar>
-      {{term}}
-    </mat-chip>
-  </mat-chip-list>
-  <button mat-flat-button (click)="bye()" color="primary">
-    <span>The End</span>
-    <mat-icon>waving_hand</mat-icon>
-  </button>
+  <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="passingGrade; else byebye">
+    <div fxFlex="100" class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
+      <span appBlackRenderer content="Congratz! You PASSED!" keyword="PASSED"></span>
+      <p class="mat-subheading-1">Final Score:  {{grade | number: '1.1-1'}}</p>
+    </div>
+    <ng-template #failed>
+      <div fxFlex="100" class="mat-subheading-1 failed">
+        Sadly, you weren't successful this time.
+        <p class="mat-subheading-1">Final Score: {{grade | number: '1.1-1'}} - Passing Grade: {{passingGrade}}</p>
+        <p>Checkout the results and try again.</p>
+      </div>
+    </ng-template>
+    <div fxFlex="100" class="mat-subheading-1">Here you are some details.</div>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let row of examResults; let i = index">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Question {{i + 1}}</mat-panel-title>
+          <mat-panel-description>
+            {{row.question.length > 40 ? row.question.slice(0, 40) + '...' : row.question}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p class="mat-subheading-2">{{row.question}}</p>
+        <ul>
+          <li [style.color]="row.answers.includes(option.value)? 'var(--color-primary-light)': 'var(--color-warn)'"
+              *ngFor="let option of row.options" class="mat-caption">
+            <strong>{{option.value}}
+              <span *ngIf="row.answered.includes(option.value)"><mat-icon>west</mat-icon>YOUR ANSWER</span>
+            </strong>
+            <p>{{option.response}}</p>
+          </li>
+        </ul>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <ng-template [ngIf]="grade >= passingGrade">
+      <div fxFlex="100" class="mat-subheading-2">This achievement has been recorded in your dashboard.</div>
+      <mat-divider fxFlex="100"></mat-divider>
+      <div fxFlex="100" class="mat-title thin nft" appBlackRenderer
+           content="You may issue an NFT certificate as well" keyword="NFT"></div>
+      <button mat-flat-button color="accent"><strong>Interested?</strong></button>
+    </ng-template>
+    <mat-divider fxFlex="100"></mat-divider>
+  </div>
+  <ng-template #byebye>
+    <div fxFlex="100" class="mat-subheading-2 keywords">Keywords</div>
+    <mat-chip-list aria-label="terms">
+      <mat-chip color="primary" *ngFor="let term of terms">
+        <mat-chip-avatar>
+          <img src="assets/images/logo.png" alt="wtf bar"/>
+        </mat-chip-avatar>
+        {{term}}
+      </mat-chip>
+    </mat-chip-list>
+    <button mat-flat-button (click)="bye()" color="primary">
+      <span>The End</span>
+      <mat-icon>waving_hand</mat-icon>
+    </button>
+  </ng-template>
+
 </div>

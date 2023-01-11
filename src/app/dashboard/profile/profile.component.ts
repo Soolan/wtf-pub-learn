@@ -8,7 +8,7 @@ import {Profile} from '../../shared/models/profile';
 import {MatDialog} from '@angular/material/dialog';
 import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
 import {map, Observable} from 'rxjs';
-import {CRYPTO_SYMBOLS, TX_TYPES} from '../../shared/data/generic';
+import {CURRENCIES, TX_TYPES} from '../../shared/data/generic';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,7 @@ import {CRYPTO_SYMBOLS, TX_TYPES} from '../../shared/data/generic';
 export class ProfileComponent implements OnInit {
   profile!: Profile;
   transactions!: Observable<any[]>;
-  currencies = CRYPTO_SYMBOLS;
+  currencies = CURRENCIES;
   txTypes = TX_TYPES;
 
   id = '';

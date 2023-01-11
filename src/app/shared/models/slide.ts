@@ -53,6 +53,7 @@ export interface SlideHeaderFooter {
   response: string;  //-------footer
   correct: boolean;
   completed: boolean;
+  reload?: boolean;
 }
 
 export interface TransX {

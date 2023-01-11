@@ -20,35 +20,21 @@
            ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">
         {{course.name}}</div>
       <ng-template #guest_view>
-        <div fxFlex="95" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
-             ngClass.gt-md="mat-display-1" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
+        <div fxFlex="92" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
+             ngClass.gt-md="mat-headline" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
           <span *ngIf="keyword; else no_keyword" appBlackRenderer [content]="course.name" [keyword]="keyword"></span>
           <ng-template #no_keyword>
             {{course.name}}
           </ng-template>
         </div>
       </ng-template>
-      <div fxFlex="95" class="mat-body-2 description">
+      <div fxFlex="92" class="mat-body-2 description">
         <markdown emoji ngPreserveWhitespaces>{{course.description}}</markdown>
       </div>
     </div>
   </div>
   <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-around start"
        class="lessons">
-
-    <div fxFlex="70" fxFlex.md="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="center center" >
-      <mat-form-field fxFlex="45" fxFlex.lt-md="80" appearance="fill">
-        <mat-label>PICK ONE</mat-label>
-        <mat-select>
-          <mat-option>option1</mat-option>
-          <mat-option>option2</mat-option>
-        </mat-select>
-        <mat-hint>currency is required</mat-hint>
-        <mat-error>You must make a selection</mat-error>
-      </mat-form-field>
-      <button fxFlex="45" fxFlex.lt-md="40" mat-flat-button color="primary">BUY</button>
-    </div>
-
     <div fxFlex="100" *ngIf="loading.lessons">
       <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
     </div>
@@ -84,14 +70,14 @@
       <div class="result">
         <p [ngClass]="courseInfo.score > 60 ? 'mat-subheading-2' : 'mat-subheading-1'"
            [ngStyle]="{'color': courseInfo.score > 60 ? 'var(--color-primary)' : 'var(--color-warn)'}">
-          {{courseInfo.score > 60 ? 'Congratulations You Passed!' : 'Unfortunately you failed.'}}
+          {{courseInfo.score > 60 ? 'Congratulations You Are Ready!' : 'You Need More Practice.'}}
         </p>
-        <p>Your highest score is: {{courseInfo.score | number: '1.1-1'}}</p>
+        <p>Your overall score is: {{courseInfo.score | number: '1.1-1'}}</p>
       </div>
     </div>
     <div class="certified" *ngIf="courseInfo && courseInfo.status === status.Retake">
-      <p>It seams you are ready fot the final exam.</p>
-      <button mat-flat-button (click)="takeExam()" color="warn">
+      <p>It seams you are ready for this course final exam.</p>
+      <button mat-flat-button routerLink="final-exam" color="warn">
         <mat-icon>verified_user</mat-icon>
         <span>GET CERTIFIED</span>
       </button>

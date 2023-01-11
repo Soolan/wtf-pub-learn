@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {FADE_IN_OUT} from '../../../../../../shared/animations/fade-in-out';
 import {SLIDE_UP} from '../../../../../../shared/animations/slide-up';
 import {Position} from '../../../../../../shared/data/enums';
 import {OptionSet, Option, SlideButton} from '../../../../../../shared/models/slide';
 import {SlideService} from '../slide.service';
 import {SLIDE_LEFT} from '../../../../../../shared/animations/slide-left';
+import {ExamService} from '../exam.service';
 
 @Component({
   selector: 'app-single-choice',
@@ -25,7 +26,8 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
   isCompleted = false;
   slideButtons: SlideButton[] = [];
 
-  constructor(private slideService: SlideService) { }
+  constructor(private examService: ExamService, private slideService: SlideService) {
+  }
 
   ngOnInit(): void {
     this.reset();
@@ -61,10 +63,17 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
     this.isCorrect = this.answer === answer;
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     if ($event.target) {
-      // @ts-ignore
-      this.slideButtons.find((element: any) => element.dom === $event.target).active = false;
-      this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsIncorrect($event.target);
+      if (this.examService.results.value) {
+        const button = this.slideButtons.find((element: any) => element.dom === $event.target);
+        if (button) this.toggle(button, answer);
+        console.log(this.examService.results.value[0].answered);
+      } else {
+        // @ts-ignore
+        this.slideButtons.find((element: any) => element.dom === $event.target).active = false;
+        this.isCorrect ? this.markAsComplete($event.target) : this.slideService.markAsIncorrect($event.target);
+      }
     }
+
     this.response = this.slide.content.options.find((option: Option) => option.value === answer).response;
     this.updateUI();
   }
@@ -86,5 +95,30 @@ export class SingleChoiceComponent implements OnInit, AfterViewInit {
       correct: this.isCorrect,
       completed: this.isCompleted
     })
+  }
+
+  //exam methods =================================================
+  toggle(button: SlideButton, answer: string): void {
+    const results = this.examService.results.value;
+    if (button.active) {
+      this.unselectAll();
+      this.slideService.markAsSelected(button.dom);
+      results[this.slideService.markerIndex - 1].answered = [];
+      results[this.slideService.markerIndex - 1].answered.push(answer);
+    } else {
+      this.slideService.markAsUnselected(button.dom);
+      results[this.slideService.markerIndex - 1].answered = [];
+    }
+    this.examService.next(results);
+    // @ts-ignore
+    this.slideButtons.find((element: any) => element.dom === button.dom).active = !button.active;
+  }
+
+  unselectAll(): void {
+    this.slideButtons = [];
+    for (let child of this.optionSetRef.nativeElement.children) {
+      this.slideService.markAsUnselected(child);
+      this.slideButtons.push({dom: child, active: true})
+    }
   }
 }

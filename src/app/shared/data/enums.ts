@@ -99,7 +99,9 @@ export enum TxType {
   Payment
 }
 
-export enum CryptoSymbol {
+export enum Currency {
   XRP,
-  WTF
+  WTF,
+  IDR,
+  USD
 }

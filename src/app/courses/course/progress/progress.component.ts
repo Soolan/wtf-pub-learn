@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Status, TxType} from '../../../shared/data/enums';
-import {ACTIONS, CRYPTO_SYMBOLS, STATUSES} from '../../../shared/data/generic';
+import {ACTIONS, CURRENCIES, STATUSES} from '../../../shared/data/generic';
 import {Course, Lesson, Profile} from '../../../shared/models/profile';
 import {CurrentService} from '../../../shared/services/current.service';
 import {NavigateService} from '../../../shared/services/navigate.service';
@@ -36,7 +36,7 @@ export class ProgressComponent implements OnInit {
   lessonProgress!: Lesson;
   currentSlide!: number;
   loading = true;
-  cryptoSymbols = CRYPTO_SYMBOLS;
+  cryptoSymbols = CURRENCIES;
   profile!: Profile;
   hotWalletBalances!: Balance[];
   masterId: string = 'oLqFhLu5TBWFO0Zk7N7KcM5B47Cq';
@@ -201,7 +201,7 @@ export class ProgressComponent implements OnInit {
   }
 
 
-  buy(index: string): void {
+  pay(index: string): void {
     const payOption = this.lesson.payOptions[Number(index)];
     const balance = this.profile.balances.find(balance => balance.currency == payOption.currency);
     const tag = this.profile.tag;
