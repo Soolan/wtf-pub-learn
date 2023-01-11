@@ -72,13 +72,35 @@ export class LessonComponent implements OnInit {
   initSlides(): void {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}/${this.lessonId}/slides`).get()
       .then(snap => {
-        if(this.passingGrade) this.initExamResults(snap.docs);
-        this.slides = snap.docs.map(doc => {
-          return {id: doc.id, ...doc.data()}
-        });
-        this.slides.sort((a, b) => {
-          return a.order - b.order
-        });
+        if (this.passingGrade) {
+          this.slides = [];
+          const count = 5;
+          let slides = snap.docs.map(doc => {
+            return {...doc.data()}
+          });
+
+          slides.sort((a, b) => {
+            return a.order - b.order
+          });
+          this.slides.push(slides.shift());
+          const summary = slides.pop();
+          slides.sort(() => Math.random() - 0.5); // shuffle
+
+          const questions = slides.slice(1,7); //
+          console.log(questions);
+
+          this.slides = this.slides.concat(questions);
+          this.slides.push(summary);
+          this.initExamResults(questions);
+
+        } else {
+          this.slides = snap.docs.map(doc => {
+            return {id: doc.id, ...doc.data()}
+          });
+          this.slides.sort((a, b) => {
+            return a.order - b.order
+          });
+        }
         this.slideService.slides = this.slides;
         this.loading = false;
       })
@@ -88,15 +110,18 @@ export class LessonComponent implements OnInit {
 
   initExamResults(slides: any[]): void {
     const results: ExamResult[] = [];
-    slides.slice(1, -1).forEach(slide => {
-      const data = slide.data().content;
-      results.push({
-        question: data.question,
-        options: data.options,
-        answers: data.answers ? data.answers.map((item: any) => item.answer): [data.answer],
-        answered: []
+    slides.forEach(slide => {
+        const data = slide.content;
+        results.push({
+          question: data.question,
+          options: data.options,
+          answers: data.answers ? data.answers.map((item: any) => item.answer) : [data.answer],
+          answered: []
       })
-    })
+    });
+    console.log(results);
+    console.log(this.slides);
+
     this.examService.next(results);
   }
 
@@ -125,7 +150,7 @@ export class LessonComponent implements OnInit {
   setMarkers(lesson: Lesson): void {
     const current = {...this.currentService.current.value};
     current.lesson = lesson;
-    current.points = 100/this.slides.length;
+    current.points = 100 / this.slides.length;
     this.currentService.current.next(current);
   }
 }

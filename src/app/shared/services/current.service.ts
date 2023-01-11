@@ -9,6 +9,7 @@ export interface Current {
   lessonId: string;
   lesson: Lesson;
   points: number;
+  reload?: boolean;
 }
 
 @Injectable({

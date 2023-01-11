@@ -10,3 +10,47 @@ button {
     padding-right: var(--space-xxs);
   }
 }
+
+.mat-expansion-panel-header-description {
+  flex-grow: 4;
+}
+
+.passed {
+  color: var(--color-primary-light);
+  text-align: center;
+  margin: var(--space-md) auto;
+  p {
+    margin-top: var(--space-sm);
+    color: var(--color-primary);
+  }
+}
+
+.failed {
+  color: var(--color-warn);
+  text-align: center;
+  margin: var(--space-md) auto;
+  p {
+    margin-top: var(--space-sm);
+    color: var(--color-warn-dark);
+  }
+}
+
+li {
+  span {
+    margin: 0 var(--space-sm);
+    color: var(--color-grey1);
+    .mat-icon {
+      vertical-align: middle;
+      color: var(--color-grey1) !important;
+    }
+  }
+
+  p {
+    font-size: larger;
+    color: var(--color-grey7);
+  }
+}
+
+.mat-divider {
+  margin: var(--space-md) auto;
+}

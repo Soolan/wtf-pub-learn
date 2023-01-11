@@ -8,6 +8,7 @@ import {P_COURSES, P_LESSONS, PROFILES} from '../../../../../../shared/data/coll
 import {SlideType} from '../../../../../../shared/data/enums';
 import {ACTIONS} from '../../../../../../shared/data/generic';
 import {DocumentReference} from '@angular/fire/compat/firestore';
+import {CurrentService} from '../../../../../../shared/services/current.service';
 
 @Component({
   selector: 'app-exam-footer',
@@ -24,28 +25,16 @@ export class ExamFooterComponent implements OnInit {
   lastSlide = false;
   ui!: SlideHeaderFooter;
   userId!: string | undefined;
-
-  lessonRef!: DocumentReference;
-  lessonProgress!: Lesson;
-  lessonPath!: string;
-
-  coursePath!: string;
+  examProgress!: Lesson;
 
   constructor(
     private crud: CrudService,
     private auth: AngularFireAuth,
     public slideService: SlideService,
+    private currentService: CurrentService
   ) {
     this.auth.currentUser
-      .then(user => {
-        this.userId = user?.uid;
-        if (this.userId) {
-          this.coursePath = `${PROFILES.path}/${this.userId}/${P_COURSES.path}`;
-          this.lessonPath = `${this.coursePath}/${this.courseId}/${P_LESSONS.path}`;
-          this.lessonRef = this.crud.docRef(this.lessonPath, this.lessonId);
-          this.lessonRef.get().then(snap => this.lessonProgress = snap.data() as Lesson).catch();
-        }
-      })
+      .then(user => this.userId = user?.uid)
       .catch()
     ;
   }
@@ -55,6 +44,7 @@ export class ExamFooterComponent implements OnInit {
       next: data => {
         this.ui = data;
         this.initSlideType(data.marker);
+        console.log(this.currentService.current.value)
       },
       error: error => console.log(error)
     });
@@ -66,8 +56,16 @@ export class ExamFooterComponent implements OnInit {
   }
 
   move(forward: boolean): void {
+    const slideType = this.slideService.slides[this.ui.marker].type
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
     const action = ACTIONS[this.slideService.slides[index].type];
-    this.slideService.next({marker: index, action, response: '', correct: false, completed: false});
+    this.slideService.next({
+      marker: index,
+      action,
+      response: '',
+      correct: false,
+      completed: false,
+      reload: slideType === this.slideService.slides[index].type
+    });
   }
 }

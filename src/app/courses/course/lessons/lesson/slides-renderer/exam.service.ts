@@ -3,10 +3,12 @@ import {BehaviorSubject} from 'rxjs';
 
 export interface ExamResult {
   question: string;
-  options: {
-    value: string;
-    response: string;
-  };
+  options: [
+    {
+      value: string;
+      response: string;
+    }
+  ];
   answers: string[];
   answered: string[];
 }
