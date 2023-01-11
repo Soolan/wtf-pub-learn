@@ -17,7 +17,7 @@
     <mat-accordion>
       <mat-expansion-panel *ngFor="let row of examResults; let i = index">
         <mat-expansion-panel-header>
-          <mat-panel-title>Question {{i+1}}</mat-panel-title>
+          <mat-panel-title>Question {{i + 1}}</mat-panel-title>
           <mat-panel-description>
             {{row.question.length > 40 ? row.question.slice(0, 40) + '...' : row.question}}
           </mat-panel-description>
@@ -34,6 +34,13 @@
         </ul>
       </mat-expansion-panel>
     </mat-accordion>
+    <ng-template [ngIf]="grade >= passingGrade">
+      <div fxFlex="100" class="mat-subheading-2">This achievement has been recorded in your dashboard.</div>
+      <mat-divider fxFlex="100"></mat-divider>
+      <div fxFlex="100" class="mat-title thin nft" appBlackRenderer
+           content="You may issue an NFT certificate as well" keyword="NFT"></div>
+      <button mat-flat-button color="accent"><strong>Interested?</strong></button>
+    </ng-template>
     <mat-divider fxFlex="100"></mat-divider>
   </div>
   <ng-template #byebye>
@@ -51,4 +58,5 @@
       <mat-icon>waving_hand</mat-icon>
     </button>
   </ng-template>
+
 </div>
