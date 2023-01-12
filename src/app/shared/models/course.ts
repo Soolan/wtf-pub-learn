@@ -11,9 +11,9 @@ export interface Course {
   hasExam: boolean;
   paidExam: boolean;
   examPayOptions: Balance[];
-  hasCertificate: boolean;
-  paidCertificate: boolean;
-  certificatePayOptions: Balance[];
+  hasNftCert: boolean;
+  paidNftCert: boolean;
+  NftCertPayOptions: Balance[];
   level: Difficulty;
   tags: string;
   timestamps: Timestamps;
