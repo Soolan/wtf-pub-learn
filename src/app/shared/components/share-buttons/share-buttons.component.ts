@@ -15,12 +15,9 @@ export class ShareButtonsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // let searchParams = new URLSearchParams();
-    // searchParams.set('url', this.shareUrl);
-
     this.facebook = `https://www.facebook.com/sharer/sharer.php?u=${this.shareUrl}&t=${this.message}`;
     this.twitter =
-      `https://twitter.com/intent/tweet?url=${this.shareUrl}%0a&via=soolan&text=${this.message}%0a&hashtags=WinTheFuture,crypto,course,xrpl,NFTCertificate`;
+      `https://twitter.com/intent/tweet?text=${this.message}%0a&url=${this.shareUrl}%0a&via=soolan%0a&hashtags=WriteTheFuture,crypto,course,NFTCertificate`;
   }
 
   share(url: string) {
