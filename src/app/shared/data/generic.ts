@@ -1,5 +1,5 @@
 import {Denial} from '../models/denial';
-import {Currency, TxType} from './enums';
+import {CertLayout, Currency, TxType} from './enums';
 import {Balance} from '../models/balance';
 
 export const STATUSES = ['Start', 'Resume', 'Retake'];
@@ -109,7 +109,12 @@ export const EVENTS_Content: EventContent[] = [
 
 export const FINAL_EXAM_ID = "final-exam";
 
+export const CERT_LAYOUTS: string[] = [ "Hope", "Joy", "Wisdom", "Growth", "Knowledge"];
 
-export const CERT_LAYOUTS: string[] = [
-  "Hope", "Joy"
+export const CERT_LAYOUT_SELECT: any[] = [
+  {name: CERT_LAYOUTS[CertLayout.Hope], value: CertLayout.Hope},
+  {name: CERT_LAYOUTS[CertLayout.Joy], value: CertLayout.Joy},
+  {name: CERT_LAYOUTS[CertLayout.Wisdom], value: CertLayout.Wisdom},
+  {name: CERT_LAYOUTS[CertLayout.Growth], value: CertLayout.Growth},
+  {name: CERT_LAYOUTS[CertLayout.Knowledge], value: CertLayout.Knowledge},
 ];

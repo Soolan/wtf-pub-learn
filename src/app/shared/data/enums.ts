@@ -109,4 +109,7 @@ export enum Currency {
 export enum CertLayout {
   Hope,
   Joy,
-};
+  Wisdom,
+  Growth,
+  Knowledge
+}
