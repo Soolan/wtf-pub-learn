@@ -11,9 +11,10 @@ export interface Course {
   hasExam: boolean;
   paidExam: boolean;
   examPayOptions: Balance[];
+  certLayout: CertLayout.Joy;
   hasNftCert: boolean;
   paidNftCert: boolean;
-  NftCertPayOptions: Balance[];
+  nftCertPayOptions: Balance[];
   level: Difficulty;
   tags: string;
   timestamps: Timestamps;

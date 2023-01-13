@@ -105,3 +105,8 @@ export enum Currency {
   IDR,
   USD
 }
+
+export enum CertLayout {
+  Hope,
+  Joy,
+};

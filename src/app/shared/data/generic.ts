@@ -108,3 +108,8 @@ export const EVENTS_Content: EventContent[] = [
 ];
 
 export const FINAL_EXAM_ID = "final-exam";
+
+
+export const CERT_LAYOUTS: string[] = [
+  "Hope", "Joy"
+];
