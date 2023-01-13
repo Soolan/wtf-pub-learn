@@ -1,5 +1,5 @@
 import {Timestamps} from './timestamps';
-import {Difficulty} from '../data/enums';
+import {CertLayout, Difficulty} from '../data/enums';
 import {Balance} from './balance';
 
 export interface Course {
@@ -11,7 +11,7 @@ export interface Course {
   hasExam: boolean;
   paidExam: boolean;
   examPayOptions: Balance[];
-  certLayout: CertLayout.Joy;
+  certLayout: CertLayout;
   hasNftCert: boolean;
   paidNftCert: boolean;
   nftCertPayOptions: Balance[];
