@@ -36,8 +36,12 @@
         <button mat-flat-button color="primary" (click)="proceed=true">Proceed</button>
       </ng-template>
     </div>
+    <div fxFlex="90">
+      <app-share-buttons shareUrl="https://wtf.pub" message="waka waka yaw!"></app-share-buttons>
+    </div>
   </ng-template>
 </div>
 <ng-template #start>
   <app-lesson [passingGrade]="exam.passingGrade" ></app-lesson>
 </ng-template>
+

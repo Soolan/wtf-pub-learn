@@ -1,0 +1,20 @@
+@mixin background($name) {
+  background-image: url($name);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.share {
+  opacity: 0.8;
+  display: inline-block;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+}
+
+.share:hover {
+  opacity: 1;
+}
+
+.twitter { @include background("~src/assets/images/socials/twitter-share.png"); }
+.facebook { @include background("~src/assets/images/socials/facebook-share.png"); }
