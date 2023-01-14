@@ -48,13 +48,17 @@
            class="previous subheading mat-subheading-2">
         <div appBlackRenderer content="Completed Courses" keyword="Completed"></div>
         <mat-divider fxFlex fxFlexAlign="center"></mat-divider>
-        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="course"
-             *ngFor="let course of completedCourses" (click)="navigate(course.id)">
-          <div fxFlex="60" fxFlex.lt-md="100" class="name">{{course.name}}</div>
-          <div fxFlex="25" fxFlex.sm="30" fxFlex.lt-sm="50" class="date mat-caption">
-            <span>{{course.info.updated_at|date:'MMM d, y'}}</span>
+        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="course"
+             *ngFor="let course of completedCourses">
+          <div fxFlex="57" fxFlex.lt-md="100" class="name" (click)="navigate(course.id)">{{course.name}}</div>
+          <div fxFlex="22" fxFlex.lt-md="50" fxLayout="row wrap" fxLayoutAlign="space-around center" (click)="navigate(course.id)">
+            <div fxFlex="100" class="date"><span>{{course.info.updated_at|date:'MMM d, y'}}</span></div>
+            <div fxFlex="100" class="score">Initial score: {{course.info.score}}</div>
           </div>
-          <div fxFlex="15" fxFlex.sm="30" fxFlex.lt-sm="50" class="score"><strong>SCORE: </strong>{{course.info.score}}</div>
+          <div fxFlex="20" fxFlex.lt-md="50" class="certified" (click)="verify(course.id)">
+            <strong>CERTIFIED</strong>
+            <mat-icon>verified_user</mat-icon>
+          </div>
         </div>
 
         <ng-template #no_completed_course>
