@@ -62,7 +62,7 @@
         <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING<br>SOON</span></p>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" *ngIf="courseInfo && courseInfo.status === status.Retake">
+    <div class="summary" fxFlex="100" *ngIf="userId && courseInfo && courseInfo.status === status.Retake">
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>
@@ -75,12 +75,27 @@
         <p>Your overall score is: {{courseInfo.score | number: '1.1-1'}}</p>
       </div>
     </div>
-    <div class="certified" *ngIf="courseInfo && courseInfo.status === status.Retake">
-      <p>It seams you are ready for this course final exam.</p>
-      <button mat-flat-button routerLink="final-exam" color="warn">
-        <mat-icon>verified_user</mat-icon>
-        <span>GET CERTIFIED</span>
-      </button>
+    <div class="certified" *ngIf="userId &&courseInfo && courseInfo.status === status.Retake">
+      <div *ngIf="finalExam.grade; else get_certified">
+        <p>
+          <span>You took the final exam at {{finalExam.timestamp | date: 'medium'}}</span>
+          <span>and your grade is {{courseInfo.score | number: '1.1-1'}}.</span>
+          <button mat-button [routerLink]="['verify', courseId.slice(0,7)]" [queryParams]="{user: userId.slice(0,7)}">
+            certificate
+          </button>
+        </p>
+        <button mat-flat-button routerLink="final-exam" color="warn">
+          <mat-icon>verified_user</mat-icon>
+          <span>RETAKE THE TEST</span>
+        </button>
+      </div>
+      <ng-template #get_certified>
+        <p>It seams you are ready for this course final exam.</p>
+        <button mat-flat-button routerLink="final-exam" color="warn">
+          <mat-icon>verified_user</mat-icon>
+          <span>GET CERTIFIED</span>
+        </button>
+      </ng-template>
     </div>
   </div>
 </div>
