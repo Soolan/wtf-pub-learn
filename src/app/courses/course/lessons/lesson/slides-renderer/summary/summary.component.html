@@ -5,6 +5,23 @@
     <div fxFlex="100" class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
       <span appBlackRenderer content="Congratz! You PASSED!" keyword="PASSED"></span>
       <p class="mat-subheading-1">Final Score:  {{grade | number: '1.1-1'}}</p>
+      <div *ngIf="prevResult && passingGrade < prevResult.grade; else confirmName">
+        <p>
+          <span>Since your previous grade ({{prevResult.grade| number: '1.1-1'}}) is higher than this time, </span>
+          <span>no certificate will be issued.</span>
+        </p>
+      </div>
+      <ng-template #confirmName>
+        <div>
+          <p>This is the name that will be printed on your certificate.</p>
+          <mat-form-field appearance="fill">
+            <mat-label>Full Name</mat-label>
+            <input matInput [(ngModel)]="fullName">
+          </mat-form-field>
+          <span>Please make any necessary updates and </span>
+          <button mat-flat-button color="primary" (click)="issue()">Confirm</button>
+        </div>
+      </ng-template>
     </div>
     <ng-template #failed>
       <div fxFlex="100" class="mat-subheading-1 failed">

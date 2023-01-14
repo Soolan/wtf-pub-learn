@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Lesson} from '../../../shared/models/lesson';
 import {CrudService} from '../../../shared/services/crud.service';
 import {ActivatedRoute} from '@angular/router';
 import {COURSES, LESSONS} from '../../../shared/data/collections';
 import {CURRENCIES} from '../../../shared/data/generic';
 import {PaymentGatewayService} from '../../../shared/services/payment-gateway.service';
+import {CurrentService} from '../../../shared/services/current.service';
 
 @Component({
   selector: 'app-final-exam',
@@ -20,7 +21,8 @@ export class FinalExamComponent implements OnInit {
   constructor(
     private crud: CrudService,
     private route: ActivatedRoute,
-    private payment: PaymentGatewayService
+    private currentService: CurrentService,
+    private paymentService: PaymentGatewayService
   ) {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
     if(this.courseId) {
@@ -29,11 +31,12 @@ export class FinalExamComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.currentService.current.value)
+
     if (this.path) {
       this.crud.docRef(this.path, 'final-exam').get()
         .then(snapshot => {
           this.exam = snapshot.data();
-          console.log(this.exam)
         })
         .catch()
       ;

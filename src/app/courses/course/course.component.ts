@@ -39,7 +39,8 @@ export class CourseComponent implements OnInit {
     private route: ActivatedRoute,
     public currentService: CurrentService,
     private analytics: AngularFireAnalytics
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -60,9 +61,22 @@ export class CourseComponent implements OnInit {
           this.crud.docRef(this.coursePath, this.courseId).get()
             .then(snap => {
               if (snap.data()) {
-                this.courseInfo = snap.data().info;
-                this.coursePayment = snap.data().paid;
-                this.finalExam = snap.data().finalExam;
+                const data = snap.data();
+                this.courseInfo = data.info;
+                this.coursePayment = data.paid;
+                this.finalExam = data.finalExam;
+                this.currentService.next({
+                  courseId: this.courseId,
+                  course: {
+                    name: data.name,
+                    info: this.courseInfo,
+                    finalExam: data.finalExam
+                  },
+                  lessonId: '',
+                  lesson: {name: '', current_slide: 1, info: this.courseInfo},
+                  points: 0,
+                });
+                console.log(this.currentService.current.value)
               }
             }).catch();
           this.analytics.setUserId(this.userId).then().catch();
