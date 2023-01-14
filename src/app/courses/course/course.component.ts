@@ -5,7 +5,7 @@ import {CURRENCIES, FINAL_EXAM_ID, LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
-import {Info} from '../../shared/models/profile';
+import {FinalExam, Info} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
 import {map} from 'rxjs';
@@ -30,6 +30,7 @@ export class CourseComponent implements OnInit {
   courseInfo!: Info;
   coursePayment!: string;
   lessonPayment!: string;
+  finalExam!: FinalExam;
   coursePath!: string;
 
   constructor(
@@ -38,8 +39,7 @@ export class CourseComponent implements OnInit {
     private route: ActivatedRoute,
     public currentService: CurrentService,
     private analytics: AngularFireAnalytics
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -62,6 +62,7 @@ export class CourseComponent implements OnInit {
               if (snap.data()) {
                 this.courseInfo = snap.data().info;
                 this.coursePayment = snap.data().paid;
+                this.finalExam = snap.data().finalExam;
               }
             }).catch();
           this.analytics.setUserId(this.userId).then().catch();

@@ -100,10 +100,17 @@ export class ProgressComponent implements OnInit {
 
   setCourseProgress(): void {
     this.courseProgress = {
-      name: this.course.name, info: {
+      name: this.course.name,
+      info: {
         status: Status.Start,
         score: 100,
         updated_at: Date.now()
+      },
+      finalExam: {
+        timestamp: 0,
+        grade: 0,
+        certId: '',
+        nftAddress: ''
       }
     };
     this.crud.set(this.coursePath, this.course.id, this.courseProgress)

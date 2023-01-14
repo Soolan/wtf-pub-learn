@@ -82,4 +82,11 @@ export class LandingComponent implements OnInit {
   navigate(id: string): void {
     this.router.navigate(['courses', id]).then().catch();
   }
+
+  verify(id: string): void {
+    this.router.navigate(
+      ['verify', id.slice(0,7)],
+      {queryParams: {user: this.profileId.slice(0,7)}}
+    ).then().catch();
+  }
 }
