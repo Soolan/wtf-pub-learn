@@ -25,6 +25,7 @@ export interface UserActivity {
 export interface Course {
   name: string;
   info: Info;
+  finalExam: FinalExam;
 }
 
 export interface Lesson {
@@ -38,4 +39,11 @@ export interface Info {
   status: Status;
   score: number;
   updated_at: number;
+}
+
+export interface FinalExam {
+  grade: number;
+  certId: string;
+  nftAddress: string;
+  timestamp: number;
 }
