@@ -7,17 +7,18 @@ import {CurrentService} from '../../../../../../shared/services/current.service'
 import {ExamResult, ExamService} from '../exam.service';
 import {FinalExam} from '../../../../../../shared/models/profile';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {PROFILES} from '../../../../../../shared/data/collections';
+import {CERTIFICATES, PROFILES} from '../../../../../../shared/data/collections';
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {CertLayout} from '../../../../../../shared/data/enums';
 import {Creator, Present} from '../../../../../../shared/models/certificate';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.scss']
 })
-export class SummaryComponent implements OnInit, AfterViewInit{
+export class SummaryComponent implements OnInit, AfterViewInit {
   @Input() slide: any;
   @Input() passingGrade?: number;
   terms!: string[];
@@ -31,6 +32,8 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   fullName!: string;
   editing = false;
   issuing = false;
+  issued = false;
+
 
   constructor(
     private headerFooter: ToggleHeaderFooterService,
@@ -39,6 +42,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
     private navigate: NavigateService,
     private examService: ExamService,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
     public auth: AngularFireAuth,
     private crud: CrudService,
   ) {
@@ -74,12 +78,12 @@ export class SummaryComponent implements OnInit, AfterViewInit{
     });
   }
 
-  ngAfterViewInit():void {
+  ngAfterViewInit(): void {
     const guest = document.getElementsByClassName('guest')[0] as HTMLElement;
     const registered = document.getElementsByClassName('registered')[0] as HTMLElement;
     if (guest && registered) {
       this.isGuest ?
-        registered.style.display = 'none':
+        registered.style.display = 'none' :
         guest.style.display = 'none';
     }
   }
@@ -105,7 +109,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
       this.grade -= (q.answered.length > q.answers.length) ? (q.answered.length - q.answers.length) * points : 0;
     })
     this.grade = (this.grade < 0) ? 0 : this.grade; // no negative results;
-    this.grade = this.grade/totalPoints * 100;
+    this.grade = this.grade / totalPoints * 100;
   }
 
   issue(): void {
@@ -117,11 +121,21 @@ export class SummaryComponent implements OnInit, AfterViewInit{
       fullName: this.fullName,
       grade: this.grade,
       timestamp: Date.now(),
-      verificationId: `${this.courseId.slice(0,8)}-${this.userId.slice(0,8)}`,
+      verificationId: `${this.courseId.slice(0, 8)}-${this.userId.slice(0, 8)}`,
       courseCreator: {fullName: 'S.S.Mava', profession: 'CEO, Write The Future'},
       present: {headline: '', description: ''},
       layout: CertLayout.Joy,
     }
-    // this.crud.add()
+    this.crud.add(CERTIFICATES.path, certificate)
+      .then(_ => {
+        this.snackBar
+          .open('Certificate issued successfully!', 'X', {duration: 2000})
+          .afterDismissed()
+          .subscribe({
+            next: _ => this.issuing = false,
+            error: err => console.log(err)
+          });
+      })
+      .catch();
   }
 }
