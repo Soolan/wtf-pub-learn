@@ -121,7 +121,6 @@ export class SummaryComponent implements OnInit, AfterViewInit {
       fullName: this.fullName,
       grade: this.grade,
       timestamp: Date.now(),
-      verificationId: `${this.courseId.slice(0, 8)}-${this.userId.slice(0, 8)}`,
       courseCreator: {fullName: 'S.S.Mava', profession: 'CEO, Write The Future'},
       present: {headline: '', description: ''},
       layout: CertLayout.Joy,
@@ -132,7 +131,10 @@ export class SummaryComponent implements OnInit, AfterViewInit {
           .open('Certificate issued successfully!', 'X', {duration: 2000})
           .afterDismissed()
           .subscribe({
-            next: _ => this.issuing = false,
+            next: _ => {
+              this.issuing = false;
+              this.issued = true;
+            },
             error: err => console.log(err)
           });
       })

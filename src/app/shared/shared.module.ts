@@ -35,6 +35,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-please.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
+import { CertificateComponent } from './components/certificate/certificate.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ShareButtonsComponent } from './components/share-buttons/share-buttons.
     TermsAndConditionsComponent,
     TopUpPleaseComponent,
     ShareButtonsComponent,
+    CertificateComponent,
   ],
     exports: [
         HeaderComponent,

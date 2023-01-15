@@ -12,7 +12,7 @@
         </p>
       </div>
       <ng-template #confirmName>
-        <div class="mat-body-2 certificate-name" *ngIf="!issued">
+        <div class="mat-body-2 certificate" *ngIf="!issued">
           <div *ngIf="!issuing">
             <p>The name on your certificate will be:</p>
             <h1 class="mat-title black" *ngIf="!editing" (click)="editing=true">{{fullName}}
@@ -26,12 +26,14 @@
             <span>Please make any necessary changes & </span>
             <button mat-flat-button color="primary" (click)="issue()">Proceed</button>
           </div>
-          <div  *ngIf="issuing">
-            <h1 class="mat-title thin" >Please wait...</h1>
+          <div *ngIf="issuing">
+            <div class="mat-title thin" >Please wait...</div>
+            <mat-progress-spinner color="accent"></mat-progress-spinner>
           </div>
         </div>
         <div *ngIf="issued">
-
+          <div class="mat-title thin" >Done!</div>
+          <p>You can </p>
         </div>
       </ng-template>
     </div>
