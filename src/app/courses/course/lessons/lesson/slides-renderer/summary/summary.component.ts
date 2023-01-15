@@ -128,7 +128,7 @@ export class SummaryComponent implements OnInit, AfterViewInit {
     this.crud.add(CERTIFICATES.path, this.certificate)
       .then(_ => {
         this.snackBar
-          .open('Issuing the new certificate...', 'X', {duration: 2000})
+          .open('Issuing the new certificate...', 'X', {duration: 2500})
           .afterDismissed()
           .subscribe({
             next: _ => {

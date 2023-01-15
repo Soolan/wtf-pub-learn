@@ -40,6 +40,9 @@
       <app-share-buttons shareUrl="https://wtf.pub" message="waka waka yaw!"></app-share-buttons>
     </div>
   </ng-template>
+
+  <app-certificate [certificate]="certificate" fxFlex="100" style="height: 50vh"></app-certificate>
+
 </div>
 <ng-template #start>
   <app-lesson [passingGrade]="exam.passingGrade" ></app-lesson>

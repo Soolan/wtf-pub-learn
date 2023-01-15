@@ -1,0 +1,10 @@
+@mixin background($name) {
+  background-image: url($name);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.template {
+  @include background("~src/assets/images/certificates/certificate01.png");
+  background-position: center;
+}

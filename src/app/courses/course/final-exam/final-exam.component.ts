@@ -6,6 +6,7 @@ import {COURSES, LESSONS} from '../../../shared/data/collections';
 import {CURRENCIES} from '../../../shared/data/generic';
 import {PaymentGatewayService} from '../../../shared/services/payment-gateway.service';
 import {CurrentService} from '../../../shared/services/current.service';
+import {CertLayout} from '../../../shared/data/enums';
 
 @Component({
   selector: 'app-final-exam',
@@ -18,6 +19,18 @@ export class FinalExamComponent implements OnInit {
   courseId!: string;
   path!: string;
   currencies = CURRENCIES;
+
+  certificate = {
+    courseId: this.courseId,
+    courseName: 'Coolio course',
+    userId: 'oiuiouoiu',
+    fullName: 'Sohail the Great',
+    grade: 87,
+    timestamp: Date.now(),
+    courseCreator: {fullName: 'S.S.Mava', profession: 'CEO, Write The Future'},
+    present: {headline: '', description: ''},
+    layout: CertLayout.Joy,
+  }
   constructor(
     private crud: CrudService,
     private route: ActivatedRoute,
