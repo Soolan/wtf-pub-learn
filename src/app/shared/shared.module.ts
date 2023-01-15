@@ -74,6 +74,7 @@ import { CertificateComponent } from './components/certificate/certificate.compo
         ImageUploaderComponent,
         ParserDirective,
         ShareButtonsComponent,
+        CertificateComponent,
     ],
     imports: [
         CommonModule,

@@ -10,7 +10,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {CERTIFICATES, PROFILES} from '../../../../../../shared/data/collections';
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {CertLayout} from '../../../../../../shared/data/enums';
-import {Creator, Present} from '../../../../../../shared/models/certificate';
+import {Certificate, Creator, Present} from '../../../../../../shared/models/certificate';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -33,7 +33,7 @@ export class SummaryComponent implements OnInit, AfterViewInit {
   editing = false;
   issuing = false;
   issued = false;
-
+  certificate!: Certificate;
 
   constructor(
     private headerFooter: ToggleHeaderFooterService,
@@ -114,7 +114,7 @@ export class SummaryComponent implements OnInit, AfterViewInit {
 
   issue(): void {
     this.issuing = true;
-    const certificate = {
+    this.certificate = {
       courseId: this.courseId,
       courseName: this.courseName,
       userId: this.userId,
@@ -125,10 +125,10 @@ export class SummaryComponent implements OnInit, AfterViewInit {
       present: {headline: '', description: ''},
       layout: CertLayout.Joy,
     }
-    this.crud.add(CERTIFICATES.path, certificate)
+    this.crud.add(CERTIFICATES.path, this.certificate)
       .then(_ => {
         this.snackBar
-          .open('Certificate issued successfully!', 'X', {duration: 2000})
+          .open('Issuing the new certificate...', 'X', {duration: 2000})
           .afterDismissed()
           .subscribe({
             next: _ => {

@@ -48,6 +48,16 @@ mat-accordion {
     span {
       color: var(--color-grey3);
     }
+    .issuing {
+      width: 100%;
+      text-align: center;
+      .mat-spinner {
+        margin: 0 auto;
+      }
+    }
+  }
+  .issued {
+    button { margin: 0}
   }
 }
 
