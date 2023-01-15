@@ -9,6 +9,8 @@ import {FinalExam} from '../../../../../../shared/models/profile';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {PROFILES} from '../../../../../../shared/data/collections';
 import {CrudService} from '../../../../../../shared/services/crud.service';
+import {CertLayout} from '../../../../../../shared/data/enums';
+import {Creator, Present} from '../../../../../../shared/models/certificate';
 
 @Component({
   selector: 'app-summary',
@@ -22,11 +24,13 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   courseId!: string;
   isGuest = true;
   courseName = '';
+  userId = '';
   grade = 0;
   examResults: ExamResult[] = [];
   prevResult!: FinalExam;
   fullName!: string;
-  edit = false;
+  editing = false;
+  issuing = false;
 
   constructor(
     private headerFooter: ToggleHeaderFooterService,
@@ -56,9 +60,9 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   getFullName(): void {
     this.auth.authState.subscribe({
       next: user => {
-        const uid = user?.uid;
-        if (uid) {
-          this.crud.docRef(PROFILES.path, uid).get()
+        this.userId = user?.uid || '';
+        if (this.userId) {
+          this.crud.docRef(PROFILES.path, this.userId).get()
             .then(snap => {
               this.fullName = `${snap.data().firstname} ${snap.data().lastname}` || '';
               console.log(snap.data(), this.fullName, `${snap.data().firstname} ${snap.data().lastname}`, snap.data().display_name)
@@ -105,6 +109,19 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   }
 
   issue(): void {
-
+    this.issuing = true;
+    const certificate = {
+      courseId: this.courseId,
+      courseName: this.courseName,
+      userId: this.userId,
+      fullName: this.fullName,
+      grade: this.grade,
+      timestamp: Date.now(),
+      verificationId: `${this.courseId.slice(0,8)}-${this.userId.slice(0,8)}`,
+      courseCreator: {fullName: 'S.S.Mava', profession: 'CEO, Write The Future'},
+      present: {headline: '', description: ''},
+      layout: CertLayout.Joy,
+    }
+    // this.crud.add()
   }
 }

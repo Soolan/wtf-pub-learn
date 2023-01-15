@@ -14,11 +14,11 @@
       <ng-template #confirmName>
         <div class="mat-body-2 certificate-name">
           <p>The name on your certificate will be:</p>
-          <h1 class="mat-title black" *ngIf="!edit" (click)="edit=true">{{fullName}}<mat-icon>edit</mat-icon></h1>
-          <mat-form-field appearance="fill" *ngIf="edit">
+          <h1 class="mat-title black" *ngIf="!editing" (click)="editing=true">{{fullName}}<mat-icon>edit</mat-icon></h1>
+          <mat-form-field appearance="fill" *ngIf="editing">
             <mat-label>Full Name</mat-label>
-            <input matInput [(ngModel)]="fullName" (keydown.enter)="edit = false">
-            <mat-icon class="check" matSuffix (click)="edit = false">check</mat-icon>
+            <input matInput [(ngModel)]="fullName" (keydown.enter)="editing = false">
+            <mat-icon class="check" matSuffix (click)="editing = false">check</mat-icon>
           </mat-form-field>
           <span>Please make any necessary changes & </span>
           <button mat-flat-button color="primary" (click)="issue()">Proceed</button>

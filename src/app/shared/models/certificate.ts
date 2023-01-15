@@ -7,8 +7,8 @@ export interface Certificate {
   fullName: string;
   grade: number;
   timestamp: number;
-  certificateId: string;
-  courseCreator: Creator;
+  verificationId: string;
+  courseCreator: Creator; // The dude who signs the certificate
   present: Present;
   layout: CertLayout;
 }
@@ -19,6 +19,6 @@ export interface Creator {
 }
 
 export interface Present {
-  headline: string;
-  description: string;
+  headline: string;     // i.e. proudly presented to
+  description: string;  // i.e. Jon Snow successfully completed ...
 }

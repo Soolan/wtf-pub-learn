@@ -80,7 +80,7 @@
         <p>
           <span>You took the final exam at <strong>{{finalExam?.timestamp | date: 'medium'}}</strong></span>
           <span> and your current grade is <strong>{{finalExam?.grade | number: '1.1-1'}}</strong>. </span>
-          <button color="primary" mat-button [routerLink]="['/verify', courseId.slice(0,7)]" [queryParams]="{user: userId.slice(0,7)}">
+          <button color="primary" mat-button [routerLink]="['/verify', courseId.slice(0,8)]" [queryParams]="{user: userId.slice(0,8)}">
             <span>CERTIFICATE </span>
             <mat-icon>workspace_premium</mat-icon>
           </button>
