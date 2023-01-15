@@ -26,6 +26,7 @@ export class SummaryComponent implements OnInit, AfterViewInit{
   examResults: ExamResult[] = [];
   prevResult!: FinalExam;
   fullName!: string;
+  edit = false;
 
   constructor(
     private headerFooter: ToggleHeaderFooterService,
@@ -59,7 +60,8 @@ export class SummaryComponent implements OnInit, AfterViewInit{
         if (uid) {
           this.crud.docRef(PROFILES.path, uid).get()
             .then(snap => {
-              this.fullName = `${snap.data().firstname} ${snap.data().lastname}` || snap.data().displayName || ''
+              this.fullName = `${snap.data().firstname} ${snap.data().lastname}` || '';
+              console.log(snap.data(), this.fullName, `${snap.data().firstname} ${snap.data().lastname}`, snap.data().display_name)
             })
             .catch();
         }

@@ -86,7 +86,7 @@ export class LessonComponent implements OnInit {
           const summary = slides.pop();
           slides.sort(() => Math.random() - 0.5); // shuffle
 
-          const questions = slides.slice(1,7); //
+          const questions = slides.slice(1,3); //number of questions
           console.log(questions);
 
           this.slides = this.slides.concat(questions);

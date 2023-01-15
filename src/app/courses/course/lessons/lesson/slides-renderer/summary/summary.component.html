@@ -4,7 +4,7 @@
   <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="passingGrade; else byebye">
     <div fxFlex="100" class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
       <span appBlackRenderer content="Congratz! You PASSED!" keyword="PASSED"></span>
-      <p class="mat-subheading-1">Final Score:  {{grade | number: '1.1-1'}}</p>
+      <p class="mat-subheading-1">FINAL SCORE:  {{grade | number: '1.1-1'}}</p>
       <div *ngIf="prevResult && passingGrade < prevResult.grade; else confirmName">
         <p>
           <span>Since your previous grade ({{prevResult.grade| number: '1.1-1'}}) is higher than this time, </span>
@@ -12,17 +12,21 @@
         </p>
       </div>
       <ng-template #confirmName>
-        <div>
-          <p>This is the name that will be printed on your certificate.</p>
-          <mat-form-field appearance="fill">
+        <div class="mat-body-2 certificate-name">
+          <p>The name on your certificate will be:</p>
+          <h1 class="mat-title black" *ngIf="!edit" (click)="edit=true">{{fullName}}<mat-icon>edit</mat-icon></h1>
+          <mat-form-field appearance="fill" *ngIf="edit">
             <mat-label>Full Name</mat-label>
-            <input matInput [(ngModel)]="fullName">
+            <input matInput [(ngModel)]="fullName" (keydown.enter)="edit = false">
+            <mat-icon class="check" matSuffix (click)="edit = false">check</mat-icon>
           </mat-form-field>
-          <span>Please make any necessary updates and </span>
-          <button mat-flat-button color="primary" (click)="issue()">Confirm</button>
+          <span>Please make any necessary changes & </span>
+          <button mat-flat-button color="primary" (click)="issue()">Proceed</button>
         </div>
       </ng-template>
     </div>
+    <mat-divider fxFlex="100"></mat-divider>
+
     <ng-template #failed>
       <div fxFlex="100" class="mat-subheading-1 failed">
         Sadly, you weren't successful this time.

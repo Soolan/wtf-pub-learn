@@ -20,13 +20,34 @@ mat-accordion {
 }
 
 .passed {
-  color: var(--color-primary-light);
   text-align: center;
-  margin: var(--space-md) auto;
+  margin: var(--space-sm) auto;
+  span {
+    color: var(--color-primary-light);
+  }
 
   p {
     margin-top: var(--space-sm);
-    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .certificate-name {
+    h1 {
+      cursor: pointer;
+      text-decoration: underline dotted;
+      margin-top: var(--space-xs);
+      .mat-icon {
+        margin-left: var(--space-xs)
+      }
+    }
+    h1:hover {
+      text-decoration: underline solid;
+      transition: 1s;
+    }
+    p, .mat-form-field, button { margin: 0}
+    span {
+      color: var(--color-grey3);
+    }
   }
 }
 
