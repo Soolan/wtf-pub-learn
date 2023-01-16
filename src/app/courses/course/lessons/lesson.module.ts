@@ -25,7 +25,7 @@ import {SharedModule} from '../../../shared/shared.module';
 import {NotFoundComponent} from './lesson/slides-renderer/not-found/not-found.component';
 import {TextImageComponent} from './lesson/slides-renderer/text-image/text-image.component';
 import {MultipleChoiceComponent} from './lesson/slides-renderer/multiple-choice/multiple-choice.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatChipsModule} from '@angular/material/chips';
 import {BlankRendererComponent} from './lesson/slides-renderer/hint-fill-in/blank-renderer/blank-renderer.component';
 import {MarkdownModule} from 'ngx-markdown';
@@ -36,6 +36,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {CourseModule} from '../../course.module';
 import {ExamFooterComponent} from './lesson/slides-renderer/exam-footer/exam-footer.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -78,6 +80,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatRadioModule,
     CourseModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
   ]
 })
 export class LessonModule {

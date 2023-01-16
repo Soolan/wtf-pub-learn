@@ -42,6 +42,7 @@
     "emoji-toolkit": "^7.0.0",
     "firebase": "^9.9.4",
     "firebaseui": "^6.0.1",
+    "html-to-image": "^1.11.4",
     "mermaid": "^9.2.2",
     "ngx-markdown": "^14.0.1",
     "rxfire": "^6.0.3",

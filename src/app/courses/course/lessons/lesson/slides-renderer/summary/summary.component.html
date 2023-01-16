@@ -4,8 +4,48 @@
   <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="passingGrade; else byebye">
     <div fxFlex="100" class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
       <span appBlackRenderer content="Congratz! You PASSED!" keyword="PASSED"></span>
-      <p class="mat-subheading-1">Final Score:  {{grade | number: '1.1-1'}}</p>
+      <p class="mat-subheading-1">FINAL SCORE:  {{grade | number: '1.1-1'}}</p>
+      <div *ngIf="prevResult && passingGrade < prevResult.grade; else confirmName">
+        <p>
+          <span>Since your previous grade ({{prevResult.grade| number: '1.1-1'}}) is higher than this time, </span>
+          <span>no certificate will be issued.</span>
+        </p>
+      </div>
+      <ng-template #confirmName>
+        <div class="mat-body-2 certificate" *ngIf="!issued">
+          <div *ngIf="!issuing">
+            <p>The name on your certificate will be:</p>
+            <h1 class="mat-title black" *ngIf="!editing" (click)="editing=true">{{fullName}}
+              <mat-icon>edit</mat-icon>
+            </h1>
+            <mat-form-field appearance="fill" *ngIf="editing">
+              <mat-label>Full Name</mat-label>
+              <input matInput [(ngModel)]="fullName" (keydown.enter)="editing = false">
+              <mat-icon class="check" matSuffix (click)="editing = false">check</mat-icon>
+            </mat-form-field>
+            <span>Please make any necessary changes & </span>
+            <button mat-flat-button color="primary" (click)="issue()">Proceed</button>
+          </div>
+          <div *ngIf="issuing" class="issuing">
+            <div class="mat-title thin">Please wait...</div>
+            <mat-spinner color="accent"></mat-spinner>
+          </div>
+        </div>
+        <div *ngIf="issued" class="issued">
+          <div class="mat-title thin">Certificate Issued Successfully!</div>
+          <app-certificate [certificate]="certificate"></app-certificate>
+          <div class="mat-body-2">
+            <p>It is in your dashboard and also can be
+            <button mat-flat-button color="primary" [routerLink]="['/verify', courseId.slice(0,8)]" [queryParams]="{user: userId.slice(0,8)}">
+              verified
+            </button>
+             publicly.</p>
+          </div>
+        </div>
+      </ng-template>
     </div>
+    <mat-divider fxFlex="100"></mat-divider>
+
     <ng-template #failed>
       <div fxFlex="100" class="mat-subheading-1 failed">
         Sadly, you weren't successful this time.
