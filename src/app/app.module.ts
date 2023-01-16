@@ -36,6 +36,7 @@ import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/compat/funct
 import {MarkdownModule, MarkedOptions, MarkedRenderer} from 'ngx-markdown';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatRippleModule} from '@angular/material/core';
+import { VerifyComponent } from './verify/verify.component';
 
 // make links open in a new tab
 // function that returns `MarkedOptions` with renderer override
@@ -63,6 +64,7 @@ export function markedOptionsFactory(): MarkedOptions {
     LandingComponent,
     ReleasesComponent,
     ReleaseNotesComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,
