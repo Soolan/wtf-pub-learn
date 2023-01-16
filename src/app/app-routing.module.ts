@@ -7,13 +7,11 @@ import {PageNotFoundComponent} from './shared/components/page-not-found/page-not
 import {AccessDeniedComponent} from './shared/components/access-denied/access-denied.component';
 import {PrivacyPolicyComponent} from './shared/components/privacy-policy/privacy-policy.component';
 import {TermsAndConditionsComponent} from './shared/components/terms-and-conditions/terms-and-conditions.component';
-import {CertificateComponent} from './shared/components/certificate/certificate.component';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo('/access-denied');
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'cert', component: CertificateComponent},
   {path: 'releases', component: ReleasesComponent},
   {
     path: 'courses',
