@@ -20,17 +20,6 @@ export class FinalExamComponent implements OnInit {
   path!: string;
   currencies = CURRENCIES;
 
-  certificate = {
-    courseId: this.courseId,
-    courseName: 'Coolio course',
-    userId: 'oiuiouoiu',
-    fullName: 'Sohail the Great',
-    grade: 87,
-    timestamp: Date.now(),
-    courseCreator: {fullName: 'S.S.Mava', profession: 'CEO, Write The Future'},
-    present: {headline: '', description: ''},
-    layout: CertLayout.Joy,
-  }
   constructor(
     private crud: CrudService,
     private route: ActivatedRoute,
