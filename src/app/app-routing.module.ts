@@ -27,6 +27,7 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorized),
   },
   {path: 'verify', component: VerifyComponent},
+  {path: 'verify/:courseId', component: VerifyComponent},
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
   {path: 'access-denied', component: AccessDeniedComponent},
