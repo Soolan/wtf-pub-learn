@@ -1,1 +1,11 @@
-<p>verify works!</p>
+<p>hi</p>
+<p>hey</p>
+<p>yo</p>
+<div *ngIf="certificates.length; else not_found">
+  <mat-card *ngFor="let cert of certificates">
+    <div>{{cert.fullName}}</div>
+  </mat-card>
+</div>
+<ng-template #not_found>
+  no cheese bruh
+</ng-template>

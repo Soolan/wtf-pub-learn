@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CrudService} from '../shared/services/crud.service';
 import {CERTIFICATES} from '../shared/data/collections';
+import {Certificate} from '../shared/models/certificate';
 
 @Component({
   selector: 'app-verify',
@@ -11,6 +12,7 @@ import {CERTIFICATES} from '../shared/data/collections';
 export class VerifyComponent implements OnInit {
   courseId!: string;
   userId!: string;
+  certificates: Certificate[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -19,10 +21,22 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
-    this.userId = this.route.snapshot.queryParams['user'].value;
+    this.userId = this.route.snapshot.queryParams['user'];
+    console.log(this.courseId, this.userId, this.route.snapshot.queryParams)
     if (this.courseId && this.userId) {
-      this.crud.docRef(CERTIFICATES.path)
+      const query = {...CERTIFICATES};
+      query.where = {
+        field: 'verification',
+        operator: '==',
+        value: `${this.courseId}-${this.userId}`
+      };
+      this.crud.colRefQueryValues(query).subscribe({
+        next: docs => docs.forEach(cert => {
+          console.log(cert);
+          this.certificates.push(<Certificate>cert)
+        }),
+        error: err => console.log(err)
+      });
     }
   }
-
 }
