@@ -7,6 +7,7 @@ import {PageNotFoundComponent} from './shared/components/page-not-found/page-not
 import {AccessDeniedComponent} from './shared/components/access-denied/access-denied.component';
 import {PrivacyPolicyComponent} from './shared/components/privacy-policy/privacy-policy.component';
 import {TermsAndConditionsComponent} from './shared/components/terms-and-conditions/terms-and-conditions.component';
+import {VerifyComponent} from './verify/verify.component';
 
 const redirectUnauthorized = () => redirectUnauthorizedTo('/access-denied');
 
@@ -25,7 +26,7 @@ const routes: Routes = [
       .then(m => m.DashboardModule),
     ...canActivate(redirectUnauthorized),
   },
-
+  {path: 'verify', component: VerifyComponent},
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
   {path: 'access-denied', component: AccessDeniedComponent},
