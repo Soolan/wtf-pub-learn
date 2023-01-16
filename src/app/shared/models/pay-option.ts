@@ -1,4 +1,6 @@
+import {Currency} from '../data/enums';
+
 export interface PayOption {
-  currency: string;
+  currency: Currency;
   amount: number;
 }

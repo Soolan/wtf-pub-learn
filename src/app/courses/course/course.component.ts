@@ -1,13 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {COURSES, LESSONS, P_COURSES, PROFILES} from '../../shared/data/collections';
+import {COURSES, LESSONS, P_COURSES, P_LESSONS, PROFILES} from '../../shared/data/collections';
 import {CrudService} from '../../shared/services/crud.service';
-import {LEVELS} from '../../shared/data/generic';
+import {CURRENCIES, FINAL_EXAM_ID, LEVELS} from '../../shared/data/generic';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {ActivatedRoute} from '@angular/router';
 import {CurrentService} from '../../shared/services/current.service';
-import {Info} from '../../shared/models/profile';
+import {FinalExam, Info} from '../../shared/models/profile';
 import {Status} from '../../shared/data/enums';
 import {AngularFireAnalytics} from '@angular/fire/compat/analytics';
+import {map} from 'rxjs';
+import {Release} from '../../shared/models/release';
 
 @Component({
   selector: 'app-course',
@@ -23,8 +25,12 @@ export class CourseComponent implements OnInit {
   lessons!: any[];
   loading!: any;
   levels = LEVELS;
+  cryptoSymbols = CURRENCIES;
   status = Status;
   courseInfo!: Info;
+  coursePayment!: string;
+  lessonPayment!: string;
+  finalExam!: FinalExam;
   coursePath!: string;
 
   constructor(
@@ -55,7 +61,22 @@ export class CourseComponent implements OnInit {
           this.crud.docRef(this.coursePath, this.courseId).get()
             .then(snap => {
               if (snap.data()) {
-                this.courseInfo = snap.data().info;
+                const data = snap.data();
+                this.courseInfo = data.info;
+                this.coursePayment = data.paid;
+                this.finalExam = data.finalExam;
+                this.currentService.next({
+                  courseId: this.courseId,
+                  course: {
+                    name: data.name,
+                    info: this.courseInfo,
+                    finalExam: data.finalExam
+                  },
+                  lessonId: '',
+                  lesson: {name: '', current_slide: 1, info: this.courseInfo},
+                  points: 0,
+                });
+                console.log(this.currentService.current.value)
               }
             }).catch();
           this.analytics.setUserId(this.userId).then().catch();
@@ -81,7 +102,7 @@ export class CourseComponent implements OnInit {
     this.crud.colRef(`${COURSES.path}/${this.courseId}/${LESSONS.path}`).get()
       .then(snap => {
         this.lessons = snap.docs
-          // .filter(doc => doc.data().published == true)
+          .filter(doc => doc.id !== FINAL_EXAM_ID)
           .map(doc => {
             return {id: doc.id, ...doc.data()}
           });
@@ -101,9 +122,5 @@ export class CourseComponent implements OnInit {
 
   get courseLevel(): string {
     return LEVELS[this.course.level];
-  }
-  pay(): void {
-    //ToDO: if it is free navigate to the test page
-    // if it is paid show them payment instructions
   }
 }

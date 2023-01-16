@@ -11,10 +11,17 @@
     <app-not-found fxFlex="100" *ngIf="!loading && slides.length == 0; else render" [lessonsId]="lessonId"></app-not-found>
     <ng-template #render>
       <app-slides-renderer fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="!loading"
-                           [slides]="slides"></app-slides-renderer>
+                           [slides]="slides" [passingGrade]="passingGrade"></app-slides-renderer>
     </ng-template>
   </div>
+  <div *ngIf="passingGrade; else lessonFooter">
+    <app-exam-footer fxFlex class="fullwidth" *ngIf="slides"
+                         [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
+    ></app-exam-footer>
+  </div>
+  <ng-template #lessonFooter>
   <app-renderer-footer fxFlex class="fullwidth" *ngIf="slides"
                        [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
   ></app-renderer-footer>
+  </ng-template>
 </div>

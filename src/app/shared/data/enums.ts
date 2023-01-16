@@ -71,6 +71,7 @@ export enum EventType {
   Greetings,
   HealthCheck,
   Payment,
+  Faucet,
   Registration,
   Login,
   CourseStarted,
@@ -98,7 +99,17 @@ export enum TxType {
   Payment
 }
 
-export enum CryptoSymbol {
+export enum Currency {
   XRP,
-  WTF
+  WTF,
+  IDR,
+  USD
+}
+
+export enum CertLayout {
+  Hope,
+  Joy,
+  Wisdom,
+  Growth,
+  Knowledge
 }

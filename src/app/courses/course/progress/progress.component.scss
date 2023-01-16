@@ -2,6 +2,19 @@
   margin-bottom: var(--space-sm);
   padding-bottom: var(--space-sm);
 
+  .mat-form-field {
+    margin: 0;
+  }
+
+  mat-label {
+    color: var(--color-grey4);
+    letter-spacing: var(--space-xxxs);
+  }
+
+  mat-error {
+    color: var(--color-warn-dark);
+  }
+
   .start, .retake {
     color: var(--color-primary-lighter);
     .mat-icon{

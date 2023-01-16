@@ -1,5 +1,5 @@
 import {Denial} from '../models/denial';
-import {CryptoSymbol, TxType} from './enums';
+import {CertLayout, Currency, TxType} from './enums';
 import {Balance} from '../models/balance';
 
 export const STATUSES = ['Start', 'Resume', 'Retake'];
@@ -67,11 +67,18 @@ export const DENIAL_REASONS: Denial[] = [
   {reason: 'Just Because!', remedy: 'Beg!', action: 'Beg More!'},
 ];
 
-export const CRYPTO_SYMBOLS = ["XRP", "WTF"];
+export const CURRENCIES = ["XRP", "WTF", "IDR", "USD"];
+
+export const CURRENCY_SELECT = [
+  {name: CURRENCIES[Currency.XRP], value: Currency.XRP},
+  {name: CURRENCIES[Currency.WTF], value: Currency.WTF},
+  {name: CURRENCIES[Currency.IDR], value: Currency.IDR},
+  {name: CURRENCIES[Currency.USD], value: Currency.USD},
+];
 export const TX_TYPES = ["PAYMENT"];
 
 export const WELCOME_FUND: Balance = {
-  currency: CryptoSymbol.WTF,
+  currency: Currency.WTF,
   amount: 5
 }
 
@@ -98,4 +105,16 @@ export const EVENTS_Content: EventContent[] = [
   {label: "started a game", icon: 'casino'},
   {label: "won!", icon: 'emoji_events'},
   {label: "reported a bug", icon: 'bug_report'},
+];
+
+export const FINAL_EXAM_ID = "final-exam";
+
+export const CERT_LAYOUTS: string[] = [ "Hope", "Joy", "Wisdom", "Growth", "Knowledge"];
+
+export const CERT_LAYOUT_SELECT: any[] = [
+  {name: CERT_LAYOUTS[CertLayout.Hope], value: CertLayout.Hope},
+  {name: CERT_LAYOUTS[CertLayout.Joy], value: CertLayout.Joy},
+  {name: CERT_LAYOUTS[CertLayout.Wisdom], value: CertLayout.Wisdom},
+  {name: CERT_LAYOUTS[CertLayout.Growth], value: CertLayout.Growth},
+  {name: CERT_LAYOUTS[CertLayout.Knowledge], value: CertLayout.Knowledge},
 ];

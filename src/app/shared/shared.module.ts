@@ -32,6 +32,10 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import {MarkdownModule} from 'ngx-markdown';
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-please.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
+import { CertificateComponent } from './components/certificate/certificate.component';
 
 @NgModule({
   declarations: [
@@ -54,19 +58,24 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ParserDirective,
     PrivacyPolicyComponent,
     TermsAndConditionsComponent,
+    TopUpPleaseComponent,
+    ShareButtonsComponent,
+    CertificateComponent,
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    StorageUrlPipe,
-    BlackRendererDirective,
-    BlankRendererDirective,
-    TypeInRendererDirective,
-    CardRendererDirective,
-    MatchRendererDirective,
-    ImageUploaderComponent,
-    ParserDirective,
-  ],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        StorageUrlPipe,
+        BlackRendererDirective,
+        BlankRendererDirective,
+        TypeInRendererDirective,
+        CardRendererDirective,
+        MatchRendererDirective,
+        ImageUploaderComponent,
+        ParserDirective,
+        ShareButtonsComponent,
+        CertificateComponent,
+    ],
     imports: [
         CommonModule,
         FlexLayoutModule,
@@ -85,6 +94,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatTooltipModule,
         MarkdownModule,
         MatProgressSpinnerModule,
+        MatExpansionModule,
     ]
 })
 export class SharedModule {

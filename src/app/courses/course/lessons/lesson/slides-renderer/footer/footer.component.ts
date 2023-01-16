@@ -87,9 +87,17 @@ export class FooterComponent implements OnInit {
   }
 
   move(forward: boolean): void {
+    const slideType = this.slideService.slides[this.ui.marker].type;
     const index = forward ? this.ui.marker + 1 : this.ui.marker - 1;
     const action = ACTIONS[this.slideService.slides[index].type];
-    this.slideService.next({marker: index, action, response: '', correct: false, completed: false});
+    this.slideService.next({
+      marker: index,
+      action,
+      response: '',
+      correct: false,
+      completed: false,
+      reload: slideType === this.slideService.slides[index].type
+    });
     console.log(index, index + 1 >= this.lessonProgress.current_slide)
     if (this.userId && forward && index + 1 >= this.lessonProgress.current_slide) {
       this.updateLessonProgress();

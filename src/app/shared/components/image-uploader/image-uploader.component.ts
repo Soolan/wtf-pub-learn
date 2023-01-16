@@ -95,6 +95,7 @@ export class ImageUploaderComponent implements OnInit {
   }
 
   reset(): void {
+    this.fileInput.nativeElement.value = null;
     this.path = '';
     this.files = [];
     this.currentImage = '';

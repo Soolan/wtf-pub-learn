@@ -20,7 +20,7 @@ export class LandingComponent implements OnInit {
   constructor(private crud: CrudService, private router: Router) { }
 
   ngOnInit(): void {
-    this.action = STATUSES[Status.Start];
+    this.action = 'Course';//STATUSES[Status.Start];
     this.crud.colRefQuery(COURSES).pipe(
       map(this.crud.mapId),
     ).subscribe(

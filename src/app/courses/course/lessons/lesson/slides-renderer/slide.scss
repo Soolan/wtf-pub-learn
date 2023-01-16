@@ -67,6 +67,12 @@
   box-shadow: 0 0 0 0 !important;
 }
 
+.examSelected {
+  background-color: var(--color-accent) !important;
+  color: var(--color-greye) !important;
+  font-weight: bolder;
+}
+
 .shake {
   -webkit-animation: shake 0.45s;
   animation: shake 0.2s;

@@ -3,15 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {LessonComponent} from './lesson/lesson.component';
 
 const routes: Routes = [
-  {
-    path: ':lessonId',
-    component: LessonComponent,
-    pathMatch: 'full'
-  },
+  { path: ':lessonId', component: LessonComponent,  pathMatch: 'full'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule]
 })
 export class LessonRoutingModule { }

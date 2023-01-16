@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Course, Info, Lesson} from '../models/profile';
+import {Course, FinalExam, Info, Lesson} from '../models/profile';
 import {Status} from '../data/enums';
 
 export interface Current {
@@ -9,6 +9,7 @@ export interface Current {
   lessonId: string;
   lesson: Lesson;
   points: number;
+  reload?: boolean;
 }
 
 @Injectable({
@@ -20,12 +21,19 @@ export class CurrentService {
     status: Status.Start,
     score: 100,
     updated_at: Date.now()
-  }
+  };
+
+  finalExam: FinalExam = {
+    timestamp: 0,
+    grade: 0,
+    certId: '',
+    nftAddress: ''
+  };
 
   constructor() {
     this.current = new BehaviorSubject<Current>({
       courseId: '',
-      course: {name: '', info: this.info},
+      course: {name: '', info: this.info, finalExam: this.finalExam},
       lessonId: '',
       lesson: {name: '', current_slide: 1, info: this.info},
       points: 0,
@@ -37,11 +45,13 @@ export class CurrentService {
   }
 
   reset(): void {
-    const current: Current = this.current.value;
-    current.lessonId = '';
-    current.lesson.name = '';
-    current.lesson.current_slide = 1;
-    current.points = 0;
+    const current: Current = {
+      courseId: '',
+      course: {name: '', info: this.info, finalExam: this.finalExam},
+      lessonId: '',
+      lesson: {name: '', current_slide: 1, info: this.info},
+      points: 0,
+    }
     this.current.next(current);
   }
 }

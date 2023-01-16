@@ -106,6 +106,7 @@ export class SlideService {
   }
 
   resetButtonStyles(element: any): void {
+    this.renderer.removeClass(element, 'examSelected');
     this.renderer.removeClass(element, 'disable');
     this.renderer.removeClass(element, 'mark');
   }
@@ -129,6 +130,14 @@ export class SlideService {
   markAsDisabled(button: EventTarget): void {
     this.renderer.addClass(button, 'incorrect');
     this.renderer.addClass(button, 'disable');
+  }
+
+  markAsSelected(button: EventTarget): void {
+    this.renderer.addClass(button, 'examSelected');
+  }
+
+  markAsUnselected(button: EventTarget): void {
+    this.renderer.removeClass(button, 'examSelected');
   }
 
   updateScore(): void {

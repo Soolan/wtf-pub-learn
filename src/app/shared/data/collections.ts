@@ -1,7 +1,4 @@
 import {Collection} from '../models/collection';
-import {Lesson} from '../models/lesson';
-import {Course} from '../models/course';
-import {Slide} from '../models/slide';
 import {Position, SlideType, WtfProduct} from './enums';
 
 //------------------------------------------------- Releases
@@ -72,11 +69,18 @@ export const SLIDES: Collection = {
   orderBy: {field: 'order', direction: 'asc'}
 };
 
-
 //------------------------------------------------- Event
 export const EVENTS: Collection = {
   path: 'events',
   limit: 15,
   where: {field: 'created_at', operator: '!=', value: ''},
   orderBy: {field: 'created_at', direction: 'desc'}
+};
+
+//------------------------------------------------- Certificate
+export const CERTIFICATES: Collection = {
+  path: 'certificates',
+  limit: 10,
+  where: {field: 'timestamp', operator: '!=', value: ''},
+  orderBy: {field: 'timestamp', direction: 'desc'}
 };
