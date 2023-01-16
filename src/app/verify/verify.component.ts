@@ -12,7 +12,7 @@ import {Certificate} from '../shared/models/certificate';
 export class VerifyComponent implements OnInit {
   courseId!: string;
   userId!: string;
-  certificates: Certificate[] = [];
+  certificates!: Certificate[];
 
   constructor(
     private route: ActivatedRoute,
@@ -22,7 +22,7 @@ export class VerifyComponent implements OnInit {
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
     this.userId = this.route.snapshot.queryParams['user'];
-    console.log(this.courseId, this.userId, this.route.snapshot.queryParams)
+    console.log(this.courseId, this.userId, this.route.snapshot.queryParams);
     if (this.courseId && this.userId) {
       const query = {...CERTIFICATES};
       query.where = {
@@ -31,10 +31,12 @@ export class VerifyComponent implements OnInit {
         value: `${this.courseId}-${this.userId}`
       };
       this.crud.colRefQueryValues(query).subscribe({
-        next: docs => docs.forEach(cert => {
-          console.log(cert);
-          this.certificates.push(<Certificate>cert)
-        }),
+        next: docs => {
+          this.certificates = [];
+          docs.forEach(cert => {
+            this.certificates.push(<Certificate>cert)
+          })
+        },
         error: err => console.log(err)
       });
     }
