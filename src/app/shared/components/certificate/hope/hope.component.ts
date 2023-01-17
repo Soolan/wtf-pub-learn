@@ -26,7 +26,7 @@ export class HopeComponent implements OnInit, AfterViewInit {
   createPng(): void {
     htmlToImage.toPng(this.hope.nativeElement)
       .then(dataUrl => {
-        this.hope.nativeElement.delete();
+        this.hope.nativeElement.remove();
         const img = this.renderer.createElement('img');
         this.renderer.setAttribute(img, 'src', dataUrl);
         this.renderer.setAttribute(img, 'width', '400px');

@@ -26,7 +26,7 @@ export class JoyComponent implements OnInit, AfterViewInit {
   createPng(): void {
     htmlToImage.toPng(this.joy.nativeElement)
       .then(dataUrl => {
-        this.joy.nativeElement.delete();
+        this.joy.nativeElement.remove();
         const img = this.renderer.createElement('img');
         this.renderer.setAttribute(img, 'src', dataUrl);
         this.renderer.setAttribute(img, 'width', '400px');
