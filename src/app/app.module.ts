@@ -36,6 +36,13 @@ import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/compat/funct
 import {MarkdownModule, MarkedOptions, MarkedRenderer} from 'ngx-markdown';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatRippleModule} from '@angular/material/core';
+import { VerifyComponent } from './verify/verify.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 // make links open in a new tab
 // function that returns `MarkedOptions` with renderer override
@@ -63,6 +70,7 @@ export function markedOptionsFactory(): MarkedOptions {
     LandingComponent,
     ReleasesComponent,
     ReleaseNotesComponent,
+    VerifyComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +92,7 @@ export function markedOptionsFactory(): MarkedOptions {
     provideAuth(() => {
       const auth = getAuth();
       if (environment.useEmulators) {
-        connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+        connectAuthEmulator(auth, 'http://localhost:9099', {disableWarnings: true});
       }
       return auth;
     }),
@@ -108,6 +116,12 @@ export function markedOptionsFactory(): MarkedOptions {
     }),
     MatDividerModule,
     MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [
     ScreenTrackingService, UserTrackingService,

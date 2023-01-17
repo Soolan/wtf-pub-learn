@@ -32,7 +32,7 @@ export class CertificateComponent implements OnInit, AfterViewInit {
           node.remove();
           var img = new Image();
           img.src = dataUrl;
-          img.width = 2000;
+          img.width = 300;
           output.appendChild(img);
         })
         .catch(function (error) {
