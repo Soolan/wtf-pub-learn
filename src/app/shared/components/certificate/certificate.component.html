@@ -1,4 +1,6 @@
-<ng-container [ngSwitch]="certificate.layout">
+<ng-container [ngSwitch]="certificate.layout" #outlet [ngTemplateOutlet]="content">
+  <ng-template #content>
+
   <!-- Joy template -->
   <div class="joy" #joy *ngSwitchCase="layout.Joy">
     <div class="fullname">{{certificate.fullName}}</div>
@@ -34,6 +36,8 @@
       </div>
     </div>
   </div>
+  </ng-template>
 </ng-container>
 <!--to do make it dynamic and render it to a class for situations where multiple certificates need to be rendered in a page-->
-<div id="output"></div>
+<div #output>
+</div>
