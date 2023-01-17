@@ -2,9 +2,9 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, OnChanges,
   OnInit,
-  Renderer2, TemplateRef,
+  Renderer2, SimpleChanges, TemplateRef,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
@@ -12,15 +12,13 @@ import {Certificate} from '../../models/certificate';
 import * as htmlToImage from 'html-to-image';
 import {toPng, toJpeg, toBlob, toPixelData, toSvg} from 'html-to-image';
 import {CertLayout} from '../../data/enums';
-import {CERT_LAYOUTS} from '../../data/generic';
-import {render} from 'mermaid/dist/dagre-wrapper';
 
 @Component({
   selector: 'app-certificate',
   templateUrl: './certificate.component.html',
   styleUrls: ['./certificate.component.scss']
 })
-export class CertificateComponent implements OnInit, AfterViewInit {
+export class CertificateComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('outlet', {read: ViewContainerRef}) outletRef!: ViewContainerRef;
   @ViewChild('content', {read: TemplateRef}) contentRef!: TemplateRef<any>;
 
@@ -37,25 +35,29 @@ export class CertificateComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log(changes);
+    if (!changes['certificate'].firstChange) {
+      this.reload();
+      this.createPng();
+    }
+  }
+
   ngAfterViewInit() {
-    this.node =
-      this.certificate.layout == 0 ? this.hope.nativeElement :
-        this.certificate.layout == 1 ? this.joy.nativeElement : undefined;
-    console.log(this.node);
     this.createPng();
   }
 
   createPng(): void {
-    // console.log(this.output.nativeElement.value, this.hope.nativeElement.value, this.joy.nativeElement.value);
-
+    this.node =
+      this.certificate.layout == 0 ? this.hope.nativeElement :
+        this.certificate.layout == 1 ? this.joy.nativeElement : undefined;
     if (this.node) {
       htmlToImage.toPng(this.node)
         .then(dataUrl => {
           // this.renderer.
-          this.node.remove();
-          // var img = new Image();
-          // img.src = dataUrl;
-          // img.width = 300;
+          console.log(this.node);
+          this.outletRef.clear();
+
           const img = this.renderer.createElement('img');
           this.renderer.setAttribute(img, 'src', dataUrl);
           this.renderer.setAttribute(img, 'width', '400px');
@@ -68,7 +70,8 @@ export class CertificateComponent implements OnInit, AfterViewInit {
   }
 
   public reload() {
-    this.outletRef.clear();
-    this.outletRef.createEmbeddedView(this.contentRef);
+    this.renderer.setValue(this.output, '');
+    this.outletRef?.clear();
+    this.outletRef?.createEmbeddedView(this.contentRef);
   }
 }

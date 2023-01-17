@@ -33,7 +33,6 @@ export class VerifyComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe({
         next: params => {
-          console.log(params)
           this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
           this.userId = params['user'];
           if (this.courseId && this.userId) {
