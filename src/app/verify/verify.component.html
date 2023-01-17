@@ -1,6 +1,16 @@
 <div class="container">
   <div *ngIf="queriedCert;" class="certificate">
-    <app-certificate [certificate]="queriedCert"></app-certificate>
+    <div class="details">
+      <p>
+        We acknowledge that <strong>{{queriedCert.fullName}}</strong>
+        took the final exam for the <strong>{{queriedCert.courseName}}</strong> course
+        and pass the test on <strong>{{queriedCert.timestamp | date}}.</strong>
+      </p>
+      <p class="mat-caption">Please contact us if you need more details (i.e final grade, etc)</p>
+    </div>
+    <div class="thumbnail">
+      <app-certificate [certificate]="queriedCert"></app-certificate>
+    </div>
   </div>
 
   <div class="search">

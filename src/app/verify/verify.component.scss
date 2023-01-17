@@ -1,16 +1,18 @@
 .container {
   margin: auto;
   padding-top: var(--space-xxl);
-  //.mat-form-field {
-  //  font-size: 22px;
-  //  width: 70%;
-  //  background-color: var(--color-black);
-  //  font-weight: 700;
-  //}
 
   .certificate, .search {
     margin: auto;
     width: 70%;
+  }
+
+  .certificate {
+    .details {
+      width: 50%;
+      text-align: right;
+      display: inline-block;
+    }
   }
 
   .mat-form-field {
