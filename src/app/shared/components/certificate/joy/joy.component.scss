@@ -1,0 +1,59 @@
+.joy {
+  margin: var(--space-sm) 0;
+  background-image: url("~src/assets/images/certificates/joy.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 2000px;
+  height: 1236px;
+  text-align: center;
+  font-family: 'Sofia Sans', sans-serif;
+  color: #447799;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+
+  .fullname {
+    font-family: 'Carattere', cursive;
+    padding-top: 6.3em;
+    font-size: 120px;
+    color: var(--color-grey2)
+  }
+
+  .description {
+    margin-top: 3.5em;
+    font-size: 30px;
+  }
+
+  .course {
+    line-height: normal;
+    margin: 0.1em auto 0 auto;
+    font-size: 50px;
+    color: var(--color-grey4);
+    max-width: 1200px;
+  }
+
+  .footer {
+    width: 85%;
+    font-size: 24px;
+
+    margin: auto;
+    .verify {
+      float: left;
+      display: inline-block;
+      text-align: left;
+      width: 500px;
+    }
+
+    .signature {
+      float: right;
+      text-align: center;
+      .sign {
+        color: var(--color-grey2);
+        font-family: 'Carattere', cursive;
+        font-size: 44px;
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+}
