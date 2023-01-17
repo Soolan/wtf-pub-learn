@@ -6,6 +6,7 @@ import {Certificate} from '../shared/models/certificate';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-verify',
@@ -13,7 +14,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./verify.component.scss']
 })
 export class VerifyComponent implements OnInit {
-  displayedColumns: string[] = ['no', 'courseName', 'timestamp', 'actions'];
+  displayedColumns: string[] = ['no', 'graduate', 'courseName', 'timestamp', 'courseId', 'actions'];
   dataSource!: MatTableDataSource<Certificate>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -23,12 +24,14 @@ export class VerifyComponent implements OnInit {
   loading = true;
   queriedCert!: Certificate;
   certificates!: Certificate[];
+  hide = false;
 
   constructor(
+    private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
     private crud: CrudService
   ) {
-      this.route.queryParams.subscribe({
+    this.route.queryParams.subscribe({
         next: params => {
           console.log(params)
           this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
@@ -42,6 +45,7 @@ export class VerifyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.hide = this.breakpointObserver.isMatched('(max-width: 600px)');
     this.crud.colRefQueryValues(CERTIFICATES).subscribe({
       next: docs =>  {
         this.certificates = <Certificate[]>docs;

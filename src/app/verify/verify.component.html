@@ -2,16 +2,22 @@
   <div *ngIf="queriedCert;" class="certificate">
     <div class="details">
       <p>
-        We acknowledge that <strong>{{queriedCert.fullName}}</strong>
-        took the final exam for the <strong>{{queriedCert.courseName}}</strong> course
-        and pass the test on <strong>{{queriedCert.timestamp | date}}.</strong>
+        We acknowledge that "<strong>{{queriedCert.fullName}}</strong>"
+        took the final exam for the "<strong>{{queriedCert.courseName}}</strong>" course
+        and pass the test on "<strong>{{queriedCert.timestamp | date}}</strong>".
       </p>
-      <p class="mat-caption">Please contact us if you need more details (i.e final grade, etc)</p>
+      <p>
+        Further details (i.e grade) are available on your
+        <button mat-flat-button color="primary">request</button>
+        and the graduate's approval.
+      </p>
     </div>
     <div class="thumbnail">
       <app-certificate [certificate]="queriedCert"></app-certificate>
     </div>
   </div>
+
+  <mat-divider></mat-divider>
 
   <div class="search">
     <mat-form-field>
@@ -36,21 +42,34 @@
 
       </ng-container>
 
+      <!-- Course Graduate -->
+      <ng-container matColumnDef="graduate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Graduate</th>
+        <td mat-cell *matCellDef="let row"> {{row.fullName}} </td>
+      </ng-container>
+
       <!-- Course Name Column -->
       <ng-container matColumnDef="courseName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Name</th>
-        <td mat-cell *matCellDef="let row"> {{row.courseName}} </td>
+        <th mat-header-cell [hidden]="hide" *matHeaderCellDef mat-sort-header> Course Name</th>
+        <td mat-cell [hidden]="hide" *matCellDef="let row"> {{row.courseName}} </td>
       </ng-container>
 
       <!-- Timestamp Column -->
       <ng-container matColumnDef="timestamp">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Certified On</th>
-        <td mat-cell *matCellDef="let row"> {{row.timestamp | date }} </td>
+        <th mat-header-cell [hidden]="hide" *matHeaderCellDef mat-sort-header> Certified On</th>
+        <td mat-cell [hidden]="hide" *matCellDef="let row"> {{row.timestamp | date }} </td>
       </ng-container>
 
+
+      <!-- Timestamp Column -->
+      <ng-container matColumnDef="courseId">
+        <th mat-header-cell [hidden]="true" *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell [hidden]="true" *matCellDef="let row"> {{row.courseId }} </td>
+      </ng-container>
+<!--      MTmYu-->
       <!-- Timestamp Column -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Preview</th>
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let doc">
           <button mat-icon-button color="primary"
                   [routerLink]="['/verify', doc.courseId.slice(0,8)]" [queryParams]="{'user': doc.userId.slice(0,8)}">

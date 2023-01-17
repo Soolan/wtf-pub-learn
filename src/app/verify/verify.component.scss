@@ -5,16 +5,41 @@
   .certificate, .search {
     margin: auto;
     width: 70%;
-  }
-
-  .certificate {
-    .details {
-      width: 50%;
-      text-align: right;
-      display: inline-block;
+    @media screen and (max-width: 960px) {
+      width: 90%;
     }
   }
 
+  .certificate {
+    text-align: center;
+    line-height: normal;
+    .details {
+      width: 40%;
+      text-align: right;
+      display: inline-block;
+      padding: var(--space-xxxs) var(--space-md);
+      color: var(--color-grey4);
+      vertical-align: top;
+      @media screen and (max-width: 960px) {
+        text-align: left;
+        padding: 0;
+        width: 100%;
+      }
+    }
+    .thumbnail {
+      width: 40%;
+      text-align: left;
+      display: inline-block;
+      padding: 0 var(--space-xxs);
+      @media screen and (max-width: 960px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .mat-divider{
+    margin-top: var(--space-xl);
+  }
   .mat-form-field {
     font-size: 30px !important;
   }
