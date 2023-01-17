@@ -36,6 +36,7 @@ import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
+import { HopeComponent } from './components/certificate/hope/hope.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { CertificateComponent } from './components/certificate/certificate.compo
     TopUpPleaseComponent,
     ShareButtonsComponent,
     CertificateComponent,
+    HopeComponent,
   ],
     exports: [
         HeaderComponent,
