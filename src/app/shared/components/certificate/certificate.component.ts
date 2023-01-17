@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Certificate} from '../../models/certificate';
 import * as htmlToImage from 'html-to-image';
 import {toPng, toJpeg, toBlob, toPixelData, toSvg} from 'html-to-image';
@@ -11,6 +11,9 @@ import {CERT_LAYOUTS} from '../../data/generic';
   styleUrls: ['./certificate.component.scss']
 })
 export class CertificateComponent implements OnInit, AfterViewInit {
+  @ViewChild('joy') joy!: ElementRef;
+  @ViewChild('hope') hope!: ElementRef;
+
   @Input() certificate!: Certificate;
   layout = CertLayout;
   constructor() {
@@ -24,7 +27,7 @@ export class CertificateComponent implements OnInit, AfterViewInit {
   }
 
   createPng(id: string): void {
-    const node = document.getElementById(id);
+    const node = this.joy.nativeElement//document.getElementById(id);
     const output = document.getElementById('output');
     if (node && output) {
       htmlToImage.toPng(node)
@@ -40,5 +43,4 @@ export class CertificateComponent implements OnInit, AfterViewInit {
         });
     }
   }
-
 }
