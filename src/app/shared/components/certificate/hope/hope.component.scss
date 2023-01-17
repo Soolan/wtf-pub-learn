@@ -1,0 +1,59 @@
+.hope {
+  margin: var(--space-sm) 0;
+  background-image: url("~src/assets/images/certificates/hope.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 2000px;
+  height: 1236px;
+  font-family: 'Sofia Sans', sans-serif;
+  color: #447799;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+
+  .fullname {
+    font-family: 'Carattere', cursive;
+    padding-top: 4em;
+    padding-left: 4.8em;
+    font-size: 115px;
+    color: var(--color-grey2);
+  }
+
+  .description {
+    margin-top: 6.5em;
+    font-size: 30px;
+    padding-left: 22em;
+  }
+
+  .course {
+    line-height: normal;
+    font-size: 50px;
+    color: var(--color-grey4);
+    padding-left: 14em;
+    padding-top: 0.5em;
+  }
+
+  .footer {
+    width: 60%;
+    font-size: 24px;
+    margin: auto 1em 3em 28em;
+    .verify {
+      float: left;
+      display: inline-block;
+      text-align: left;
+      width: 500px;
+    }
+
+    .signature {
+      float: right;
+      text-align: center;
+      .sign {
+        color: var(--color-grey2);
+        font-family: 'Carattere', cursive;
+        font-size: 44px;
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+}

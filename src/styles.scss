@@ -2,6 +2,7 @@
 
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Delius&family=Titillium+Web:wght@200;400;700;900&family=Ubuntu+Mono&display=swap');
+
 @include mat.core();
 $dark-primary-text: var(--color-black);
 $dark-secondary-text: var(--color-grey2);
