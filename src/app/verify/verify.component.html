@@ -1,8 +1,4 @@
-<div *ngIf="certificates.length; else not_found">
-  <mat-card *ngFor="let cert of certificates">
-    <app-certificate [certificate]="cert"></app-certificate>
-  </mat-card>
+<div *ngIf="queriedCert;">
+  <app-certificate [certificate]="queriedCert"></app-certificate>
 </div>
-<ng-template #not_found>
-  no cheese bruh
-</ng-template>
+
