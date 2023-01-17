@@ -37,6 +37,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
 import { HopeComponent } from './components/certificate/hope/hope.component';
+import { JoyComponent } from './components/certificate/joy/joy.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { HopeComponent } from './components/certificate/hope/hope.component';
     ShareButtonsComponent,
     CertificateComponent,
     HopeComponent,
+    JoyComponent,
   ],
     exports: [
         HeaderComponent,
