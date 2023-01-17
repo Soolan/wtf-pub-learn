@@ -1,1 +1,16 @@
-<p>hope works!</p>
+<div class="hope" #hope>
+  <div class="fullname">{{certificate.fullName}}</div>
+  <div class="description">{{certificate.present.description}}</div>
+  <div class="course">{{certificate.courseName}}</div>
+  <div class="footer">
+    <div class="verify">
+      <p>Verify at https://learn.wtf.pub/verify/{{certificate.courseId.slice(0, 8)}}</p>
+      <p>query code: {{certificate.userId.slice(0, 8)}}</p>
+    </div>
+    <div class="signature">
+      <p class="sign">{{certificate.courseCreator.fullName}}</p>
+      <p>{{certificate.courseCreator.profession}}</p>
+      <p>{{certificate.timestamp | date}}</p>
+    </div>
+  </div>
+</div>
