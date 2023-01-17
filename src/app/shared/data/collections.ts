@@ -81,6 +81,6 @@ export const EVENTS: Collection = {
 export const CERTIFICATES: Collection = {
   path: 'certificates',
   limit: 20,
-  where: {field: 'verification', operator: '!=', value: ''},
-  orderBy: {field: 'verification', direction: 'desc'}
+  where: {field: 'timestamp', operator: '!=', value: ''},
+  orderBy: {field: 'timestamp', direction: 'desc'}
 };

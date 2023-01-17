@@ -38,6 +38,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatRippleModule} from '@angular/material/core';
 import { VerifyComponent } from './verify/verify.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 // make links open in a new tab
 // function that returns `MarkedOptions` with renderer override
@@ -67,52 +72,57 @@ export function markedOptionsFactory(): MarkedOptions {
     ReleaseNotesComponent,
     VerifyComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MarkdownModule.forRoot({
-            markedOptions: {
-                provide: MarkedOptions,
-                useFactory: markedOptionsFactory,
-            },
-        }),
-        AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
-        AngularFireAuthModule,
-        AngularFirestoreModule,
-        AngularFireAnalyticsModule,
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useFactory: markedOptionsFactory,
+      },
+    }),
+    AngularFireModule.initializeApp(environment.firebase), // <---- workaround for compat. provide() functions won't work
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireAnalyticsModule,
 
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideAnalytics(() => getAnalytics()),
-        provideAuth(() => {
-            const auth = getAuth();
-            if (environment.useEmulators) {
-                connectAuthEmulator(auth, 'http://localhost:9099', {disableWarnings: true});
-            }
-            return auth;
-        }),
-        provideMessaging(() => getMessaging()),
-        providePerformance(() => getPerformance()),
-        provideRemoteConfig(() => getRemoteConfig()),
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatChipsModule,
-        MatExpansionModule,
-        DashboardModule,
-        CourseModule,
-        SharedModule,
-        FlexLayoutModule,
-        MatSnackBarModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: environment.production,
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:30000'
-        }),
-        MatDividerModule,
-        MatIconModule,
-        MatCardModule,
-    ],
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAnalytics(() => getAnalytics()),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.useEmulators) {
+        connectAuthEmulator(auth, 'http://localhost:9099', {disableWarnings: true});
+      }
+      return auth;
+    }),
+    provideMessaging(() => getMessaging()),
+    providePerformance(() => getPerformance()),
+    provideRemoteConfig(() => getRemoteConfig()),
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatExpansionModule,
+    DashboardModule,
+    CourseModule,
+    SharedModule,
+    FlexLayoutModule,
+    MatSnackBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    MatDividerModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+  ],
   providers: [
     ScreenTrackingService, UserTrackingService,
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },

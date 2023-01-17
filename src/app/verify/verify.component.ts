@@ -13,13 +13,14 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./verify.component.scss']
 })
 export class VerifyComponent implements OnInit {
-  displayedColumns: string[] = ['courseName', 'timestamp'];
+  displayedColumns: string[] = ['no', 'courseName', 'timestamp', 'actions'];
   dataSource!: MatTableDataSource<Certificate>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   courseId!: string;
   userId!: string;
+  loading = true;
   queriedCert!: Certificate;
   certificates!: Certificate[];
 
@@ -27,11 +28,17 @@ export class VerifyComponent implements OnInit {
     private route: ActivatedRoute,
     private crud: CrudService
   ) {
-    this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
-    this.userId = this.route.snapshot.queryParams['user'];
-    if (this.courseId && this.userId) {
-      this.getCertificate();
-    }
+      this.route.queryParams.subscribe({
+        next: params => {
+          console.log(params)
+          this.courseId = this.route.snapshot.paramMap.get('courseId') || '';
+          this.userId = params['user'];
+          if (this.courseId && this.userId) {
+            this.getCertificate();
+          }
+        },
+        error: err => console.log(err)
+      })
   }
 
   ngOnInit(): void {
@@ -39,6 +46,9 @@ export class VerifyComponent implements OnInit {
       next: docs =>  {
         this.certificates = <Certificate[]>docs;
         this.dataSource = new MatTableDataSource(this.certificates);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loading = false;
       },
       error: err => console.log(err)
     });
@@ -58,8 +68,7 @@ export class VerifyComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
