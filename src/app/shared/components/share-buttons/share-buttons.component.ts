@@ -23,4 +23,8 @@ export class ShareButtonsComponent implements OnInit {
   share(url: string) {
     return window.open(url, "_blank");
   }
+
+  copy(): void {
+    
+  }
 }

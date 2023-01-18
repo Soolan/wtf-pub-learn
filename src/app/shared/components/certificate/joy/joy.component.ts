@@ -29,7 +29,7 @@ export class JoyComponent implements OnInit, AfterViewInit {
         this.joy.nativeElement.remove();
         const img = this.renderer.createElement('img');
         this.renderer.setAttribute(img, 'src', dataUrl);
-        this.renderer.setAttribute(img, 'width', '400px');
+        this.renderer.setAttribute(img, 'width', '300px');
         this.renderer.appendChild(this.output.nativeElement, img);
       })
       .catch(function (error) {

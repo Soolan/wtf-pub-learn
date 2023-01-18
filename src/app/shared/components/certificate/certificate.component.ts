@@ -1,8 +1,6 @@
 import {
   Component,
-  ElementRef,
   Input, OnChanges,
-  OnInit,
   SimpleChanges, TemplateRef,
   ViewChild,
   ViewContainerRef
@@ -15,25 +13,14 @@ import {CertLayout} from '../../data/enums';
   templateUrl: './certificate.component.html',
   styleUrls: ['./certificate.component.scss']
 })
-export class CertificateComponent implements OnInit, OnChanges {
+export class CertificateComponent implements OnChanges {
   @ViewChild('outlet', {read: ViewContainerRef}) outletRef!: ViewContainerRef;
   @ViewChild('content', {read: TemplateRef}) contentRef!: TemplateRef<any>;
-
-  @ViewChild('hope') hope!: ElementRef;
   @Input() certificate!: Certificate;
-
-  node!: any;
   layout = CertLayout;
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   ngOnChanges(changes: SimpleChanges) {
-    // if (!changes['certificate'].firstChange) {
       this.reload();
-    // }
   }
 
   public reload() {
