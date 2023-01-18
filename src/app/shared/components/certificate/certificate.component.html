@@ -1,8 +1,8 @@
 <!-- IMPORTANT! #outlet and #content are our force reload mechanisms -->
 <ng-container [ngSwitch]="certificate.layout" #outlet [ngTemplateOutlet]="content">
   <ng-template #content>
-    <app-joy *ngSwitchCase="layout.Joy" [certificate]="certificate"></app-joy>
-    <app-hope  *ngSwitchCase="layout.Hope" [certificate]="certificate"></app-hope>
+    <app-joy *ngSwitchCase="layout.Joy" [certificate]="certificate" [share]="share"></app-joy>
+    <app-hope  *ngSwitchCase="layout.Hope" [certificate]="certificate" [share]="share"></app-hope>
   </ng-template>
 </ng-container>
 

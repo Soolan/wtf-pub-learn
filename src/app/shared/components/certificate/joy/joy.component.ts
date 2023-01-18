@@ -7,18 +7,16 @@ import * as htmlToImage from 'html-to-image';
   templateUrl: './joy.component.html',
   styleUrls: ['./joy.component.scss']
 })
-export class JoyComponent implements OnInit, AfterViewInit {
+export class JoyComponent implements AfterViewInit {
   @ViewChild('joy') joy!: ElementRef;
   @ViewChild('output') output!: ElementRef;
 
   @Input() certificate!: Certificate;
+  @Input() share!: any;
 
   constructor(private renderer: Renderer2) {
   }
-
-  ngOnInit(): void {
-  }
-
+  
   ngAfterViewInit() {
     this.createPng();
   }
@@ -29,8 +27,15 @@ export class JoyComponent implements OnInit, AfterViewInit {
         this.joy.nativeElement.remove();
         const img = this.renderer.createElement('img');
         this.renderer.setAttribute(img, 'src', dataUrl);
-        this.renderer.setAttribute(img, 'width', '400px');
-        this.renderer.appendChild(this.output.nativeElement, img);
+        this.renderer.setAttribute(img, 'width', '300px');
+
+        const a = this.renderer.createElement('a');
+        this.renderer.setAttribute(a, 'href', dataUrl);
+        this.renderer.setAttribute(a, 'download', `${this.certificate.fullName}.png`);
+        this.renderer.setAttribute(a, 'target', '_blank');
+
+        this.renderer.appendChild(a, img);
+        this.renderer.appendChild(this.output.nativeElement, a);
       })
       .catch(function (error) {
         console.error('Oh nose!', error);
