@@ -7,7 +7,7 @@ import * as htmlToImage from 'html-to-image';
   templateUrl: './joy.component.html',
   styleUrls: ['./joy.component.scss']
 })
-export class JoyComponent implements OnInit, AfterViewInit {
+export class JoyComponent implements AfterViewInit {
   @ViewChild('joy') joy!: ElementRef;
   @ViewChild('output') output!: ElementRef;
 
@@ -16,10 +16,7 @@ export class JoyComponent implements OnInit, AfterViewInit {
 
   constructor(private renderer: Renderer2) {
   }
-
-  ngOnInit(): void {
-  }
-
+  
   ngAfterViewInit() {
     this.createPng();
   }

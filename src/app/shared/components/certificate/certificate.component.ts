@@ -18,13 +18,14 @@ export class CertificateComponent implements OnChanges {
   @ViewChild('content', {read: TemplateRef}) contentRef!: TemplateRef<any>;
   @Input() certificate!: Certificate;
   layout = CertLayout;
-  share = {
-    url: `https://learn.wtf.pub/verify/${certificate.courseId.slice(0, 8)}?user=${certificate.userId.slice(0, 8)}`,
-    message: `Certification for '${certificate.courseName}' course.`
-  }
+  share!: any;
 
   ngOnChanges(changes: SimpleChanges) {
-      this.reload();
+    this.reload();
+    this.share = {
+      url: `https://learn.wtf.pub/verify/${this.certificate.courseId.slice(0, 8)}?user=${this.certificate.userId.slice(0, 8)}`,
+      message: `Certification for '${this.certificate.courseName}' course.`
+    }
   }
 
   public reload() {
