@@ -15,7 +15,6 @@ import {TopUpPleaseComponent} from '../../../shared/components/dialogs/top-up-pl
 import {MatDialog} from '@angular/material/dialog';
 import {Transaction} from '../../../shared/models/transaction';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {PaymentGatewayService} from '../../../shared/services/payment-gateway.service';
 
 @Component({
   selector: 'app-progress',

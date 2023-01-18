@@ -12,6 +12,7 @@ export class JoyComponent implements OnInit, AfterViewInit {
   @ViewChild('output') output!: ElementRef;
 
   @Input() certificate!: Certificate;
+  @Input() share!: any;
 
   constructor(private renderer: Renderer2) {
   }
@@ -30,7 +31,14 @@ export class JoyComponent implements OnInit, AfterViewInit {
         const img = this.renderer.createElement('img');
         this.renderer.setAttribute(img, 'src', dataUrl);
         this.renderer.setAttribute(img, 'width', '300px');
-        this.renderer.appendChild(this.output.nativeElement, img);
+
+        const a = this.renderer.createElement('a');
+        this.renderer.setAttribute(a, 'href', dataUrl);
+        this.renderer.setAttribute(a, 'download', `${this.certificate.fullName}.png`);
+        this.renderer.setAttribute(a, 'target', '_blank');
+
+        this.renderer.appendChild(a, img);
+        this.renderer.appendChild(this.output.nativeElement, a);
       })
       .catch(function (error) {
         console.error('Oh nose!', error);

@@ -11,6 +11,7 @@ export class HopeComponent implements AfterViewInit {
 @ViewChild('hope') hope!: ElementRef;
 @ViewChild('output') output!: ElementRef;
 @Input() certificate!: Certificate;
+@Input() share!: any;
 
   constructor(private renderer: Renderer2) {
   }
@@ -31,13 +32,9 @@ export class HopeComponent implements AfterViewInit {
         this.renderer.setAttribute(a, 'href', dataUrl);
         this.renderer.setAttribute(a, 'download', `${this.certificate.fullName}.png`);
         this.renderer.setAttribute(a, 'target', '_blank');
-        // <a href="http://www.google.com" target="_blank" download="image.jpg"> //gives blank window
-        // <img width="220" height="250" border="0" align="center"  src=""/> // show image into new window
-        //   </a>
 
         this.renderer.appendChild(a, img);
         this.renderer.appendChild(this.output.nativeElement, a);
-
       })
       .catch(function (error) {
         console.error('Oh nose!', error);
