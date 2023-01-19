@@ -16,7 +16,7 @@ export class JoyComponent implements AfterViewInit {
 
   constructor(private renderer: Renderer2) {
   }
-  
+
   ngAfterViewInit() {
     this.createPng();
   }
