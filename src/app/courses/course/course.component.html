@@ -19,21 +19,16 @@
       </div>
     </div>
   </div>
-  <div fxFlex="45" fxFlex.lt-md="90" fxFlexOffset.lt-md="5" fxLayout="row wrap" fxLayoutAlign="space-around start"
-       class="lessons">
-    <div fxFlex="100" *ngIf="loading.lessons">
-      <mat-progress-bar color="primary" mode="query"></mat-progress-bar>
-    </div>
-    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="lesson"
-         *ngFor="let lesson of lessons; let i = index">
-      <div fxFlex="70" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <div fxFlex class="avatar"
-             [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
-        <div fxFlex="90" class="lesson-heading">{{lesson.name}}</div>
-        <div fxFlex="100" class="description mat-body-2">{{lesson.description}}</div>
+  <div class="lessons">
+    <mat-progress-bar *ngIf="loading.lessons" color="primary" mode="query"></mat-progress-bar>
+    <div *ngFor="let lesson of lessons; let i = index" class="lesson">
+      <div class="lesson-fields">
+        <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar|storageUrl|async) + ')'}"></div>
+        <div class="lesson-heading">{{lesson.name}}</div>
+        <div class="description mat-body-2">{{lesson.description}}</div>
       </div>
 
-      <div fxFlex="30" fxFlex.lt-md="45" *ngIf="(auth.user | async) && lesson; else guest">
+      <div class="progress" *ngIf="(auth.user | async) && lesson; else guest">
         <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING SOON</span></p>
         <app-progress
           [userId]="userId"
@@ -48,7 +43,7 @@
         <p *ngIf="!lesson.published" class="coming-soon mat-subheading-2"><span>COMING<br>SOON</span></p>
       </ng-template>
     </div>
-    <div class="summary" fxFlex="100" *ngIf="userId && courseInfo && courseInfo.status === status.Retake">
+    <div class="summary" *ngIf="userId && courseInfo && courseInfo.status === status.Retake">
       <mat-icon>info</mat-icon>
       <span class="mat-subheading-1">Note</span>
       <mat-divider></mat-divider>
