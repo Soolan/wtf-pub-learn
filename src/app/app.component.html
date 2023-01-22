@@ -1,7 +1,7 @@
-<app-header class="header" *ngIf="toggle.headerSubject|async"></app-header>
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="100">
+<div class="app">
+  <app-header class="header" *ngIf="toggle.headerSubject|async"></app-header>
+  <div class="outlet">
     <router-outlet></router-outlet>
   </div>
-  <app-footer fxFlex="100" fxLayoutAlign="space-around center" class="footer" *ngIf="toggle.footerSubject|async"></app-footer>
+  <app-footer class="footer"></app-footer>
 </div>
