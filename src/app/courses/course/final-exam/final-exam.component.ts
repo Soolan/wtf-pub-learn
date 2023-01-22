@@ -33,7 +33,6 @@ export class FinalExamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.currentService.current.value)
 
     if (this.path) {
       this.crud.docRef(this.path, 'final-exam').get()
