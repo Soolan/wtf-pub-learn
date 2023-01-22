@@ -1,0 +1,41 @@
+@mixin width($width) {
+  flex: 1 1 $width;
+  max-width: $width;
+}
+
+@mixin container($width, $justify, $align, $direction: row) {
+  display: flex;
+  @include width($width);
+  flex-flow: $direction wrap;
+  align-items: $align;
+  align-content: $align;
+  justify-content: $justify;
+}
+
+@mixin breakpoint($size, $width) {
+  @if $size == xs {
+    @media (max-width: 599.98px) { @include width($width); }
+  } @else if $size == lt-sm {
+    @media (max-width: 600px) { @include width($width); }
+  } @else if $size == sm {
+    @media (min-width: 600px) and (max-width: 959.98px) { @include width($width); }
+  } @else if $size == gt-sm {
+    @media (min-width: 960px) { @include width($width); }
+  } @else if $size == lt-md {
+    @media (max-width: 960px) { @include width($width); }
+  }  @else if $size == md {
+    @media (min-width: 960px) and (max-width: 1279.98px) { @include width($width); }
+  }  @else if $size == gt-md {
+    @media (min-width: 1279.98px) { @include width($width); }
+  } @else if $size == lt-lg {
+    @media (max-width: 1280px) { @include width($width); }
+  }  @else if $size == lg {
+    @media (min-width: 1280px) and (max-width: 1919.98px) { @include width($width); }
+  }  @else if $size == gt-lg {
+    @media (min-width: 1920px) { @include width($width); }
+  } @else if $size == xl {
+    @media (min-width: 1920px) { @include width($width); }
+  } @else {
+    @warn 'Not a valid breakpoint name.';
+  }
+}
