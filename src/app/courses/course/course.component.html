@@ -1,34 +1,20 @@
-<div [fxFlex.gt-lg]="isDashboard?100:65" [fxFlex.lg]="isDashboard?100:85" fxFlex.lt-lg="100" fxLayout="row wrap"
-     fxLayoutAlign="space-between start"
-     class="content" [style.margin]="isDashboard ? '0':'var(--space-xl) auto'">
-  <div class="course" fxFlex="53" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
+<div class="container" [ngClass]="isDashboard ? 'dashboard' : 'non-dashboard'">
+  <div class="course">
     <div class="progress" *ngIf="loading.course">
       <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
     </div>
-    <div *ngIf="course" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-      <div fxFlex="100" class="image" *ngIf="course.banner"
-           [ngStyle]="{'background-image': 'url('+(course.banner|storageUrl|async)+')'}">
-      </div>
-      <div fxFlex>
-        <div class="level"><span class="mat-caption">{{courseLevel|uppercase}}</span></div>
-      </div>
-      <div fxFlexOffset="90" fxFlex="20">
-        <div class="avatar" [ngStyle]="{'background-image': 'url(' + (course.avatar | storageUrl | async) + ')'}"></div>
+    <div *ngIf="course" class="course-fields">
+      <div class="image" *ngIf="course.banner"
+           [ngStyle]="{'background-image':'url('+(course.banner|storageUrl|async)+')'}">
       </div>
 
-      <div *ngIf="isDashboard;else guest_view" fxFlex="95" class="heading mat-title"
-           ngClass.lt-md="mat-subheading-2" [ngStyle]="{'margin-top': '-2em' }">
-        {{course.name}}</div>
-      <ng-template #guest_view>
-        <div fxFlex="92" class="heading" [ngStyle]="{'margin-top': '-1.2em' }"
-             ngClass.gt-md="mat-headline" ngClass.md="mat-headline" ngClass.lt-md="mat-title">
-          <span *ngIf="keyword; else no_keyword" appBlackRenderer [content]="course.name" [keyword]="keyword"></span>
-          <ng-template #no_keyword>
-            {{course.name}}
-          </ng-template>
-        </div>
-      </ng-template>
-      <div fxFlex="92" class="mat-body-2 description">
+      <div class="heading">
+        <span *ngIf="keyword; else no_keyword" appBlackRenderer [content]="course.name" [keyword]="keyword"></span>
+        <ng-template #no_keyword>
+          {{course.name}}
+        </ng-template>
+      </div>
+      <div class="mat-body-2 description">
         <markdown emoji ngPreserveWhitespaces>{{course.description}}</markdown>
       </div>
     </div>
@@ -80,7 +66,8 @@
         <p>
           <span>You took the final exam at <strong>{{finalExam?.timestamp | date: 'medium'}}</strong></span>
           <span> and your current grade is <strong>{{finalExam?.grade | number: '1.1-1'}}</strong>. </span>
-          <button color="primary" mat-button [routerLink]="['/verify', courseId.slice(0,8)]" [queryParams]="{user: userId.slice(0,8)}">
+          <button color="primary" mat-button [routerLink]="['/verify', courseId.slice(0,8)]"
+                  [queryParams]="{user: userId.slice(0,8)}">
             <span>CERTIFICATE </span>
             <mat-icon>workspace_premium</mat-icon>
           </button>

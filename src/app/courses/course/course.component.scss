@@ -1,5 +1,20 @@
-.content {
+@use "src/flex" as flex;
+
+.dashboard {
+  @include flex.container(100%, space-between, flex-start);
+  margin: 0;
+}
+.non-dashboard {
+  @include flex.container(80%, space-between, flex-start);
+  @include flex.breakpoint(gt-lg, 60%);
+  @include flex.breakpoint(lt-lg, 90%);
+  margin: var(--space-xl) auto;
+}
+
+.container {
   .course {
+    @include flex.container(53%, space-between, flex-start);
+    @include flex.breakpoint(lt-md, 100%);
     min-height: 10em;
     background-color: var(--color-greye);
     margin-bottom: 2em;
@@ -7,53 +22,40 @@
       min-height: var(--space-xl);
       margin: var(--space-xxl) auto;
     }
-    .image {
-      border-bottom: 1px solid var(--color-grey9);
-      min-height: 15em;
-      @media screen and (max-width: 600px){
-        min-height: 8em;
+    .course-fields {
+      @include flex.container(100%, space-around, center);
+      text-align: left;
+
+      .image {
+        @include flex.width(100%);
+        border-bottom: 1px solid var(--color-grey9);
+        min-height: 15em;
+        @media screen and (max-width: 600px){
+          min-height: 8em;
+        }
+        background-repeat: no-repeat;
+        background-size: cover;
       }
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    .level {
-      left: 0.75em;
-      position: relative;
-      width: fit-content;
-      height: 1.2em;
-      top: -0.6em;
-      background-color: var(--color-greyb);
-      border-radius: var(--space-xxs);
-      text-align: center;
-      span {
-        padding: 0 7px;
-        color: var(--color-greye);
-        letter-spacing: var(--space-xxxs);
-        font-size: smaller;
-        font-weight: bold;
+      .heading {
+        @include flex.width(90%);
+        font-weight: 100;
+        line-height: normal;
+        margin-top: var(--space-xxs);
+        @media screen and (max-width: 599.98px) {
+          font-size: 24px;
+        }
+        @media (min-width: 600px) and (max-width: 1919.98px) {
+          font-size: 36px;
+        }
+        @media (min-width: 1920px) {
+          font-size: 48px;
+        }
       }
-    }
-    .avatar {
-      position: relative;
-      height: 4em;
-      width: 4em;
-      top: -3.15em;
-      right: 1.25em;
-      background-color: var(--color-greye);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      border: 1px solid;
-      border-radius: 50%;
-    }
-    .heading {
-      font-weight: 100;
-      margin-bottom: 0.5rem;
-      padding-right: 1em;
-      margin-top: -2em;
-    }
-    .description {
-      padding-bottom: 1em;
+      .description {
+        @include flex.width(90%);
+
+        padding-bottom: 1em;
+      }
     }
   }
   .lessons {

@@ -1,8 +1,87 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
+
+  	// --------------------------------------------------------- Functions
+    function isAdmin() {
+      return request.auth.token.admin == true;
+    }
+
+    function isTeacher() {
+      return request.auth.token.teacher == true;
+    }
+
+    // function isPremium() {
+    //   return request.auth.token.premium == true;
+    // }
+
+    // function isRegistered() {
+    // 	return request.auth.token.user == true;
+    // }
+
+    // match /{document=**} {
+    //   allow read, write: if true;
+    // }
+
+  	// --------------------------------------------------------- certificates
+    match /certificates/{certificateId}/{document=**} {
+          allow read, write: if true;
+    }
+
+  	// --------------------------------------------------------- courses
+    match /courses/{courseId}/{document=**} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow create: if isAdmin() || isTeacher();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- events
+    match /events/{eventId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- faucets
+    match /faucets/{faucetId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- legals
+    match /legals/{legalId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- polls
+    match /polls/{pollId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- profiles
+    match /profiles/{profileId}/{document=**} {
+      allow read: if true;
+      allow write: if request.auth.uid == profileId || isAdmin();
+    }
+
+  	// --------------------------------------------------------- releases
+    match /releases/{releaseId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- stats
+    match /stats/{statId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+  	// --------------------------------------------------------- tickets
+    match /tickets/{ticketId}/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
   }
 }
