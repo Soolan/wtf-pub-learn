@@ -8,5 +8,15 @@
     @include flex.breakpoint(md, 25%);
     @include flex.breakpoint(sm, 30%);
     @include flex.breakpoint(lt-sm, 49%);
+    z-index: 10;
+    min-height: 3em;
+    margin: 0 var(--space-xxs);
+    @media screen and (max-width: 599px) {
+      margin: 0 var(--space-xxxs);
+    }
+    span {
+      vertical-align: baseline;
+      font-weight: 700;
+    }
   }
 }

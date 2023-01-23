@@ -1,31 +1,27 @@
-<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
-  <button mat-stroked-button color="accent" (click)="move(false)" *ngIf="!startSlide"
-          fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="49">
+<div class="footer">
+  <button mat-stroked-button color="accent" (click)="move(false)" *ngIf="!startSlide">
     <mat-icon>arrow_back</mat-icon>
     <span>PREVIOUS</span>
   </button>
-  <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="49"
-       fxLayout="row" fxLayoutAlign="space-between center" *ngIf="ui.completed || staticSlide || pollSlide">
-    <button mat-flat-button color="primary" [@bounceInOut] fxFlex="100" (click)="move(true)">
-      <span>NEXT</span>
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
-  </div>
-  <div fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="49"
-       fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!ui.completed && hintFillInSlide">
-    <button mat-flat-button color="accent" fxFlex="100" class="hint"
-            [disabled]="ui.response !== ''" [@bounceInOut] (click)="hint()">
-      <mat-icon>lightbulb</mat-icon>
-      <span>HINT</span>
-    </button>
-  </div>
+  <button mat-flat-button color="primary" [@bounceInOut] *ngIf="ui.completed || staticSlide || pollSlide"
+          (click)="move(true)">
+    <span>NEXT</span>
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+  <button mat-flat-button color="accent" class="hint" *ngIf="!ui.completed && hintFillInSlide"
+          [disabled]="ui.response !== ''" [@bounceInOut] (click)="hint()">
+    <mat-icon>lightbulb</mat-icon>
+    <span>HINT</span>
+  </button>
 </div>
 
 <div class="response"
      [style.background-color]="hintFillInSlide ? 'var(--color-accent-light)' : ui.correct ? 'var(--color-primary)' : 'var(--color-warn)'"
      [style.padding-bottom]="ui.completed ? 'var(--space-xl)' : hintFillInSlide ? 'var(--space-xl)' : 0"
      [@stretchUpOut] *ngIf="response">
-  <button mat-icon-button (click)="response=''" class="close"><mat-icon>close</mat-icon></button>
+  <button mat-icon-button (click)="response=''" class="close">
+    <mat-icon>close</mat-icon>
+  </button>
   <p>
     <markdown emoji ngPreserveWhitespaces class="mat-caption"
               [style.font-weight]="hintFillInSlide ? 'bold' : ''">{{slideService.ui.value.response}}</markdown>
