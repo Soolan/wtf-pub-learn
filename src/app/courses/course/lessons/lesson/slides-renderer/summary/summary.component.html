@@ -1,8 +1,8 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <app-text-image fxFlex="100" [content]="slide.content"></app-text-image>
-  <mat-divider fxFlex="100"></mat-divider>
-  <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="passingGrade; else byebye">
-    <div fxFlex="100" class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
+<div class="slide">
+  <app-text-image [content]="slide.content"></app-text-image>
+  <mat-divider></mat-divider>
+  <div class="slide" *ngIf="passingGrade; else byebye">
+    <div  class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
       <span appBlackRenderer content="Congratz! You PASSED!" keyword="PASSED"></span>
       <p class="mat-subheading-1">FINAL SCORE:  {{grade | number: '1.1-1'}}</p>
       <div *ngIf="prevResult && passingGrade < prevResult.grade; else confirmName">
@@ -47,13 +47,13 @@
     <mat-divider fxFlex="100"></mat-divider>
 
     <ng-template #failed>
-      <div fxFlex="100" class="mat-subheading-1 failed">
+      <div class="mat-subheading-1 failed">
         Sadly, you weren't successful this time.
         <p class="mat-subheading-1">Final Score: {{grade | number: '1.1-1'}} - Passing Grade: {{passingGrade}}</p>
         <p>Checkout the results and try again.</p>
       </div>
     </ng-template>
-    <div fxFlex="100" class="mat-subheading-1">Here you are some details.</div>
+    <div class="mat-subheading-1">Here you are some details.</div>
     <mat-accordion>
       <mat-expansion-panel *ngFor="let row of examResults; let i = index">
         <mat-expansion-panel-header>
@@ -75,16 +75,15 @@
       </mat-expansion-panel>
     </mat-accordion>
     <ng-template [ngIf]="grade >= passingGrade">
-      <div fxFlex="100" class="mat-subheading-2">This achievement has been recorded in your dashboard.</div>
-      <mat-divider fxFlex="100"></mat-divider>
-      <div fxFlex="100" class="mat-title thin nft" appBlackRenderer
-           content="You may issue an NFT certificate as well" keyword="NFT"></div>
+      <div class="mat-subheading-2">This achievement has been recorded in your dashboard.</div>
+      <mat-divider ></mat-divider>
+      <div class="mat-title thin nft" appBlackRenderer content="You may issue an NFT certificate as well" keyword="NFT"></div>
       <button mat-flat-button color="accent"><strong>Interested?</strong></button>
     </ng-template>
     <mat-divider fxFlex="100"></mat-divider>
   </div>
   <ng-template #byebye>
-    <div fxFlex="100" class="mat-subheading-2 keywords">Keywords</div>
+    <div class="mat-subheading-2 keywords">Keywords</div>
     <mat-chip-list aria-label="terms">
       <mat-chip color="primary" *ngFor="let term of terms">
         <mat-chip-avatar>
