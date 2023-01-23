@@ -1,6 +1,17 @@
+@use "src/flex" as flex;
+
 .progress {
+  @include flex.container(100%, space-between, flex-start);
   margin-bottom: var(--space-sm);
   padding-bottom: var(--space-sm);
+
+  .paid-lesson {
+    @include flex.container(100%, space-between, center);
+  }
+
+  button, .mat-form-field {
+    @include flex.width(100%);
+  }
 
   .mat-form-field {
     margin: 0;
@@ -15,45 +26,57 @@
     color: var(--color-warn-dark);
   }
 
-  .start, .retake {
-    color: var(--color-primary-lighter);
-    .mat-icon{
-      color: var(--color-primary-lighter) !important;
-    }
-  }
-
-  .resume {
-    color: var(--color-accent-lighter);
-    .mat-icon{
-      color: var(--color-accent-lighter) !important;
-    }
-  }
-
   .mat-icon {
     position: relative;
     bottom: 1px;
   }
 
+  .start, .resume, .retake {
+    @include flex.container(100%, space-around, flex-start);
+  }
 
-  .markers{
-    margin: var(--space-md) auto;
-    text-align: center;
-    .marker {
-      width: 0.4em;
-      height: 0.4em;
-      border: 2px solid var(--color-accent);
-      border-radius: 3px;
-      display: inline-block;
-      margin: 0.04em;
+  .start, .retake {
+    button {
+      color: var(--color-primary-lighter);
+      .mat-icon {
+        color: var(--color-primary-lighter) !important;
+      }
     }
   }
 
+  .resume {
+    button {
+      color: var(--color-accent-lighter);
+      .mat-icon {
+        color: var(--color-accent-lighter) !important;
+      }
+    }
 
-  .score {
-    margin: var(--space-sm) 0;
-    color: var(--color-grey7);
-    strong {
-      color: var(--color-primary);
+    .markers {
+      @include flex.width(90%);
+      margin: var(--space-md) auto;
+      text-align: center;
+
+      .marker {
+        width: 0.4em;
+        height: 0.4em;
+        border: 2px solid var(--color-accent);
+        border-radius: 3px;
+        display: inline-block;
+        margin: 0.04em;
+      }
+    }
+  }
+
+  .retake {
+    @include flex.width(90%);
+    .score {
+      margin: var(--space-sm) 0;
+      color: var(--color-grey7);
+
+      strong {
+        color: var(--color-primary);
+      }
     }
   }
 }
