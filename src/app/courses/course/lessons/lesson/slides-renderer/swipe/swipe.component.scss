@@ -1,6 +1,15 @@
+@use "src/flex" as flex;
+
+.scenario {
+  @include flex.width(90%);
+}
+
 .cards{
+  @include flex.breakpoint(lt-sm, 90%);
+  @include flex.breakpoint(sm, 70%);
+  @include flex.breakpoint(gt-sm, 60%);
   position: relative;
-  margin: 3rem auto 13.5rem auto;
+  margin: 3rem auto 16rem auto;
   .card {
     font-family: 'Delius', cursive;
     background-color: var(--color-greye);
@@ -38,6 +47,8 @@
 }
 
 .space {
+  @include flex.width(80%);
+  @include flex.breakpoint(lt-md, 100%);
   margin-top: 7em !important;
 }
 
