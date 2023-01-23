@@ -3,5 +3,5 @@
   <div class="outlet">
     <router-outlet></router-outlet>
   </div>
-  <app-footer class="footer"></app-footer>
+  <app-footer class="footer" *ngIf="toggle.headerSubject|async"></app-footer>
 </div>
