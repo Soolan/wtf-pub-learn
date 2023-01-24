@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {AngularFireModule, FIREBASE_OPTIONS} from '@angular/fire/compat';
 import {AngularFireAnalyticsModule} from '@angular/fire/compat/analytics';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
@@ -106,7 +105,6 @@ export function markedOptionsFactory(): MarkedOptions {
     DashboardModule,
     CourseModule,
     SharedModule,
-    FlexLayoutModule,
     MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

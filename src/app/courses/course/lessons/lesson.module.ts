@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 
 import {LessonRoutingModule} from './lesson-routing.module';
 import {LessonComponent} from './lesson/lesson.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {StartComponent} from './lesson/slides-renderer/start/start.component';
 import {StaticComponent} from './lesson/slides-renderer/static/static.component';
@@ -68,7 +67,6 @@ import {MatInputModule} from '@angular/material/input';
   imports: [
     CommonModule,
     LessonRoutingModule,
-    FlexLayoutModule,
     MatProgressSpinnerModule,
     MatIconModule,
     MatButtonModule,

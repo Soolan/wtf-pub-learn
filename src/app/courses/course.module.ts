@@ -10,7 +10,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {LessonModule} from './course/lessons/lesson.module';
@@ -41,7 +40,6 @@ import {MatRadioModule} from '@angular/material/radio';
     MatButtonModule,
     MatDividerModule,
     MatSidenavModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     MatListModule,

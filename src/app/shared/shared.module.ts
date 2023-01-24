@@ -6,7 +6,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FooterComponent} from './components/footer/footer.component';
 import {StorageUrlPipe} from './pipes/storage-url.pipe';
 import {MatCardModule} from '@angular/material/card';
@@ -28,16 +27,16 @@ import {ImageUploaderComponent} from './components/image-uploader/image-uploader
 import {DropzoneDirective} from './directives/dropzone.directive';
 import {UploadTaskComponent} from './components/image-uploader/upload-task/upload-task.component';
 import {ParserDirective} from './directives/parser.directive';
-import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import {PrivacyPolicyComponent} from './components/privacy-policy/privacy-policy.component';
 import {MarkdownModule} from 'ngx-markdown';
-import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
+import {TermsAndConditionsComponent} from './components/terms-and-conditions/terms-and-conditions.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { TopUpPleaseComponent } from './components/dialogs/top-up-please/top-up-please.component';
+import {TopUpPleaseComponent} from './components/dialogs/top-up-please/top-up-please.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
-import { CertificateComponent } from './components/certificate/certificate.component';
-import { HopeComponent } from './components/certificate/hope/hope.component';
-import { JoyComponent } from './components/certificate/joy/joy.component';
+import {ShareButtonsComponent} from './components/share-buttons/share-buttons.component';
+import {CertificateComponent} from './components/certificate/certificate.component';
+import {HopeComponent} from './components/certificate/hope/hope.component';
+import {JoyComponent} from './components/certificate/joy/joy.component';
 
 @NgModule({
   declarations: [
@@ -66,40 +65,38 @@ import { JoyComponent } from './components/certificate/joy/joy.component';
     HopeComponent,
     JoyComponent,
   ],
-    exports: [
-        HeaderComponent,
-        FooterComponent,
-        StorageUrlPipe,
-        BlackRendererDirective,
-        BlankRendererDirective,
-        TypeInRendererDirective,
-        CardRendererDirective,
-        MatchRendererDirective,
-        ImageUploaderComponent,
-        ParserDirective,
-        ShareButtonsComponent,
-        CertificateComponent,
-    ],
-    imports: [
-        CommonModule,
-        FlexLayoutModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatSidenavModule,
-        FlexLayoutModule,
-        MatButtonModule,
-        MatCardModule,
-        MatListModule,
-        MatIconModule,
-        MatDialogModule,
-        RouterModule,
-        MatTooltipModule,
-        MarkdownModule,
-        MatProgressSpinnerModule,
-        MatExpansionModule,
-    ]
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    StorageUrlPipe,
+    BlackRendererDirective,
+    BlankRendererDirective,
+    TypeInRendererDirective,
+    CardRendererDirective,
+    MatchRendererDirective,
+    ImageUploaderComponent,
+    ParserDirective,
+    ShareButtonsComponent,
+    CertificateComponent,
+  ],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatDialogModule,
+    RouterModule,
+    MatTooltipModule,
+    MarkdownModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+  ]
 })
 export class SharedModule {
 }

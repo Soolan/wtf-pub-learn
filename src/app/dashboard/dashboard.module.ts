@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { LandingComponent } from './landing/landing.component';
 import { ProfileComponent } from './profile/profile.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -27,7 +26,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     imports: [
         CommonModule,
         DashboardRoutingModule,
-        FlexLayoutModule,
         MatButtonModule,
         MatDividerModule,
         MatProgressSpinnerModule,
