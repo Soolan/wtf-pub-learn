@@ -4,8 +4,8 @@ import {CrudService} from '../shared/services/crud.service';
 import {CERTIFICATES} from '../shared/data/collections';
 import {Certificate} from '../shared/models/certificate';
 import {MatSort} from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatLegacyPaginator as MatPaginator} from '@angular/material/legacy-paginator';
+import {MatLegacyTableDataSource as MatTableDataSource} from '@angular/material/legacy-table';
 import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({

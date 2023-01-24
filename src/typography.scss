@@ -5,7 +5,7 @@ $font-ui: "'Titillium Web', sans-serif";
 $font-slide: "'Delius', cursive";
 $font-caption: "'Ubuntu Mono', monospace";
 
-$typography: mat.define-typography-config(
+$typography: mat.define-legacy-typography-config(
   $display-4:    mat.define-typography-level(132px, $font-family: $font-ui),
   $display-3:    mat.define-typography-level(96px, $font-family: $font-ui),
   $display-2:    mat.define-typography-level(72px, $font-family: $font-ui),
@@ -21,4 +21,13 @@ $typography: mat.define-typography-config(
   // Line-height must be unit-less fraction of the font-size.
   $input:        mat.define-typography-level(inherit, 1.125, $font-family: $font-ui)
 );
-@include mat.core($typography);
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy($typography);`
+@include mat.all-legacy-component-typographies($typography);
+@include mat.legacy-core();

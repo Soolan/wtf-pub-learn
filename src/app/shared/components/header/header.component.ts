@@ -5,7 +5,7 @@ import {ThemePalette} from '@angular/material/core';
 import {AuthenticationComponent} from '../dialogs/authentication/authentication.component';
 import {WalletComponent} from '../dialogs/wallet/wallet.component';
 import {NotificationsComponent} from '../dialogs/notifications/notifications.component';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Router} from '@angular/router';
 import {getMessaging, getToken, onMessage} from '@angular/fire/messaging';

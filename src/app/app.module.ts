@@ -16,11 +16,11 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { LandingComponent } from './landing/landing.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
+import {MatLegacyProgressSpinnerModule as MatProgressSpinnerModule} from '@angular/material/legacy-progress-spinner';
 import { ReleasesComponent } from './releases/releases.component';
 import { ReleaseNotesComponent } from './releases/release-notes/release-notes.component';
-import {MatChipsModule} from '@angular/material/chips';
+import {MatLegacyChipsModule as MatChipsModule} from '@angular/material/legacy-chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -33,15 +33,15 @@ import {USE_EMULATOR as USE_STORAGE_EMULATOR} from '@angular/fire/compat/storage
 import {USE_EMULATOR as USE_DATABASE_EMULATOR} from '@angular/fire/compat/database';
 import {USE_EMULATOR as USE_FUNCTIONS_EMULATOR} from '@angular/fire/compat/functions';
 import {MarkdownModule, MarkedOptions, MarkedRenderer} from 'ngx-markdown';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatLegacySnackBarModule as MatSnackBarModule} from '@angular/material/legacy-snack-bar';
 import {MatRippleModule} from '@angular/material/core';
 import { VerifyComponent } from './verify/verify.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
+import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
+import {MatLegacyFormFieldModule as MatFormFieldModule} from '@angular/material/legacy-form-field';
+import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
+import {MatLegacyTableModule as MatTableModule} from '@angular/material/legacy-table';
 import {MatSortModule} from '@angular/material/sort';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatLegacyPaginatorModule as MatPaginatorModule} from '@angular/material/legacy-paginator';
 
 // make links open in a new tab
 // function that returns `MarkedOptions` with renderer override

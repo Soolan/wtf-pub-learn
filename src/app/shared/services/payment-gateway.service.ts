@@ -5,9 +5,9 @@ import {TxType} from '../data/enums';
 import {P_COURSES, P_LESSONS, PROFILES, TRANSACTIONS} from '../data/collections';
 import {Balance} from '../models/balance';
 import {Profile} from '../models/profile';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {CrudService} from './crud.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
 
 @Injectable({
   providedIn: 'root'

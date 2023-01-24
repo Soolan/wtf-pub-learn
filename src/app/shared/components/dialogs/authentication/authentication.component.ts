@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef} from '@angular/material/legacy-dialog';
 import {CrudService} from '../../../services/crud.service';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {PROFILES} from '../../../data/collections';

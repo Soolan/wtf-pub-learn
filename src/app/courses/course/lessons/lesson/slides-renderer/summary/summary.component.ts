@@ -11,7 +11,7 @@ import {CERTIFICATES, PROFILES} from '../../../../../../shared/data/collections'
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {CertLayout} from '../../../../../../shared/data/enums';
 import {Certificate, Creator, Present} from '../../../../../../shared/models/certificate';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-summary',
