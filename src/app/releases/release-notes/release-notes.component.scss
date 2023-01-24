@@ -1,4 +1,7 @@
+@use "src/flex" as flex;
 .notes {
+  @include flex.width(100%);
+
   margin-top: var(--space-md);
   ul {
     list-style-image: initial;
