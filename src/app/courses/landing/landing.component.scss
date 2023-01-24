@@ -1,6 +1,16 @@
-.content {
+@use "src/flex" as flex;
+
+.landing {
+  @include flex.container(70%, space-evenly, flex-start);
+  @include flex.breakpoint(lg, 80%);
+  @include flex.breakpoint(md, 90%);
+  @include flex.breakpoint(sm, 95%);
+  @include flex.breakpoint(lt-sm, 95%);
   margin: var(--space-xl) auto;
   .mat-card {
+    @include flex.width(26%);
+    @include flex.breakpoint(sm, 47%);
+    @include flex.breakpoint(lt-sm, 95%);
     margin-bottom: var(--space-xxl);
     @media screen and (max-width: 600px) {
       margin-bottom: var(--space-lg);

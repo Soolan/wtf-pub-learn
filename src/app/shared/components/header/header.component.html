@@ -1,5 +1,5 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center" class="full-width">
-  <div fxFlex></div>
+<div class="header">
+  <div style="flex-grow: 1"></div>
   <button mat-button routerLink="/" class="nav">Home</button>
   <button mat-button routerLink="/courses" class="nav">Courses</button>
   <div *ngIf="auth.user | async as user; else showLogin">
@@ -46,12 +46,12 @@
           </mat-icon>
         </button>
         <mat-menu #apps="matMenu">
-          <div class="products" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-evenly start">
-            <div *ngFor="let product of products" class="product" fxFlex="27" fxLayout="row wrap" fxLayoutAlign="space-between center">
-              <mat-icon fxFlex="100">{{product.icon}}</mat-icon>
-              <span fxFlex="100">{{product.label | uppercase}}</span>
+          <div class="products">
+            <div *ngFor="let product of products" class="product">
+              <mat-icon>{{product.icon}}</mat-icon>
+              <span>{{product.label | uppercase}}</span>
             </div>
-            <div fxFlex="30"></div> <!-- hacky way to fill the gap -->
+            <div style="flex-grow: 1"></div>
       </div>
     </mat-menu>
   </div>

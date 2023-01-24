@@ -1,6 +1,5 @@
-<div fxFlex.gt-lg="70" fxFlex.lg="80" fxFlex.md="90" fxFlex.sm="95" fxFlex.lt-sm="100"
-     fxLayout="row wrap" fxLayoutAlign="space-around start" class="content">
-  <mat-card fxFlex="30" fxFlex.sm="47" fxFlex.lt-sm="95" *ngFor="let course of courses">
+<div class="landing">
+  <mat-card *ngFor="let course of courses">
     <div mat-card-image *ngIf="course.banner;"
          [ngStyle]="{'background-image': 'url(' + (course.banner | storageUrl | async) + ')'}"></div>
     <mat-card-header>

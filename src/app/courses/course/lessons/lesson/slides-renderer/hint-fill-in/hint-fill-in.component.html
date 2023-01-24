@@ -1,24 +1,23 @@
-<div fxLayout="row wrap" fxFlex="100">
+<div class="slide">
   <ng-container [ngSwitch]="slide.content.position">
-    <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <div fxFlex="100" class="image landscape"
+    <div *ngSwitchCase="position.Top" class="hint-fill-in">
+      <div class="image landscape"
            [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
            [style.margin-bottom]="'var(--space-md)'"></div>
-      <app-blank-renderer fxFlex="100" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
+      <app-blank-renderer [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
     </div>
-    <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <app-blank-renderer fxFlex="100" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
-      <div fxFlex="100" class="image landscape" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
+    <div *ngSwitchCase="position.Bottom" class="hint-fill-in">
+      <app-blank-renderer [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
+      <div class="image landscape" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"
            [style.margin-top]="'var(--space-md)'"></div>
     </div>
-    <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <app-blank-renderer fxFlex="65" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
-
-      <div fxFlex="30" class="image portrait" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"></div>
+    <div *ngSwitchCase="position.Right" class="hint-fill-in">
+      <app-blank-renderer class="blank-portrait" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
+      <div class="image portrait" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"></div>
     </div>
-    <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <div fxFlex="30" class="image portrait" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"></div>
-      <app-blank-renderer fxFlex="65" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
+    <div *ngSwitchCase="position.Left" class="hint-fill-in">
+      <div class="image portrait" [style.background-image]="'url('+(slide.content.image|storageUrl|async)+')'"></div>
+      <app-blank-renderer class="blank-portrait" [scenario]="slide.content.scenario" [answer]="slide.content.answer"></app-blank-renderer>
     </div>
   </ng-container>
 </div>

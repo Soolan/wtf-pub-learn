@@ -1,27 +1,20 @@
-<div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between center" class="content">
-  <app-renderer-header fxFlex class="fullwidth" *ngIf="slides"
-                       [count]="slides.length"
-                       [course]="course"
-                       [lesson]="lesson"
-  ></app-renderer-header>
-  <div [fxFlex]="isLandscape.matches ? 75 : 80" class="fullwidth">
-    <div fxFlex="100" fxLayoutAlign="space-around center" class="loading" *ngIf="loading">
-      <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
-    </div>
-    <app-not-found fxFlex="100" *ngIf="!loading && slides.length == 0; else render" [lessonsId]="lessonId"></app-not-found>
+<div class="lesson">
+  <app-renderer-header class="fullwidth" *ngIf="slides" [count]="slides.length" [course]="course" [lesson]="lesson">
+  </app-renderer-header>
+  <div class="fullwidth">
+    <mat-progress-spinner mode="indeterminate" color="primary" *ngIf="loading"></mat-progress-spinner>
+    <app-not-found *ngIf="!loading && slides.length == 0; else render" [lessonsId]="lessonId"></app-not-found>
     <ng-template #render>
-      <app-slides-renderer fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" *ngIf="!loading"
-                           [slides]="slides" [passingGrade]="passingGrade"></app-slides-renderer>
+      <app-slides-renderer *ngIf="!loading" [slides]="slides" [passingGrade]="passingGrade" class="slides">
+      </app-slides-renderer>
     </ng-template>
   </div>
   <div *ngIf="passingGrade; else lessonFooter">
-    <app-exam-footer fxFlex class="fullwidth" *ngIf="slides"
-                         [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
-    ></app-exam-footer>
+    <app-exam-footer class="fullwidth" *ngIf="slides" [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length">
+    </app-exam-footer>
   </div>
   <ng-template #lessonFooter>
-  <app-renderer-footer fxFlex class="fullwidth" *ngIf="slides"
-                       [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length"
-  ></app-renderer-footer>
+    <app-renderer-footer class="fullwidth" *ngIf="slides" [courseId]="courseId" [lessonId]="lessonId" [totalSlides]="slides.length">
+    </app-renderer-footer>
   </ng-template>
 </div>

@@ -1,6 +1,14 @@
-.nav {
-  font-size: 0.8em;
+@use "src/flex" as flex;
+
+.header {
+  @include flex.container(100%, flex-end, center);
+  //fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center"
+  .nav {
+    font-size: 0.8em;
+  }
+
 }
+
 .inverse {
   background-color: var(--color-primary-dark);
   transition: background-color 200ms linear;
@@ -26,15 +34,22 @@
   }
 }
 .products{
+  @include flex.container(100%, space-evenly, flex-start);
   text-align: center;
   font-size: small;
+  overflow: hidden; /* Hide scrollbars */
   .product {
+    @include flex.container(27%, space-between, center);
     height: var(--space-xxl);
     border-radius: var(--space-xxs);
     margin: var(--space-sm) 0;
     padding: var(--space-xs);
-    .mat-icon {scale: 1.5;}
+    .mat-icon {
+      @include flex.width(100%);
+      scale: 1.5;
+    }
     span {
+      @include flex.width(100%);
       position: relative;
       top: var(--space-xs);
     }

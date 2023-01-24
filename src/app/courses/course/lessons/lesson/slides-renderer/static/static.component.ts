@@ -4,7 +4,7 @@ import {AngularFireAuth} from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-static',
   templateUrl: './static.component.html',
-  styleUrls: ['./static.component.scss']
+  styleUrls: ['./static.component.scss', '../slide.scss']
 })
 export class StaticComponent implements AfterViewInit {
   @Input() slide: any;

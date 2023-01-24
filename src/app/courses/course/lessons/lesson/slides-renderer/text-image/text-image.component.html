@@ -1,38 +1,38 @@
 <ng-container [ngSwitch]="content.position" *ngIf="content.image; else text_only">
-  <div *ngSwitchCase="position.Top" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" #my_fucking_mark>
-    <div fxFlex="100" class="image"
+  <div *ngSwitchCase="position.Top" class="text-image" #my_fucking_mark>
+    <div class="image"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.margin-bottom]="'var(--space-md)'"></div>
-      <markdown emoji ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text"></markdown>
+      <markdown emoji ngPreserveWhitespaces class="mat-body-2" [data]="text"></markdown>
   </div>
-  <div *ngSwitchCase="position.Bottom" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <markdown emoji ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text" ></markdown>
-    <div fxFlex="100" class="image"
+  <div *ngSwitchCase="position.Bottom" class="text-image">
+    <markdown emoji ngPreserveWhitespaces class="mat-body-2 full" [data]="text" ></markdown>
+    <div class="image full"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.margin-top]="'var(--space-md)'"></div>
   </div>
-  <div *ngSwitchCase="position.Right" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <markdown emoji ngPreserveWhitespaces  fxFlex="69" fxFlex.lt-md="64" class="mat-body-2" [data]="text"></markdown>
-    <div fxFlex="30" fxFlex.lt-md="35" class="image"
+  <div *ngSwitchCase="position.Right" class="text-image">
+    <markdown emoji ngPreserveWhitespaces class="mat-body-2 big" [data]="text"></markdown>
+    <div class="image small"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.min-height]="'13em'"></div>
   </div>
-  <div *ngSwitchCase="position.Left" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-    <div fxFlex="30" fxFlex.lt-md="35" class="image"
+  <div *ngSwitchCase="position.Left"  class="text-image" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div class="image small"
          [style.background-image]="image"
          [style.background-size]="image ? 'contain' : '34.87px 24.42px'"
          [style.background-repeat]="image ? 'no-repeat' : ''"
          [style.min-height]="'13em'"></div>
-    <markdown emoji ngPreserveWhitespaces fxFlex="69" fxFlex.lt-md="64" class="mat-body-2" [data]="text"></markdown>
+    <markdown emoji ngPreserveWhitespaces class="mat-body-2 big" [data]="text"></markdown>
   </div>
 </ng-container>
 <ng-template #text_only>
-  <markdown emoji ngPreserveWhitespaces  fxFlex="100" class="mat-body-2" [data]="text"></markdown>
+  <markdown emoji ngPreserveWhitespaces class="mat-body-2 full" [data]="text"></markdown>
 </ng-template>
 

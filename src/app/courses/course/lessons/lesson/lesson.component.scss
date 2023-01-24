@@ -1,13 +1,15 @@
-.content {
+@use "src/flex" as flex;
+
+.lesson {
+  @include flex.container(100%, space-between, center, column);
   min-height: 99vh;
-  .loading {
-    min-height: var(--space-xl);
-    margin: var(--space-xxl) auto;
-    .mat-progress-spinner {
-      margin: 0 auto;
-    }
+  .mat-progress-spinner {
+    margin: var(--space-xxxl) auto;
   }
 
+  .slides {
+    @include flex.container(100%, space-around, center);
+  }
   .fullwidth {
     width: 100vw;
   }

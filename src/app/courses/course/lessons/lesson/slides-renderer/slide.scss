@@ -1,3 +1,4 @@
+@use "src/flex" as flex;
 @mixin option-button {
   background-color: var(--color-greye);
   cursor: pointer;
@@ -10,125 +11,164 @@
   transition: box-shadow .2s ease-out;
 }
 
-.scenario {
-  white-space: pre-line;
-  line-height: 1.5em;
-}
 
-.options {
-  margin-top: 2rem;
-  text-align: center;
-  z-index: 20;
+.slide {
+  @include flex.container(100%, space-around, center);
 
-  .double-columns {
-    margin: 0 1rem 2rem 1rem;
-    width: 38%;
-    @media screen and (max-width: 600px) {
-      width: 75%;
+  .scenario {
+    white-space: pre-line;
+    line-height: 1.5em;
+  }
+
+  .options {
+    margin-top: 2rem;
+    text-align: center;
+    z-index: 20;
+
+    .double-columns {
+      margin: 0 1rem 2rem 1rem;
+      width: 38%;
+      @media screen and (max-width: 600px) {
+        width: 75%;
+      }
+      display: inline-block;
+      @include option-button;
     }
-    display: inline-block;
-    @include option-button;
+
+    .single-column {
+      margin: 1rem auto;
+      width: 95%;
+      @include option-button;
+    }
+
+    .single-column:hover, .double-columns:hover {
+      box-shadow: 0 0 6px 2px var(--color-grey7);
+    }
   }
 
-  .single-column {
-    margin: 1rem auto;
-    width: 95%;
-    @include option-button;
+  .response {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    font-size: smaller;
   }
 
-  .single-column:hover, .double-columns:hover {
-    box-shadow: 0 0 6px 2px var(--color-grey7);
+  .incorrect {
+    background-color: var(--color-grey9) !important;
+    color: var(--color-greye) !important;
+    font-weight: bolder;
+  }
+
+  .correct {
+    background-color: var(--color-primary-light) !important;
+    color: var(--color-greye) !important;
+    font-weight: bolder;
+  }
+
+  .disable {
+    cursor: default !important;
+    box-shadow: 0 0 0 0 !important;
+  }
+
+  .examSelected {
+    background-color: var(--color-accent) !important;
+    color: var(--color-greye) !important;
+    font-weight: bolder;
+  }
+
+  .shake {
+    -webkit-animation: shake 0.45s;
+    animation: shake 0.2s;
+  }
+
+  @-webkit-keyframes shake {
+    0% {
+      -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+    }
+    10% {
+      -webkit-transform: translateX(2%);
+      transform: translateX(2%);
+    }
+    25% {
+      -webkit-transform: translateX(-1%);
+      transform: translateX(-1%);
+    }
+    45% {
+      -webkit-transform: translateX(1%);
+      transform: translateX(1%);
+    }
+    50% {
+      -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes shake {
+    0% {
+      -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+    }
+    10% {
+      -webkit-transform: translateX(2%);
+      transform: translateX(2%);
+    }
+    25% {
+      -webkit-transform: translateX(-1%);
+      transform: translateX(-1%);
+    }
+    45% {
+      -webkit-transform: translateX(1%);
+      transform: translateX(1%);
+    }
+    50% {
+      -webkit-transform: translateX(0%);
+      transform: translateX(0%);
+    }
+  }
+
+  .puff-out-hor {
+    -webkit-animation: puff-out-hor 0.9s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+    animation: puff-out-hor 0.9s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
+  }
+
+  @-webkit-keyframes puff-out-hor {
+    0% {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+      -webkit-filter: blur(0px);
+      filter: blur(0px);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scaleX(2);
+      transform: scaleX(2);
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes puff-out-hor {
+    0% {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+      -webkit-filter: blur(0px);
+      filter: blur(0px);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scaleX(2);
+      transform: scaleX(2);
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+      opacity: 0;
+    }
   }
 }
 
-.response {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 1rem;
-  font-size: smaller;
-}
-
-.incorrect {
-  background-color: var(--color-grey9) !important;
-  color: var(--color-greye) !important;
-  font-weight: bolder;
-}
-
-.correct {
-  background-color: var(--color-primary-light) !important;
-  color: var(--color-greye) !important;
-  font-weight: bolder;
-}
-
-.disable {
-  cursor: default !important;
-  box-shadow: 0 0 0 0 !important;
-}
-
-.examSelected {
-  background-color: var(--color-accent) !important;
-  color: var(--color-greye) !important;
-  font-weight: bolder;
-}
-
-.shake {
-  -webkit-animation: shake 0.45s;
-  animation: shake 0.2s;
-}
-
-@-webkit-keyframes shake {
-  0%  { -webkit-transform: translateX(0%); transform: translateX(0%); }
-  10% { -webkit-transform: translateX(2%); transform: translateX(2%); }
-  25% { -webkit-transform: translateX(-1%);transform: translateX(-1%);}
-  45% { -webkit-transform: translateX(1%); transform: translateX(1%); }
-  50% { -webkit-transform: translateX(0%); transform: translateX(0%); }
-}
-
-@keyframes shake {
-  0%  { -webkit-transform: translateX(0%); transform: translateX(0%); }
-  10% { -webkit-transform: translateX(2%); transform: translateX(2%); }
-  25% { -webkit-transform: translateX(-1%);transform: translateX(-1%);}
-  45% { -webkit-transform: translateX(1%); transform: translateX(1%); }
-  50% { -webkit-transform: translateX(0%); transform: translateX(0%); }
-}
-
-.puff-out-hor {
-  -webkit-animation: puff-out-hor 0.9s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
-  animation: puff-out-hor 0.9s cubic-bezier(0.165, 0.840, 0.440, 1.000) both;
-}
-
-@-webkit-keyframes puff-out-hor {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scaleX(2);
-    transform: scaleX(2);
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
-    opacity: 0;
-  }
-}
-
-@keyframes puff-out-hor {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scaleX(2);
-    transform: scaleX(2);
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
-    opacity: 0;
-  }
+.slide > div {
+  @include flex.width(100%);
 }

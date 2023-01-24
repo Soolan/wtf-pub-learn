@@ -1,4 +1,7 @@
+@use "src/flex" as flex;
+
 .access-denied {
+  @include flex.container(100%, space-around, center);
   text-align: center;
   min-height: 50vh;
   .headline {
@@ -16,6 +19,10 @@
     margin-top: var(--space-xs);
     margin-bottom: var(--space-xxl);
   }
+}
+
+.access-denied > div {
+  @include flex.width(100%);
 }
 
 .mat-spinner {

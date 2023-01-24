@@ -1,10 +1,8 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center" class="access-denied" *ngIf="denial; else loading">
-  <div *ngIf="!sent" class="mat-headline headline" fxFlex="100"
-       appBlackRenderer content="Access Denied" keyword="Access"></div>
-  <div *ngIf="sent" class="mat-headline headline" fxFlex="100"
-       appBlackRenderer content="Activation Email Sent" keyword="Activation"></div>
-  <div class="mat-caption reason" fxFlex="100">{{denial.reason}}</div>
-  <div class="mat-subheading-1" fxFlex="100">{{denial.remedy}}</div>
+<div class="access-denied" *ngIf="denial; else loading">
+  <div *ngIf="!sent" class="mat-headline headline" appBlackRenderer content="Access Denied" keyword="Access"></div>
+  <div *ngIf="sent" class="mat-headline headline" appBlackRenderer content="Activation Email Sent" keyword="Activation"></div>
+  <div class="mat-caption reason">{{denial.reason}}</div>
+  <div class="mat-subheading-1">{{denial.remedy}}</div>
   <button mat-flat-button color="primary" (click)="action()">{{denial.action}}</button>
 </div>
 

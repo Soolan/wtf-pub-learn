@@ -1,11 +1,9 @@
-<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="header">
-  <div fxFlex.lt-sm="30" fxFlex.sm="16" fxFlex="40" fxFlexOffset="1">
-    <div class="exit" (click)="exit()">
-      <mat-icon color="warn">chevron_left</mat-icon>
-      <span>EXIT</span>
-    </div>
+<div class="header">
+  <div class="exit" (click)="exit()">
+    <mat-icon color="warn">chevron_left</mat-icon>
+    <span>EXIT</span>
   </div>
-  <div fxFlex.lt-sm="70" fxFlex.sm="43" fxFlex="20" class="markers">
+  <div class="markers">
     <div class="marker" *ngFor="let block of firstRow; let i = index;"
          (click)="jumpTo(i)"
          [style.background-color]="getColor(i)"
@@ -22,7 +20,7 @@
     </div>
     <span>{{(slideService.ui | async)?.action}}</span>
   </div>
-  <div fxHide.lt-sm fxFlex="41"  class="info">
+  <div class="info">
     <div class="course">{{course}}</div>
     <div class="lesson">{{lesson}}</div>
   </div>

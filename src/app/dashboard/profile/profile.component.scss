@@ -1,3 +1,5 @@
+@use "src/flex" as flex;
+
 @mixin iconText() {
   color: var(--color-grey7);
   text-align: center;
@@ -14,113 +16,215 @@
   height: var(--space-xxl);
 }
 
-
 .profile {
+  @include flex.container(80%, space-around, flex-start);
+  @include flex.breakpoint(gt-lg, 65%);
+  @include flex.breakpoint(lt-md, 100%);
+  margin: var(--space-xl) auto;
+
+  .left-pane {
+    @include flex.container(35%, space-between, flex-start);
+    @include flex.breakpoint(lt-lg, 70%);
+    @media screen and (max-width: 600px) {
+      @include flex.container(100%, space-around, flex-start);
+    }
+
+    .avatar {
+      @include flex.width(100%);
+      margin-bottom: var(--space-md);
+    }
+
+    .full {
+      @include flex.width(100%);
+      @include flex.breakpoint(lt-sm, 95%);
+    }
+
+    .half {
+      @include flex.width(45%);
+    }
+
+    .last_update {
+      @include flex.width(95%);
+      margin-top: var(--space-xs);
+      color: var(--color-grey7);
+
+      p {
+        text-align: center;
+        margin-top: var(--space-sm);
+      }
+    }
+  }
+
   .mat-divider {
     margin: var(--space-xs) 0;
-  }
-  margin: var(--space-xl) 0;
-
-  .avatar {
-    margin-bottom: var(--space-md);
   }
 
   .mat-form-field {
     margin: 0;
   }
 
-  .last_update {
-    margin-top: var(--space-xs);
-    color: var(--color-grey7);
+  .hidden {
+    display: none;
+    @media screen and (max-width: 600px) {
+      display: block;
+    }
+  }
 
-    p {
+  .right-pane {
+    @include flex.container(60%, space-between, flex-start);
+    @include flex.breakpoint(md, 70%);
+    @include flex.breakpoint(lt-md, 100%);
+
+    .loyalty {
+      @include flex.width(49%);
+      @include flex.breakpoint(lt-md, 100%);
+      margin: var(--space-lg) 0;
       text-align: center;
-      margin-top: var(--space-sm);
-    }
-  }
 
-  .wallet {
-    font-size: 0.85em;
+      .gold {
+        @include background('~src/assets/images/logo-gold.png')
+      }
 
-    span {
-      margin: var(--space-sm) 0;
-      background-color: var(--color-greye);
-      border-radius: 5px;
-      @include iconText();
-    }
+      .silver {
+        @include background('~src/assets/images/logo-silver.png')
+      }
 
-    .balance {
-      color: var(--color-grey7);
-      text-align: left;
-      line-height: normal;
-      margin-top: var(--space-xs);
-      .amount {
-        font-size: 17px;
-        padding: var(--space-xxxs);
-        background-color: var(--color-primary-lighter);
+      .bronze {
+        @include background('~src/assets/images/logo-bronz.png')
       }
     }
-  }
 
-  .transactions {
-    text-align: center;
-    margin: var(--space-sm) 0;
-
-    .head {
-      color: var(--color-greye);
-      background-color: var(--color-grey4);
-      margin-top: var(--space-xxs);
-      padding: var(--space-xs) 0;
+    .achievements {
+      @include flex.width(49%);
+      @include flex.breakpoint(lt-md, 100%);
+      text-align: center;
     }
-    .row {
-      font-size: smaller;
-      padding: var(--space-xs) 0;
+
+    .wallet {
+      @include flex.container(100%, space-around, center);
+      font-size: 0.85em;
+
+      span {
+        margin: var(--space-sm) 0;
+        background-color: var(--color-greye);
+        border-radius: 5px;
+        @include iconText();
+      }
+
+      .qr-code {
+        @include flex.width(7%);
+        @include flex.breakpoint(lt-md, 100%);
+      }
+
+      .address {
+        @include flex.width(68%);
+        @include flex.breakpoint(lt-md, 100%);
+      }
+
       .tag {
+        @include flex.width(21%);
+        @include flex.breakpoint(lt-md, 100%);
+      }
+
+      .balance {
+        @include flex.width(55%);
+        @include flex.breakpoint(lt-sm, 90%);
+        color: var(--color-grey7);
+        text-align: left;
         line-height: normal;
-        color: var(--color-greye);
-        background-color: var(--color-grey6);
-        font-size: smaller;
-        font-weight: 700;
-        padding: var(--space-xxxs);
-        border-radius: var(--space-xs);
+        margin-top: var(--space-xs);
+
+        .amount {
+          font-size: 17px;
+          padding: var(--space-xxxs);
+          background-color: var(--color-primary-lighter);
+        }
       }
     }
-    .row:nth-child(even) {
-      background-color: var(--color-greye);
-      color: var(--color-grey4);
-    }
-    .row:nth-child(odd) {
-      background-color: var(--color-greyd);
-      color: var(--color-grey1)
-    }
 
-    .accordion {
-      margin-top: var(--space-md);
-      .details {
-        text-align: left;
-        margin-left: var(--space-sm);
-        strong {
-          display: inline-block;
-          min-width: 4em;
-          text-align: right;
-          margin-right: var(--space-xs);
+    .transactions {
+      @include flex.container(100%, space-between, center);
+      text-align: center;
+      margin: var(--space-sm) 0;
+
+      .title {
+        @include flex.width(100%);
+      }
+
+      .head {
+        @include flex.container(100%, space-between, center);
+        @media screen and (max-width: 600px) {
+          display: none;
+        }
+        color: var(--color-greye);
+        background-color: var(--color-grey4);
+        margin-top: var(--space-xxs);
+        padding: var(--space-xs) 0;
+      }
+
+      .row {
+        @include flex.container(100%, space-between, start);
+        @media screen and (max-width: 600px) {
+          display: none;
+        }
+        font-size: smaller;
+        padding: var(--space-xs) 0;
+
+        .tag {
+          line-height: normal;
+          color: var(--color-greye);
+          background-color: var(--color-grey6);
+          font-size: smaller;
+          font-weight: 700;
+          padding: var(--space-xxxs);
+          border-radius: var(--space-xs);
+        }
+      }
+
+      .row:nth-child(even) {
+        background-color: var(--color-greye);
+        color: var(--color-grey4);
+      }
+
+      .row:nth-child(odd) {
+        background-color: var(--color-greyd);
+        color: var(--color-grey1)
+      }
+
+      .accordion {
+        @include flex.width(100%);
+        display: none;
+        @media screen and (max-width: 600px) {
+          display: block;
+        }
+        margin-top: var(--space-md);
+        .details {
+          text-align: left;
+          margin-left: var(--space-sm);
+
+          strong {
+            display: inline-block;
+            min-width: 4em;
+            text-align: right;
+            margin-right: var(--space-xs);
+          }
+        }
+        .mat-expansion-panel:nth-child(even) {
+          background-color: var(--color-greye);
+          color: var(--color-grey4);
+        }
+        .mat-expansion-panel:nth-child(odd) {
+          background-color: var(--color-greyd);
+          color: var(--color-grey1)
         }
       }
     }
   }
 
-  .loyalty {
-    margin: var(--space-lg) 0;
-    text-align: center;
-
-    .gold { @include background('~src/assets/images/logo-gold.png')}
-    .silver { @include background('~src/assets/images/logo-silver.png')}
-    .bronz { @include background('~src/assets/images/logo-bronz.png')}
+  .left-pane > .mat-divider, .right-pane > .mat-divider {
+    @include flex.width(100%);
   }
 
-  .achievements {
-    text-align: center;
-  }
 
   .thin {
     font-weight: 100;
