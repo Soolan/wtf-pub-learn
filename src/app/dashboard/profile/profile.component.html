@@ -1,122 +1,112 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around start"
-       class="profile" *ngIf="profile != undefined; else loading">
-    <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" [formGroup]="form">
-      <div fxFlex="35" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-        <div fxFlex="100" class="avatar">
-          <app-image-uploader
-            (uploaderEvents)="updateImage($event)"
-            [currentImage]="profile.avatar"
-            [path]="path"
-          ></app-image-uploader>
-        </div>
-        <div fxFlex="95">
-          <mat-form-field appearance="fill">
-            <mat-label>Display Name</mat-label>
-            <input matInput placeholder="Display Name" formControlName="display_name"
-                   (keydown.enter)="update('display_name')">
-            <mat-icon class="check" matSuffix (click)="update('display_name')" *ngIf="!clicked.displayName">check
-            </mat-icon>
-            <span class="saving" matSuffix *ngIf="clicked.displayName">SAVING</span>
-          </mat-form-field>
-        </div>
-        <div fxFlex="45">
-          <mat-form-field appearance="fill">
-            <mat-label>Firstname</mat-label>
-            <input matInput placeholder="Firstname" formControlName="firstname" (keydown.enter)="update('firstname')">
-            <mat-icon class="check" matSuffix (click)="update('firstname')" *ngIf="!clicked.firstname">check</mat-icon>
-            <span class="saving" matSuffix *ngIf="clicked.firstname">SAVING</span>
-          </mat-form-field>
-        </div>
-        <div fxFlex="45">
-          <mat-form-field appearance="fill">
-            <mat-label>Lastname</mat-label>
-            <input matInput placeholder="Lastname" formControlName="lastname" (keydown.enter)="update('lastname')">
-            <mat-icon class="check" matSuffix (click)="update('lastname')" *ngIf="!clicked.lastname">check</mat-icon>
-            <span class="saving" matSuffix *ngIf="clicked.lastname">SAVING</span>
-          </mat-form-field>
-        </div>
-        <mat-divider fxFlex="100"></mat-divider>
-        <div fxFlex="95" class="last_update">
-          <div class="mat-caption">
-            <strong>last update: </strong>
-            <p>{{profile.timestamps.updated_at | date: 'full'}}</p>
-          </div>
-        </div>
-      </div>
-      <mat-divider fxHide fxShow.lt-md fxFlex="100"></mat-divider>
-      <div fxFlex="60" fxFlex.lt-lg="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
-        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center">
-          <div fxFlex="49" fxFlex.lt-md="100" class="loyalty">
-            <div class="mat-subheading-2 thin" appBlackRenderer content="Loyalty Level" keyword="Loyalty"></div>
-            <div class="silver"></div>
-            <div class="mat-headline thin">Silver</div>
-          </div>
-          <div fxFlex="49" fxFlex.lt-md="100" class="achievements mat-subheading-2 thin">Achievements</div>
-        </div>
-        <mat-divider fxFlex="100"></mat-divider>
-        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="mat-caption wallet">
-          <button fxFlex="7" fxFlex.lt-md="100" mat-stroked-button color="primary" (click)="openDialog()">
-            <mat-icon>qr_code</mat-icon>
-          </button>
-          <span fxFlex="68" fxFlex.lt-md="100">address: {{profile.wallet_address}}
-            <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
-          </span>
-          <span fxFlex="21" fxFlex.lt-md="100">tag:{{profile.tag}}
-            <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
-          </span>
-          <div class="balance mat-caption" fxFlex="55" fxFlex.lt-md="100" *ngFor="let balance of profile.balances">
-            <strong>{{currencies[balance.currency]}}: </strong>
-            <span class="amount">{{balance.amount |number: '1.0-6'}} </span>
-          </div>
-        </div>
-        <mat-divider fxFlex="100"></mat-divider>
-        <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between center" class="transactions">
-          <div fxFlex="100" class="mat-subheading-2 thin">Transactions</div>
-          <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" class="head" fxHide.lt-sm>
-            <span fxFlex="22">date</span>
-            <span fxFlex="12">type</span>
-            <span fxFlex="8">from</span>
-            <span fxFlex="8">to</span>
-            <span fxFlex="8">currency</span>
-            <span fxFlex="18">amount</span>
-            <span fxFlex="18">id</span>
-          </div>
-          <div *ngFor="let tx of transactions | async" class="row"
-               fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-between start" fxHide.lt-sm>
-            <span fxFlex="21">{{tx.timestamp | date: 'short'}}</span>
-            <span fxFlex="11" class="tag">{{txTypes[tx.type]}}</span>
-            <span fxFlex="7">{{tx.from}}</span>
-            <span fxFlex="7">{{tx.to}}</span>
-            <span fxFlex="7" class="tag">{{currencies[tx.currency.currency]}}</span>
-            <span fxFlex="17">{{tx.currency.amount|number: '1.0-6'}}</span>
-            <span fxFlex="17">{{tx.id | slice: 0: 8}}</span>
-          </div>
-
-          <mat-accordion fxFlex="100" fxHide fxShow.lt-sm class="accordion">
-            <mat-expansion-panel *ngFor="let tx of transactions | async" class="row">
-              <mat-expansion-panel-header>
-                <mat-panel-title>{{txTypes[tx.type]}}</mat-panel-title>
-                <mat-panel-description>
-                  {{tx.currency.amount|number: '1.0-6'}} {{currencies[tx.currency.currency]}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="details">
-                <p><strong>date: </strong>{{tx.timestamp | date: 'short'}}</p>
-                <p><strong>from: </strong>{{tx.from}}</p>
-                <p><strong>to: </strong>{{tx.to}}</p>
-                <p><strong>id: </strong>{{tx.id}}</p>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
-
-      </div>
+<div class="profile" *ngIf="profile != undefined; else loading" [formGroup]="form">
+  <div class="left-pane">
+    <div class="avatar">
+      <app-image-uploader
+        (uploaderEvents)="updateImage($event)"
+        [currentImage]="profile.avatar"
+        [path]="path"
+      ></app-image-uploader>
+    </div>
+    <div class="full">
+      <mat-form-field appearance="fill">
+        <mat-label>Display Name</mat-label>
+        <input matInput placeholder="Display Name" formControlName="display_name"
+               (keydown.enter)="update('display_name')">
+        <mat-icon class="check" matSuffix (click)="update('display_name')" *ngIf="!clicked.displayName">check
+        </mat-icon>
+        <span class="saving" matSuffix *ngIf="clicked.displayName">SAVING</span>
+      </mat-form-field>
+    </div>
+    <div class="half">
+      <mat-form-field appearance="fill">
+        <mat-label>Firstname</mat-label>
+        <input matInput placeholder="Firstname" formControlName="firstname" (keydown.enter)="update('firstname')">
+        <mat-icon class="check" matSuffix (click)="update('firstname')" *ngIf="!clicked.firstname">check</mat-icon>
+        <span class="saving" matSuffix *ngIf="clicked.firstname">SAVING</span>
+      </mat-form-field>
+    </div>
+    <div class="half">
+      <mat-form-field appearance="fill">
+        <mat-label>Lastname</mat-label>
+        <input matInput placeholder="Lastname" formControlName="lastname" (keydown.enter)="update('lastname')">
+        <mat-icon class="check" matSuffix (click)="update('lastname')" *ngIf="!clicked.lastname">check</mat-icon>
+        <span class="saving" matSuffix *ngIf="clicked.lastname">SAVING</span>
+      </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="last_update mat-caption">
+      <strong>last update: </strong>
+      <p>{{profile.timestamps.updated_at | date: 'full'}}</p>
     </div>
   </div>
-  <ng-template #loading>
-    <div class="loading" fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-      <mat-spinner color="primary"></mat-spinner>
+  <mat-divider class="hidden"></mat-divider>
+  <div class="right-pane">
+    <div class="loyalty">
+      <div class="mat-subheading-2 thin" appBlackRenderer content="Loyalty Level" keyword="Loyalty"></div>
+      <div class="silver"></div>
+      <div class="mat-headline thin">Silver</div>
     </div>
-  </ng-template>
+    <div class="achievements mat-subheading-2 thin">Achievements</div>
+    <mat-divider></mat-divider>
+    <div class="mat-caption wallet">
+      <button class="qr-code" mat-stroked-button color="primary" (click)="openDialog()">
+        <mat-icon>qr_code</mat-icon>
+      </button>
+      <span class="address">address: {{profile.wallet_address}}
+        <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
+          </span>
+      <span class="tag">tag:{{profile.tag}}
+        <button mat-icon-button><mat-icon>content_copy</mat-icon></button>
+          </span>
+      <div class="balance mat-caption" *ngFor="let balance of profile.balances">
+        <strong>{{currencies[balance.currency]}}: </strong>
+        <span class="amount">{{balance.amount |number: '1.0-6'}} </span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="transactions">
+      <div class="mat-subheading-2 thin title">Transactions</div>
+      <div class="head">
+        <span style="flex:1 1 22%; max-width:22%">date</span>
+        <span style="flex:1 1 12%; max-width:12%">type</span>
+        <span style="flex:1 1 8%; max-width:8%">from</span>
+        <span style="flex:1 1 8%; max-width:8%">to</span>
+        <span style="flex:1 1 8%; max-width:8%">currency</span>
+        <span style="flex:1 1 18%; max-width:18%">amount</span>
+        <span style="flex:1 1 18%; max-width:18%">id</span>
+      </div>
+      <div *ngFor="let tx of transactions | async" class="row">
+        <span style="flex:1 1 21%; max-width:21%">{{tx.timestamp | date: 'short'}}</span>
+        <span style="flex:1 1 11%; max-width:11%" class="tag">{{txTypes[tx.type]}}</span>
+        <span style="flex:1 1 7%; max-width:7%">{{tx.from}}</span>
+        <span style="flex:1 1 7%; max-width:7%">{{tx.to}}</span>
+        <span style="flex:1 1 7%; max-width:7%" class="tag">{{currencies[tx.currency.currency]}}</span>
+        <span style="flex:1 1 17%; max-width:17%">{{tx.currency.amount|number: '1.0-6'}}</span>
+        <span style="flex:1 1 17%; max-width:17%">{{tx.id | slice: 0: 8}}</span>
+      </div>
+
+      <mat-accordion class="accordion">
+        <mat-expansion-panel *ngFor="let tx of transactions | async">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{txTypes[tx.type]}}</mat-panel-title>
+            <mat-panel-description>
+              {{tx.currency.amount|number: '1.0-6'}} {{currencies[tx.currency.currency]}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="details">
+            <p><strong>date: </strong>{{tx.timestamp | date: 'short'}}</p>
+            <p><strong>from: </strong>{{tx.from}}</p>
+            <p><strong>to: </strong>{{tx.to}}</p>
+            <p><strong>id: </strong>{{tx.id}}</p>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
 </div>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+</ng-template>
+
