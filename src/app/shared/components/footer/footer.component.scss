@@ -1,77 +1,145 @@
+@use "src/flex" as flex;
+
 @mixin background($name) {
   background-image: url($name);
   background-repeat: no-repeat;
   background-size: contain;
 }
-mat-divider {
-  margin: var(--space-md) auto;
-}
-.brand {
-  .logo {
-    @include background("~src/assets/images/logo-grey.svg");
-    background-position: center;
-    min-height: 6em;
-    opacity: 0.8;
-    margin-top: 1.3em;
-  }
-}
 
-.heading {
-  margin-top: var(--space-xs);
-  color: var(--color-grey1);
-  text-align: center;
-  font-weight: 900;
-}
+.footer {
+  @include flex.container(90%, space-between, center);
+  @include flex.breakpoint(lg, 70%);
+  @include flex.breakpoint(gt-lg, 50%);
 
-.menu {
-  a {
-    font-size: 0.85em;
-    margin: var(--space-xxs) 0;
-    padding: var(--space-xxs);
-  }
-}
-.socials {
-  padding-left: 0.1em;
-  padding-right: 0.1em;
-  padding-top: 1em;
-  span {
-    width: 2.3em;
-    height: 2.3em;
-    margin: 0 0.1em;
-    opacity: 0.5;
-    cursor: pointer;
+  mat-divider {
+    margin: var(--space-md) auto;
   }
 
-  span:hover {
-    opacity: 0.75;
-  }
-  .twitter { @include background("~src/assets/images/socials/twitter.png"); }
-  .facebook { @include background("~src/assets/images/socials/facebook.png"); }
-  .youtube { @include background("~src/assets/images/socials/youtube.png"); }
-  .instagram { @include background("~src/assets/images/socials/instagram.png"); }
-  .medium { @include background("~src/assets/images/socials/medium.png"); }
-  .tiktok { @include background("~src/assets/images/socials/tiktok.png"); }
-  .whatsapp { @include background("~src/assets/images/socials/whatsapp.png"); }
-  .linkedin { @include background("~src/assets/images/socials/linkedin.png"); }
-}
+  .brand {
+    @include flex.container(15%, space-around, center);
+    @include flex.breakpoint(lt-md, 100%);
 
-.game {
-  padding-top: 1em;
-  span {
-    height: 2.55em;
-    margin-top: 0.6em;
-    background-position: center;
-    opacity: 0.7;
-    cursor: pointer;
+    .logo {
+      @include flex.width(100%);
+      @include background("~src/assets/images/logo-grey.svg");
+      background-position: center;
+      min-height: 6em;
+      opacity: 0.8;
+      margin-top: 1.3em;
+    }
   }
-  span:hover {
-    opacity: 0.9;
-  }
-  .play { @include background("~src/assets/images/game/google-play-badge.png"); }
-  .web { @include background("~src/assets/images/game/online-badge.png"); }
-}
 
-.copyright {
-  letter-spacing: 0.15em;
-  text-align: center;
+  .hide {
+    display: none;
+    @media screen and (max-width: 960px) {
+      display: flex;
+      @include flex.width(90%);
+    }
+  }
+
+  .heading {
+    margin-top: var(--space-xs);
+    color: var(--color-grey1);
+    text-align: center;
+    font-weight: 900;
+  }
+
+  .menu {
+    @include flex.container(20%, space-between, center);
+    @include flex.breakpoint(lt-md, 100%);
+    a {
+      @include flex.breakpoint(lt-md, 25%);
+      @include flex.width(40%);
+
+      font-size: 0.85em;
+      margin: var(--space-xxs) 0;
+      padding: var(--space-xxs);
+    }
+  }
+
+  .socials {
+    @include flex.container(20%, space-between, center);
+    @include flex.breakpoint(lt-md, 100%);
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    padding-top: 1em;
+
+    span {
+      width: 2.3em;
+      height: 2.3em;
+      margin: 0 0.1em;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+
+    span:hover {
+      opacity: 0.75;
+    }
+
+    .twitter {
+      @include background("~src/assets/images/socials/twitter.png");
+    }
+
+    .facebook {
+      @include background("~src/assets/images/socials/facebook.png");
+    }
+
+    .youtube {
+      @include background("~src/assets/images/socials/youtube.png");
+    }
+
+    .instagram {
+      @include background("~src/assets/images/socials/instagram.png");
+    }
+
+    .medium {
+      @include background("~src/assets/images/socials/medium.png");
+    }
+
+    .tiktok {
+      @include background("~src/assets/images/socials/tiktok.png");
+    }
+
+    .whatsapp {
+      @include background("~src/assets/images/socials/whatsapp.png");
+    }
+
+    .linkedin {
+      @include background("~src/assets/images/socials/linkedin.png");
+    }
+  }
+
+  .game {
+    @include flex.container(20%, space-between, center);
+    @include flex.breakpoint(lt-md, 100%);
+    padding-top: 1em;
+
+    span {
+      height: 2.55em;
+      margin-top: 0.6em;
+      background-position: center;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
+    span:hover {
+      opacity: 0.9;
+    }
+
+    .play {
+      @include flex.width(80%);
+      @include background("~src/assets/images/game/google-play-badge.png");
+    }
+
+    .web {
+      @include flex.width(80%);
+      @include background("~src/assets/images/game/online-badge.png");
+    }
+  }
+
+  .copyright {
+    @include flex.width(100%);
+    letter-spacing: 0.15em;
+    text-align: center;
+  }
 }
