@@ -86,7 +86,7 @@
     }
 
 
-    .right-padding {
+    .right-pane {
       @include flex.width(60%);
       @include flex.breakpoint(lt-md, 100%);
 
