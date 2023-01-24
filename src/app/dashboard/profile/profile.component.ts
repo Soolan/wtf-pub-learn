@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../shared/services/crud.service';
 import {FormService} from './form.service';
 import {Profile} from '../../shared/models/profile';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {WalletComponent} from '../../shared/components/dialogs/wallet/wallet.component';
 import {map, Observable} from 'rxjs';
 import {CURRENCIES, TX_TYPES} from '../../shared/data/generic';

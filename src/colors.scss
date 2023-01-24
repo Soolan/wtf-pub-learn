@@ -1,3 +1,76 @@
+$wtf-primary-palette: (
+  50:  #dff2ec,
+  100: #b2decf,
+  200: #82c9b1,
+  300: #51b393,
+  400: #2fa37e,
+  500: #13926b,
+  600: #0f865f,
+  700: #097651,
+  800: #064,
+  900: #004a2a,
+  contrast: (
+    50: rgba(black, 0.8),
+    100: rgba(black, 0.88),
+    200: rgba(black, 0.9),
+    300: black,
+    400: white,
+    500: white,
+    600: white,
+    700: rgba(white, 0.9),
+    800: rgba(white, 0.88),
+    900: rgba(white, 0.8),
+  )
+);
+$wtf-accent-palette: (
+  50:  #f3e4f6,
+  100: #e1bbe9,
+  200: #cd8ddb,
+  300: #b95fcd,
+  400: #aa39c2,
+  500: #9a01b7,
+  600: #8b02b1,
+  700: #70a,
+  800: #6400a3,
+  900: #3f0098,
+  contrast: (
+    50: rgba(black, 0.8),
+    100: rgba(black, 0.88),
+    200: rgba(black, 0.9),
+    300: black,
+    400: white,
+    500: white,
+    600: white,
+    700: rgba(white, 0.9),
+    800: rgba(white, 0.88),
+    900: rgba(white, 0.8),
+  )
+);
+$wtf-warn-palette: (
+  50:  #fdf2e0,
+  100: #f9ddb1,
+  200: #f5c77e,
+  300: #f2b14c,
+  400: #f0a026,
+  500: #ed9104,
+  600: #e98502,
+  700: #e37601,
+  800: #d60,
+  900: #d34e00,
+  contrast: (
+    50: rgba(black, 0.8),
+    100: rgba(black, 0.88),
+    200: rgba(black, 0.9),
+    300: black,
+    400: black,
+    500: white,
+    600: white,
+    700: rgba(white, 0.9),
+    800: rgba(white, 0.88),
+    900: rgba(white, 0.8),
+  )
+);
+
 :root {
   /* branding colors */
   --color-primary: #064;
@@ -16,7 +89,7 @@
   --color-warn-light: #cb4;
 
   --color-aquamarine: aquamarine;
-  --color-aquamarine-background: #f7fbf7;
+  --color-aquamarine-background: #f7faf7;
   --color-aqua: aqua;
 
   --color-grey1: #111;
@@ -33,3 +106,4 @@
   --color-greyd: #ddd;
   --color-greye: #eee;
 }
+

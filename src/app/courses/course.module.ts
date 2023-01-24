@@ -6,21 +6,20 @@ import {SharedModule} from '../shared/shared.module';
 import {CourseComponent} from './course/course.component';
 import {LandingComponent} from './landing/landing.component';
 import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import {MatLegacyMenuModule as MatMenuModule} from '@angular/material/legacy-menu';
+import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatCardModule} from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
+import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
+import {MatLegacyListModule as MatListModule} from '@angular/material/legacy-list';
 import {LessonModule} from './course/lessons/lesson.module';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatLegacyProgressSpinnerModule as MatProgressSpinnerModule} from '@angular/material/legacy-progress-spinner';
+import {MatLegacyProgressBarModule as MatProgressBarModule} from '@angular/material/legacy-progress-bar';
 import {ProgressComponent} from './course/progress/progress.component';
 import {MarkdownModule} from 'ngx-markdown';
-import {MatSelectModule} from '@angular/material/select';
+import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy-select';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatRadioModule} from '@angular/material/radio';
+import {MatLegacyRadioModule as MatRadioModule} from '@angular/material/legacy-radio';
 
 
 @NgModule({
@@ -41,7 +40,6 @@ import {MatRadioModule} from '@angular/material/radio';
     MatButtonModule,
     MatDividerModule,
     MatSidenavModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     MatListModule,

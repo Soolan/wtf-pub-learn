@@ -39,6 +39,7 @@
               "src/styles.scss",
               "src/variables.scss",
               "src/typography.scss",
+              "src/wtf-theme.scss",
               "node_modules/prismjs/themes/prism-okaidia.css",
               "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
               "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css",
@@ -131,7 +132,10 @@
             "styles": [
               "./node_modules/firebaseui/dist/firebaseui.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/variables.scss",
+              "src/typography.scss",
+              "src/wtf-theme.scss"
             ],
             "scripts": []
           }
