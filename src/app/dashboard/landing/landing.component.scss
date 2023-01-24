@@ -1,9 +1,17 @@
+@use "src/flex" as flex;
+
 .dashboard {
+  @include flex.container(90%, space-around, flex-start);
+  @include flex.breakpoint(gt-lg, 65%);
+  @include flex.breakpoint(lt-md, 100%);
   margin: var(--space-xl) 0;
 
   .profile {
+    @include flex.container(22%, space-around, flex-start);
+    @include flex.breakpoint(lt-lg, 95%);
     text-align: center;
     margin-bottom: var(--space-lg);
+
     .avatar {
       background-size: cover;
       background-color: var(--color-greyd);
@@ -17,12 +25,17 @@
       margin: 0 auto;
     }
 
-    .greetings {
+    .greetings, .completion, .ip, .badges {
+      @include flex.width(100%);
+    }
+
+    .greetings, .badges {
       margin: var(--space-xs) 0;
     }
 
     .ip {
       color: var(--color-grey8);
+
       .mat-icon {
         vertical-align: middle;
         padding-left: var(--space-xxs);
@@ -30,27 +43,25 @@
     }
 
     mat-progress-bar {
+      @include flex.width(70%);
+      @include flex.breakpoint(lt-md, 90%);
       margin-top: var(--space-md);
       margin-bottom: var(--space-xs);
     }
 
     button {
+      @include flex.width(70%);
+      @include flex.breakpoint(lt-md, 90%);
       margin: var(--space-md) 0;
-    }
-
-    mat-divider {
-    }
-
-    .badges {
-      margin: var(--space-xs) 0;
-
-    }
-
-    .earnings {
     }
   }
 
   .courses {
+    @include flex.container(75%, space-around, flex-start);
+    @include flex.breakpoint(lt-lg, 95%);
+    mat-divider {
+      flex: 1 1 0;
+    }
     .active {
       font-weight: 100;
       text-align: end;
@@ -58,6 +69,7 @@
     }
 
     .current_course {
+      @include flex.width(100%);
       margin-bottom: var(--space-xl);
     }
 
@@ -66,12 +78,6 @@
       background-position: center;
       background-size: contain;
       height: 40vh;
-      //@media screen and (min-width: 600px) and (max-width: 960px) {
-      //  height: 55vh;
-      //}
-      //@media screen and (max-width: 599px) {
-      //  height: 50vh;
-      //}
     }
 
 
@@ -80,49 +86,77 @@
       color: var(--color-grey4);
       letter-spacing: var(--space-xxxs);
     }
+
     .in_progress {
-      .name {
+      @include flex.container(100%, space-around, center);
+      .course {
+        @include flex.container(100%, flex-end, center);
+        @include flex.breakpoint(lt-md, 90%);
+        padding: var(--space-sm);
+        .name {
+        }
 
+        .date {
+          margin-left: var(--space-sm);
+          color: var(--color-grey9);
+          font-size: 18px;
+        }
       }
-
-      .date {
-        margin-left: var(--space-sm);
-        color: var(--color-grey9);
+      .course:hover {
+        background-color: var(--color-greye);
+        cursor: pointer;
       }
     }
 
     .previous {
+      @include flex.container(100%, space-around, center);
       margin-top: var(--space-xxl);
+
       .course {
+        @include flex.container(100%, space-between, center);
         margin-top: var(--space-xs);
         font-weight: normal;
         letter-spacing: normal;
         padding: 0 var(--space-sm);
 
-        .date {
-          margin-top: var(--space-sm);
-          text-align: center;
-          font-size: 18px;
+        .name {
+          @include flex.width(57%);
+          @include flex.breakpoint(lt-md, 100%);
+        }
 
-          span {
-            max-width: 8em;
-            border-radius: var(--space-xs);
-            background-color: var(--color-grey4);
-            color: var(--color-greyd);
-            padding: var(--space-xxxs) var(--space-md);
+        .result {
+        @include flex.container(22%, space-around, center);
+        @include flex.breakpoint(lt-md, 50%);
+          .date {
+            @include flex.width(100%);
+            margin-top: var(--space-sm);
+            text-align: center;
+            font-size: 18px;
+
+            span {
+              max-width: 8em;
+              border-radius: var(--space-xs);
+              background-color: var(--color-grey4);
+              color: var(--color-greyd);
+              padding: var(--space-xxxs) var(--space-md);
+            }
+          }
+
+          .score {
+            @include flex.width(100%);
+            text-align: center;
+            font-size: 17px;
+            margin-top: var(--space-xxs);
+            font-weight: 700;
           }
         }
 
-        .score {
-          text-align: center;
-          font-size: 17px;
-          margin-top: var(--space-xxs);
-          font-weight: 700;
-        }
-
         .certified {
+          @include flex.width(20%);
+          @include flex.breakpoint(lt-md, 50%);
           text-align: right;
           line-height: var(--space-xl);
+
           mat-icon {
             margin-left: var(--space-xxs);
             vertical-align: sub;
@@ -133,6 +167,7 @@
           text-decoration: underline;
         }
       }
+
       .course:hover {
         background-color: var(--color-greye);
         cursor: pointer;
@@ -140,6 +175,7 @@
     }
 
     .no-course {
+      @include flex.width(100%);
       text-align: center;
       margin: var(--space-xl) var(--space-md);
     }
@@ -147,5 +183,6 @@
 }
 
 .loading {
-  min-height: 50vh;
+  @include flex.container(100%, space-around, center);
+  zmin-height: 50vh;
 }
