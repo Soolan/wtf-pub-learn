@@ -1,44 +1,84 @@
+@use "src/flex" as flex;
+
 @mixin background() {
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .landing {
+  @include flex.container(100%, space-around, flex-start);
+
   .hero {
+    @include flex.container(80%, space-between, center);
+    @include flex.breakpoint(gt-lg, 65%);
+    @include flex.breakpoint(lt-md, 100%);
     margin: 0 auto;
     text-align: end;
     @media screen and (max-width: 960px) {
       text-align: center;
       margin: var(--space-xl) 0;
     }
-
-    .heading {
-      font-weight: 100;
-      line-height: 1.1em;
-      margin: 0;
+    .left-pane {
+      @include flex.container(35%, space-around, center);
+      @include flex.breakpoint(lt-md, 100%);
+      .heading {
+        @include flex.width(95%);
+        @media (max-width: 599.98px){
+          font-size: 48px;
+        }
+        @media (min-width: 600px) and (max-width: 959.98px) {
+          font-size: 60px;
+        }
+        @media (min-width: 960px) and (max-width: 1279.98px) {
+          font-size: 72px;
+        }
+        @media (min-width: 1280px) and (max-width: 1919.98px) {
+          font-size: 96px;
+        }
+        @media (min-width: 1920px) {
+          font-size: 132px;
+        }
+        font-weight: 100;
+        line-height: 1.1em;
+        margin: 0;
+      }
+      .subheading {
+        @include flex.width(95%);
+        @media (max-width: 959.98px) {
+          font-size: 36px;
+        }
+        @media (min-width: 960px) and (max-width: 1279.98px) {
+          font-size: 48px;
+        }
+        @media (min-width: 1280px) {
+          font-size: 60px;
+        }
+        font-weight: 200;
+        line-height: 1.4em;
+        margin-bottom: var(--space-sm);
+      }
+      .caption {
+        @include flex.width(95%);
+        letter-spacing: var(--space-xxs);
+        color: var(--color-grey7);
+        margin-top: var(--space-xs);
+        margin-bottom: var(--space-xl);
+        .mat-icon {
+          vertical-align: middle;
+          margin: 0 var(--space-xxs);
+        }
+        @media screen and (min-width: 960px) and (max-width: 1279px) {
+          font-size: 16px;
+        }
+        @media screen and (min-width: 1280px) and (max-width: 1439px) {
+          font-size: 18px;
+        }
+        @media screen and (min-width: 1440px) {
+          font-size: 20px;
+        }
+      }
     }
 
-    .subheading {
-      font-weight: 200;
-      line-height: 1.4em;
-      margin-bottom: var(--space-sm);
-    }
-
-    .caption {
-      letter-spacing: var(--space-xxs);
-      color: var(--color-grey7);
-      margin-top: var(--space-xs);
-      margin-bottom: var(--space-xl);
-      @media screen and (min-width: 960px) and (max-width: 1279px) {
-        font-size: 16px;
-      }
-      @media screen and (min-width: 1280px) and (max-width: 1439px) {
-        font-size: 18px;
-      }
-      @media screen and (min-width: 1440px) {
-        font-size: 20px;
-      }
-    }
 
     .banner {
       height: 50vh;

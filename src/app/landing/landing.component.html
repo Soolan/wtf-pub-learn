@@ -1,17 +1,11 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="landing">
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between center"
-       class="hero">
-
-    <div fxFlex="35" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-      <div fxFlex="95" class="heading" ngClass.xl="mat-display-4" ngClass.lg="mat-display-3" ngClass.md="mat-display-2"
-           ngClass.sm="mat-display-1" ngClass.xs="mat-headline"
-           appBlackRenderer [content]="landing.heading.content" [keyword]="landing.heading.keyword">
+<div class="landing">
+  <div class="hero">
+    <div class="left-pane">
+      <div class="heading" appBlackRenderer [content]="landing.heading.content" [keyword]="landing.heading.keyword"></div>
+      <div class="subheading" >{{landing.subheading}}</div>
+      <div class="mat-caption caption">
+        PLAY<mat-icon>circle</mat-icon>LEARN<mat-icon>circle</mat-icon>EARN
       </div>
-      <div fxFlex="95" class="subheading" ngClass.gt-md="mat-display-1" ngClass.md="mat-headline"
-           ngClass.lt-md="mat-title">
-        {{landing.subheading}}
-      </div>
-      <div fxFlex="95" class="mat-caption caption"> PLAY ⏺ LEARN ⏺ EARN</div>
     </div>
     <div fxFlex="60" fxFlex.lt-md="100" class="banner"></div>
   </div>
