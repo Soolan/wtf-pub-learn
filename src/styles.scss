@@ -371,3 +371,36 @@ blockquote p {
     font-weight: bold;
   }
 }
+
+table {
+  margin: var(--space-md) 0;
+  width: 100%;
+  border-spacing: 0;
+  th {
+    background-color: var(--color-grey4);
+    color: var(--color-greyd);
+    font-size: 22px;
+    font-weight: 500;
+    height: var(--space-lg);
+  }
+
+  th[align=""],
+  th:not([align]) {
+    text-align: left;
+  }
+
+  td {
+    color: var(--color-grey6);
+    font-size: 20px;
+    height: var(--space-lg);
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--color-greyd);
+  }
+
+  td,
+  th {
+    padding: 0;
+  }
+}
