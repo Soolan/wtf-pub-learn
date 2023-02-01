@@ -1,16 +1,28 @@
-.container {
+@use "src/flex" as flex;
+
+.final-exam {
+  @include flex.container(100%, space-around, flex-start);
   text-align: center;
   margin-top: var(--space-xxl);
   min-height: 20em;
+
+  .instructions, ul, .proceed, .mat-divider, .best {
+    @include flex.breakpoint(gt-md, 60%);
+    @include flex.breakpoint(md, 70%);
+    @include flex.breakpoint(lt-md, 90%);
+  }
+
   ul {
-    text-align: left;
     li {
       margin-bottom: var(--space-xs);
+      text-align: left;
     }
   }
+
   .proceed {
     text-align: center;
     margin: var(--space-xl) auto;
+
     .mat-radio-button {
       margin: var(--space-md);
     }

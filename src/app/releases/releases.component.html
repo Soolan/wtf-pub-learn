@@ -1,40 +1,36 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="contents">
-  <div fxFlex.gt-lg="65" fxFlex="80" fxFlex.lt-md="100" fxLayout="row wrap" fxLayoutAlign="space-between start">
-    <div fxFlex="65" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start" class="releases">
-      <div fxFlex="90" class="mat-headline thin">Releases</div>
-      <div fxFlex="90">
-        <mat-accordion>
-          <mat-expansion-panel *ngFor="let r of releases; let i=index" [expanded]="i == 0">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{r.date.toDate() | date }}
-              </mat-panel-title>
-              <mat-panel-description>
-                <span class="release-tag">{{r.version}} <mat-icon>sell</mat-icon></span>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div fxFlex="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
-              <app-release-notes fxFlex="100" title="Features" [bullets]="r.features"></app-release-notes>
-              <app-release-notes fxFlex="100" title="Improvements" [bullets]="r.improvements"></app-release-notes>
-              <app-release-notes fxFlex="100" title="Fixes" [bullets]="r.fixes"></app-release-notes>
-              <app-release-notes fxFlex="100" title="Operations" [bullets]="r.operations"></app-release-notes>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </div>
+<div class="container">
+  <div class="releases">
+    <div class="mat-headline thin">Releases</div>
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let r of releases; let i=index" [expanded]="i == 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{r.date.toDate() | date }}
+            </mat-panel-title>
+            <mat-panel-description>
+              <span class="release-tag">{{r.version}}<mat-icon>sell</mat-icon></span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="notes">
+            <app-release-notes title="Features" [bullets]="r.features"></app-release-notes>
+            <app-release-notes title="Improvements" [bullets]="r.improvements"></app-release-notes>
+            <app-release-notes title="Fixes" [bullets]="r.fixes"></app-release-notes>
+            <app-release-notes title="Operations" [bullets]="r.operations"></app-release-notes>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
-    <div fxFlex="30" fxFlex.lt-lg="100" fxLayout="row wrap" fxLayoutAlign="space-around start">
-      <div fxFlex="100" fxFlex.lt-lg="90" class="mat-headline thin">Road Map</div>
-      <div fxFlex="100" fxFlex.lt-lg="90" *ngFor="let q of quarters" fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <div class="mat-subheading-2 date thin" fxFlex="100">
-          {{q.quarter}}
-        </div>
-
-        <mat-divider fxFlex="100"></mat-divider>
-
-        <div class="bullets" fxFlex="90" fxLayout="row wrap" fxLayoutAlign="space-around start">
-          <app-release-notes fxFlex="100" title="Items" [bullets]="q.items"></app-release-notes>
-        </div>
+  </div>
+  <div class="roadmap">
+    <div class="mat-headline thin">Road Map</div>
+    <div *ngFor="let q of quarters" class="quarters">
+      <div class="mat-subheading-2 date thin">
+        {{q.quarter}}
+      </div>
+      <mat-divider></mat-divider>
+      <div class="bullets" fxLayout="row wrap" fxLayoutAlign="space-around start">
+        <app-release-notes title="Items" [bullets]="q.items"></app-release-notes>
       </div>
     </div>
   </div>

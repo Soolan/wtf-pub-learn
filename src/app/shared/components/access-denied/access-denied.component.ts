@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationComponent} from '../dialogs/authentication/authentication.component';
 import {DIALOG_DELAY} from '../../data/navigation';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {DenialReason} from '../../data/enums';
 import {Denial} from '../../models/denial';
 import {DENIAL_REASONS} from '../../data/generic';

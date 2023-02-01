@@ -1,4 +1,7 @@
+@use "src/flex" as flex;
+
 .header {
+  @include flex.container(100%, space-between, center);
   z-index: 5;
   padding: var(--space-xxxs) 0;
   background-color: var(--color-primary-dark);
@@ -7,6 +10,10 @@
   max-height: 85px;
   margin-bottom: var(--space-sm);
   .exit {
+    @include flex.breakpoint(lt-sm, 28%);
+    @include flex.breakpoint(sm, 14%);
+    @include flex.breakpoint(gt-sm, 37%);
+    padding-left: var(--space-xxs);
     cursor: pointer;
     .mat-icon {
       vertical-align: middle;
@@ -15,10 +22,13 @@
       color: var(--color-warn-light);
       vertical-align: middle;
       font-size: larger;
-      letter-spacing: var(--space-xxs);
+      letter-spacing: var(--space-xxxs);
     }
   }
   .markers {
+    @include flex.breakpoint(lt-sm, 70%);
+    @include flex.breakpoint(sm, 42%);
+    @include flex.breakpoint(gt-sm, 20%);
     text-align: center;
     .marker {
       width: 0.6em;
@@ -42,6 +52,10 @@
     }
   }
   .info {
+    @include flex.width(40%);
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
     text-align: right;
     padding-right: var(--space-sm);
     .course {

@@ -1,44 +1,35 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {
+  Component,
+  Input, OnChanges,
+  SimpleChanges, TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {Certificate} from '../../models/certificate';
-import * as htmlToImage from 'html-to-image';
-import {toPng, toJpeg, toBlob, toPixelData, toSvg} from 'html-to-image';
 import {CertLayout} from '../../data/enums';
-import {CERT_LAYOUTS} from '../../data/generic';
 
 @Component({
   selector: 'app-certificate',
   templateUrl: './certificate.component.html',
   styleUrls: ['./certificate.component.scss']
 })
-export class CertificateComponent implements OnInit, AfterViewInit {
+export class CertificateComponent implements OnChanges {
+  @ViewChild('outlet', {read: ViewContainerRef}) outletRef!: ViewContainerRef;
+  @ViewChild('content', {read: TemplateRef}) contentRef!: TemplateRef<any>;
   @Input() certificate!: Certificate;
   layout = CertLayout;
-  constructor() {
-  }
+  share!: any;
 
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit() {
-    this.createPng(CERT_LAYOUTS[this.certificate.layout].toLowerCase());
-  }
-
-  createPng(id: string): void {
-    const node = document.getElementById(id);
-    const output = document.getElementById('output');
-    if (node && output) {
-      htmlToImage.toPng(node)
-        .then(function (dataUrl) {
-          node.remove();
-          var img = new Image();
-          img.src = dataUrl;
-          img.width = 2000;
-          output.appendChild(img);
-        })
-        .catch(function (error) {
-          console.error('Oh nose!', error);
-        });
+  ngOnChanges(changes: SimpleChanges) {
+    this.reload();
+    this.share = {
+      url: `https://learn.wtf.pub/verify/${this.certificate.courseId.slice(0, 8)}?user=${this.certificate.userId.slice(0, 8)}`,
+      message: `Certification for '${this.certificate.courseName}' course.`
     }
   }
 
+  public reload() {
+    this.outletRef?.clear();
+    this.outletRef?.createEmbeddedView(this.contentRef);
+  }
 }

@@ -12,10 +12,9 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 import {ErrorStateMatcher} from '@angular/material/core';
 import {Balance} from '../../../shared/models/balance';
 import {TopUpPleaseComponent} from '../../../shared/components/dialogs/top-up-please/top-up-please.component';
-import {MatDialog} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {Transaction} from '../../../shared/models/transaction';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {PaymentGatewayService} from '../../../shared/services/payment-gateway.service';
+import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-progress',

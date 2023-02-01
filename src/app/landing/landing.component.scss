@@ -1,10 +1,17 @@
+@use "src/flex" as flex;
+
 @mixin background() {
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .landing {
+  @include flex.container(100%, space-around, flex-start);
+
   .hero {
+    @include flex.container(80%, space-between, center);
+    @include flex.breakpoint(gt-lg, 65%);
+    @include flex.breakpoint(lt-md, 100%);
     margin: 0 auto;
     text-align: end;
     @media screen and (max-width: 960px) {
@@ -12,35 +19,77 @@
       margin: var(--space-xl) 0;
     }
 
-    .heading {
-      font-weight: 100;
-      line-height: 1.1em;
-      margin: 0;
+    .left-pane {
+      @include flex.container(35%, space-around, center);
+      @include flex.breakpoint(lt-md, 100%);
+
+      .heading {
+        @include flex.width(95%);
+        @media (max-width: 599.98px) {
+          font-size: 48px;
+        }
+        @media (min-width: 600px) and (max-width: 959.98px) {
+          font-size: 60px;
+        }
+        @media (min-width: 960px) and (max-width: 1279.98px) {
+          font-size: 72px;
+        }
+        @media (min-width: 1280px) and (max-width: 1919.98px) {
+          font-size: 96px;
+        }
+        @media (min-width: 1920px) {
+          font-size: 132px;
+        }
+        font-weight: 100;
+        line-height: 1.1em;
+        margin: 0;
+      }
+
+      .subheading {
+        @include flex.width(95%);
+        @media (max-width: 959.98px) {
+          font-size: 36px;
+        }
+        @media (min-width: 960px) and (max-width: 1279.98px) {
+          font-size: 48px;
+        }
+        @media (min-width: 1280px) {
+          font-size: 60px;
+        }
+        font-weight: 200;
+        line-height: 1.4em;
+        margin-bottom: var(--space-sm);
+      }
+
+      .caption {
+        @include flex.width(95%);
+        letter-spacing: var(--space-xxs);
+        color: var(--color-grey7);
+        margin-top: var(--space-xs);
+        margin-bottom: var(--space-xl);
+
+        .mat-icon {
+          vertical-align: middle;
+          margin: 0 var(--space-xxs);
+        }
+
+        @media screen and (min-width: 960px) and (max-width: 1279px) {
+          font-size: 16px;
+        }
+        @media screen and (min-width: 1280px) and (max-width: 1439px) {
+          font-size: 18px;
+        }
+        @media screen and (min-width: 1440px) {
+          font-size: 20px;
+        }
+      }
     }
 
-    .subheading {
-      font-weight: 200;
-      line-height: 1.4em;
-      margin-bottom: var(--space-sm);
-    }
 
-    .caption {
-      letter-spacing: var(--space-xxs);
-      color: var(--color-grey7);
-      margin-top: var(--space-xs);
-      margin-bottom: var(--space-xl);
-      @media screen and (min-width: 960px) and (max-width: 1279px) {
-        font-size: 16px;
-      }
-      @media screen and (min-width: 1280px) and (max-width: 1439px) {
-        font-size: 18px;
-      }
-      @media screen and (min-width: 1440px) {
-        font-size: 20px;
-      }
-    }
+    .right-pane {
+      @include flex.width(60%);
+      @include flex.breakpoint(lt-md, 100%);
 
-    .banner {
       height: 50vh;
       @media screen and (min-width: 600px) and (max-width: 960px) {
         height: 55vw;
@@ -55,6 +104,7 @@
   }
 
   .description {
+    @include flex.width(100%);
     text-align: center;
     padding: var(--space-sm) var(--space-lg);
     background-color: var(--color-grey1);
@@ -68,12 +118,15 @@
   }
 
   .bullets {
+    @include flex.container(100%, space-around, flex-start);
     margin: 0 auto;
     padding: var(--space-md) 0;
     text-align: center;
     background-color: var(--color-primary-dark);
 
     .bullet {
+      @include flex.width(20%);
+      @include flex.breakpoint(lt-sm, 90%);
       padding: var(--space-md);
       opacity: 0.7;
       transition: 0.2s;
@@ -104,10 +157,22 @@
   }
 
   .courses {
+    @include flex.container(80%, space-between, flex-start);
+    @include flex.breakpoint(gt-lg, 60%);
+    @media screen and (max-width: 960px) {
+      @include flex.container(100%, space-around, flex-start);
+    }
     margin: var(--space-xl) 0;
 
     .latest {
+      @include flex.container(66%, space-between, flex-start);
+      @include flex.breakpoint(lt-lg, 100%);
       min-height: 10em;
+
+      .image, .text {
+        @include flex.width(49%);
+        @include flex.breakpoint(lt-md, 100%);
+      }
 
       .image {
         @include background();
@@ -126,6 +191,7 @@
       .text {
         .course-title {
           font-weight: 100;
+          display: block;
         }
 
         @media screen and (max-width: 959px) {
@@ -134,6 +200,8 @@
       }
 
       .extra {
+        @include flex.width(75%);
+        @include flex.breakpoint(lt-md, 100%);
         letter-spacing: var(--space-xxxs);
         color: var(--color-accent-dark);
         @media screen and (max-width: 959px) {
@@ -162,7 +230,10 @@
       }
 
       .action {
+        @include flex.width(25%);
+        @include flex.breakpoint(lt-md, 100%);
         margin: var(--space-md) auto;
+
         button {
           min-height: var(--space-lg);
           width: 7em;
@@ -179,28 +250,40 @@
       }
     }
 
+    .hide {
+      display: none;
+      @media screen and (max-width: 960px) {
+        display: block;
+      }
+    }
+
     .stream {
-      text-align: right;
-      @media screen and (max-width: 959px) {
-        //text-align: center;
-      }
-      .who {
-        color: var(--color-primary-dark)
-      }
+      @include flex.container(34%, space-between, flex-start);
+      @include flex.breakpoint(lt-lg, 90%);
+      .event {
+        text-align: right;
+        @media screen and (max-width: 959px) {
+          //text-align: center;
+        }
 
-      .act {
-        color: var(--color-primary-light);
-        margin: 0 var(--space-sm);
-        font-weight: 500;
-      }
+        .who {
+          color: var(--color-primary-dark)
+        }
 
-      .mat-icon {
-        vertical-align: middle;
-      }
+        .act {
+          color: var(--color-primary-light);
+          margin: 0 var(--space-sm);
+          font-weight: 500;
+        }
 
-      .when {
-        display: inline-block;
-        min-width: 4.5em;
+        .mat-icon {
+          vertical-align: middle;
+        }
+
+        .when {
+          display: inline-block;
+          min-width: 4.5em;
+        }
       }
     }
   }

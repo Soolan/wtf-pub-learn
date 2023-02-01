@@ -1,11 +1,9 @@
-<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between end">
-  <button mat-stroked-button color="accent" (click)="move(false)" *ngIf="!firstSlide && !lastSlide"
-          fxFlex="15" fxFlex.lg="20" fxFlex.md="25" fxFlex.sm="30" fxFlex.lt-sm="49">
+<div class="exam-footer">
+  <button mat-stroked-button color="accent" (click)="move(false)" *ngIf="!firstSlide && !lastSlide">
     <mat-icon>arrow_back</mat-icon>
     <span>PREVIOUS</span>
   </button>
-  <button mat-flat-button color="primary" (click)="move(true)" *ngIf="!firstSlide && !lastSlide"
-          fxFlex="15" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.lt-sm="49">
+  <button mat-flat-button color="primary" (click)="move(true)" *ngIf="!firstSlide && !lastSlide">
     <span>NEXT</span>
     <mat-icon>arrow_forward</mat-icon>
   </button>

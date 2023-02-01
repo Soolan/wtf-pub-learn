@@ -8,6 +8,11 @@
     color: var(--color-grey4);
     font-size: 15px;
     letter-spacing: var(--space-xxxs);
+    span {
+      @media screen and (max-width: 960px){
+        width: 100%;
+      }
+    }
   }
   .mat-icon {
     font-size: large;

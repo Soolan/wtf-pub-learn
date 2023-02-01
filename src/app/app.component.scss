@@ -1,11 +1,21 @@
-.header {
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  z-index: 5;
-}
-.footer {
-  background-color: var(--color-grey3);
-  color: var(--color-grey7);
-  padding: var(--space-xxl) 0;
+@use "src/flex" as flex;
+.app {
+  @include flex.container(100%, space-around, center);
+
+  .header {
+    @include flex.container(100%, space-around, center);
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+  }
+  .outlet {
+    @include flex.width(100%);
+  }
+  .footer {
+    @include flex.container(100%, space-around, center);
+    background-color: var(--color-grey3);
+    color: var(--color-grey7);
+    padding: var(--space-xxl) 0;
+  }
 }

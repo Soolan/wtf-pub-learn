@@ -8,6 +8,7 @@ export interface Certificate {
   grade: number;
   timestamp: number;
   courseCreator: Creator; // The dude who signs the certificate
+  verification: string;
   present: Present;
   layout: CertLayout;
 }

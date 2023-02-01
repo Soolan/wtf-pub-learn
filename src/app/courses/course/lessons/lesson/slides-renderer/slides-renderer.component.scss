@@ -1,3 +1,13 @@
-.thin {
-  font-weight: 100;
+@use "src/flex" as flex;
+
+.renderer {
+  @include flex.container(35%, space-around, center);
+  @include flex.breakpoint(lt-md, 90%);
+  @include flex.breakpoint(md, 65%);
+  @include flex.breakpoint(lg, 45%);
+  @include flex.breakpoint(gt-lg, 35%);
+  .slide {
+    @include flex.container(100%, space-around, center);
+  }
 }
+

@@ -80,7 +80,7 @@ export const EVENTS: Collection = {
 //------------------------------------------------- Certificate
 export const CERTIFICATES: Collection = {
   path: 'certificates',
-  limit: 10,
+  limit: 20,
   where: {field: 'timestamp', operator: '!=', value: ''},
   orderBy: {field: 'timestamp', direction: 'desc'}
 };

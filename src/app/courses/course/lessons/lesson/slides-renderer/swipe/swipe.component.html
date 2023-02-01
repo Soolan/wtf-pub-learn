@@ -1,10 +1,10 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="90" class="scenario centered mat-body-2"> {{slide.content['scenario']}} </div>
-  <div fxFlex="55" fxFlex.sm="70" fxFlex.lt-sm="90" class="cards"
-       appCardRenderer #cards [cards]="slide.content['cards']" *ngIf="!isCompleted"></div>
-  <div fxFlex="55" fxFlex.sm="70" fxFlex.lt-sm="90" class="all-done" *ngIf="isCompleted">All Done!</div>
-
-  <div fxFlex="80" fxFlex.lt-md="100" class="options space" *ngIf="!isCompleted">
+<div class="slide">
+  <div class="scenario centered mat-body-2"> {{slide.content['scenario']}} </div>
+  <div>
+  <div class="cards" appCardRenderer #cards [cards]="slide.content['cards']" *ngIf="!isCompleted"></div>
+  <div class="all-done" *ngIf="isCompleted">All Done!</div>
+  </div>
+  <div class="options space" *ngIf="!isCompleted">
     <div class="double-columns swipe-button" (click)="check(slide.content['swipe_left'])">
       <mat-icon>keyboard_double_arrow_left</mat-icon>
       <span>{{slide.content['swipe_left']}}</span>

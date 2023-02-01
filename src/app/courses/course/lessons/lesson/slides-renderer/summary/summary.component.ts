@@ -11,7 +11,7 @@ import {CERTIFICATES, PROFILES} from '../../../../../../shared/data/collections'
 import {CrudService} from '../../../../../../shared/services/crud.service';
 import {CertLayout} from '../../../../../../shared/data/enums';
 import {Certificate, Creator, Present} from '../../../../../../shared/models/certificate';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-summary',
@@ -121,6 +121,7 @@ export class SummaryComponent implements OnInit, AfterViewInit {
       fullName: this.fullName,
       grade: this.grade,
       timestamp: Date.now(),
+      verification: `${this.courseId.slice(0,8)}-${this.userId.slice(0,8)}`,
       courseCreator: {fullName: 'S.S.Mava', profession: 'CEO, Write The Future'},
       present: {headline: '', description: ''},
       layout: CertLayout.Joy,

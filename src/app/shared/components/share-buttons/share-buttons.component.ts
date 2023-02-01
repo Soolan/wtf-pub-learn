@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-share-buttons',
@@ -11,7 +12,9 @@ export class ShareButtonsComponent implements OnInit {
   facebook: string = '';
   twitter: string = '';
 
-  constructor() {
+  constructor(
+    private snackBar: MatSnackBar
+  ) {
   }
 
   ngOnInit(): void {
@@ -22,5 +25,9 @@ export class ShareButtonsComponent implements OnInit {
 
   share(url: string) {
     return window.open(url, "_blank");
+  }
+
+  copy(): void {
+    this.snackBar.open('Page url copied to clipboard', 'X', {duration: 3000})
   }
 }

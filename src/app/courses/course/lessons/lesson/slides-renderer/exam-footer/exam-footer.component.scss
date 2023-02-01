@@ -1,0 +1,22 @@
+@use "src/flex" as flex;
+
+.exam-footer {
+  @include flex.container(100%, space-between, flex-end);
+  button {
+    @include flex.breakpoint(gt-lg, 15%);
+    @include flex.breakpoint(lg, 20%);
+    @include flex.breakpoint(md, 25%);
+    @include flex.breakpoint(sm, 30%);
+    @include flex.breakpoint(lt-sm, 49%);
+    z-index: 10;
+    min-height: 3em;
+    margin: 0 var(--space-xxs);
+    @media screen and (max-width: 599px) {
+      margin: 0 var(--space-xxxs);
+    }
+    span {
+      vertical-align: baseline;
+      font-weight: 700;
+    }
+  }
+}

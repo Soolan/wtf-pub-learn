@@ -1,31 +1,63 @@
-.contents {
-  margin-top: var(--space-xxl);
-  .thin {font-weight: 100}
-  .releases {
-    margin-bottom: var(--space-xxl);
+@use "src/flex" as flex;
+
+.container {
+  @include flex.container(80%, space-around, flex-start);
+  @include flex.breakpoint(gt-lg, 65%);
+  @include flex.breakpoint(lt-md, 100%);
+  margin: var(--space-xxl) auto;
+
+  .thin {
+    font-weight: 100
   }
-  .release-tag {
-    font-weight: bolder;
-    color: var(--color-primary-light);
-    padding: var(--space-xxs);
-    border-radius: var(--space-xxs);
-    .mat-icon {
-      vertical-align: sub;
+
+  .releases {
+    @include flex.container(65%, space-around, flex-start);
+    @include flex.breakpoint(lt-lg, 100%);
+    margin-bottom: var(--space-xxl);
+
+    .release-tag {
+      font-weight: bolder;
+      color: var(--color-primary-light);
+      padding: var(--space-xxs);
+      border-radius: var(--space-xxs);
+
+      .mat-icon {
+        vertical-align: sub;
+      }
+    }
+
+    .notes {
+      @include flex.container(90%, space-around, flex-start);
+    }
+
+    .releases > * {
+      @include flex.width(100%);
     }
   }
-  .date {
-    color: var(--color-grey5);
+
+  .releases > div {
+    @include flex.width(90%);
   }
-  .tag {
-    font-weight: bolder;
-    background-color: var(--color-primary-dark);
-    color: var(--color-primary-light);
-    position: relative;
-    bottom: var(--space-xs);
-    padding: var(--space-xs);
-    border-radius: var(--space-xxs);
+
+  .roadmap {
+    @include flex.container(30%, space-around, flex-start);
+    @include flex.breakpoint(lt-lg, 100%);
+
+    .quarters {
+      @include flex.container(100%, space-around, flex-start);
+      .date {
+        @include flex.width(100%);
+        color: var(--color-grey5);
+      }
+      .bullets {
+        @include flex.width(90%);
+        margin-bottom: var(--space-lg);
+      }
+    }
   }
-  .bullets {
-    margin-bottom: var(--space-lg);
+
+  .roadmap > div {
+    @include flex.width(100%);
+    @include flex.breakpoint(lt-lg, 90%);
   }
 }

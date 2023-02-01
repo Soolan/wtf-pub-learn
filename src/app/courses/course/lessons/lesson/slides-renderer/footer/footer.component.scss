@@ -1,12 +1,30 @@
+@use "src/flex" as flex;
 
-button {
-  z-index: 10;
-  min-height: 3em;
-  margin: 0 var(--space-xxs);
+.footer {
+  @include flex.container(100%, space-between, flex-end);
+  button {
+    @include flex.breakpoint(gt-lg, 15%);
+    @include flex.breakpoint(lg, 20%);
+    @include flex.breakpoint(md, 25%);
+    @include flex.breakpoint(sm, 30%);
+    @include flex.breakpoint(lt-sm, 49%);
+    z-index: 10;
+    min-height: 3em;
+    margin: 0 var(--space-xxs);
+    @media screen and (max-width: 599px) {
+      margin: 0 var(--space-xxxs);
+    }
+    span {
+      vertical-align: baseline;
+      font-weight: 700;
+    }
+  }
 
-  span {
-    vertical-align: baseline;
-    font-weight: 700;
+
+  .hint {
+    .mat-icon, span {
+      color: var(--color-greye) !important;
+    }
   }
 }
 
@@ -18,25 +36,19 @@ button {
   right: 0;
   z-index: 5;
   @media screen and (min-width: 1920px) {
-    width: 15vw;
+    width: 15.6vw;
   }
   @media screen and (min-width: 1280px) and (max-width: 1919px) {
-    width: 20vw;
+    width: 20.7vw;
   }
   @media screen and (min-width: 960px) and (max-width: 1279px) {
-    width: 30vw;
+    width: 25.8vw;
   }
   @media screen and (min-width: 600px) and (max-width: 959px) {
-    width: 40vw;
+    width: 30.9vw;
   }
   @media screen and (max-width: 599px) {
-    width: 49vw;
-  }
-}
-
-.hint {
-  .mat-icon, span {
-    color: var(--color-greye) !important;
+    width: 50vw;
   }
 }
 

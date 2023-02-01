@@ -1,0 +1,121 @@
+.verify {
+  margin: auto;
+  padding-top: var(--space-xxl);
+
+  .certificate, .search {
+    margin: auto;
+    width: 70%;
+    @media screen and (max-width: 960px) {
+      width: 90%;
+    }
+  }
+
+  .certificate {
+    text-align: center;
+    line-height: normal;
+    .details {
+      width: 40%;
+      text-align: right;
+      display: inline-block;
+      padding: var(--space-xxxs) var(--space-md);
+      color: var(--color-grey4);
+      vertical-align: top;
+      @media screen and (max-width: 960px) {
+        text-align: left;
+        padding: 0;
+        width: 100%;
+      }
+    }
+    .thumbnail {
+      width: 40%;
+      text-align: left;
+      display: inline-block;
+      padding: 0 var(--space-xxs);
+      @media screen and (max-width: 960px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .mat-divider{
+    margin-top: var(--space-xl);
+  }
+  .mat-form-field {
+    font-size: 30px !important;
+  }
+
+  mat-label {
+    padding-left: 2em;
+  }
+
+  .loading {
+    margin: 1rem auto;
+    width: fit-content;
+  }
+
+  .adding {
+    position: relative;
+    bottom: 1.1rem;
+    right: 0.1rem;
+  }
+
+  .mat-fab {
+    position: fixed;
+    right: 4rem;
+    top: 9.5rem;
+  }
+
+  table {
+    width: 100%;
+    //color: var(--zel-text-color);
+    background-color: var(--color-grey2);
+  }
+
+  .mat-header-cell {
+    font-weight: 400;
+    font-size: 1.1em;
+    color: var(--color-grey7);
+    background-color: var(--color-grey1);
+  }
+
+  .mat-cell {
+    color: var(--color-grey9);
+  }
+
+  .mat-paginator {
+    color: var(--color-grey7);
+    background-color: var(--color-grey1);
+
+    ::ng-deep .mat-select-arrow {
+      color: var(--color-grey7);
+    }
+
+    ::ng-deep .mat-paginator-range-actions button {
+      color: var(--color-grey7);
+    }
+  }
+
+  .mat-header-cell:last-of-type {
+    padding-left: 1.7rem;
+  }
+
+  tr.row:not(.expanded-row):hover {
+    background: var(--color-grey1);
+  }
+
+  tr.row:not(.expanded-row):active {
+    background: var(--color-accent-dark);
+  }
+
+  .row td {
+    border-bottom-width: 0;
+  }
+
+  .alternate {
+    background: var(--color-grey3);
+  }
+
+  .mat-icon {
+    vertical-align: middle;
+  }
+}

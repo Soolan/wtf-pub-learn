@@ -1,11 +1,21 @@
-.image {
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.portrait {
-  min-height: 13em;
-}
-.landscape {
-  min-height: 8em;
+@use "src/flex" as flex;
+
+.hint-fill-in {
+  @include flex.container(100%, space-between, center);
+  .blank-portrait {
+    @include flex.width(60%);
+  }
+  .image {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .portrait {
+    min-height: 13em;
+    @include flex.width(35%);
+  }
+  .landscape {
+    @include flex.width(100%);
+    min-height: 8em;
+  }
 }

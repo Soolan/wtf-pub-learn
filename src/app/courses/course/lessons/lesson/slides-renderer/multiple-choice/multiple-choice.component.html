@@ -1,6 +1,6 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <app-text-image fxFlex="100" [content]="slide.content" ></app-text-image>
-  <div fxFlex="100">
+<div class="slide">
+  <app-text-image [content]="slide.content" ></app-text-image>
+  <div>
     <div [@fadeInOut] *ngIf="set['isActive']" class="options" #optionSet>
       <div *ngFor="let option of set['options'];" (click)="!isCompleted ? check(option, $event):''"
            [ngClass]="{'single-column': set['isSingle'], 'double-columns': !set['isSingle']}">

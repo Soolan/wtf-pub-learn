@@ -1,9 +1,9 @@
-<div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <div fxFlex="100" class="scenario mat-body-2 centered" *ngIf="matchIndex == 0">
+<div class="slide">
+  <div class="scenario mat-body-2 centered" *ngIf="matchIndex == 0">
     {{slide.content['scenario']}}
   </div>
-  <div fxFlex="100" class="all-done mat-body-2" *ngIf="isCompleted">Good Job!</div>
-  <div fxFlex="100" class="matches" [style.bottom.rem]="bottom">
+  <div class="all-done mat-body-2" *ngIf="isCompleted">Good Job!</div>
+  <div class="matches" [style.bottom.rem]="bottom">
     <div class="questions" appMatchRenderer [column]="'question'" [contents]="questions" #questionsRef></div>
     <div class="answers" appMatchRenderer [column]="'answer'" [contents]="answers" #answersRef></div>
   </div>
