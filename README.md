@@ -1,6 +1,7 @@
 # WtfPubLearn
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
+**Important Note:** I made this repo public for the demonstration purposes only (XRPL Grants).
+The main Angular workspace with all projects in its ecosystem are located in https://github.com/Soolan/wtf repository. 
 
 ## Development server
 
