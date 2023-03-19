@@ -2,7 +2,7 @@
   <app-text-image [content]="slide.content"></app-text-image>
   <mat-divider></mat-divider>
   <div class="slide" *ngIf="passingGrade; else byebye">
-    <div  class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
+    <div class="mat-headline passed thin" *ngIf="grade >= passingGrade; else failed">
       <span appBlackRenderer content="Congratz! You PASSED!" keyword="PASSED"></span>
       <p class="mat-subheading-1">FINAL SCORE:  {{grade | number: '1.1-1'}}</p>
       <div *ngIf="prevResult && passingGrade < prevResult.grade; else confirmName">
